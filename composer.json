@@ -33,7 +33,7 @@
         "hail812/yii2-adminlte3": "~1.1",
         "kartik-v/yii2-date-range": "dev-master",
         "almasaeed2010/adminlte": "~3.1.0",
-        "rmrevin/yii2-fontawesome": "2.10.*"
+        
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",

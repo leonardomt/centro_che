@@ -16,14 +16,11 @@ class AppAsset extends AssetBundle
        // 'assets/AdminLTE/dist/css/AdminLTE.min.css',
         'css/site.css',
         'css/style.css',
-        'assets/side-bar/css/main.css',
-        'assets/side-bar/css/sidebar-themes.css',
         //'css/bootstrap.min.css',
 
     ];
     public $js = [
         'js/main.js',
-        'assets/side-bar/js/main.js',
         //'assets/AdminLTE/dist/js/adminlte.js'
 
 

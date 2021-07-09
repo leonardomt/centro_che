@@ -4,11 +4,11 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\helpers\ArrayHelper;
 use backend\models\Archivo\TipoArchivo;
+
 /* @var $this yii\web\View */
 /* @var $model backend\models\Archivo\Archivo */
 /* @var $form yii\widgets\ActiveForm */
 ?>
-
 <div class="archivo-form">
 
     <?php $form = ActiveForm::begin(); ?>
@@ -24,7 +24,7 @@ use backend\models\Archivo\TipoArchivo;
 
 
     <div class="row">
-        <i class="fa fa-floppy-o" aria-hidden="true"></i><i class="fa fa-floppy-o" aria-hidden="true"></i>
+     
         <div class="col-md-6">
             <?= $form->field($model, 'autor_archivo')->textInput(['maxlength' => true]) ?>
         </div>
@@ -88,11 +88,13 @@ use backend\models\Archivo\TipoArchivo;
         </div>
         <div class="col-md-2 ">
             <div class="form-group">
-                <?= Html::submitButton('<span class="fa glyphicon-floppy-disk"></span>', ['class' => 'btn btn-success']) ?>
+                <?= Html::submitButton('  <i class="fa fa-floppy-o" aria-hidden="true"></i>', ['class' => 'btn btn-success']) ?>
             </div>
 
         </div>
     </div>
+
+    
 
     <?php ActiveForm::end(); ?>
 

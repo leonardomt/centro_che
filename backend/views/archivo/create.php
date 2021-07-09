@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 use yii\bootstrap4\Breadcrumbs;
 use common\widgets\Alert;
-
+use almasaeed2010\font_awesome;
 /* @var $this yii\web\View */
 /* @var $model backend\models\Archivo\Archivo */
 

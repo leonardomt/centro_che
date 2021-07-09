@@ -168,7 +168,7 @@ if ( !Yii::$app->user->can('gestionar-curso-online'))
     </div>
     <div class="col-lg-1">
         <div class="form-group">
-            <?= Html::submitButton($modelArchivo->isNewRecord ? 'Guardar' : 'Modificar', ['class' => 'btn btn-primary']) ?>
+            <?= Html::submitButton($modelArchivo->isNewRecord ? '<i class="fa fa-floppy-o" aria-hidden="true"></i>' : '<i class="fa fa-floppy-o" aria-hidden="true"></i>', ['class' => 'btn btn-primary']) ?>
         </div>
     </div>
 

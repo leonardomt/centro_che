@@ -17,7 +17,7 @@ use kartik\daterange\DateRangePicker;
 
 $this->title = 'Archivos';
 $this->params['breadcrumbs'][] = $this->title;
-if ( Yii::$app->user->isGuest )
+if (Yii::$app->user->isGuest)
     return Yii::$app->getResponse()->redirect(Url::to(['site/login']));
 ?>
 
@@ -34,7 +34,8 @@ if ( Yii::$app->user->isGuest )
     <p>
         <?= Html::a('<span class="fa fa-plus "></span>', ['create'], [
             'class' => 'btn btn-success',
-            "title"=>"Agregar"])
+            "title" => "Agregar"
+        ])
         ?>
     </p>
 
@@ -43,20 +44,22 @@ if ( Yii::$app->user->isGuest )
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
-        'id'=> 'archivo-index-update',
+        'id' => 'archivo-index-update',
         'pjax' => true,
-        'pjaxSettings' =>[
+        'pjaxSettings' => [
             'neverTimeout' => true,
 
         ],
-        'toolbar'=>[
+        'toolbar' => [
             'options' => ['class' => 'pull-left'],
-            ['content'=>
+            [
+                'content' =>
                 Html::a('<span class="glyphicon glyphicon-plus"></span>', ['create'], [
                     'data-pjax' => 0,
                     'class' => 'btn btn-success',
-                    "title"=>"Agregar"]). ' '.
-                Html::a('<i class="glyphicon glyphicon-repeat"></i>', 'index.php?r=archivo%2Findex', [ 'class'=>'btn btn-default', 'title'=>'Reiniciar']),
+                    "title" => "Agregar"
+                ]) . ' ' .
+                    Html::a('<i class="glyphicon glyphicon-repeat"></i>', 'index.php?r=archivo%2Findex', ['class' => 'btn btn-default', 'title' => 'Reiniciar']),
             ],
             '{toggleData}',
             '{export}',
@@ -68,16 +71,17 @@ if ( Yii::$app->user->isGuest )
             [
                 'attribute' => 'revisado',                     // Revisado
                 'format' => 'raw',
+
                 'value' => function ($model) {
-                    if($model->revisado != '0'){
+                    if ($model->revisado != '0') {
                         return 'Si';
-                    }else{
+                    } else {
                         return 'No';
                     }
                 },
                 'headerOptions' => ['class' => 'col-md-1'],
 
-                'filter'=>array(""=>"Todos","1"=>"Si","0"=>"No"),
+                'filter' => array("" => "Todos", "1" => "Si", "0" => "No"),
 
             ],
 
@@ -87,11 +91,11 @@ if ( Yii::$app->user->isGuest )
                 'headerOptions' => ['class' => 'col-md-2']
             ],
             [
-                'attribute'=>'tipo_archivo',
-                'value'=>'tipoArchivo.tipo_archivo',
+                'attribute' => 'tipo_archivo',
+                'value' => 'tipoArchivo.tipo_archivo',
                 'format' => 'raw',
                 'headerOptions' => ['class' => 'col-md-2'],
-                'filter'=>\yii\helpers\ArrayHelper::map(\backend\models\Archivo\TipoArchivo::find()->asArray()->all(), 'id_tipo_archivo', 'tipo_archivo'),
+                'filter' => \yii\helpers\ArrayHelper::map(\backend\models\Archivo\TipoArchivo::find()->asArray()->all(), 'id_tipo_archivo', 'tipo_archivo'),
             ],
             [
                 'attribute' => 'autor_archivo',                     // autor
@@ -105,7 +109,7 @@ if ( Yii::$app->user->isGuest )
                 'headerOptions' => ['class' => 'col-md-2']
             ],
 
-/*
+            /*
             [
                 'attribute' => 'fecha',                     // fecha
                 'format' => 'raw',
@@ -123,7 +127,7 @@ if ( Yii::$app->user->isGuest )
             [
                 'attribute' => 'fecha', //value does not need to format time if the timestamp type is datetime
                 'filterType' => GridView::FILTER_DATE_RANGE,
-                'value' => function($model) {
+                'value' => function ($model) {
                     if ($model->fecha) {
                         return date($model->fecha);
                     }
@@ -134,9 +138,9 @@ if ( Yii::$app->user->isGuest )
                 'filterWidgetOptions' => [
                     'startAttribute' => 'created_at_c', //Attribute of start time
                     'endAttribute' => 'created_at_e',   //The attributes of the end time
-                    'convertFormat'=>true, // Importantly, true uses the local - > format time format to convert PHP time format to js time format.
+                    'convertFormat' => true, // Importantly, true uses the local - > format time format to convert PHP time format to js time format.
                     'pluginOptions' => [
-                        'format' => 'yyyy-mm-dd ',//Date format
+                        'format' => 'yyyy-mm-dd ', //Date format
 
 
                     ]
@@ -147,7 +151,7 @@ if ( Yii::$app->user->isGuest )
                 'attribute' => 'etapa',                     // etapa
                 'format' => 'raw',
                 'headerOptions' => ['class' => 'col-md-2'],
-                'filter'=>array("Infancia"=>"Infancia","Adolescencia"=>"Adolescencia","Adulto Joven"=>"Adulto Joven","Adulto"=>"Adulto","Posterior a 1967"=>"Posterior a 1967", "No definida" => "No definida"),
+                'filter' => array("Infancia" => "Infancia", "Adolescencia" => "Adolescencia", "Adulto Joven" => "Adulto Joven", "Adulto" => "Adulto", "Posterior a 1967" => "Posterior a 1967", "No definida" => "No definida"),
             ],
 
             [
@@ -155,10 +159,12 @@ if ( Yii::$app->user->isGuest )
                 'format' => 'raw',
                 'headerOptions' => ['class' => 'col-md-3'],
                 'value' => function ($model) {
-                    if($model->url_archivo != ' ' && $model->url_archivo != NULL) { // verifica si fue importada o no
+                    if ($model->url_archivo != ' ' && $model->url_archivo != NULL) { // verifica si fue importada o no
                         if ($model->tipo_archivo == 1) {
-                            return Html::img('../../frontend/web/' . $model->url_archivo,
-                                ['alt' => $model->url_archivo, 'height' => 100]);
+                            return Html::img(
+                                '../../frontend/web/' . $model->url_archivo,
+                                ['alt' => $model->url_archivo, 'height' => 100]
+                            );
                         } else if ($model->tipo_archivo == 3) {
                             return '<video  controls autoplay style="height: 100px">
                     <source src="../../frontend/web/' . $model->url_archivo . '" type="video/mp4">
@@ -174,12 +180,12 @@ if ( Yii::$app->user->isGuest )
                             // si no tiene asignada una portada, solo muestra un guion bajo
                         }
                     }
-
                 },
             ],
 
 
-            ['class' => 'kartik\grid\ActionColumn',
+            [
+                'class' => 'kartik\grid\ActionColumn',
                 'template' => '{view}{update}{delete}',
                 'headerOptions' => ['class' => 'col-md-1'],
             ],
