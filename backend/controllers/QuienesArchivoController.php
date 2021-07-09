@@ -1,0 +1,141 @@
+<?php
+
+namespace backend\controllers;
+
+use Yii;
+use backend\models\Quienes\QuienesArchivo;
+use backend\models\Quienes\QuienesArchivoSearch;
+use yii\web\Controller;
+use yii\web\NotFoundHttpException;
+use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
+
+/**
+ * QuienesArchivoController implements the CRUD actions for QuienesArchivo model.
+ */
+class QuienesArchivoController extends Controller
+{
+    /**
+     * {@inheritdoc}
+     */
+    public function behaviors()
+    {
+        return [
+            'verbs' => [
+                'class' => VerbFilter::className(),
+                'actions' => [
+                    'delete' => ['POST'],
+                ],
+            ],
+        ];
+    }
+
+    /**
+     * Lists all QuienesArchivo models.
+     * @return mixed
+     */
+    public function actionIndex()
+    {
+        $searchModel = new QuienesArchivoSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    /**
+     * Displays a single QuienesArchivo model.
+     * @param integer $id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionView($id)
+    {
+        return $this->render('view', [
+            'model' => $this->findModel($id),
+        ]);
+    }
+
+    /**
+     * Creates a new QuienesArchivo model.
+     * If creation is successful, the browser will be redirected to the 'view' page.
+     * @return mixed
+     */
+    public function actionCreate()
+    {
+        $model = new QuienesArchivo();
+
+        Yii::$app->request->enableCsrfValidation = false;
+        $this->enableCsrfValidation = false;
+
+        if ($model->load(Yii::$app->request->post()) ) {
+
+            $imageName = rand(0, 99999);;
+            $model->file = UploadedFile::getInstance($model, 'file');
+            $model->file->saveAs('../../frontend/web/quienes_somos/' . $imageName . '.' . $model->file->extension);
+
+            $model->url= 'quienes_somos/' . $imageName . '.' . $model->file->extension;
+
+            $model->save();
+
+            return $this->redirect(['quienes/view', 'id' => '1']);
+        }
+
+        return $this->render('create', [
+            'model' => $model,
+        ]);
+ 
+    }
+
+    /**
+     * Updates an existing QuienesArchivo model.
+     * If update is successful, the browser will be redirected to the 'view' page.
+     * @param integer $id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionUpdate($id)
+    {
+        $model = $this->findModel($id);
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->id]);
+        }
+
+        return $this->render('update', [
+            'model' => $model,
+        ]);
+    }
+
+    /**
+     * Deletes an existing QuienesArchivo model.
+     * If deletion is successful, the browser will be redirected to the 'index' page.
+     * @param integer $id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionDelete($id)
+    {
+        $this->findModel($id)->delete();
+
+        return $this->redirect(['/quienes/view' , 'id' =>1]);
+    }
+
+    /**
+     * Finds the QuienesArchivo model based on its primary key value.
+     * If the model is not found, a 404 HTTP exception will be thrown.
+     * @param integer $id
+     * @return QuienesArchivo the loaded model
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    protected function findModel($id)
+    {
+        if (($model = QuienesArchivo::findOne($id)) !== null) {
+            return $model;
+        }
+
+        throw new NotFoundHttpException('The requested page does not exist.');
+    }
+}

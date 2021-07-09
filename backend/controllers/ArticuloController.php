@@ -1,0 +1,253 @@
+<?php
+
+namespace backend\controllers;
+
+use backend\models\Archivo\Archivo;
+use backend\models\Articulo\ArticuloArchivo;
+use Yii;
+use backend\models\Articulo\Articulo;
+use backend\models\Articulo\ArticuloComentario;
+use backend\models\Articulo\ArticuloSearch;
+use Exception;
+use yii\web\Controller;
+use yii\web\ForbiddenHttpException;
+use yii\web\NotFoundHttpException;
+use yii\filters\VerbFilter;
+use yii\web\Response;
+use yii\widgets\ActiveForm;
+use yii\helpers\ArrayHelper;
+use yii\base\Model;
+
+/**
+ * ArticuloController implements the CRUD actions for Articulo model.
+ */
+class ArticuloController extends Controller
+{
+    /**
+     * {@inheritdoc}
+     */
+    public function behaviors()
+    {
+        return [
+            'verbs' => [
+                'class' => VerbFilter::className(),
+                'actions' => [
+                    'delete' => ['POST'],
+                ],
+            ],
+
+        ];
+    }
+
+    /**
+     * Lists all Articulo models.
+     * @return mixed
+     */
+    public function actionIndex()
+    {
+
+        $searchModel = new ArticuloSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    /**
+     * Displays a single Articulo model.
+     * @param string $id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionView($id)
+    {
+        return $this->render('view', [
+            'model' => $this->findModel($id),
+        ]);
+    }
+
+    /**
+     * Creates a new Articulo model.
+     * If creation is successful, the browser will be redirected to the 'view' page.
+     * @return mixed
+     */
+    public function actionCreate()
+    {
+        $model = new Articulo();
+        $modelsArchivo = [new ArticuloArchivo];
+        $x = 0;
+        if ($model->load(Yii::$app->request->post())) {
+            $modelsArchivo = Model::createMultiple(ArticuloArchivo::classname());
+            Model::loadMultiple($modelsArchivo, Yii::$app->request->post());
+            if (Yii::$app->request->isAjax) {
+                Yii::$app->response->format = Response::FORMAT_JSON;
+                return ArrayHelper::merge(
+                    ActiveForm::validateMultiple($modelsArchivo),
+                    ActiveForm::validate($model)
+                );
+            }
+            // validate all models
+            $valid = $model->validate();
+            $valid = Model::validateMultiple($modelsArchivo) && $valid;
+            if ($valid) {
+                $transaction = \Yii::$app->db->beginTransaction();
+                try {
+                    if ($flag = $model->save(false)) {
+                        foreach ($modelsArchivo as $modelArchivo) {
+                            if ($x == 0) {
+                                $modelArchivo->portada = 1;
+                                $x++;
+                                $archivo = Archivo::find()->where(['id_archivo' => $modelArchivo->id_archivo])->one();
+                                if (!($archivo->tipo_archivo == 1)) {
+                                    Yii::$app->session->setFlash('error', 'Un Artículo solo puede tener una imagen como portada.');
+                                    return $this->redirect([
+                                        'create', 'model' => $model,
+                                        'modelsArchivo' => (empty($modelsArchivo)) ? [new ArticuloArchivo] : $modelsArchivo,
+                                    ]);
+                                };
+                            } else {
+                                $modelArchivo->portada = 0;
+                            }
+                            $modelArchivo->id_articulo = $model->id_articulo;
+                            if (!($flag = $modelArchivo->save(false))) {
+                                $transaction->rollBack();
+                                break;
+                            }
+                        }
+                    }
+                    if ($flag) {
+                        $transaction->commit();
+                        return $this->redirect(['view', 'id' => $model->id_articulo]);
+                    }
+                } catch (Exception $e) {
+                    $transaction->rollBack();
+                }
+            }
+        }
+        return $this->render('create', [
+            'model' => $model,
+            'modelsArchivo' => (empty($modelsArchivo)) ? [new ArticuloArchivo] : $modelsArchivo,
+        ]);
+    }
+
+    /**
+     * Updates an existing Articulo model.
+     * If update is successful, the browser will be redirected to the 'view' page.
+     * @param string $id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionUpdate($id)
+    {
+        $x = 0;
+        $model = $this->findModel($id);
+        $modelsArchivo = new ArticuloArchivo();
+        $modelsArchivo = ArticuloArchivo::find()->where(['id_articulo' => $model->id_articulo])->all();
+
+        if ($model->load(Yii::$app->request->post())) {
+
+            $oldIDs = ArrayHelper::map($modelsArchivo, 'id', 'id');
+            $modelsArchivo = Model::createMultiple(ArticuloArchivo::classname(), $modelsArchivo);
+            Model::loadMultiple($modelsArchivo, Yii::$app->request->post());
+            $deletedIDs = array_diff($oldIDs, array_filter(ArrayHelper::map($modelsArchivo, 'id', 'id')));
+
+            // validate all models
+            $valid = $model->validate();
+            $valid = Model::validateMultiple($modelsArchivo) && $valid;
+
+            if ($valid) {
+                $transaction = \Yii::$app->db->beginTransaction();
+                try {
+                    if ($flag = $model->save(false)) {
+                        if (!empty($deletedIDs)) {
+                            ArticuloArchivo::deleteAll(['id' => $deletedIDs]);
+                        }
+                        foreach ($modelsArchivo as $modelArchivo) {
+
+                            if ($x == 0) {
+                                $modelArchivo->portada = 1;
+                                $x++;
+                                $archivo = new Archivo();
+                                $archivo = Archivo::find()->where(['id_archivo' => $modelArchivo->id_archivo])->one();
+                                if (!($archivo->tipo_archivo == 1)) {
+                                    Yii::$app->session->setFlash('error', 'Un Artículo solo puede tener una imagen como portada.');
+                                    return $this->redirect([
+                                        'update', 'model' => $model,
+                                        'modelsArchivo' => (empty($modelsArchivo)) ? [new ArticuloArchivo] : $modelsArchivo,
+                                    ]);
+                                };
+                            } else {
+                                $modelArchivo->portada = 0;
+                            }
+
+
+                            $modelArchivo->id_articulo = $model->id_articulo;
+                            if (!($flag = $modelArchivo->save(false))) {
+                                $transaction->rollBack();
+                                break;
+                            }
+                        }
+                    }
+                    if ($flag) {
+                        $transaction->commit();
+                        return $this->redirect(['view', 'id' => $model->id_articulo]);
+                    }
+                } catch (Exception $e) {
+                    $transaction->rollBack();
+                }
+            }
+        }
+
+        return $this->render('update', [
+            'model' => $model,
+            'modelsArchivo' => (empty($modelsArchivo)) ? [new ArticuloArchivo] : $modelsArchivo,
+        ]);
+    }
+
+    /**
+     * Deletes an existing Articulo model.
+     * If deletion is successful, the browser will be redirected to the 'index' page.
+     * @param string $id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionDelete($id)
+    {
+
+        $temporal = new ArticuloArchivo();
+        $temporal = ArticuloArchivo::find()->where(['id_articulo' => $this->findModel($id)->id_articulo])->all();
+        foreach ($temporal as $t) {
+            $t->delete();
+        }
+
+        $comentarios = new ArticuloComentario();
+        $comentarios = ArticuloComentario::find()->where(['id_articulo' => $this->findModel($id)->id_articulo])->all();
+        foreach ($comentarios as $c) {
+            $c->delete();
+        }
+
+        $this->findModel($id)->delete();
+
+
+
+        return $this->redirect(['index']);
+    }
+
+    /**
+     * Finds the Articulo model based on its primary key value.
+     * If the model is not found, a 404 HTTP exception will be thrown.
+     * @param string $id
+     * @return Articulo the loaded model
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    protected function findModel($id)
+    {
+        if (($model = Articulo::findOne($id)) !== null) {
+            return $model;
+        }
+
+        throw new NotFoundHttpException('The requested page does not exist.');
+    }
+}
