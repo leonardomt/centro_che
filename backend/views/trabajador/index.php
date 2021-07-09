@@ -44,8 +44,13 @@ if ( !Yii::$app->user->can('gestionar-noticia'))
             'nombre',
             'cargo',
             'correo',
-            'area',
-            'filter'=>array('Dirección' => 'Dirección', 'Coordinación Académica' => 'Coordinación Académica', 'Coordinación de Proyectos Alternativos' => 'Coordinación de Proyectos Alternativos'),
+            [
+                'attribute' => 'area',                     // area
+                'format' => 'raw',
+                'headerOptions' => ['class' => 'col-md-2'],
+                'filter'=>array(['Dirección' => 'Dirección', 'Coordinación Académica' => 'Coordinación Académica', 'Coordinación de Proyectos Alternativos' => 'Coordinación de Proyectos Alternativos']),
+            ],
+           
 
 
             ['class' => 'yii\grid\ActionColumn'],
