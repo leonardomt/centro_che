@@ -1,0 +1,167 @@
+.inverse_specific {
+    background: #333333;
+    color: #FFFFFF;
+    font: 14px "Helvetica Neue";
+    padding: 5px 0px;
+}
+
+.che_nav_logo {
+    background-color:  rgba(0,0,0,0);;
+    margin-top: -5px;
+    height: 60px;
+    max-height: 60px;
+    max-width: 60px;
+    width: 60px;
+}
+
+.navbar_dark{
+
+    height: 60px;
+    background-color: rgba(10,34,10 , 0.95);
+}
+
+
+.navbar .dropdown-menu {
+    background-color:  rgba(10,34,10,0.95);;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+/* and this styles the dropdwon trigger link, when open */
+.navbar .dropdown.show a {
+    background-color: rgba(10,34,10,0.95);;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+
+.gallery {
+    -webkit-column-count: 3;
+    -moz-column-count: 3;
+    column-count: 3;
+    -webkit-column-width: 33%;
+    -moz-column-width: 33%;
+    column-width: 33%; }
+
+.gallery .pics {
+    -webkit-transition: all 350ms ease;
+    transition: all 350ms ease; }
+.gallery .animation {
+    -webkit-transform: scale(1);
+    -ms-transform: scale(1);
+    transform: scale(1); }
+
+@media (max-width: 450px) {
+    .gallery {
+        -webkit-column-count: 1;
+        -moz-column-count: 1;
+        column-count: 1;
+        -webkit-column-width: 100%;
+        -moz-column-width: 100%;
+        column-width: 100%;
+    }
+}
+
+@media (max-width: 400px) {
+    .btn.filter {
+        padding-left: 1.1rem;
+        padding-right: 1.1rem;
+    }
+}
+
+.my-navbar-color{
+    background-color: rgba(0 , 0 , 0  , 0.8);
+}
+
+.my-dropdown-color{
+    color: rgba(0 , 0 , 0  , 0.8);
+}
+
+.my-navbar-color-1{
+
+
+    background-color: rgba(0 , 0 , 0  , 0);
+
+}
+
+.my-navbar-fixed {
+    background: rgba(10,34,10,0.95);
+    width: 100%;
+    position: fixed;
+    z-index: 100;
+}
+
+.card {
+    background-color: #fff;
+    border: none
+}
+
+.form-color {
+    background-color: #fafafa
+}
+
+.form-control {
+    height: 48px;
+    border-radius: 25px
+}
+
+.form-control:focus {
+    color: #495057;
+    background-color: #fff;
+    border-color: #35b69f;
+    outline: 0;
+    box-shadow: none;
+    text-indent: 10px
+}
+
+.c-badge {
+    background-color: #35b69f;
+    color: white;
+    height: 20px;
+    font-size: 11px;
+    width: 92px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2px
+}
+
+.comment-text {
+    font-size: 13px
+}
+
+.wish {
+    color: #35b69f
+}
+
+.user-feed {
+    font-size: 14px;
+    margin-top: 12px
+}
+
+
+.panel-header{
+    height: 42px;
+}
+h2{
+    margin-bottom: 20px;
+}
+
+.panel-default img{
+    -webkit-transition:-webkit-transform 0.3s ease-in-out 0.1s;
+}
+
+.panel-default img:hover {
+    -webkit-transform:scale(1.05);
+    box-shadow: 20px 20px 80px rgba(0,0,0, .5);
+
+}
+
+h5{
+    color:rgba(10,34,10 , 0.95);
+
+}
+
+
+#subrayar{
+    border-bottom: 2px solid rgba(0,0,0, .5);
+}
