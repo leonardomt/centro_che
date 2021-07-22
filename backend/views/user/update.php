@@ -1,4 +1,4 @@
-<?php
+\<?php
 
 /* @var $this yii\web\View */
 /* @var $form yii\bootstrap4\ActiveForm */
@@ -9,7 +9,7 @@ use yii\bootstrap4\ActiveForm;
 use yii\bootstrap4\Breadcrumbs;
 use common\widgets\Alert;
 
-$this->title = 'Insertar Usuario';
+$this->title = 'Modificar Usuario Usuario';
 $this->params['breadcrumbs'][] = ['label' => 'Usuarios', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -40,25 +40,18 @@ $this->params['breadcrumbs'][] = $this->title;
                     <?= $form->field($model, 'username')->textInput(['autofocus' => true]) ?>
                 </div>
                 <div class="col-lg-6 text-lg-left">
-                    <?= $form->field($model, 'password')->passwordInput() ?>
+                    <?= $form->field($model, 'new_password')->passwordInput() ?>
                 </div>
             </div>
 
             <?= $form->field($model, 'email') ?>
 
-            <?= $form->field($model, 'roles[]')->checkboxList( \yii\helpers\ArrayHelper::map(\backend\models\User\AuthItem::find()->where(['type'=>1])->all(), 'name', 'name'),
-            ['separator' => '   ']); ?>
 
-
-
-
-            <div class="row">
-                <div class="col-md-11"></div>
+            <div class="col-lg-1">
                 <div class="form-group">
-                    <?= Html::submitButton('  <i class="fa fa-floppy-o" aria-hidden="true"></i>', ['class' => 'btn btn-success ']) ?>
+                    <?= Html::submitButton($model->isNewRecord ? '  <i class="fa fa-floppy-o" aria-hidden="true"></i>' : '  <i class="fa fa-floppy-o" aria-hidden="true"></i>', ['class' => 'btn btn-success']) ?>
                 </div>
             </div>
-
 
             <?php ActiveForm::end(); ?>
         </div>

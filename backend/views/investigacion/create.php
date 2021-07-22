@@ -100,15 +100,14 @@ if (!Yii::$app->user->can('gestionar-investigacion'))
 
                             <?php
                             $x = 0;
-                            if ($x == 0) $titulo = "Archivo";
+                            if ($x == 0) $titulo = "Archivo:";
 
                             ?>
 
-                            <h3 class="panel-title pull-left"><?= $titulo ?></h3>
+                            <h4 class="panel-title pull-left"><?= $titulo ?></h4>
                             <div class="pull-right">
-                                <button type="button" class="add-item btn btn-success btn-xs"><i class="glyphicon glyphicon-plus"></i></button>
-                                <button type="button" class="remove-item btn btn-danger btn-xs"><i class="glyphicon glyphicon-minus"></i></button>
-
+                                <button type="button" class="add-item btn btn-success btn-xs"><i class="fa fa-plus"></i></button>
+                                <button type="button" class="remove-item btn btn-danger btn-xs"><i class="fa fa-minus"></i></button>
                             </div>
                             <div class="clearfix"></div>
                         </div>

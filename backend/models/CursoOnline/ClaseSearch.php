@@ -17,7 +17,7 @@ class ClaseSearch extends Clase
     public function rules()
     {
         return [
-            [['id', 'revisado', 'publico'], 'integer'],
+            [['id', 'revisado', 'publico', 'id_curso'], 'integer'],
             [['titulo', 'profesor', 'descripcion', 'enlace'], 'safe'],
         ];
     }
@@ -59,6 +59,7 @@ class ClaseSearch extends Clase
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
+            'id_curso' => $this->id_curso,
             'revisado' => $this->revisado,
             'publico' => $this->publico,
         ]);

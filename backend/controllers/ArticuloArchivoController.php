@@ -69,8 +69,6 @@ class ArticuloArchivoController extends Controller
     {
         $model = new ArticuloArchivo();
 
-
-
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id_articulo_archivo]);
         }
@@ -127,8 +125,7 @@ class ArticuloArchivoController extends Controller
      */
     public function actionDelete($id, $id2)
     {
-        
-        $archivo = new ArticuloArchivo();
+
         $archivo = ArticuloArchivo::find()->where(['id_articulo' => $id2, 'id_archivo' => $id])->one();
         $archivo->delete();
         return $this->redirect(['libro/view', 'id' => $id2]);

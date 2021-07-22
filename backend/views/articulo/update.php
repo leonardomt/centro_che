@@ -88,9 +88,7 @@ if ( Yii::$app->user->isGuest )
         </div>
     </div>
     <div class="panel panel-default">
-        <div class="panel-heading">
-            <h4><i class="glyphicon glyphicon-envelope"></i> Archivos</h4>
-        </div>
+
         <div class="panel-body">
             <?php \wbraganca\dynamicform\DynamicFormWidget::begin([
                 'widgetContainer' => 'dynamicform_wrapper', // required: only alphanumeric characters plus "_" [A-Za-z0-9_]
@@ -122,9 +120,8 @@ if ( Yii::$app->user->isGuest )
 
                             <h3 class="panel-title pull-left"><?= $titulo ?></h3>
                             <div class="pull-right">
-                                <button type="button" class="add-item btn btn-success btn-xs"><i class="glyphicon glyphicon-plus"></i></button>
-                                <button type="button" class="remove-item btn btn-danger btn-xs"><i class="glyphicon glyphicon-minus"></i></button>
-
+                                <button type="button" class="add-item btn btn-success btn-xs"><i class="fa fa-plus"></i></button>
+                                <button type="button" class="remove-item btn btn-danger btn-xs"><i class="fa fa-minus"></i></button>
                             </div>
                             <div class="clearfix"></div>
                         </div>

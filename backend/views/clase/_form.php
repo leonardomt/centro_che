@@ -12,21 +12,42 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
+
     <?= $form->field($model, 'titulo')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'profesor')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'descripcion')->textarea(['rows' => 6]) ?>
-
-    <?= $form->field($model, 'enlace')->textarea(['rows' => 6]) ?>
-
-    <?= $form->field($model, 'revisado')->textInput() ?>
-
-    <?= $form->field($model, 'publico')->textInput() ?>
-
-    <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+    <div class="row">
+        <div class="col-lg-6 text-lg-left">
+            <?= $form->field($model, 'enlace')->textInput() ?>
+        </div>
+        <div class="col-lg-6 text-lg-left">
+            <?= $form->field($model, 'profesor')->textInput(['maxlength' => true]) ?>
+        </div>
     </div>
+
+    <?= $form->field($model, 'descripcion')->textarea(['rows' => 3]) ?>
+
+    <div class="row panel-heading">
+        <div class="col-lg-1"></div>
+        <div class="col-lg-5">
+            <?php if (Yii::$app->user->can('revisar')) : ?>
+                <?= $form->field($model, "revisado")->checkbox(); ?>
+            <?php else : $x = 0; ?>
+                <?= $form->field($model, 'revisado')->hiddenInput(['value' => $x])->label(false) ?>
+            <?php endif; ?>
+        </div>
+        <div class="col-lg-4 ">
+            <?php if (Yii::$app->user->can('publicar')) : ?>
+                <?= $form->field($model, "publico")->checkbox(); ?>
+            <?php else : $x = 0; ?>
+                <?= $form->field($model, 'publico')->hiddenInput(['value' => $x])->label(false) ?>
+            <?php endif; ?>
+        </div>
+        <div class="col-lg-1">
+            <div class="form-group">
+                <?= Html::submitButton($model->isNewRecord ? '<i class="fa fa-floppy-o" aria-hidden="true"></i>' : '<i class="fa fa-floppy-o" aria-hidden="true"></i>', ['class' => 'btn btn-primary']) ?>
+            </div>
+        </div>
+    </div>
+
 
     <?php ActiveForm::end(); ?>
 

@@ -28,7 +28,7 @@ if ( !Yii::$app->user->can('gestionar-taller'))
         <?= Alert::widget() ?>
     </div>
     <p>
-        <?= Html::a('<span class="glyphicon glyphicon-plus"></span>', ['create'], [
+        <?= Html::a('<span class="fa fa-plus "></span>', ['create'], [
             'class' => 'btn btn-success',
             "title"=>"Agregar"])
         ?>
@@ -53,24 +53,37 @@ if ( !Yii::$app->user->can('gestionar-taller'))
                 'filter'=>array(""=>"Todos","1"=>"Si","0"=>"No"),
             ],
             [
+                'attribute' => 'revisado',
+                'format' => 'raw',
+                'headerOptions' => ['class' => 'col-md-1'],
+                'value' => function ($model) {
+                    return $model->revisado ? 'Si' : 'No';
+                },
+                'filter'=>array(""=>"Todos","1"=>"Si","0"=>"No"),
+            ],
+            [
                 'attribute' => 'nombre',                     // Titulo
-                'format' => 'raw',
-                'headerOptions' => ['class' => 'col-md-1']
-            ],
-            [
-                'attribute' => 'encargado',                     // Titulo
-                'format' => 'raw',
-                'headerOptions' => ['class' => 'col-md-1']
-            ],
-            [
-                'attribute' => 'contacto',                     // Titulo
                 'format' => 'raw',
                 'headerOptions' => ['class' => 'col-md-2']
             ],
             [
-                'attribute' => 'descripcion',                     // Titulo
+                'attribute' => 'encargado',
                 'format' => 'raw',
-                'headerOptions' => ['class' => 'col-md-4']
+                'headerOptions' => ['class' => 'col-md-2']
+            ],
+            [
+                'attribute' => 'contacto',
+                'format' => 'raw',
+                'headerOptions' => ['class' => 'col-md-2']
+            ],
+            [
+                'attribute' => 'descripcion',
+                'headerOptions' => ['class' => 'col-md-3'],
+                'format' => 'raw',
+                'value' => function ($model) {
+                    return '<div style="line-height: 1.2em; height: 6em; overflow: hidden;">'.\yii\helpers\HtmlPurifier::process($model->descripcion).'</div>';
+                },
+
             ],
             [
                 'attribute'=>'tipo',

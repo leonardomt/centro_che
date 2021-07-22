@@ -5,6 +5,8 @@ use yii\bootstrap4\Breadcrumbs;
 use common\widgets\Alert;
 use kartik\grid\GridView;
 use yii\widgets\Pjax;
+use yii\helpers\ArrayHelper;
+use backend\models\LineaInvestigacion\LineaInvestigacion;
 
 /* @var $this yii\web\View */
 /* @var $model backend\models\Investigacion\Investigacion */
@@ -35,19 +37,44 @@ if ( !Yii::$app->user->can('gestionar-investigacion'))
 
     <div class="row">
         <div class="col-lg-12 text-lg-left">
-            <?= $form->field($model, 'nombre_linea')->textInput(['maxlength' => true]) ?>
+            <?= $form->field($model, 'autor')->textInput() ?>
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6 text-lg-left">
+            <?= $form->field($model, 'titulo_investigacion')->textInput(['maxlength' => true]) ?>
+        </div>
+        <div class="col-lg-6 text-lg-left">
+            <?= $form->field($model, 'id_linea_investigacion')->dropDownList(
+                ArrayHelper::map(LineaInvestigacion::find()->all(), 'id_linea_investigacion', 'nombre_linea')
+            ) ?>
         </div>
     </div>
 
     <?= $form->field($model, 'descripcion')->textarea(['rows' => 2]) ?>
 
+    <?= $form->field($model, 'cuerpo')->textarea(['rows' => 6]) ?>
 
 
+    <div class="row">
+        <div class="col-lg-6 text-lg-left">
+            <?= $form->field($model, 'fecha')->widget(\dosamigos\datepicker\DatePicker::className(), [
+                'inline' => false,
+                'clientOptions' => [
+                    'autoclose' => true,
+                    'format' => 'yyyy-m-d'
+                ]
+            ]) ?>
+
+        </div>
+        <div class="col-lg-6 text-lg-left">
+            <?= $form->field($model, 'entidad')->textInput() ?>
+        </div>
+    </div>
 
     <div class="panel panel-default">
-        <div class="panel-heading">
-            <h4><i class="glyphicon glyphicon-envelope"></i> Archivos</h4>
-        </div>
+
         <div class="panel-body">
             <?php \wbraganca\dynamicform\DynamicFormWidget::begin([
                 'widgetContainer' => 'dynamicform_wrapper', // required: only alphanumeric characters plus "_" [A-Za-z0-9_]
@@ -73,14 +100,14 @@ if ( !Yii::$app->user->can('gestionar-investigacion'))
 
                             <?php
                             $x = 0;
-                            if ($x == 0) $titulo = "Archivo";
+                            if ($x == 0) $titulo = "Archivo:";
 
                             ?>
 
                             <h3 class="panel-title pull-left"><?= $titulo ?></h3>
                             <div class="pull-right">
-                                <button type="button" class="add-item btn btn-success btn-xs"><i class="glyphicon glyphicon-plus"></i></button>
-                                <button type="button" class="remove-item btn btn-danger btn-xs"><i class="glyphicon glyphicon-minus"></i></button>
+                                <button type="button" class="add-item btn btn-success btn-xs"><i class="fa fa-plus"></i></button>
+                                <button type="button" class="remove-item btn btn-danger btn-xs"><i class="fa fa-minus"></i></button>
                             </div>
                             <div class="clearfix"></div>
                         </div>

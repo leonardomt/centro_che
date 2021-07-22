@@ -46,7 +46,12 @@ if ( Yii::$app->user->isGuest )
             ],
 
             'titulo_archivo',
-            'value'=>'tipoArchivo.tipo_archivo',
+
+            [
+                'attribute' =>'tipo_archivo',
+                'value'=> \backend\models\Archivo\TipoArchivo::findOne(['id_linea_investigacion', $model->tipo_archivo])->tipo_archivo,
+            ],
+
             'fecha',
             'etapa',
             'autor_archivo',

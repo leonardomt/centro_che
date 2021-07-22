@@ -12,7 +12,7 @@ use yii\helpers\ArrayHelper;
 /* @var $model backend\models\Taller\Taller */
 
 $this->title = 'Crear Proyecto Comunitario';
-$this->params['breadcrumbs'][] = ['label' => 'Talleres', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Proyectos Comunitarios', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 if (Yii::$app->user->isGuest)
     return Yii::$app->getResponse()->redirect(\yii\helpers\Url::to(['site/login']));
@@ -28,11 +28,6 @@ if (!Yii::$app->user->can('gestionar-taller'))
         ]) ?>
         <?= Alert::widget() ?>
     </div>
-
-
-
-
-
 
 
     <?php $form = \yii\widgets\ActiveForm::begin(['id' => 'dynamic-form']); ?>
@@ -69,9 +64,6 @@ if (!Yii::$app->user->can('gestionar-taller'))
 
 
     <div class="panel panel-default">
-        <div class="panel-heading">
-            <h4><i class="glyphicon glyphicon-envelope"></i> Archivos</h4>
-        </div>
         <div class="panel-body">
             <?php \wbraganca\dynamicform\DynamicFormWidget::begin([
                 'widgetContainer' => 'dynamicform_wrapper', // required: only alphanumeric characters plus "_" [A-Za-z0-9_]
@@ -103,8 +95,8 @@ if (!Yii::$app->user->can('gestionar-taller'))
 
                             <h3 class="panel-title pull-left"><?= $titulo ?></h3>
                             <div class="pull-right">
-                                <button type="button" class="add-item btn btn-success btn-xs"><i class="glyphicon glyphicon-plus"></i></button>
-                                <button type="button" class="remove-item btn btn-danger btn-xs"><i class="glyphicon glyphicon-minus"></i></button>
+                                <button type="button" class="add-item btn btn-success btn-xs"><i class="fa fa-plus"></i></button>
+                                <button type="button" class="remove-item btn btn-danger btn-xs"><i class="fa fa-minus"></i></button>
                             </div>
                             <div class="clearfix"></div>
                         </div>
@@ -118,7 +110,7 @@ if (!Yii::$app->user->can('gestionar-taller'))
 
 
 
-                            <?= $form->field($modelArchivo, "[{$i}]nota")->textarea(['rows' => 6]) ?>
+                            <?= $form->field($modelArchivo, "[{$i}]nota")->textarea(['rows' => 3]) ?>
 
                             <?= $form->field($modelArchivo, "[{$i}]id_archivo")->dropDownList(
                                 \yii\helpers\ArrayHelper::map(\backend\models\Archivo\Archivo::find()->all(), 'id_archivo', 'titulo_archivo')

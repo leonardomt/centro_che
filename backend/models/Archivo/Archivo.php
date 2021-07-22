@@ -90,12 +90,5 @@ class Archivo extends \yii\db\ActiveRecord
         return $this->hasOne(NoticiaArchivo::className(), ['id_archivo' => 'id_archivo']);
     }
 
-    public function filtrarFecha($etapa)
-    {
-        if($etapa == 'Adolescencia'){
-            $inicio = '1950-01-01'; $fin = '2050-03-06';
-            return [$inicio, $fin];
-        }
 
-    }
 }

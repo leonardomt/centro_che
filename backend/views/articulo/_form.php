@@ -25,8 +25,6 @@ use common\models\User;
     <?php yii\widgets\Pjax::begin(['id' => 'new_articuloupdate']) ?>
     <?php $form = ActiveForm::begin(['options' => ['data-pjax' => true ]]); ?>
 
-
-
     <div class="row">
         <div  class="col-md-12">
             <div class="row">

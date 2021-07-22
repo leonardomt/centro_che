@@ -65,9 +65,7 @@ if (!Yii::$app->user->can('gestionar-noticia'))
 
 
     <div class="panel panel-default">
-        <div class="panel-heading">
-            <h4><i class="glyphicon glyphicon-envelope"></i> Archivos</h4>
-        </div>
+
         <div class="panel-body">
             <?php \wbraganca\dynamicform\DynamicFormWidget::begin([
                 'widgetContainer' => 'dynamicform_wrapper', // required: only alphanumeric characters plus "_" [A-Za-z0-9_]

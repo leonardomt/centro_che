@@ -8,8 +8,7 @@ use Yii;
  * This is the model class for table "proyecto_archivo".
  *
  * @property int $id
- * @property int $id_archivo
- * @property int $id_proyecto
+ * @property string $url
  */
 class ProyectoArchivo extends \yii\db\ActiveRecord
 {

@@ -2,6 +2,9 @@
 
 namespace backend\controllers;
 
+use backend\models\User\AuthAssignment;
+use backend\models\User\AuthItem;
+use backend\models\User\SignupForm;
 use Yii;
 use backend\models\User\User;
 use backend\models\User\UserSearch;
@@ -70,15 +73,25 @@ class UserController extends Controller implements IdentityInterface
      */
     public function actionCreate()
     {
-        $model = new User();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        $model = new SignupForm();
+        if ($model->load(Yii::$app->request->post()) && $model->signup()) {
+            $arrayRol = $model->roles;
+            foreach ($arrayRol as $rol){
+                Yii::$app->session->setFlash('success', 'Usuario creado con éxito');
+                //$modelRol = new AuthAssignment();
+               // $modelRol->item_name = $rol;
+               // $modelRol->save();
+            }
+            Yii::$app->session->setFlash('success', 'Usuario creado con éxito');
+            return $this->redirect(['index']);
         }
 
         return $this->render('create', [
             'model' => $model,
         ]);
+
+
     }
 
     /**
@@ -92,8 +105,9 @@ class UserController extends Controller implements IdentityInterface
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post()) && $model->signupmodify($id)) {
+            Yii::$app->session->setFlash('success', 'Usuario modificado con éxito');
+            return $this->redirect(['index']);
         }
 
         return $this->render('update', [
@@ -286,6 +300,21 @@ class UserController extends Controller implements IdentityInterface
     public function removePasswordResetToken()
     {
         $this->password_reset_token = null;
+    }
+
+
+
+    public function actionSingup()
+    {
+        $model = new SignupForm();
+        if ($model->load(Yii::$app->request->post()) && $model->signup()) {
+            Yii::$app->session->setFlash('success', 'Usuario creado con éxito');
+            return $this->goHome();
+        }
+
+        return $this->render('signup', [
+            'model' => $model,
+        ]);
     }
 
 }

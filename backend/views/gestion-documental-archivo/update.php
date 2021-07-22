@@ -5,10 +5,9 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model backend\models\GestionDocumental\GestionDocumentalArchivo */
 
-$this->title = 'Update Gestion Documental Archivo: ' . $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Gestion Documental Archivos', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->title = 'Modificar Descripción' ;
+$this->params['breadcrumbs'][] = ['label' => 'Colección Documental', 'url' => ['/gestion-documental/view', 'id' => 1]];
+$this->params['breadcrumbs'][] =$this->title;
 ?>
 <div class="gestion-documental-archivo-update">
 

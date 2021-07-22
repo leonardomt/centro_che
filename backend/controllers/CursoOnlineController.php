@@ -101,7 +101,7 @@ class CursoOnlineController extends Controller
                 try {
                     if ($flag = $model->save(false)) {
                         foreach ($modelsClase as $modelClase) {
-                            $modelClase->id_curso_online = $model->id_curso;
+                            $modelClase->id_curso = $model->id_curso;
                             $modelClase->revisado = 1;
                             $modelClase->publico = 1;
                             if (!($flag = $modelClase->save(false))) {
@@ -137,47 +137,28 @@ class CursoOnlineController extends Controller
         $x = 0;
         $model = $this->findModel($id);
         $modelsArchivo = new CursoOnlineArchivo();
-        $modelsArchivo = CursoOnlineArchivo::find()->where(['id_curso_online' => $model->id_curso])->all();
+        $modelsClase = Clase::find()->where(['id_curso' => $model->id_curso])->all();
 
         if ($model->load(Yii::$app->request->post())) {
 
-            $oldIDs = ArrayHelper::map($modelsArchivo, 'id', 'id');
-            $modelsArchivo = Model::createMultiple(CursoOnlineArchivo::classname(), $modelsArchivo);
-            Model::loadMultiple($modelsArchivo, Yii::$app->request->post());
-            $deletedIDs = array_diff($oldIDs, array_filter(ArrayHelper::map($modelsArchivo, 'id', 'id')));
+            $oldIDs = ArrayHelper::map($modelsClase, 'id', 'id');
+            $modelsClase = Model::createMultiple(Clase::classname(), $modelsClase);
+            Model::loadMultiple($modelsClase, Yii::$app->request->post());
+            $deletedIDs = array_diff($oldIDs, array_filter(ArrayHelper::map($modelsClase, 'id', 'id')));
 
             // validate all models
             $valid = $model->validate();
-            $valid = Model::validateMultiple($modelsArchivo) && $valid;
+            $valid = Model::validateMultiple($modelsClase) && $valid;
 
             if ($valid) {
                 $transaction = \Yii::$app->db->beginTransaction();
                 try {
                     if ($flag = $model->save(false)) {
-                        if (!empty($deletedIDs)) {
-                            CursoOnlineArchivo::deleteAll(['id' => $deletedIDs]);
-                        }
-                        foreach ($modelsArchivo as $modelArchivo) {
-
-                            if ($x == 0) {
-                                $modelArchivo->portada = 1;
-                                $x++;
-                                $archivo = new Archivo();
-                                $archivo = Archivo::find()->where(['id_archivo' => $modelArchivo->id_archivo])->one();
-                                if (!($archivo->tipo_archivo == 1)) {
-                                    Yii::$app->session->setFlash('error', 'Un curso solo puede tener una imagen como portada.');
-                                    return $this->redirect([
-                                        'update', 'model' => $model,
-                                        'modelsArchivo' => (empty($modelsArchivo)) ? [new CursoOnlineArchivo] : $modelsArchivo,
-                                    ]);
-                                };
-                            } else {
-                                $modelArchivo->portada = 0;
-                            }
-
-
-                            $modelArchivo->id_curso_online = $model->id_curso;
-                            if (!($flag = $modelArchivo->save(false))) {
+                        foreach ($modelsClase as $modelClase) {
+                            $modelClase->id_curso = $model->id_curso;
+                            $modelClase->revisado = 1;
+                            $modelClase->publico = 1;
+                            if (!($flag = $modelClase->save(false))) {
                                 $transaction->rollBack();
                                 break;
                             }
@@ -195,7 +176,7 @@ class CursoOnlineController extends Controller
 
         return $this->render('update', [
             'model' => $model,
-            'modelsArchivo' => (empty($modelsArchivo)) ? [new CursoOnlineArchivo] : $modelsArchivo,
+            'modelsClase' => (empty($modelsClase)) ? [new Clase()] : $modelsClase,
         ]);
     }
 

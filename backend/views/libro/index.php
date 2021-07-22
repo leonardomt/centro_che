@@ -3,6 +3,9 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
+use yii\bootstrap4\Breadcrumbs;
+use common\widgets\Alert;
+
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\Libro\LibroSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -13,9 +16,17 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="libro-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
-
+    <div class="">
+        <?= Breadcrumbs::widget([
+            'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+        ]) ?>
+        <?= Alert::widget() ?>
+    </div>
     <p>
-        <?= Html::a('Insertar Libro', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('<span class="fa fa-plus "></span>', ['create'], [
+            'class' => 'btn btn-success',
+            "title"=>"Agregar"])
+        ?>
     </p>
 
     <?php Pjax::begin(); ?>
@@ -25,9 +36,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
             [
                 'attribute' => 'revisado',
                 'format' => 'raw',
@@ -63,9 +72,23 @@ $this->params['breadcrumbs'][] = $this->title;
             'titulo',
            'autor',
             'compilador',
-            'linea',
-            //'palabras_clave',
-            //'descripcion:ntext',
+            [
+                'attribute' => 'linea',
+                'format' => 'raw',
+                'headerOptions' => ['class' => 'col-md-2'],
+                'filter' => array('Escritos de Juventud' => 'Escritos de Juventud', 'Antologías' => 'Antologías', 'Memoria Histórica' => 'Memoria Histórica', 'Filosofía y Política' => 'Filosofía y Política', 'Economía Política' => 'Economía Política', 'De Divulgación General' => 'De Divulgación General', 'Lecturas sobre el pensamiento y la obra del Che' => 'Lecturas sobre el pensamiento y la obra del Che'),
+            ],
+
+            'palabras_clave',
+            [
+                'attribute' => 'descripcion',
+                'headerOptions' => ['class' => 'col-md-3'],
+                'format' => 'raw',
+                'value' => function ($model) {
+                    return '<div style="line-height: 1.2em; height: 6em; overflow: hidden;">'.\yii\helpers\HtmlPurifier::process($model->descripcion).'</div>';
+                },
+
+            ],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

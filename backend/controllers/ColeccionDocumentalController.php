@@ -141,7 +141,6 @@ class ColeccionDocumentalController extends Controller
     {
         $x = 0;
         $model = $this->findModel($id);
-        $modelsArchivo = new ColeccionDocumentalArchivo();
         $modelsArchivo = ColeccionDocumentalArchivo::find()->where(['id_coleccion_documental' => $model->id_coleccion_documental])->all();
 
         if ($model->load(Yii::$app->request->post())) {

@@ -75,9 +75,7 @@ if (Yii::$app->user->isGuest)
 
 
     <div class="panel panel-default">
-        <div class="panel-heading">
-            <h4><i class="glyphicon glyphicon-envelope"></i> Archivos</h4>
-        </div>
+
         <div class="panel-body">
             <?php \wbraganca\dynamicform\DynamicFormWidget::begin([
                 'widgetContainer' => 'dynamicform_wrapper', // required: only alphanumeric characters plus "_" [A-Za-z0-9_]
@@ -109,9 +107,8 @@ if (Yii::$app->user->isGuest)
 
                             <h3 class="panel-title pull-left"><?= $titulo ?></h3>
                             <div class="pull-right">
-                                <button type="button" class="add-item btn btn-success btn-xs"><i class="glyphicon glyphicon-plus"></i></button>
-                                <button type="button" class="remove-item btn btn-danger btn-xs"><i class="glyphicon glyphicon-minus"></i></button>
-
+                                <button type="button" class="add-item btn btn-success btn-xs"><i class="fa fa-plus"></i></button>
+                                <button type="button" class="remove-item btn btn-danger btn-xs"><i class="fa fa-minus"></i></button>
                             </div>
                             <div class="clearfix"></div>
                         </div>
@@ -163,7 +160,6 @@ if (Yii::$app->user->isGuest)
                 <?= Html::submitButton($modelArchivo->isNewRecord ? '<i class="fa fa-floppy-o" aria-hidden="true"></i>' : '<i class="fa fa-floppy-o" aria-hidden="true"></i>', ['class' => 'btn btn-primary']) ?>
             </div>
         </div>
-
     </div>
 
     <?php \yii\widgets\ActiveForm::end(); ?>
@@ -171,6 +167,7 @@ if (Yii::$app->user->isGuest)
 
     <?php
     $searchModel = new backend\models\Archivo\ArchivoSearch();
+    $searchModel->id_archivo = $model->id_articulo;
     $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
     ?>
 

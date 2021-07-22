@@ -27,7 +27,7 @@ if ( !Yii::$app->user->can('gestionar-investigacion'))
         <?= Alert::widget() ?>
     </div>
     <p>
-        <?= Html::a('<span class="glyphicon glyphicon-plus"></span>', ['create'], [
+        <?= Html::a('<span class="fa fa-plus "></span>', ['create'], [
             'class' => 'btn btn-success',
             "title"=>"Agregar"])
         ?>
@@ -73,12 +73,37 @@ if ( !Yii::$app->user->can('gestionar-investigacion'))
             [
                 'attribute' => 'descripcion',
                 'format' => 'raw',
-                'headerOptions' => ['class' => 'col-md-5']
+                'headerOptions' => ['class' => 'col-md-2'],
+                'value' => function ($model) {
+                    return '<div style="line-height: 1.2em; height: 6em; overflow: hidden;">'.\yii\helpers\HtmlPurifier::process($model->descripcion).'</div>';
+                },
             ],
 
             [
                 'attribute'=>'id_linea_investigacion',
                 'value'=>'lineaInvestigacion.nombre_linea',
+                'format' => 'raw',
+                'headerOptions' => ['class' => 'col-md-2'],
+                'filter' => \yii\helpers\ArrayHelper::map(\backend\models\LineaInvestigacion\LineaInvestigacion::find()->asArray()->all(), 'id_linea_investigacion', 'nombre_linea'),
+            ],
+
+            [
+                'attribute' => 'fecha',
+                'value'=> 'fecha',
+                'format' => 'raw',
+                'headerOptions' => ['class' => 'col-md-1'],
+                'filter'=>\dosamigos\datepicker\DatePicker::widget([
+                    'model'=>$searchModel,
+                    'attribute'=>'fecha',
+                    'clientOptions'=>[
+                        'autoclose'=>true,
+                        'format'=>'yyyy-mm-dd'
+                    ],
+                ]),
+            ],
+
+            [
+                'attribute' => 'entidad',                     // Titulo
                 'format' => 'raw',
                 'headerOptions' => ['class' => 'col-md-2']
             ],

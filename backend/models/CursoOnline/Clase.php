@@ -14,6 +14,7 @@ use Yii;
  * @property string $enlace
  * @property int $revisado
  * @property int $publico
+ * @property int $id_curso
  */
 class Clase extends \yii\db\ActiveRecord
 {
@@ -51,6 +52,7 @@ class Clase extends \yii\db\ActiveRecord
             'enlace' => 'Enlace',
             'revisado' => 'Revisado',
             'publico' => 'Publico',
+            'id_curso' => 'Curso Online'
         ];
     }
 }

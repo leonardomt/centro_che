@@ -18,6 +18,7 @@ class ProyectoArchivoSearch extends ProyectoArchivo
     {
         return [
             [['id'], 'integer'],
+            [['url'], 'safe'],
         ];
     }
 

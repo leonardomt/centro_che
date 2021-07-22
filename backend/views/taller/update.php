@@ -6,12 +6,13 @@ use common\widgets\Alert;
 use kartik\grid\GridView;
 use yii\helpers\ArrayHelper;
 use yii\widgets\Pjax;
+use backend\models\taller\TipoTaller;
 
 /* @var $this yii\web\View */
 /* @var $model backend\models\Taller\Taller */
 
-$this->title = 'Modificar Taller: ' . $model->nombre;
-$this->params['breadcrumbs'][] = ['label' => 'Talleres', 'url' => ['index']];
+$this->title = 'Modificar Proyecto Comunitario: ' . $model->nombre;
+$this->params['breadcrumbs'][] = ['label' => 'Proyectos Comunitarios', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->nombre, 'url' => ['view', 'id' => $model->id_taller]];
 $this->params['breadcrumbs'][] = 'Modificar';
 if ( Yii::$app->user->isGuest )
@@ -32,22 +33,30 @@ if ( !Yii::$app->user->can('gestionar-taller'))
     
 
     <?php $form = \yii\widgets\ActiveForm::begin(['id' => 'dynamic-form']); ?>
-    <div class="row">
-        <?= $form->field($model, 'titulo')->textInput(['maxlength' => true]) ?>
 
-        <?=$form->field($model, 'tipo')->dropDownList(['Crónica'=>'Crónica','Poesía'=>'Poesía', 'Artículo'=>'Artículo', 'Apuntes de Lectura'=>'Apuntes de Lectura', 'Prólogo'=>'Prólogo', 'Ensayo'=>'Ensayo'],['prompt'=>'-']) ?>
+        <div class="row">
+            <div class="col-lg-6 text-lg-left">
+                <?= $form->field($model, 'nombre')->textInput() ?>
+            </div>
+            <div class="col-lg-6 text-lg-left">
+                <?= $form->field($model, 'encargado')->textInput() ?>
+            </div>
+        </div>
 
+        <div class="row">
+            <div class="col-lg-6 text-lg-left">
+                <?= $form->field($model, 'tipo')->dropDownList(
+                    ArrayHelper::map(TipoTaller::find()->all(), 'id', 'tipo')
+                ) ?>
+            </div>
+            <div class="col-lg-6 text-lg-left">
+                <?= $form->field($model, 'contacto')->textInput() ?>
+            </div>
+        </div>
 
-        <?= $form->field($model, 'descripcion')->textarea(['rows' => 2]) ?>
-
-        <?= $form->field($model, 'cuerpo')->textarea(['rows' => 25]) ?>
-
-        <br>
-
-    </div>
 
     <div class="panel panel-default">
-        <div class="panel-heading"><h4><i class="glyphicon glyphicon-envelope"></i> Archivos</h4></div>
+
         <div class="panel-body">
             <?php \wbraganca\dynamicform\DynamicFormWidget::begin([
                 'widgetContainer' => 'dynamicform_wrapper', // required: only alphanumeric characters plus "_" [A-Za-z0-9_]
@@ -70,14 +79,14 @@ if ( !Yii::$app->user->can('gestionar-taller'))
                         <div class="panel-heading">
                         
                         <?php
-                        if($x==0)$titulo = "Archivo";
-                        
+                        $x = 0;
+                        if($x==0)
+                            $titulo = "Archivo";
                         ?>
-
-                            <h3 class="panel-title pull-left"><?=$titulo?></h3>
+                            <h3 class="panel-title pull-left"><?= $titulo ?></h3>
                             <div class="pull-right">
-                                <button type="button" class="add-item btn btn-success btn-xs"><i class="glyphicon glyphicon-plus"></i></button>
-                                <button type="button" class="remove-item btn btn-danger btn-xs"><i class="glyphicon glyphicon-minus"></i></button>
+                                <button type="button" class="add-item btn btn-success btn-xs"><i class="fa fa-plus"></i></button>
+                                <button type="button" class="remove-item btn btn-danger btn-xs"><i class="fa fa-minus"></i></button>
                             </div>
                             <div class="clearfix"></div>
                         </div>
@@ -85,13 +94,13 @@ if ( !Yii::$app->user->can('gestionar-taller'))
                             <?php
                             // necessary for update action.
                             if (! $modelArchivo->isNewRecord) {
-                                echo Html::activeHiddenInput($modelArchivo, "[{$i}]id_escrito_archivo");
+                                echo Html::activeHiddenInput($modelArchivo, "[{$i}]id");
                             }
                             ?>
 
 
 
-                            <?= $form->field($modelArchivo, "[{$i}]nota")->textarea(['rows' => 6]) ?>
+                            <?= $form->field($modelArchivo, "[{$i}]nota")->textarea(['rows' => 3]) ?>
 
                             <?= $form->field($modelArchivo, "[{$i}]id_archivo")->dropDownList(
                                 \yii\helpers\ArrayHelper::map(\backend\models\Archivo\Archivo::find()->all(), 'id_archivo','titulo_archivo') ) ?>
@@ -109,25 +118,28 @@ if ( !Yii::$app->user->can('gestionar-taller'))
     </div>
 
     <div class="row">
-        <div class="col-lg-6 text-lg-left">
+        <div class="col-lg-5 text-lg-left">
             <?php if(Yii::$app->user->can('revisar')):?>
                 <?= $form->field($model, "revisado")->checkbox(); ?>
             <?php else: $x=0;?>
                 <?=$form->field($model, 'revisado')->hiddenInput(['value' => $x])->label(false) ?>
             <?php endif;?>
         </div>
-        <div class="col-lg-6 text-lg-left">
+        <div class="col-lg-5 text-lg-left">
             <?php if(Yii::$app->user->can('publicar')):?>
                 <?= $form->field($model, "publico")->checkbox(); ?>
             <?php else: $x=0;?>
                 <?=$form->field($model, 'publico')->hiddenInput(['value' => $x])->label(false) ?>
             <?php endif;?>
         </div>
+        <div class="col-lg-1">
+            <div class="form-group">
+                <?= Html::submitButton($modelArchivo->isNewRecord ? '<i class="fa fa-floppy-o" aria-hidden="true"></i>' : '<i class="fa fa-floppy-o" aria-hidden="true"></i>', ['class' => 'btn btn-primary']) ?>
+            </div>
+        </div>
     </div>
 
-    <div class="form-group">
-        <?= Html::submitButton($modelArchivo->isNewRecord ? 'Create' : 'Update', ['class' => 'btn btn-primary']) ?>
-    </div>
+
 
     <?php \yii\widgets\ActiveForm::end(); ?>
 

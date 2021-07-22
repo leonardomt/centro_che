@@ -5,7 +5,7 @@ use yii\bootstrap4\Breadcrumbs;
 use common\widgets\Alert;
 use yii\widgets\Pjax;
 use kartik\grid\GridView;
-use yii\helpers\ArrayHelper;
+
 
 /* @var $this yii\web\View */
 /* @var $model backend\models\CursoOnline\CursoOnline */
@@ -51,9 +51,12 @@ if (!Yii::$app->user->can('gestionar-curso-online'))
         [
             'pluginOptions' => [
                 'showUpload' => false,
-                'browseLabel' => 'Insertar Pdf',
+                'browseLabel' => 'Insertar PDF',
                 'removeLabel' => '',
-                'mainClass' => 'input-group-md'
+                'mainClass' => 'input-group-md',
+                'allowedFileExtensions' => ['pdf'],
+                'maxFileSize' => 20048,
+                'msgSizeTooLarge' => 'El archivo supera el límite permitido de <b>20mb</b>.',
             ],
 
         ]
@@ -62,15 +65,13 @@ if (!Yii::$app->user->can('gestionar-curso-online'))
 
 
     <div class="panel panel-default">
-        <div class="panel-heading">
-            <h4><i class="glyphicon glyphicon-envelope"></i> Curso</h4>
-        </div>
+
         <div class="panel-body">
             <?php \wbraganca\dynamicform\DynamicFormWidget::begin([
                 'widgetContainer' => 'dynamicform_wrapper', // required: only alphanumeric characters plus "_" [A-Za-z0-9_]
                 'widgetBody' => '.container-items', // required: css class selector
                 'widgetItem' => '.item', // required: css class
-                'limit' => 20, // the maximum times, an element can be cloned (default 999)
+                'limit' => 100, // the maximum times, an element can be cloned (default 999)
                 'min' => 1, // 0 or 1 (default 1)
                 'insertButton' => '.add-item', // css class
                 'deleteButton' => '.remove-item', // css class
@@ -96,9 +97,8 @@ if (!Yii::$app->user->can('gestionar-curso-online'))
 
                             <h3 class="panel-title pull-left"><?= $titulo ?></h3>
                             <div class="pull-right">
-                                <button type="button" class="add-item btn btn-success btn-xs"><i class="glyphicon glyphicon-plus"></i></button>
-                                <button type="button" class="remove-item btn btn-danger btn-xs"><i class="glyphicon glyphicon-minus"></i></button>
-
+                                <button type="button" class="add-item btn btn-success btn-xs"><i class="fa fa-plus"></i></button>
+                                <button type="button" class="remove-item btn btn-danger btn-xs"><i class="fa fa-minus"></i></button>
                             </div>
                             <div class="clearfix"></div>
                         </div>
@@ -123,44 +123,40 @@ if (!Yii::$app->user->can('gestionar-curso-online'))
                             <?= $form->field($modelClase, "[{$i}]descripcion")->textarea(['rows' => 2]) ?>
 
                             <?= $form->field($modelClase, "[{$i}]enlace")->textInput(['maxlength' => true]) ?>
-
                         </div>
                     </div>
                 <?php $x++;
                 endforeach; ?>
             </div>
 
-
+            <div class="row panel-heading">
+                <div class="col-lg-1"></div>
+                <div class="col-lg-5">
+                    <?php if (Yii::$app->user->can('revisar')) : ?>
+                        <?= $form->field($model, "revisado")->checkbox(); ?>
+                    <?php else : $x = 0; ?>
+                        <?= $form->field($model, 'revisado')->hiddenInput(['value' => $x])->label(false) ?>
+                    <?php endif; ?>
+                </div>
+                <div class="col-lg-4 ">
+                    <?php if (Yii::$app->user->can('publicar')) : ?>
+                        <?= $form->field($model, "publico")->checkbox(); ?>
+                    <?php else : $x = 0; ?>
+                        <?= $form->field($model, 'publico')->hiddenInput(['value' => $x])->label(false) ?>
+                    <?php endif; ?>
+                </div>
+                <div class="col-lg-1">
+                    <div class="form-group">
+                        <?= Html::submitButton($modelClase->isNewRecord ? '<i class="fa fa-floppy-o" aria-hidden="true"></i>' : '<i class="fa fa-floppy-o" aria-hidden="true"></i>', ['class' => 'btn btn-primary']) ?>
+                    </div>
+                </div>
+            </div>
             <?php \wbraganca\dynamicform\DynamicFormWidget::end(); ?>
         </div>
     </div>
 
-    <div class="row panel-heading">
-        <div class="col-lg-1"></div>
-        <div class="col-lg-5">
-            <?php if (Yii::$app->user->can('revisar')) : ?>
-                <?= $form->field($model, "revisado")->checkbox(); ?>
-            <?php else : $x = 0; ?>
-                <?= $form->field($model, 'revisado')->hiddenInput(['value' => $x])->label(false) ?>
-            <?php endif; ?>
-        </div>
-        <div class="col-lg-4 ">
-            <?php if (Yii::$app->user->can('publicar')) : ?>
-                <?= $form->field($model, "publico")->checkbox(); ?>
-            <?php else : $x = 0; ?>
-                <?= $form->field($model, 'publico')->hiddenInput(['value' => $x])->label(false) ?>
-            <?php endif; ?>
-        </div>
-        <div class="col-lg-1">
-            <div class="form-group">
-                <?= Html::submitButton($modelClase->isNewRecord ? '<i class="fa fa-floppy-o" aria-hidden="true"></i>' : '<i class="fa fa-floppy-o" aria-hidden="true"></i>', ['class' => 'btn btn-primary']) ?>
-            </div>
-        </div>
-
-    </div>
 
     <?php \yii\widgets\ActiveForm::end(); ?>
-
 
 
 

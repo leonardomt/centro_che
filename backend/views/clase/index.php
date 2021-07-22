@@ -3,6 +3,9 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
+use yii\bootstrap4\Breadcrumbs;
+use common\widgets\Alert;
+
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\CursoOnline\ClaseSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -13,9 +16,17 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="clase-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
-
+    <div class="">
+        <?= Breadcrumbs::widget([
+            'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+        ]) ?>
+        <?= Alert::widget() ?>
+    </div>
     <p>
-        <?= Html::a('Create Clase', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('<span class="fa fa-plus "></span>', ['create'], [
+            'class' => 'btn btn-success',
+            "title"=>"Agregar"])
+        ?>
     </p>
 
     <?php Pjax::begin(); ?>
@@ -25,15 +36,23 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
-            'id',
+            [
+                'attribute' => 'revisado',
+                'value' => function ($model) {
+                    return $model->revisado ? 'Si' : 'No';
+                },
+            ],
+            [
+                'attribute' => 'publico',
+                'value' => function ($model) {
+                    return $model->publico ? 'Si' : 'No';
+                },
+            ],
             'titulo',
             'profesor',
             'descripcion:ntext',
             'enlace:ntext',
-            //'revisado',
-            //'publico',
+
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

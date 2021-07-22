@@ -45,7 +45,7 @@ if ( !Yii::$app->user->can('gestionar-noticia'))
             [
                 'attribute' => 'revisado',
                 'format' => 'raw',
-                'headerOptions' => ['class' => 'col-md-1'],
+                'headerOptions' => ['class' => 'col-md-0'],
                 'value' => function ($model) {
                     return $model->revisado ? 'Si' : 'No';
                 },
@@ -54,22 +54,17 @@ if ( !Yii::$app->user->can('gestionar-noticia'))
             [
                 'attribute' => 'publico',
                 'format' => 'raw',
-                'headerOptions' => ['class' => 'col-md-1'],
+                'headerOptions' => ['class' => 'col-md-0'],
                 'value' => function ($model) {
                     return $model->publico ? 'Si' : 'No';
                 },
                 'filter'=>array(""=>"Todos","1"=>"Si","0"=>"No"),
             ],
             [
-                'attribute' => 'titulo_noticia',                     // Titulo
-                'format' => 'raw',
-                'headerOptions' => ['class' => 'col-md-1'],
-            ],
-            [
                 'attribute' => 'fecha',
                 'value'=> 'fecha',
                 'format' => 'raw',
-                'headerOptions' => ['class' => 'col-md-3'],
+                'headerOptions' => ['class' => 'col-md-1'],
                 'filter'=>\dosamigos\datepicker\DatePicker::widget([
                     'model'=>$searchModel,
                     'attribute'=>'fecha',
@@ -79,26 +74,22 @@ if ( !Yii::$app->user->can('gestionar-noticia'))
                     ],
                 ]),
             ],
-            
-            [
-                'attribute' => 'descripcion',
-                'headerOptions' => ['class' => 'col-md-5'],
-                'format' => 'raw',
-            ],
-
-
             [
                 'attribute' => 'autor',                     // autor
                 'format' => 'raw',
                 'headerOptions' => ['class' => 'col-md-1'],
             ],
 
-            [
+           /* [
                 'attribute' => 'contacto',                     // contacto
                 'format' => 'raw',
                 'headerOptions' => ['class' => 'col-md-1'],
+            ],*/
+            [
+                'attribute' => 'titulo_noticia',                     // Titulo
+                'format' => 'raw',
+                'headerOptions' => ['class' => 'col-md-1'],
             ],
-
             [
                 'attribute' => 'fuente',                     // fuente
                 'format' => 'raw',
@@ -110,6 +101,17 @@ if ( !Yii::$app->user->can('gestionar-noticia'))
                 'format' => 'raw',
                 'headerOptions' => ['class' => 'col-md-1'],
             ],
+            [
+                'attribute' => 'descripcion',
+                'headerOptions' => ['class' => 'col-md-3'],
+                'format' => 'raw',
+                'value' => function ($model) {
+                    return '<div style="line-height: 1.2em; height: 6em; overflow: hidden;">'.\yii\helpers\HtmlPurifier::process($model->descripcion).'</div>';
+                },
+
+            ],
+
+
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

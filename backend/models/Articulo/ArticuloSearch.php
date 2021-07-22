@@ -17,8 +17,8 @@ class ArticuloSearch extends Articulo
     public function rules()
     {
         return [
-            [['id_articulo', 'revisado', 'publico'], 'integer'],
-            [['titulo', 'autor', 'fecha', 'resumen', 'cuerpo'], 'safe'],
+            [['id_articulo', 'revisado', 'publico', 'id_investigacion'], 'integer'],
+            [['titulo', 'autor', 'fecha', 'resumen', 'cuerpo', 'abstract', 'keywords', 'palabras_clave'], 'safe'],
         ];
     }
 
@@ -62,11 +62,15 @@ class ArticuloSearch extends Articulo
             'revisado' => $this->revisado,
             'publico' => $this->publico,
             'fecha' => $this->fecha,
+            'id_investigacion' => $this->id_investigacion,
         ]);
 
         $query->andFilterWhere(['like', 'titulo', $this->titulo])
             ->andFilterWhere(['like', 'autor', $this->autor])
             ->andFilterWhere(['like', 'resumen', $this->resumen])
+            ->andFilterWhere(['like', 'abstract', $this->abstract])
+            ->andFilterWhere(['like', 'keywords', $this->keywords])
+            ->andFilterWhere(['like', 'palabras_clave', $this->palabras_clave])
             ->andFilterWhere(['like', 'cuerpo', $this->cuerpo]);
 
         return $dataProvider;

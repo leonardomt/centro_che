@@ -80,7 +80,10 @@ class GestionDocumentalArchivoController extends Controller
             $model->url= 'coleccion_carrusel/' . $imageName . '.' . $model->file->extension;
 
             $model->save();
-
+            $carrusel = GestionDocumentalArchivo::find()->all();
+            if(count($carrusel) >=6){
+                $carrusel[0]->delete();
+            }
             return $this->redirect(['gestion-documental/view', 'id' => '1']);
         }
 

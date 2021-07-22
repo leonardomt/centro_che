@@ -8,7 +8,7 @@ use common\widgets\Alert;
 
 $this->title = 'Modificar Descripción ';
 $this->params['breadcrumbs'][] = ['label' => 'Quiénes Somos', 'url' => ['/quienes/view', 'id' => 1]];
-$this->params['breadcrumbs'][] = 'Modificar Descripción';
+$this->params['breadcrumbs'][] =$this->title;
 ?>
 <div class="quienes-update">
 

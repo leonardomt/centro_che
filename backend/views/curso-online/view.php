@@ -4,18 +4,13 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 use yii\bootstrap4\Breadcrumbs;
 use common\widgets\Alert;
-use backend\models\CursoOnline\CursoOnlineArchivo;
-use backend\models\Archivo\Archivo;
+
 /* @var $this yii\web\View */
 /* @var $model backend\models\CursoOnline\CursoOnline */
 
 $this->title = $model->titulo;
 $this->params['breadcrumbs'][] = ['label' => 'Curso Online', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
-
-$articuloarchivos = new CursoOnlineArchivo();
-$articuloarchivos= CursoOnlineArchivo::find()->where(['id_curso_online' => $model->id_curso])->all();
-$archivos = new Archivo();
 
 if ( Yii::$app->user->isGuest )
     return Yii::$app->getResponse()->redirect(\yii\helpers\Url::to(['site/login']));
@@ -33,11 +28,11 @@ if ( !Yii::$app->user->can('gestionar-curso-online'))
         <?= Alert::widget() ?>
     </div>
     <p>
-        <?= Html::a('Modificar', ['update', 'id' => $model->id_curso], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('<span class="glyphicon glyphicon-trash"></span>', ['delete', 'id' => $model->id_curso], [
+        <?= Html::a('<svg aria-hidden="true" style="display:inline-block;font-size:inherit;height:1em;overflow:visible;vertical-align:-.125em;width:1em" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M498 142l-46 46c-5 5-13 5-17 0L324 77c-5-5-5-12 0-17l46-46c19-19 49-19 68 0l60 60c19 19 19 49 0 68zm-214-42L22 362 0 484c-3 16 12 30 28 28l122-22 262-262c5-5 5-13 0-17L301 100c-4-5-12-5-17 0zM124 340c-5-6-5-14 0-20l154-154c6-5 14-5 20 0s5 14 0 20L144 340c-6 5-14 5-20 0zm-36 84h48v36l-64 12-32-31 12-65h36v48z"></path></svg>', ['update', 'id' => $model->id_curso], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('<span class="fa fa-trash"></span>', ['delete', 'id' => $model->id_curso], [
             'class' => 'btn btn-danger',
             'data' => [
-                'confirm' => '¿Está seguro de eliminar este elemento?',
+                'confirm' =>'¿Estas seguro que deceas eliminar este elemento?',
                 'method' => 'post',
             ],
         ]) ?>
@@ -60,42 +55,164 @@ if ( !Yii::$app->user->can('gestionar-curso-online'))
                 },
             ],
             'titulo:ntext',
-            'contacto:ntext',
-
+            'coordinador',
             'descripcion:ntext',
+            'enlace',
+
+            [
+                'attribute' => 'pdf',                     // Url del Archivo
+                'format' => 'raw',
+                'headerOptions' => ['class' => 'col-md-3'],
+                'value' => function ($model) {
+                    if ($model->pdf != ' ' && $model->pdf != NULL) { // verifica si fue importada o no
+                        if ($model->pdf != NULL) {
+                            return  Html::a('PDF', [
+                                '../../frontend/web/' . $model->pdf,
+                            ], [
+                                'class' => 'btn btn-primary',
+                                'target' => '_blank',
+                            ]);
+                        } else {
+                            return Html::label('_');
+                            // si no tiene asignada una portada, solo muestra un guion bajo
+                        }
+                    }
+                },
+            ],
+
         ],
     ]) ?>
 
     <?php
+    $clases= \backend\models\CursoOnline\Clase::find()->where(['id_curso' => $model->id_curso ])->all();
+    $searchModel = new backend\models\CursoOnline\ClaseSearch();
+    $x=0; $data = [];
+    foreach ($clases as $clase):
+        $dataProvider1 = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider1->query->where(['id'=>$clase->id]);
+        $data1 = $dataProvider1->getModels();
+        $data = array_merge($data, $data1);
+        $x++;
+    endforeach;
 
-    $articuloarchivos = new CursoOnlineArchivo();
-    $articuloarchivos= CursoOnlineArchivo::find()->where(['id_curso_online' => $model->id_curso])->all();
-    $archivos = new Archivo();
+    if ($x!=0){
+        $dataProvider = new \yii\data\ArrayDataProvider([
+            'allModels' => $data
+
+        ]);
+    }
+    else{
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider->query->where(['id'=>0]);
+    };
     ?>
 
-    <?php foreach( $articuloarchivos as $artas): ?>
-        <?php    $archivos = Archivo::find()->where(['id_archivo' => $artas->id_archivo ])->all()  ; ?>
-        <?php foreach($archivos as $arc): ?>
+    <h3>Clases del Curso</h3>
+
+    <?php yii\widgets\Pjax::begin();?>
+
+    <?= kartik\grid\GridView::widget([
+        'dataProvider' => $dataProvider,
+        'filterModel' => $searchModel,
+        'id'=> 'archivo-index-update',
+
+        'pjax' => true,
+        'pjaxSettings' =>[
+            'neverTimeout' => true,
+
+        ],
+        'toolbar'=>[
+            'options' => ['class' => 'pull-left'],
+            ['content'=>
+                Html::a('<span class="glyphicon glyphicon-plus"></span>', ['create'], [
+                    'data-pjax' => 0,
+                    'class' => 'btn btn-success',
+                    "title"=>"Agregar"]). ' '.
+                Html::a('<i class="glyphicon glyphicon-repeat"></i>', 'index.php?r=archivo%2Findex', [ 'class'=>'btn btn-default', 'title'=>'Reiniciar']),
+            ],
+            '{toggleData}',
+            '{export}',
+        ],
+        'columns' => [
+
+            [
+                'attribute' => 'revisado',                     // Revisado
+                'format' => 'raw',
+                'value' => function ($model) {
+                    if($model->revisado != '0'){
+                        return 'Si';
+                    }else{
+                        return 'No';
+                    }
+                },
+                'headerOptions' => ['class' => 'col-md-1'],
+
+                'filter'=>array(""=>"Todos","1"=>"Si","0"=>"No"),
+
+            ],
+            [
+                'attribute' => 'publico',                     // Revisado
+                'format' => 'raw',
+                'value' => function ($model) {
+                    if($model->revisado != '0'){
+                        return 'Si';
+                    }else{
+                        return 'No';
+                    }
+                },
+                'headerOptions' => ['class' => 'col-md-1'],
+
+                'filter'=>array(""=>"Todos","1"=>"Si","0"=>"No"),
+
+            ],
+            [
+                'attribute' => 'titulo',                     // Titulo
+                'format' => 'raw',
+                'headerOptions' => ['class' => 'col-md-2']
+            ],
+
+            [
+                'attribute' => 'profesor',                     // autor
+                'format' => 'raw',
+                'headerOptions' => ['class' => 'col-md-2']
+            ],
+
+            [
+                'attribute' => 'descripcion',
+                'headerOptions' => ['class' => 'col-md-3'],
+                'format' => 'raw',
+                'value' => function ($model) {
+                    return '<div style="line-height: 1.2em; height: 6em; overflow: hidden;">'.\yii\helpers\HtmlPurifier::process($model->descripcion).'</div>';
+                },
+
+            ],
+            [
+                'attribute' => 'enlace',                     // Titulo
+                'format' => 'raw',
+                'headerOptions' => ['class' => 'col-md-2']
+            ],
+
+            [
+                'class' =>'kartik\grid\ActionColumn',
+                'template' => '{view} {update} {delete}',
+                'buttons'=> [
+                    'view' => function($url, $model) {
+                        return Html::a('<span class="fa fa-eye"></span>' , ['clase/view', 'id' => $model->id], ['title' => 'view']);
+                    },
+                    'update' => function($url, $model) {
+                        return Html::a('<span class="fa fa-pencil"></span>' , ['clase/update', 'id' => $model->id], ['title' => 'update']);
+                    },
+                    'delete' => function($url, $model) {
+                        return Html::a('<span class="fa fa-trash"></span>' , ['clase/delete', 'id' => $model->id], ['title' => 'delete']);
+                    },
+                ],
 
 
-            <div class="mb-3 pics animation all  " >
-                <a href="<?php echo Yii::$app->homeUrl?>?r=archivo%2Fview&id=<?=$arc->id_archivo?>">
-                    <?php if($arc->tipo_archivo  == 3):?>
-                        <video  controls autoplay style="width: 500px">
-                            <source src="../../frontend/web/<?=$arc->url_archivo?>" type="video/mp4">
-                            Your browser does not support the video tag.
-                        </video>
-                    <?php endif; if ($arc->tipo_archivo  == 1 ):?>
-                        <img alt="picture" class="img-fluid img-fluid" style="width: 500px" src="../../frontend/web/<?=$arc->url_archivo?>">
-                    <?php endif; ?>
-                </a>
+            ],
 
-            </div>
+        ],
+    ]); ?>
 
-            <br>
-
-        <?php endforeach; ?>
-    <?php endforeach; ?>
 
 
 </div>

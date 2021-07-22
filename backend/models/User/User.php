@@ -18,6 +18,7 @@ use yii\web\IdentityInterface;
  * @property string $email
  * @property string $auth_key
  * @property integer $status
+ * @property string $roles
  * @property integer $created_at
  * @property integer $updated_at
  * @property string $password write-only password
@@ -27,7 +28,8 @@ class User extends ActiveRecord implements IdentityInterface
     const STATUS_DELETED = 0;
     const STATUS_INACTIVE = 9;
     const STATUS_ACTIVE = 10;
-
+    public $new_password;
+    public $roles;
 
     /**
      * {@inheritdoc}
@@ -53,8 +55,12 @@ class User extends ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
-            ['status', 'default', 'value' => self::STATUS_INACTIVE],
+            ['status', 'default', 'value' => self::STATUS_ACTIVE],
             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_INACTIVE, self::STATUS_DELETED]],
+            [['username', 'first_name', 'last_name', 'email',], 'required'],
+            ['email', 'email'],
+            ['new_password', 'string', 'min' => 6],
+
         ];
     }
 
@@ -138,6 +144,9 @@ class User extends ActiveRecord implements IdentityInterface
         return [
             'username' => 'Nombre de Usuario',
             'password' => 'Contraseña',
+            'first_name' => 'Nombre',
+            'last_name' => 'Apellidos',
+            'roles' => 'Roles',
          
         ];
     }
@@ -196,6 +205,14 @@ class User extends ActiveRecord implements IdentityInterface
         $this->auth_key = Yii::$app->security->generateRandomString();
     }
 
+    public function getPassword()
+
+    {
+
+        return '';
+
+    }
+
     /**
      * Generates new password reset token
      */
@@ -250,6 +267,43 @@ class User extends ActiveRecord implements IdentityInterface
         }
 
         return $text;
+
+    }
+    public function signup()
+    {
+        if (!$this->validate()) {
+            return null;
+        }
+
+        $user = new User();
+        $user->first_name = $this->first_name;
+        $user->last_name = $this->last_name;
+        $user->username = $this->username;
+        $user->email = $this->email;
+        $user->status = 10;
+        $user->setPassword($this->password);
+        $user->generateAuthKey();
+        $user->generateEmailVerificationToken();
+        return $user->save() ;
+
+    }
+
+    public function signupmodify($id)
+    {
+        if (!$this->validate()) {
+            return null;
+        }
+
+        $user = $this->findIdentity($id);
+        $user->first_name = $this->first_name;
+        $user->last_name = $this->last_name;
+        $user->username = $this->username;
+        $user->email = $this->email;
+        $user->status = 10;
+        $user->setPassword($this->new_password);
+        $user->generateAuthKey();
+        $user->generateEmailVerificationToken();
+        return $user->save() ;
 
     }
 

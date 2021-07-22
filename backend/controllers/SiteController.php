@@ -8,6 +8,7 @@ use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use common\models\LoginForm;
 
+
 /**
  * Site controller
  */
@@ -97,7 +98,7 @@ class SiteController extends Controller
     {
         $model = new SignupForm();
         if ($model->load(Yii::$app->request->post()) && $model->signup()) {
-            Yii::$app->session->setFlash('success', 'Thank you for registration. Please check your inbox for verification email.');
+            Yii::$app->session->setFlash('success', 'Usuario creado con éxito');
             return $this->goHome();
         }
 
@@ -119,4 +120,25 @@ class SiteController extends Controller
 
         return $this->goHome();
     }
+
+
+    public function signup()
+    {
+        if (!$this->validate()) {
+            return null;
+        }
+
+        $user = new User();
+        $user->first_name = $this->first_name;
+        $user->last_name = $this->last_name;
+        $user->username = $this->username;
+        $user->email = $this->email;
+        $user->status = 10;
+        $user->setPassword($this->password);
+        $user->generateAuthKey();
+        $user->generateEmailVerificationToken();
+        return $user->save() ;
+
+    }
+
 }

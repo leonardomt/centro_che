@@ -13,6 +13,7 @@ use yii\web\Response;
 use yii\widgets\ActiveForm;
 use yii\helpers\ArrayHelper;
 use yii\base\Model;
+use backend\models\Archivo\Archivo;
 
 /**
  * ExposicionController implements the CRUD actions for Exposicion model.
@@ -90,14 +91,19 @@ class ExposicionController extends Controller
                 try {
                     if ($flag = $model->save(false)) {
                         foreach ($modelsArchivo as $modelArchivo) {
-                            if($x==0){
-                                if(!($modelArchivo->tipo_archivo==1)){
-                                    Yii::$app->session->setFlash('error','Una Exposición solo puede tener una imagen como portada.');
-                                };
+                            if ($x == 0) {
                                 $modelArchivo->portada = 1;
                                 $x++;
-                            }
-                            else{
+                                $archivo = new Archivo();
+                                $archivo = Archivo::find()->where(['id_archivo' => $modelArchivo->id_archivo])->one();
+                                if (!($archivo->tipo_archivo == 1)) {
+                                    Yii::$app->session->setFlash('error', 'Un Documento solo puede tener una imagen como portada.');
+                                    return $this->redirect([
+                                        'create', 'model' => $model,
+                                        'modelsArchivo' => (empty($modelsArchivo)) ? [new ExposicionArchivo] : $modelsArchivo,
+                                    ]);
+                                };
+                            } else {
                                 $modelArchivo->portada = 0;
                             }
                             $modelArchivo->id_exposicion = $model->id_exposicion;

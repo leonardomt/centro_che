@@ -21,7 +21,7 @@ if ( Yii::$app->user->isGuest )
     return Yii::$app->getResponse()->redirect(\yii\helpers\Url::to(['site/login']));
 ?>
 
-<div class="articulo-index ">
+<div class="articulo-index  col-md-12">
 
     <h1><?= Html::encode($this->title) ?></h1>
     <div class="">
@@ -32,7 +32,7 @@ if ( Yii::$app->user->isGuest )
 
     </div>
     <p>
-        <?= Html::a('<span class="glyphicon glyphicon-plus"></span>', ['create'], [
+        <?= Html::a('<span class="fa fa-plus "></span>', ['create'], [
             'class' => 'btn btn-success',
             "title"=>"Agregar"])
         ?>
@@ -71,19 +71,56 @@ if ( Yii::$app->user->isGuest )
             [
                 'attribute' => 'titulo',                     // Titulo
                 'format' => 'raw',
-                'headerOptions' => ['class' => 'col-md-3']
+                'headerOptions' => ['class' => 'col-md-1']
             ],
             [
                 'attribute' => 'autor',                     // Titulo
                 'format' => 'raw',
-                'headerOptions' => ['class' => 'col-md-3']
+                'headerOptions' => ['class' => 'col-md-1']
             ],
+
+
+            [
+                'attribute'=>'id_investigacion',
+                'value'=>'investigacionInscrita.titulo_investigacion',
+                'format' => 'raw',
+                'headerOptions' => ['class' => 'col-md-1'],
+                'filter' => \yii\helpers\ArrayHelper::map(\backend\models\Investigacion\Investigacion::find()->asArray()->all(), 'id_investigacion', 'titulo_investigacion'),
+
+            ],
+
+            [
+                'attribute' => 'resumen',                     // Titulo
+                'format' => 'raw',
+                'headerOptions' => ['class' => 'col-md-1'],
+                'value' => function ($model) {
+                    return '<div style="line-height: 1.2em; height: 6em; overflow: hidden;">'.\yii\helpers\HtmlPurifier::process($model->resumen).'</div>';
+                },
+
+
+            ],
+
+            [
+                'attribute' => 'palabras_clave',                     // Titulo
+                'format' => 'raw',
+                'headerOptions' => ['class' => 'col-md-1']
+            ],
+
+            [
+                'attribute' => 'keywords',                     // Titulo
+                'format' => 'raw',
+                'headerOptions' => ['class' => 'col-md-1']
+            ],
+
+
+
+
 
              [
                             'attribute' => 'fecha',
                             'value'=> 'fecha',
                             'format' => 'raw',
-                            'headerOptions' => ['class' => 'col-md-3'],
+                            'headerOptions' => ['class' => 'col-md-1'],
                             'filter'=>\dosamigos\datepicker\DatePicker::widget([
                                 'model'=>$searchModel,
                                 'attribute'=>'fecha',
@@ -100,7 +137,10 @@ if ( Yii::$app->user->isGuest )
 
 
 
-            ['class' => 'yii\grid\ActionColumn'],
+            [
+                'class' => 'yii\grid\ActionColumn',
+
+            ],
         ],
     ]); ?>
 

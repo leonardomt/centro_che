@@ -9,6 +9,7 @@ use Yii;
  *
  * @property string $id_taller
  * @property int $publico
+ * @property int $revisado
  * @property string $nombre
  * @property string $descripcion
  * @property string $contacto

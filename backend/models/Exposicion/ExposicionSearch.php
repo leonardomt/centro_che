@@ -17,8 +17,8 @@ class ExposicionSearch extends Exposicion
     public function rules()
     {
         return [
-            [['id_exposicion', 'revisado', 'publico'], 'integer'],
-            [['titulo', 'descripcion', 'cuerpo', 'enlace'], 'safe'],
+            [['id_exposicion', 'revisado', 'publico', 'tipo_fecha'], 'integer'],
+            [['titulo', 'descripcion', 'cuerpo', 'enlace','fecha', 'fecha_fin','entidad', 'autor'], 'safe'],
         ];
     }
 
@@ -61,12 +61,18 @@ class ExposicionSearch extends Exposicion
             'id_exposicion' => $this->id_exposicion,
             'revisado' => $this->revisado,
             'publico' => $this->publico,
+            'tipo_fecha' => $this->tipo_fecha,
+
         ]);
 
         $query->andFilterWhere(['like', 'titulo', $this->titulo])
             ->andFilterWhere(['like', 'descripcion', $this->descripcion])
             ->andFilterWhere(['like', 'cuerpo', $this->cuerpo])
-            ->andFilterWhere(['like', 'enlace', $this->enlace]);
+            ->andFilterWhere(['like', 'enlace', $this->enlace])
+            ->andFilterWhere(['like', 'fecha_fin', $this->fecha_fin])
+            ->andFilterWhere(['like', 'fecha', $this->fecha])
+            ->andFilterWhere(['like', 'autor', $this->autor])
+            ->andFilterWhere(['like', 'entidad', $this->entidad]);
 
         return $dataProvider;
     }

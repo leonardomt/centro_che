@@ -5,7 +5,7 @@ use yii\widgets\DetailView;
 use yii\bootstrap4\Breadcrumbs;
 use common\widgets\Alert;
 use backend\models\Noticia\NoticiaArchivo;
-use backend\models\Archivo\Archivo;
+
 /* @var $this yii\web\View */
 /* @var $model backend\models\Noticia\Noticia */
 /* @var $id */
@@ -33,8 +33,7 @@ if ( !Yii::$app->user->can('gestionar-noticia'))
         <?= Alert::widget() ?>
     </div>
     <p>
-        <?php  // echo Html::a('Asignar Archivo', ['noticia-archivo/create', 'id' => $model->id_noticia], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('<svg aria-hidden="true" style="display:inline-block;font-size:inherit;height:1em;overflow:visible;vertical-align:-.125em;width:1em" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M498 142l-46 46c-5 5-13 5-17 0L324 77c-5-5-5-12 0-17l46-46c19-19 49-19 68 0l60 60c19 19 19 49 0 68zm-214-42L22 362 0 484c-3 16 12 30 28 28l122-22 262-262c5-5 5-13 0-17L301 100c-4-5-12-5-17 0zM124 340c-5-6-5-14 0-20l154-154c6-5 14-5 20 0s5 14 0 20L144 340c-6 5-14 5-20 0zm-36 84h48v36l-64 12-32-31 12-65h36v48z"></path></svg>', ['update', 'id' => $model->id_noticia], ['class' => 'btn btn-primary']) ?>
+         <?= Html::a('<svg aria-hidden="true" style="display:inline-block;font-size:inherit;height:1em;overflow:visible;vertical-align:-.125em;width:1em" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M498 142l-46 46c-5 5-13 5-17 0L324 77c-5-5-5-12 0-17l46-46c19-19 49-19 68 0l60 60c19 19 19 49 0 68zm-214-42L22 362 0 484c-3 16 12 30 28 28l122-22 262-262c5-5 5-13 0-17L301 100c-4-5-12-5-17 0zM124 340c-5-6-5-14 0-20l154-154c6-5 14-5 20 0s5 14 0 20L144 340c-6 5-14 5-20 0zm-36 84h48v36l-64 12-32-31 12-65h36v48z"></path></svg>', ['update', 'id' => $model->id_noticia], ['class' => 'btn btn-primary']) ?>
         <?= Html::a('<span class="fa fa-trash"></span>', ['delete', 'id' => $model->id_noticia], [
             'class' => 'btn btn-danger',
             'data' => [
@@ -77,54 +76,31 @@ if ( !Yii::$app->user->can('gestionar-noticia'))
 
 
     <?php
-   
-
-
-    $noticiaarchivos = new NoticiaArchivo();
-    $noticiaarchivos= NoticiaArchivo::find()->where(['id_noticia' => $model->id_noticia ])->all();
-
-
-
+    $archivos= NoticiaArchivo::find()->where(['id_noticia' => $model->id_noticia ])->all();
     $searchModel = new backend\models\Archivo\ArchivoSearch();
-    $x=0; $data;
-    foreach ($noticiaarchivos as $arc):
+    $x=0; $data = [];
+    foreach ($archivos as $arc):
+        $dataProvider1 = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider1->query->where(['id_archivo'=>$arc->id_archivo]);
+        $data1 = $dataProvider1->getModels();
+        $data = array_merge($data, $data1);
         $x++;
-        if ($x==1){
-            $dataProvider1 = $searchModel->search(Yii::$app->request->queryParams);
-            $dataProvider1->query->where(['id_archivo'=>$arc->id_archivo]);
-            $data = $dataProvider1->getModels();
-        }
-        if ($x==2){
-            $dataProvider2 = $searchModel->search(Yii::$app->request->queryParams);
-            $dataProvider2->query->where(['id_archivo'=>$arc->id_archivo]);
-            $data =  array_merge($dataProvider1->getModels(), $dataProvider2->getModels());
-        }
-        if ($x==3){
-            $dataProvider3 = $searchModel->search(Yii::$app->request->queryParams);
-            $dataProvider3->query->where(['id_archivo'=>$arc->id_archivo]);
-            $data1 = array_merge($dataProvider1->getModels(), $dataProvider2->getModels());
-            $data = array_merge($data1, $dataProvider3->getModels());
-        }
     endforeach;
 
     if ($x!=0){
         $dataProvider = new \yii\data\ArrayDataProvider([
             'allModels' => $data
+
         ]);
     }
     else{
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         $dataProvider->query->where(['id_archivo'=>0]);
     };
-
-    
     ?>
 
 
-
-
-    <?php yii\widgets\Pjax::begin(); 
-    $idnoticia = $model->id_noticia;?>
+    <?php yii\widgets\Pjax::begin(); ?>
     <?= kartik\grid\GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
@@ -232,16 +208,7 @@ if ( !Yii::$app->user->can('gestionar-noticia'))
                             return Html::a('<span class="fa fa-eye"></span>' , ['archivo/view', 'id' => $model->id_archivo], ['title' => 'view']);
                         },
 
-                        'delete' => function($url, $model) use ($idnoticia) {
-                            return Html::a('<span class= "glyphicon glyphicon-trash"></span>', ['noticia-archivo/delete', 'id' => $model->id_archivo, 'id2' => $idnoticia], [
-                            'data' => [
-                                'confirm' => 'Está seguro de que desea eliminar este elemento?',
-                                'method' => 'post',
-                            ],
-                            'title' => "Eliminar"
 
-                            ]);
-                        } ,
                 ],
 
 

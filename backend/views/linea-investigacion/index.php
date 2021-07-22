@@ -69,8 +69,14 @@ if ( !Yii::$app->user->can('gestionar-linea-investigacion'))
             [
                 'attribute' => 'descripcion',                     // Titulo
                 'format' => 'raw',
-                'headerOptions' => ['class' => 'col-md-7']
+                'headerOptions' => ['class' => 'col-md-7'],
+                'value' => function ($model) {
+                    return '<div style="line-height: 1.2em; height: 6em; overflow: hidden;">'.\yii\helpers\HtmlPurifier::process($model->descripcion).'</div>';
+                },
+
             ],
+
+
 
 
             ['class' => 'yii\grid\ActionColumn'],

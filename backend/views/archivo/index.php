@@ -9,8 +9,6 @@ use yii\helpers\Url;
 use kartik\daterange\DateRangePicker;
 
 
-
-
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\Archivo\ArchivoSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */

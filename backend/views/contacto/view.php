@@ -8,7 +8,6 @@ use yii\bootstrap4\Breadcrumbs;
 /* @var $model backend\models\Quienes\Contacto */
 
 $this->title = "Información de Contacto";
-$this->params['breadcrumbs'][] = ['label' => 'Contacto', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>

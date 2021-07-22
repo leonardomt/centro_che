@@ -80,7 +80,10 @@ class ProyectoArchivoController extends Controller
             $model->url= 'proyecto/' . $imageName . '.' . $model->file->extension;
 
             $model->save();
-
+            $carrusel = ProyectoArchivo::find()->all();
+            if(count($carrusel) >=6){
+                $carrusel[0]->delete();
+            }
             return $this->redirect(['proyecto/view', 'id' => '1']);
         }
 

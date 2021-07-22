@@ -29,8 +29,6 @@ if (!Yii::$app->user->can('gestionar-exposicion'))
     </div>
 
 
-
-
     <?php $form = \yii\widgets\ActiveForm::begin(['id' => 'dynamic-form']); ?>
 
     <div class="row">
@@ -39,35 +37,37 @@ if (!Yii::$app->user->can('gestionar-exposicion'))
         </div>
         <div class="col-lg-6 text-lg-left">
             <?= $form->field($model, 'autor')->textInput(['maxlength' => true]) ?>
-
-
         </div>
     </div>
+
 
     <div class="row">
-        <div class="col-lg-4 text-lg-left">
-            <?= $form->field($model, 'tipo_fecha')->radioList([0 => 'Fecha Exacta', 1 => 'Año', 2 => 'Rango de Fecha']); ?>
+        <div class=" col-lg-2 text-lg-left" > </div>
+        <div class=" col-lg-2 text-lg-left" >
+            <?= $form->field($model, 'tipo_fecha')->radioList([0 => 'Fecha Exacta', 1 => 'Año', 2 => 'Rango de Fecha'], ['separator'=>'<br/>']); ?>
         </div>
-        <div class="col-lg-4 text-lg-left">
-            <?= $form->field($model, 'fecha')->widget(\dosamigos\datepicker\DatePicker::className(), [
-                'inline' => false,
-                'clientOptions' => [
-                    'autoclose' => true,
-                    'format' => 'yyyy-m-d'
-                ]
-            ]) ?>
-        </div>
-        <div class="col-lg-4 text-lg-left">
-            <?= $form->field($model, 'fecha_fin')->widget(\dosamigos\datepicker\DatePicker::className(), [
-                'inline' => false,
-                'clientOptions' => [
-                    'autoclose' => true,
-                    'format' => 'yyyy-m-d'
-                ]
-            ]) ?>
+        <div class=" col-lg-2 text-lg-left" > </div>
+        <div class="col-lg-6">
+            <div class=" text-lg-left">
+                <?= $form->field($model, 'fecha')->widget(\dosamigos\datepicker\DatePicker::className(), [
+                    'inline' => false,
+                    'clientOptions' => [
+                        'autoclose' => true,
+                        'format' => 'yyyy-m-d'
+                    ]
+                ]) ?>
+            </div>
+            <div class="text-lg-left">
+                <?= $form->field($model, 'fecha_fin')->widget(\dosamigos\datepicker\DatePicker::className(), [
+                    'inline' => false,
+                    'clientOptions' => [
+                        'autoclose' => true,
+                        'format' => 'yyyy-m-d'
+                    ]
+                ]) ?>
+            </div>
         </div>
     </div>
-
     <div class="row"> 
         <div class="col-lg-6 text-lg-left">
 
@@ -81,18 +81,11 @@ if (!Yii::$app->user->can('gestionar-exposicion'))
 
     <?= $form->field($model, 'descripcion')->textarea(['rows' => 2]) ?>
 
-    <?= $form->field($model, 'cuerpo')->textarea(['rows' => 6]) ?>
-
-
-
-
-
+    <?= $form->field($model, 'cuerpo')->textarea(['rows' => 3]) ?>
 
 
     <div class="panel panel-default">
-        <div class="panel-heading">
-            <h4><i class="glyphicon glyphicon-envelope"></i> Archivos</h4>
-        </div>
+
         <div class="panel-body">
             <?php \wbraganca\dynamicform\DynamicFormWidget::begin([
                 'widgetContainer' => 'dynamicform_wrapper', // required: only alphanumeric characters plus "_" [A-Za-z0-9_]
@@ -124,8 +117,8 @@ if (!Yii::$app->user->can('gestionar-exposicion'))
 
                             <h3 class="panel-title pull-left"><?= $titulo ?></h3>
                             <div class="pull-right">
-                                <button type="button" class="add-item btn btn-success btn-xs"><i class="glyphicon glyphicon-plus"></i></button>
-                                <button type="button" class="remove-item btn btn-danger btn-xs"><i class="glyphicon glyphicon-minus"></i></button>
+                                <button type="button" class="add-item btn btn-success btn-xs"><i class="fa fa-plus"></i></button>
+                                <button type="button" class="remove-item btn btn-danger btn-xs"><i class="fa fa-minus"></i></button>
                             </div>
                             <div class="clearfix"></div>
                         </div>
@@ -139,7 +132,7 @@ if (!Yii::$app->user->can('gestionar-exposicion'))
 
 
 
-                            <?= $form->field($modelArchivo, "[{$i}]nota")->textarea(['rows' => 6]) ?>
+                            <?= $form->field($modelArchivo, "[{$i}]nota")->textarea(['rows' => 3]) ?>
 
                             <?= $form->field($modelArchivo, "[{$i}]id_archivo")->dropDownList(
                                 \yii\helpers\ArrayHelper::map(\backend\models\Archivo\Archivo::find()->all(), 'id_archivo', 'titulo_archivo')

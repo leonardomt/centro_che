@@ -17,7 +17,7 @@ class TallerSearch extends Taller
     public function rules()
     {
         return [
-            [['id_taller', 'publico'], 'integer'],
+            [['id_taller', 'publico','revisado'], 'integer'],
             [['nombre', 'descripcion', 'contacto', 'encargado','tipo'], 'safe'],
         ];
     }
@@ -60,6 +60,7 @@ class TallerSearch extends Taller
         $query->andFilterWhere([
             'id_taller' => $this->id_taller,
             'publico' => $this->publico,
+            'revisado' => $this->revisado,
         ]);
 
         $query->andFilterWhere(['like', 'nombre', $this->nombre])

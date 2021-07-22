@@ -16,6 +16,8 @@ use Yii;
  * @property string $cuerpo
  * @property string $autor
  * @property int $id_linea_investigacion
+ * @property string $fecha
+ * @property string $entidad
  */
 class Investigacion extends \yii\db\ActiveRecord
 {
@@ -33,9 +35,10 @@ class Investigacion extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['revisado', 'publico', 'titulo_investigacion', 'descripcion', 'cuerpo', 'autor', 'id_linea_investigacion'], 'required'],
+            [['revisado', 'publico', 'titulo_investigacion', 'descripcion', 'cuerpo', 'autor', 'id_linea_investigacion', 'fecha', 'entidad'], 'required'],
             [['revisado', 'publico', 'id_linea_investigacion'], 'integer'],
-            [['titulo_investigacion', 'descripcion', 'cuerpo', 'autor'], 'string'],
+            [['titulo_investigacion', 'descripcion', 'cuerpo', 'autor', 'entidad'], 'string'],
+            [['fecha'], 'safe'],
         ];
     }
 
@@ -53,6 +56,8 @@ class Investigacion extends \yii\db\ActiveRecord
             'cuerpo' => 'Cuerpo',
             'autor' => 'Autor',
             'id_linea_investigacion' => 'Línea de Investigación',
+            'entidad' => 'Entidad en que se inscribe',
+            'fecha' => 'Fecha de Inscripción',
         ];
     }
     public function getLineaInvestigacion(){

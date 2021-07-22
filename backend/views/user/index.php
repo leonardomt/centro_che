@@ -14,17 +14,23 @@ $this->title = 'Usuarios';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
-<br><br>
 <div class="user-index col-md-12">
 
 
     <div class="">
+        <h1><?= Html::encode($this->title) ?></h1>
         <?= Breadcrumbs::widget([
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
         ]) ?>
         <?= Alert::widget() ?>
     </div>
-    <a class="btn btn-success" href="../../backend/web/index.php?r=site%2Fsingup" role="button">Crear Usuario</a>
+    <p>
+        <?= Html::a('<span class="fa fa-plus "></span>', ['create'], [
+            'class' => 'btn btn-success',
+            "title" => "Agregar"
+        ])
+        ?>
+    </p>
 
     <?php Pjax::begin(); ?>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -67,7 +73,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
             ['class' => 'kartik\grid\ActionColumn',
-                'template' => '{delete} {view}',
+                'template' => '{view}{update}{delete} ',
                 'headerOptions' => ['class' => 'col-md-1'],
             ],
         ],

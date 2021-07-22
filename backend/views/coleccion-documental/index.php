@@ -11,6 +11,7 @@ use common\widgets\Alert;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Documentos';
+$this->params['breadcrumbs'][] = ['label' => 'Colección Documental', 'url' => ['/gestion-documental/view', 'id' => 1]];
 $this->params['breadcrumbs'][] = $this->title;
 if ( Yii::$app->user->isGuest )
     return Yii::$app->getResponse()->redirect(\yii\helpers\Url::to(['site/login']));
@@ -27,11 +28,12 @@ if ( !Yii::$app->user->can('gestionar-coleccion-documental'))
         <?= Alert::widget() ?>
     </div>
     <p>
-        <?= Html::a('<span class="glyphicon glyphicon-plus"></span>', ['create'], [
+        <?= Html::a('<span class="fa fa-plus "></span>', ['create'], [
             'class' => 'btn btn-success',
             "title"=>"Agregar"])
         ?>
     </p>
+
 
     <?php Pjax::begin(); ?>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -57,31 +59,52 @@ if ( !Yii::$app->user->can('gestionar-coleccion-documental'))
                 },
             ],
             [
-                'attribute' => 'titulo',                     // Titulo
+                'attribute' => 'fecha',
+                'value'=> 'fecha',
                 'format' => 'raw',
-                'headerOptions' => ['class' => 'col-md-2']
+                'headerOptions' => ['class' => 'col-md-1'],
+                'filter'=>\dosamigos\datepicker\DatePicker::widget([
+                    'model'=>$searchModel,
+                    'attribute'=>'fecha',
+                    'clientOptions'=>[
+                        'autoclose'=>true,
+                        'format'=>'yyyy-mm-dd'
+                    ],
+                ]),
             ],
+
+
             [
                 'attribute' => 'autor',                     // autor
                 'format' => 'raw',
                 'headerOptions' => ['class' => 'col-md-2']
             ],
             [
+                'attribute' => 'titulo',                     // Titulo
+                'format' => 'raw',
+                'headerOptions' => ['class' => 'col-md-2']
+            ],
+
+            [
                 'attribute' => 'tipologia',                     // tipologia
                 'format' => 'raw',
                 'headerOptions' => ['class' => 'col-md-tipologia']
             ],
-            [
-                'attribute' => 'fecha',                     // fecha
-                'format' => 'raw',
-                'headerOptions' => ['class' => 'col-md-3']
-            ],
-            [
-                'attribute' => 'etiquetas',                     // fecha
-                'format' => 'raw',
-                'headerOptions' => ['class' => 'col-md-3']
-            ],
 
+            [
+                'attribute' => 'etiquetas',                     // etiqueta
+                'format' => 'raw',
+                'headerOptions' => ['class' => 'col-md-3']
+            ],
+            [
+                'attribute' => 'descripcion',
+                'headerOptions' => ['class' => 'col-md-3'],
+                'format' => 'raw',
+                'value' => function ($model) {
+                    return '<div style="line-height: 1.2em; height: 6em; overflow: hidden;">'.\yii\helpers\HtmlPurifier::process($model->descripcion).'</div>';
+                },
+
+            ],
             ['class' => 'yii\grid\ActionColumn'],
 
         ],
