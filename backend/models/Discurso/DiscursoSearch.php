@@ -17,7 +17,7 @@ class DiscursoSearch extends Discurso
     public function rules()
     {
         return [
-            [['id_discurso', 'revisado', 'publico'], 'integer'],
+            [['id_discurso', 'revisado', 'publico', 'identificador'], 'integer'],
             [['titulo', 'fecha', 'descripcion', 'lugar', 'medio', 'entrevistador', 'cuerpo'], 'safe'],
         ];
     }
@@ -62,6 +62,7 @@ class DiscursoSearch extends Discurso
             'fecha' => $this->fecha,
             'revisado' => $this->revisado,
             'publico' => $this->publico,
+            'identificador' => $this->identificador,
         ]);
 
         $query->andFilterWhere(['like', 'titulo', $this->titulo])

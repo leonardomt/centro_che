@@ -98,13 +98,17 @@ if (Yii::$app->user->isGuest)
             [
                 'attribute' => 'autor_archivo',                     // autor
                 'format' => 'raw',
-                'headerOptions' => ['class' => 'col-md-2']
+                'headerOptions' => ['class' => 'col-md-2'],
+
             ],
 
             [
                 'attribute' => 'etiqueta',                     // etiqueta
                 'format' => 'raw',
-                'headerOptions' => ['class' => 'col-md-2']
+                'headerOptions' => [
+                        'class' => 'col-md-2',
+                        'value' => '"<a><span class=\"icon-camera\"></span></a>"',
+                ]
             ],
 
             /*
@@ -153,7 +157,7 @@ if (Yii::$app->user->isGuest)
             ],
 
             [
-                'attribute' => 'url_archivo',                     // Url del Archivo
+                'attribute' => 'url_archivo',         'filter'=> false,            // Url del Archivo
                 'format' => 'raw',
                 'headerOptions' => ['class' => 'col-md-3'],
                 'value' => function ($model) {

@@ -69,6 +69,44 @@ class ComentarioController extends Controller
 
         if ($model->load(Yii::$app->request->post())){
             $model->fecha = new Expression('NOW()');
+            $seccion = "";
+            if($model->tabla == "noticia" || $model->tabla == "revista" || $model->tabla == "quienes"){
+                $seccion = "Inicio";
+            }
+            if($model->tabla == "linea_investigacion" || $model->tabla == "investigacion" || $model->tabla == "articulo" || $model->tabla == "gestion_documental" || $model->tabla == "coleccion_documental" || $model->tabla == "proyecto" || $model->tabla == "libro" || $model->tabla == "curso_online" || $model->tabla == "clase"){
+                $seccion = "Coordinación Académica";
+            }
+            if($model->tabla == "taller" || $model->tabla == "exposicion" || $model->tabla == "producto_audiovisual"|| $model->tabla == "otros"){
+                $seccion = "Proyectos Alternativos";
+            }
+            if($model->tabla == "hecho" || $model->tabla == "correspondencia" || $model->tabla == "escrito" || $model->tabla == "discurso" || $model->tabla == "testimonio"){
+                $seccion = "Vida y Obra";
+            }
+            if($model->tabla == 'comentario'){
+                $modelpadre = \backend\models\Comentario\Comentario::find()->where(['id'=> $model->id_tabla])->one();
+                for ($x=0; $x<=7; $x++){
+                    if($modelpadre->tabla == 'noticia' || $modelpadre->tabla == 'revista' || $modelpadre->tabla == 'quienes'){
+                        $seccion = "Inicio";
+                        break;
+                    }
+
+                    if($modelpadre->tabla == 'linea_investigacion' || $modelpadre->tabla == 'investigacion' ||$modelpadre->tabla == 'articulo' || $modelpadre->tabla == "gestion_documental" || $modelpadre->tabla == "coleccion_documental" || $modelpadre->tabla == "proyecto" || $modelpadre->tabla == "libro" || $modelpadre->tabla == "curso_online" || $modelpadre->tabla == "clase"){
+                        $seccion = "Coordinación Académica";
+                        break;
+                    }
+
+                    if($modelpadre->tabla == "taller" || $modelpadre->tabla == "exposicion" || $modelpadre->tabla == "producto_audiovisual"|| $modelpadre->tabla == "otros"){
+                        $seccion = "Proyectos Alternativos";
+                        break;
+                    }
+                    if($modelpadre->tabla == "hecho" || $modelpadre->tabla == "correspondencia" || $modelpadre->tabla == "escrito" || $modelpadre->tabla == "discurso" || $modelpadre->tabla == "testimonio"){
+                        $seccion = "Vida y Obra";
+                        break;
+                    }
+                    $modelpadre = \backend\models\Comentario\Comentario::find()->where(['id'=> $modelpadre->id_tabla])->one();
+                }
+            }
+            $model->seccion = $seccion;
          if( $model->save()) {
             return $this->redirect([$back.'/view', 'id' => $back_id]);
         }}

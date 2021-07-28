@@ -3,6 +3,7 @@
 namespace backend\controllers;
 
 use backend\models\Archivo\Archivo;
+use backend\models\Investigacion\Investigacion;
 use backend\models\LineaInvestigacion\LineaInvestigacionArchivo;
 use Yii;
 use backend\models\LineaInvestigacion\LineaInvestigacion;
@@ -212,12 +213,25 @@ class LineaInvestigacionController extends Controller
      */
     public function actionDelete($id)
     {
+        $temporal = Investigacion::find()->where(['id_linea_investigacion' => $this->findModel($id)->id_linea_investigacion])->all();
+        if (count($temporal) > 0) {
+            Yii::$app->session->setFlash('error', 'La Línea de Investigación tiene Investigaciones asociadas, no puede ser eliminada.');
+            $searchModel = new LineaInvestigacionSearch();
+            $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+            return $this->render('index', [
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
+            ]);
+        }
 
         $temporal8 = new LineaInvestigacionArchivo();
         $temporal8 = LineaInvestigacionArchivo::find()->where(['id_linea_investigacion' => $this->findModel($id)->id_linea_investigacion])->all();
         foreach ($temporal8 as $t8){
             $t8->delete();
         }
+
+
 
         $this->findModel($id)->delete();
 

@@ -53,9 +53,6 @@ class NoticiaController extends Controller
 
     public function actionExcel()
     {
-
-
-
         $model = new Noticia();
         $inputFile = 'uploads/new.xlsx';
         $inputFileType = \PHPExcel_IOFactory::identify($inputFile);
@@ -137,7 +134,7 @@ class NoticiaController extends Controller
                                 $archivo = new Archivo();
                                 $archivo = Archivo::find()->where(['id_archivo' => $modelArchivo->id_archivo])->one();
                                 if (!($archivo->tipo_archivo == 1)) {
-                                    Yii::$app->session->setFlash('error', 'Una Exposición solo puede tener una imagen como portada.');
+                                    Yii::$app->session->setFlash('error', 'Una Noticia solo puede tener una imagen como portada.');
                                     return $this->redirect([
                                         'create', 'model' => $model,
                                         'modelsArchivo' => (empty($modelsArchivo)) ? [new NoticiaArchivo] : $modelsArchivo,

@@ -25,7 +25,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     </div>
     <p>
-        <?= Html::a('<span class="glyphicon glyphicon-plus"></span>', ['create'], [
+        <?= Html::a('<span class="fa fa-plus "></span>', ['create'], [
             'class' => 'btn btn-success',
             "title"=>"Agregar"])
         ?>
@@ -40,7 +40,6 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
 
             [
                 'attribute' => 'revisado',
@@ -64,19 +63,32 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'titulo',                     // Titulo
                 'format' => 'raw',
-                'headerOptions' => ['class' => 'col-md-4']
+                'headerOptions' => ['class' => 'col-md-2']
             ],
             [
                 'attribute' => 'autor',                     // Titulo
                 'format' => 'raw',
-                'headerOptions' => ['class' => 'col-md-3']
+                'headerOptions' => ['class' => 'col-md-1']
             ],
             [
                 'attribute' => 'tipo',                     // Titulo
                 'format' => 'raw',
-                'headerOptions' => ['class' => 'col-md-3']
+                'headerOptions' => ['class' => 'col-md-1']
             ],
-     
+            [
+                'attribute' => 'enlace',                     // Titulo
+                'format' => 'raw',
+                'headerOptions' => ['class' => 'col-md-2']
+            ],
+            [
+                'attribute' => 'descripcion',
+                'headerOptions' => ['class' => 'col-md-3'],
+                'format' => 'raw',
+                'value' => function ($model) {
+                    return '<div style="line-height: 1.2em; height: 6em; overflow: hidden;">'.\yii\helpers\HtmlPurifier::process($model->descripcion).'</div>';
+                },
+
+            ],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
@@ -86,21 +98,3 @@ $this->params['breadcrumbs'][] = $this->title;
 
 </div>
 
-
-<?php
-
-$this->registerJs(
-
-    '$("document").ready(function(){ 
-
-        $("#search-form").on("pjax:end", function() {
-
-            $.pjax.reload({container:"#articulo-index-update"});  //Reload GridView
-
-        });
-
-    });'
-
-);
-
-?>

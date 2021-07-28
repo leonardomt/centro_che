@@ -133,13 +133,13 @@ use kartik\grid\GridView;
         </div>
         <div class="col-lg-1">
             <div class="form-group">
-                <?= Html::submitButton($modelArchivo->isNewRecord ? '<i class="fa fa-floppy-o" aria-hidden="true"></i>' : '<i class="fa fa-floppy-o" aria-hidden="true"></i>', ['class' => 'btn btn-primary']) ?>
+                <?= Html::submitButton($modelArchivo->isNewRecord ? '<i class="fa fa-floppy-o" aria-hidden="true"></i>' : '<i class="fa fa-floppy-o" aria-hidden="true"></i>', ['class' => 'btn btn-success']) ?>
             </div>
         </div>
 
     </div>
 
-    <?php \yii\widgets\ActiveForm::end(); ?>
+    <?php \kartik\form\ActiveForm::end(); ?>
 
 
     <?php
@@ -223,7 +223,7 @@ use kartik\grid\GridView;
             ],
 
             [
-                'attribute' => 'url_archivo',                     // Url del Archivo
+                'attribute' => 'url_archivo',        'filter'=> false,             // Url del Archivo
                 'format' => 'raw',
                 'headerOptions' => ['class' => 'col-md-3'],
                 'value' => function ($model) {

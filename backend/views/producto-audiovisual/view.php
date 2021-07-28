@@ -10,8 +10,8 @@ use backend\models\ProductoAudiovisual\ProductoAudiovisualArchivo;
 /* @var $this yii\web\View */
 /* @var $model backend\models\ProductoAudiovisual\ProductoAudiovisual */
 
-$this->title = $model->tipo;
-$this->params['breadcrumbs'][] = ['label' => 'Producto Audiovisual', 'url' => ['index']];
+$this->title = $model->titulo;
+$this->params['breadcrumbs'][] = ['label' => 'Productos Audiovisuales', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 
 if ( Yii::$app->user->isGuest )
@@ -25,8 +25,6 @@ if ( !Yii::$app->user->can('gestionar-producto-audiovisual'))
 
     <h1><?= $model->titulo; ?></h1>
 
-
-
     <div class="">
         <?= Breadcrumbs::widget([
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
@@ -34,11 +32,11 @@ if ( !Yii::$app->user->can('gestionar-producto-audiovisual'))
         <?= Alert::widget() ?>
     </div>
     <p>
-        <?= Html::a('Modificar', ['update', 'id' => $model->id_producto_audiovisual], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('<span class="glyphicon glyphicon-trash"></span>', ['delete', 'id' => $model->id_producto_audiovisual], [
+        <?= Html::a('<svg aria-hidden="true" style="display:inline-block;font-size:inherit;height:1em;overflow:visible;vertical-align:-.125em;width:1em" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M498 142l-46 46c-5 5-13 5-17 0L324 77c-5-5-5-12 0-17l46-46c19-19 49-19 68 0l60 60c19 19 19 49 0 68zm-214-42L22 362 0 484c-3 16 12 30 28 28l122-22 262-262c5-5 5-13 0-17L301 100c-4-5-12-5-17 0zM124 340c-5-6-5-14 0-20l154-154c6-5 14-5 20 0s5 14 0 20L144 340c-6 5-14 5-20 0zm-36 84h48v36l-64 12-32-31 12-65h36v48z"></path></svg>', ['update', 'id' => $model->id_producto_audiovisual], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('<span class="fa fa-trash"></span>', ['delete', 'id' => $model->id_producto_audiovisual], [
             'class' => 'btn btn-danger',
             'data' => [
-                'confirm' => '¿Estas seguro que deceas eliminar este elemento?',
+                'confirm' =>'¿Estas seguro que deceas eliminar este elemento?',
                 'method' => 'post',
             ],
         ]) ?>
@@ -47,6 +45,16 @@ if ( !Yii::$app->user->can('gestionar-producto-audiovisual'))
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
+
+            'titulo:ntext',
+            'fecha',
+            [
+                'attribute' =>'tipo',
+                'value'=> \backend\models\ProductoAudiovisual\TipoProducto::findOne(['id', $model->tipo])->tipo_producto,
+            ],
+            'autor:ntext',
+            'productora:ntext',
+            'descripcion:ntext',
             [
                 'attribute' => 'revisado',
                 'value' => function ($model) {
@@ -60,44 +68,152 @@ if ( !Yii::$app->user->can('gestionar-producto-audiovisual'))
                 },
             ],
 
-            'titulo:ntext',
-            'descripcion:ntext',
-            'tipo:ntext',
-
         ],
     ]) ?>
 
-
     <?php
+    $archivos=    ProductoAudiovisualArchivo::find()->where(['id_producto_audiovisual' => $model->id_producto_audiovisual ])->all();
+    $searchModel = new backend\models\Archivo\ArchivoSearch();
+    $x=0; $data = [];
+    foreach ($archivos as $arc):
+        $dataProvider1 = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider1->query->where(['id_archivo'=>$arc->id_archivo]);
+        $data1 = $dataProvider1->getModels();
+        $data = array_merge($data, $data1);
+        $x++;
+    endforeach;
 
-    $articuloarchivos = new ProductoAudiovisualArchivo;
-    $articuloarchivos= ProductoAudiovisualArchivo::find()->where(['id_producto_audiovisual' => $model->id_producto_audiovisual])->all();
-    $archivos = new Archivo();
+    if ($x!=0){
+        $dataProvider = new \yii\data\ArrayDataProvider([
+            'allModels' => $data
+
+        ]);
+    }
+    else{
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider->query->where(['id_archivo'=>0]);
+    };
     ?>
 
-    <?php foreach( $articuloarchivos as $artas): ?>
-        <?php    $archivos = Archivo::find()->where(['id_archivo' => $artas->id_archivo ])->all()  ; ?>
-        <?php foreach($archivos as $arc): ?>
+
+    <?php yii\widgets\Pjax::begin();?>
+
+    <?= kartik\grid\GridView::widget([
+        'dataProvider' => $dataProvider,
+        'filterModel' => $searchModel,
+        'id'=> 'archivo-index-update',
+
+        'pjax' => true,
+        'pjaxSettings' =>[
+            'neverTimeout' => true,
+
+        ],
+        'toolbar'=>[
+            'options' => ['class' => 'pull-left'],
+            ['content'=>
+                Html::a('<span class="glyphicon glyphicon-plus"></span>', ['create'], [
+                    'data-pjax' => 0,
+                    'class' => 'btn btn-success',
+                    "title"=>"Agregar"]). ' '.
+                Html::a('<i class="glyphicon glyphicon-repeat"></i>', 'index.php?r=archivo%2Findex', [ 'class'=>'btn btn-default', 'title'=>'Reiniciar']),
+            ],
+            '{toggleData}',
+            '{export}',
+        ],
+        'columns' => [
 
 
-            <div class="mb-3 pics animation all  " >
-                <a href="<?php echo Yii::$app->homeUrl?>?r=archivo%2Fview&id=<?=$arc->id_archivo?>">
-                    <?php if($arc->tipo_archivo  == 3):?>
-                        <video  controls autoplay style="width: 500px">
-                            <source src="../../frontend/web/<?=$arc->url_archivo?>" type="video/mp4">
-                            Your browser does not support the video tag.
-                        </video>
-                    <?php endif; if ($arc->tipo_archivo  == 1 ):?>
-                        <img alt="picture" class="img-fluid img-fluid" style="width: 500px" src="../../frontend/web/<?=$arc->url_archivo?>">
-                    <?php endif; ?>
-                </a>
+            //'id_archivo',
+            [
+                'attribute' => 'revisado',                     // Revisado
+                'format' => 'raw',
+                'value' => function ($model) {
+                    if($model->revisado != '0'){
+                        return 'Si';
+                    }else{
+                        return 'No';
+                    }
+                },
+                'headerOptions' => ['class' => 'col-md-1'],
 
-            </div>
+                'filter'=>array(""=>"Todos","1"=>"Si","0"=>"No"),
 
-            <br>
+            ],
 
-        <?php endforeach; ?>
-    <?php endforeach; ?>
+            [
+                'attribute' => 'titulo_archivo',                     // Titulo
+                'format' => 'raw',
+                'headerOptions' => ['class' => 'col-md-2']
+            ],
+            [
+                'attribute'=>'tipo_archivo',
+                'value'=>'tipoArchivo.tipo_archivo',
+                'format' => 'raw',
+                'headerOptions' => ['class' => 'col-md-2'],
+                'filter'=>\yii\helpers\ArrayHelper::map(\backend\models\Archivo\TipoArchivo::find()->asArray()->all(), 'id_tipo_archivo', 'tipo_archivo'),
+            ],
+            [
+                'attribute' => 'autor_archivo',                     // autor
+                'format' => 'raw',
+                'headerOptions' => ['class' => 'col-md-2']
+            ],
+
+            [
+                'attribute' => 'etiqueta',                     // etiqueta
+                'format' => 'raw',
+                'headerOptions' => ['class' => 'col-md-2']
+            ],
+            [
+                'attribute' => 'fuente',                     // fuente
+                'format' => 'raw',
+                'headerOptions' => ['class' => 'col-md-2']
+            ],
+
+            [
+                'attribute' => 'url_archivo',    'filter'=> false,                 // Url del Archivo
+                'format' => 'raw',
+                'headerOptions' => ['class' => 'col-md-3'],
+                'value' => function ($model) {
+                    if($model->url_archivo != ' ' && $model->url_archivo != NULL) { // verifica si fue importada o no
+                        if ($model->tipo_archivo == 1) {
+                            return Html::img('../../frontend/web/' . $model->url_archivo,
+                                ['alt' => $model->url_archivo, 'height' => 100]);
+                        } else if ($model->tipo_archivo == 3) {
+                            return '<video  controls autoplay style="height: 100px">
+                       <source src="../../frontend/web/' . $model->url_archivo . '" type="video/mp4">
+                       Your browser does not support the video tag.
+                   </video>';
+                        } else if ($model->tipo_archivo == 2) {
+                            return '<audio  controls style="width: 250px ">
+                       <source src="../../frontend/web/' . $model->url_archivo . '" >
+                       Your browser does not support the video tag.
+                       </audio>';
+                        } else {
+                            return Html::label('_');
+                            // si no tiene asignada una portada, solo muestra un guion bajo
+                        }
+                    }
+
+                },
+            ],
+            [
+                'class' =>'kartik\grid\ActionColumn',
+                'template' => '{view}',
+                'buttons'=> [
+                    'view' => function($url, $model) {
+                        return Html::a('<span class="fa fa-eye"></span>' , ['archivo/view', 'id' => $model->id_archivo], ['title' => 'view']);
+                    },
+
+
+                ],
+
+
+            ],
+
+
+
+        ],
+    ]); ?>
 
 
 </div>

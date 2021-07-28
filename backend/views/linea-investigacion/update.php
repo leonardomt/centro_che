@@ -30,7 +30,7 @@ if ( !Yii::$app->user->can('gestionar-linea-investigacion'))
 
 
 
-    <?php $form = \yii\widgets\ActiveForm::begin(['id' => 'dynamic-form']); ?>
+    <?php $form = \kartik\form\ActiveForm::begin(['id' => 'dynamic-form']); ?>
 
     <div class="row">
         <div class="col-lg-12 text-lg-left">
@@ -88,8 +88,11 @@ if ( !Yii::$app->user->can('gestionar-linea-investigacion'))
 
                             <?= $form->field($modelArchivo, "[{$i}]nota")->textarea(['rows' => 6]) ?>
 
-                            <?= $form->field($modelArchivo, "[{$i}]id_archivo")->dropDownList(
-                                \yii\helpers\ArrayHelper::map(\backend\models\Archivo\Archivo::find()->all(), 'id_archivo', 'titulo_archivo')
+                            <?= $form->field($modelArchivo, "[{$i}]id_archivo")->widget(\kartik\select2\Select2::classname(), [
+                                    'data' => \yii\helpers\ArrayHelper::map(\backend\models\Archivo\Archivo::find()->all(), 'id_archivo', 'titulo_archivo'),
+                                    'options' => ['placeholder' => 'Seleccionar', 'multiple' => false, 'required' => true],
+                                    'theme' => \kartik\select2\Select2::THEME_KRAJEE,
+                                    'size' => 'xs',]
                             ) ?>
 
 
@@ -123,13 +126,13 @@ if ( !Yii::$app->user->can('gestionar-linea-investigacion'))
         </div>
         <div class="col-lg-1">
             <div class="form-group">
-                <?= Html::submitButton($modelArchivo->isNewRecord ? '<i class="fa fa-floppy-o" aria-hidden="true"></i>' : '<i class="fa fa-floppy-o" aria-hidden="true"></i>', ['class' => 'btn btn-primary']) ?>
+                <?= Html::submitButton($modelArchivo->isNewRecord ? '<i class="fa fa-floppy-o" aria-hidden="true"></i>' : '<i class="fa fa-floppy-o" aria-hidden="true"></i>', ['class' => 'btn btn-success']) ?>
             </div>
         </div>
 
     </div>
 
-    <?php \yii\widgets\ActiveForm::end(); ?>
+    <?php \kartik\form\ActiveForm::end(); ?>
 
 
     <?php
@@ -213,7 +216,7 @@ if ( !Yii::$app->user->can('gestionar-linea-investigacion'))
             ],
 
             [
-                'attribute' => 'url_archivo',                     // Url del Archivo
+                'attribute' => 'url_archivo',       'filter'=> false,              // Url del Archivo
                 'format' => 'raw',
                 'headerOptions' => ['class' => 'col-md-3'],
                 'value' => function ($model) {

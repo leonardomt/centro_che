@@ -10,6 +10,11 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
+use backend\models\Archivo\Archivo;
+use yii\web\Response;
+use yii\widgets\ActiveForm;
+use yii\helpers\ArrayHelper;
+use yii\base\Model;
 /**
  * CorrespondenciaController implements the CRUD actions for Correspondencia model.
  */
@@ -65,14 +70,62 @@ class CorrespondenciaController extends Controller
      */
     public function actionCreate()
     {
-        $model = new Correspondencia();
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id_correspondencia]);
+        $model = new Correspondencia;
+        $modelsArchivo = [new CorrespondenciaArchivo];
+        $x = 0;
+        if ($model->load(Yii::$app->request->post())) {
+            $modelsArchivo = Model::createMultiple(CorrespondenciaArchivo::classname());
+            Model::loadMultiple($modelsArchivo, Yii::$app->request->post());
+            if (Yii::$app->request->isAjax) {
+                Yii::$app->response->format = Response::FORMAT_JSON;
+                return ArrayHelper::merge(
+                    ActiveForm::validateMultiple($modelsArchivo),
+                    ActiveForm::validate($model)
+                );
+            }
+            // validate all models
+            $valid = $model->validate();
+            $valid = Model::validateMultiple($modelsArchivo) && $valid;
+            if ($valid) {
+                $transaction = \Yii::$app->db->beginTransaction();
+                try {
+                    if ($flag = $model->save(false)) {
+                        foreach ($modelsArchivo as $modelArchivo) {
+                            if ($x == 0) {
+                                $modelArchivo->portada = 1;
+                                $x++;
+                                $archivo = new Archivo();
+                                $archivo = Archivo::find()->where(['id_archivo' => $modelArchivo->id_archivo])->one();
+                                if (!($archivo->tipo_archivo == 1)) {
+                                    Yii::$app->session->setFlash('error', 'Una Correspondencia solo puede tener una imagen como portada.');
+                                    return $this->redirect([
+                                        'create', 'model' => $model,
+                                        'modelsArchivo' => (empty($modelsArchivo)) ? [new CorrespondenciaArchivo] : $modelsArchivo,
+                                    ]);
+                                };
+                            } else {
+                                $modelArchivo->portada = 0;
+                            }
+                            $modelArchivo->id_correspondencia = $model->id_correspondencia;
+                            if (!($flag = $modelArchivo->save(false))) {
+                                $transaction->rollBack();
+                                break;
+                            }
+                        }
+                    }
+                    if ($flag) {
+                        $transaction->commit();
+                        return $this->redirect(['view', 'id' => $model->id_correspondencia]);
+                    }
+                } catch (Exception $e) {
+                    $transaction->rollBack();
+                }
+            }
         }
-
         return $this->render('create', [
             'model' => $model,
+
+            'modelsArchivo' => (empty($modelsArchivo)) ? [new CorrespondenciaArchivo] : $modelsArchivo,
         ]);
     }
 
@@ -85,14 +138,68 @@ class CorrespondenciaController extends Controller
      */
     public function actionUpdate($id)
     {
+        $x = 0;
         $model = $this->findModel($id);
+        $modelsArchivo = new CorrespondenciaArchivo();
+        $modelsArchivo = CorrespondenciaArchivo::find()->where(['id_correspondencia' => $model->id_correspondencia])->all();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id_correspondencia]);
+        if ($model->load(Yii::$app->request->post())) {
+
+            $oldIDs = ArrayHelper::map($modelsArchivo, 'id', 'id');
+            $modelsArchivo = Model::createMultiple(CorrespondenciaArchivo::classname(), $modelsArchivo);
+            Model::loadMultiple($modelsArchivo, Yii::$app->request->post());
+            $deletedIDs = array_diff($oldIDs, array_filter(ArrayHelper::map($modelsArchivo, 'id', 'id')));
+
+            // validate all models
+            $valid = $model->validate();
+            $valid = Model::validateMultiple($modelsArchivo) && $valid;
+
+            if ($valid) {
+                $transaction = \Yii::$app->db->beginTransaction();
+                try {
+                    if ($flag = $model->save(false)) {
+                        if (!empty($deletedIDs)) {
+                            CorrespondenciaArchivo::deleteAll(['id' => $deletedIDs]);
+                        }
+                        foreach ($modelsArchivo as $modelArchivo) {
+
+                            if ($x == 0) {
+                                $modelArchivo->portada = 1;
+                                $x++;
+                                $archivo = new Archivo();
+                                $archivo = Archivo::find()->where(['id_archivo' => $modelArchivo->id_archivo])->one();
+                                if (!($archivo->tipo_archivo == 1)) {
+                                    Yii::$app->session->setFlash('error', 'Una Correspondencia solo puede tener una imagen como portada.');
+                                    return $this->redirect([
+                                        'update', 'model' => $model,
+                                        'modelsArchivo' => (empty($modelsArchivo)) ? [new CorrespondenciaArchivo] : $modelsArchivo,
+                                    ]);
+                                };
+                            } else {
+                                $modelArchivo->portada = 0;
+                            }
+
+
+                            $modelArchivo->id_correspondencia = $model->id_correspondencia;
+                            if (!($flag = $modelArchivo->save(false))) {
+                                $transaction->rollBack();
+                                break;
+                            }
+                        }
+                    }
+                    if ($flag) {
+                        $transaction->commit();
+                        return $this->redirect(['view', 'id' => $model->id_correspondencia]);
+                    }
+                } catch (Exception $e) {
+                    $transaction->rollBack();
+                }
+            }
         }
 
         return $this->render('update', [
             'model' => $model,
+            'modelsArchivo' => (empty($modelsArchivo)) ? [new CorrespondenciaArchivo] : $modelsArchivo,
         ]);
     }
 

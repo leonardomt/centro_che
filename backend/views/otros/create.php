@@ -4,7 +4,6 @@ use yii\helpers\Html;
 use common\widgets\Alert;
 use yii\widgets\Pjax;
 use kartik\grid\GridView;
-use yii\helpers\ArrayHelper;
 use yii\bootstrap4\Breadcrumbs;
 
 
@@ -12,7 +11,7 @@ use yii\bootstrap4\Breadcrumbs;
 /* @var $model backend\models\Otros\Otros */
 
 $this->title = 'Crear Otro Producto';
-$this->params['breadcrumbs'][] = ['label' => 'Otros', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Otros Productos', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="otros-create">
@@ -27,7 +26,7 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
 
 
-    <?php $form = \yii\widgets\ActiveForm::begin(['id' => 'dynamic-form']); ?>
+    <?php $form = \kartik\form\ActiveForm::begin(['id' => 'dynamic-form']); ?>
 
 
     <div class="row">
@@ -39,19 +38,20 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
     </div>
 
-
+    <div class="row">
+        <div class="col-lg-6 text-lg-left">
+            <?= $form->field($model, 'tipo')->textInput(['maxlength' => true]) ?>
+        </div>
+        <div class="col-lg-6 text-lg-left">
+            <?= $form->field($model, 'enlace')->textInput(['maxlength' => true]) ?>
+        </div>
+    </div>
     <?= $form->field($model, 'descripcion')->textarea(['rows' => 2]) ?>
-
-    <?= $form->field($model, 'tipo')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'enlace')->textInput(['maxlength' => true]) ?>
 
 
 
     <div class="panel panel-default">
-        <div class="panel-heading">
-            <h4><i class="glyphicon glyphicon-envelope"></i> Archivos</h4>
-        </div>
+
         <div class="panel-body">
             <?php \wbraganca\dynamicform\DynamicFormWidget::begin([
                 'widgetContainer' => 'dynamicform_wrapper', // required: only alphanumeric characters plus "_" [A-Za-z0-9_]
@@ -80,12 +80,10 @@ $this->params['breadcrumbs'][] = $this->title;
                             if ($x == 0) $titulo = "Archivo";
 
                             ?>
-
                             <h3 class="panel-title pull-left"><?= $titulo ?></h3>
                             <div class="pull-right">
-                                <button type="button" class="add-item btn btn-success btn-xs"><i class="glyphicon glyphicon-plus"></i></button>
-                                <button type="button" class="remove-item btn btn-danger btn-xs"><i class="glyphicon glyphicon-minus"></i></button>
-
+                                <button type="button" class="add-item btn btn-success btn-xs"><i class="fa fa-plus"></i></button>
+                                <button type="button" class="remove-item btn btn-danger btn-xs"><i class="fa fa-minus"></i></button>
                             </div>
                             <div class="clearfix"></div>
                         </div>
@@ -97,10 +95,13 @@ $this->params['breadcrumbs'][] = $this->title;
                             }
                             ?>
 
-                         
+                            <?= $form->field($modelArchivo, "[{$i}]nota")->textarea(['rows' => 3]) ?>
 
-                            <?= $form->field($modelArchivo, "[{$i}]id_archivo")->dropDownList(
-                                \yii\helpers\ArrayHelper::map(\backend\models\Archivo\Archivo::find()->all(), 'id_archivo', 'titulo_archivo')
+                            <?= $form->field($modelArchivo, "[{$i}]id_archivo")->widget(\kartik\select2\Select2::classname(), [
+                                    'data' => \yii\helpers\ArrayHelper::map(\backend\models\Archivo\Archivo::find()->all(), 'id_archivo', 'titulo_archivo'),
+                                    'options' => ['placeholder' => 'Seleccionar', 'multiple' => false, 'required' => true],
+                                    'theme' => \kartik\select2\Select2::THEME_KRAJEE,
+                                    'size' => 'xs',]
                             ) ?>
 
 
@@ -134,13 +135,13 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
         <div class="col-lg-1">
             <div class="form-group">
-                <?= Html::submitButton($modelArchivo->isNewRecord ? '<i class="fa fa-floppy-o" aria-hidden="true"></i>' : '<i class="fa fa-floppy-o" aria-hidden="true"></i>', ['class' => 'btn btn-primary']) ?>
+                <?= Html::submitButton($modelArchivo->isNewRecord ? '<i class="fa fa-floppy-o" aria-hidden="true"></i>' : '<i class="fa fa-floppy-o" aria-hidden="true"></i>', ['class' => 'btn btn-success']) ?>
             </div>
         </div>
 
     </div>
 
-    <?php \yii\widgets\ActiveForm::end(); ?>
+    <?php \kartik\form\ActiveForm::end(); ?>
 
 
     <?php
@@ -224,7 +225,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
 
             [
-                'attribute' => 'url_archivo',                     // Url del Archivo
+                'attribute' => 'url_archivo',       'filter'=> false,              // Url del Archivo
                 'format' => 'raw',
                 'headerOptions' => ['class' => 'col-md-3'],
                 'value' => function ($model) {

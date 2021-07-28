@@ -2,6 +2,7 @@
 
 namespace backend\controllers;
 
+use backend\models\Archivo\Archivo;
 use Yii;
 use backend\models\ProductoAudiovisual\ProductoAudiovisual;
 use backend\models\ProductoAudiovisual\ProductoAudiovisualArchivo;
@@ -90,16 +91,7 @@ class ProductoAudiovisualController extends Controller
                 try {
                     if ($flag = $model->save(false)) {
                         foreach ($modelsArchivo as $modelArchivo) {
-                            if($x==0){
-                                if(!($modelArchivo->tipo_archivo==1)){
-                                    Yii::$app->session->setFlash('error','Una Exposición solo puede tener una imagen como portada.');
-                                };
-                                $modelArchivo->portada = 1;
-                                $x++;
-                            }
-                            else{
-                                $modelArchivo->portada = 0;
-                            }
+
                             $modelArchivo->id_producto_audiovisual = $model->id_producto_audiovisual;
                             if (! ($flag = $modelArchivo->save(false))) {
                                 $transaction->rollBack();
@@ -158,16 +150,7 @@ class ProductoAudiovisualController extends Controller
                             ProductoAudiovisualArchivo::deleteAll(['id' => $deletedIDs]);
                         }
                         foreach ($modelsArchivo as $modelArchivo) {
-                            
-                            if($x==0){
 
-                                $modelArchivo->portada = 1;
-                                $x++;
-                            }
-                            else{
-                                $modelArchivo->portada = 0;
-                            }
-                            $modelArchivo->id_producto = $model->id_producto_audiovisual;
                             if (! ($flag = $modelArchivo->save(false))) {
                                 $transaction->rollBack();
                                 break;

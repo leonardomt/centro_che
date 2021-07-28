@@ -8,7 +8,7 @@ use Yii;
 /**
  * This is the model class for table "hecho_archivo".
  *
- * @property string $id_hecho_archivo
+ * @property string $id
  * @property int $id_hecho
  * @property int $id_archivo
  * @property string $nota
@@ -30,7 +30,7 @@ class HechoArchivo extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id_hecho', 'id_archivo', 'portada'], 'required'],
+            [[ 'id_archivo'], 'required'],
             [['id_hecho', 'id_archivo', 'portada'], 'integer'],
             [['nota'], 'string'],
         ];

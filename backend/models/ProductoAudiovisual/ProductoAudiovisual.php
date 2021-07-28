@@ -12,7 +12,7 @@ use Yii;
  * @property int $publico
  * @property string $titulo
  * @property string $descripcion
- * @property string $tipo
+ * @property int $tipo
  * @property string $fecha
  * @property string $autor
  * @property string $productora
@@ -62,6 +62,6 @@ class ProductoAudiovisual extends \yii\db\ActiveRecord
 
 
     public function getTipoProducto(){
-        return $this->hasOne(TipoProducto::className(), ['tipo'=>'id']);
+        return $this->hasOne(TipoProducto::className(), ['id'=>'tipo']);
     }
 }

@@ -17,7 +17,7 @@ class DiscursoArchivoSearch extends DiscursoArchivo
     public function rules()
     {
         return [
-            [['id_discurso_archivo', 'id_discurso', 'id_archivo', 'portada'], 'integer'],
+            [['id', 'id_discurso', 'id_archivo', 'portada'], 'integer'],
             [['nota'], 'safe'],
         ];
     }
@@ -58,7 +58,7 @@ class DiscursoArchivoSearch extends DiscursoArchivo
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'id_discurso_archivo' => $this->id_discurso_archivo,
+            'id' => $this->id,
             'id_discurso' => $this->id_discurso,
             'id_archivo' => $this->id_archivo,
             'portada' => $this->portada,

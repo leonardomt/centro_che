@@ -12,6 +12,7 @@ use common\widgets\Alert;
 
 $this->title = 'Correspondencias';
 $this->params['breadcrumbs'][] = $this->title;
+
 if ( Yii::$app->user->isGuest )
     return Yii::$app->getResponse()->redirect(\yii\helpers\Url::to(['site/login']));
 if ( !Yii::$app->user->can('gestionar-correspondencia'))
@@ -27,7 +28,7 @@ if ( !Yii::$app->user->can('gestionar-correspondencia'))
         <?= Alert::widget() ?>
     </div>
     <p>
-        <?= Html::a('<span class="glyphicon glyphicon-plus"></span>', ['create'], [
+        <?= Html::a('<span class="fa fa-plus "></span>', ['create'], [
             'class' => 'btn btn-success',
             "title"=>"Agregar"])
         ?>
@@ -62,29 +63,9 @@ if ( !Yii::$app->user->can('gestionar-correspondencia'))
                 'filter'=>array(""=>"Todos","1"=>"Si","0"=>"No"),
             ],
             [
-                'attribute' => 'titulo',                     // Titulo
-                'format' => 'raw',
-                'headerOptions' => ['class' => 'col-md-1']
-            ],
-            [
-                'attribute' => 'descripcion',                     // Titulo
-                'format' => 'raw',
-                'headerOptions' => ['class' => 'col-md-5']
-            ],
-            [
-                'attribute' => 'destinatario',                     // Titulo
-                'format' => 'raw',
-                'headerOptions' => ['class' => 'col-md-1']
-            ],
-            [
-                'attribute' => 'remitente',                     // Titulo
-                'format' => 'raw',
-                'headerOptions' => ['class' => 'col-md-1']
-            ],
-            [
                 'attribute' => 'fecha',                     // Titulo
                 'format' => 'raw',
-                'headerOptions' => ['class' => 'col-md-1'],
+                'headerOptions' => ['class' => 'col-md-2'],
                 'filter'=>\dosamigos\datepicker\DatePicker::widget([
                     'model'=>$searchModel,
                     'attribute'=>'fecha',
@@ -93,7 +74,29 @@ if ( !Yii::$app->user->can('gestionar-correspondencia'))
                         'format'=>'yyyy-mm-dd'
                     ],
                 ]),
-
+            ],
+            [
+                'attribute' => 'remitente',                     // Titulo
+                'format' => 'raw',
+                'headerOptions' => ['class' => 'col-md-1']
+            ],
+            [
+                'attribute' => 'destinatario',                     // Titulo
+                'format' => 'raw',
+                'headerOptions' => ['class' => 'col-md-1']
+            ],
+            [
+                'attribute' => 'titulo',                     // Titulo
+                'format' => 'raw',
+                'headerOptions' => ['class' => 'col-md-2']
+            ],
+            [
+                'attribute' => 'descripcion',
+                'headerOptions' => ['class' => 'col-md-3'],
+                'format' => 'raw',
+                'value' => function ($model) {
+                    return '<div style="line-height: 1.2em; height: 6em; overflow: hidden;">'.\yii\helpers\HtmlPurifier::process($model->descripcion).'</div>';
+                },
 
             ],
 

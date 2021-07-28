@@ -174,7 +174,8 @@ if ( !Yii::$app->user->can('gestionar-investigacion'))
             ],
 
             [
-                'attribute' => 'url_archivo',                     // Url del Archivo
+                'attribute' => 'url_archivo',
+                'filter'=> false,             // Url del Archivo
                 'format' => 'raw',
                 'headerOptions' => ['class' => 'col-md-3'],
                 'value' => function ($model) {
@@ -203,7 +204,7 @@ if ( !Yii::$app->user->can('gestionar-investigacion'))
 
             [
                 'class' =>'kartik\grid\ActionColumn',
-                'template' => '{view} {delete}',
+                'template' => '{view}',
                 'buttons'=> [
                     'view' => function($url, $model) {
                         return Html::a('<span class="fa fa-eye"></span>' , ['archivo/view', 'id' => $model->id_archivo], ['title' => 'view']);

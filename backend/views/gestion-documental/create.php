@@ -13,7 +13,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <?php $form = \yii\widgets\ActiveForm::begin(['id' => 'dynamic-form']); ?>
+    <?php $form = \kartik\form\ActiveForm::begin(['id' => 'dynamic-form']); ?>
 
     <?= $form->field($model, 'descripcion')->textarea(['rows' => 2]) ?>
 
@@ -22,6 +22,6 @@ $this->params['breadcrumbs'][] = $this->title;
     ]) ?>
 
     
-<?php \yii\widgets\ActiveForm::end(); ?>
+<?php \kartik\form\ActiveForm::end(); ?>
 
 </div>

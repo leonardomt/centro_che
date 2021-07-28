@@ -3,6 +3,7 @@
 namespace backend\controllers;
 
 use backend\models\Archivo\Archivo;
+use backend\models\Articulo\Articulo;
 use backend\models\Investigacion\InvestigacionArchivo;
 use Yii;
 use backend\models\Investigacion\Investigacion;
@@ -212,6 +213,17 @@ class InvestigacionController extends Controller
      */
     public function actionDelete($id)
     {
+        $temporal = Articulo::find()->where(['id_investigacion' => $this->findModel($id)->id_investigacion])->all();
+        if (count($temporal) > 0) {
+            Yii::$app->session->setFlash('error', 'La Investigación tiene Artículos asociados, no puede ser eliminada.');
+            $searchModel = new Investigacion();
+            $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+            return $this->render('index', [
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
+            ]);
+        }
 
         $temporal7 = new InvestigacionArchivo();
         $temporal7 = InvestigacionArchivo::find()->where(['id_investigacion' => $this->findModel($id)->id_investigacion])->all();

@@ -15,30 +15,57 @@
                     <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
                     <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
                     <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                    <li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
+                    <li data-target="#carouselExampleIndicators" data-slide-to="4"></li>
+                    <li data-target="#carouselExampleIndicators" data-slide-to="5"></li>
                 </ol>
                 <div class="carousel-inner">
 
                     <div class="carousel-item active">
-                        <img class="d-block w-100" src="../web/img/quienessomos/main-1.jpg" alt="Third slide">
+                        <img class="d-block w-100" src="../web/img/quienessomos/main1.jpg" alt="Third slide">
                         <div class="carousel-caption d-none d-md-block" style="margin-top: -400px">
-                            <h5>Versión en modo de pruebas</h5>
-                            <p>Solo para propósitos de desarrollo</p>
+                            <!--<h5>Versión en modo de pruebas</h5>
+                            <p>Solo para propósitos de desarrollo</p>-->
                         </div>
                     </div>
 
                     <div class="carousel-item">
-                        <img class="d-block w-100" src="../web/img/quienessomos/main-1.jpg" alt="First slide">
+                        <img class="d-block w-100" src="../web/img/quienessomos/main2.jpg" alt="First slide">
                         <div class="carousel-caption d-none d-md-block" style="margin-top: -400px ">
-                            <h5>Versión en modo de pruebas</h5>
-                            <p>Solo para propósitos de desarrollo</p>
+                            <!--<h5>Versión en modo de pruebas</h5>
+                            <p>Solo para propósitos de desarrollo</p>-->
                         </div>
                     </div>
 
                     <div class="carousel-item">
-                        <img class="d-block w-100" src="../web/img/quienessomos/main-1.jpg" alt="Second slide">
+                        <img class="d-block w-100" src="../web/img/quienessomos/main3.jpg" alt="Second slide">
                         <div class="carousel-caption d-none d-md-block" style="margin-top: -400px ">
-                            <h5>Versión en modo de purebas</h5>
-                            <p>Solo para propósitos de desarrollo</p>
+                            <!--<h5>Versión en modo de purebas</h5>
+                            <p>Solo para propósitos de desarrollo</p>-->
+                        </div>
+                    </div>
+
+                    <div class="carousel-item">
+                        <img class="d-block w-100" src="../web/img/quienessomos/main4.jpg" alt="Second slide">
+                        <div class="carousel-caption d-none d-md-block" style="margin-top: -400px ">
+                            <!--<h5>Versión en modo de purebas</h5>
+                            <p>Solo para propósitos de desarrollo</p>-->
+                        </div>
+                    </div>
+
+                    <div class="carousel-item">
+                        <img class="d-block w-100" src="../web/img/quienessomos/main5.jpg" alt="Second slide">
+                        <div class="carousel-caption d-none d-md-block" style="margin-top: -400px ">
+                            <!--<h5>Versión en modo de purebas</h5>
+                            <p>Solo para propósitos de desarrollo</p>-->
+                        </div>
+                    </div>
+
+                    <div class="carousel-item">
+                        <img class="d-block w-100" src="../web/img/quienessomos/main6.jpg" alt="Second slide">
+                        <div class="carousel-caption d-none d-md-block" style="margin-top: -400px ">
+                            <!--<h5>Versión en modo de purebas</h5>
+                            <p>Solo para propósitos de desarrollo</p>-->
                         </div>
                     </div>
 

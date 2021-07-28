@@ -92,11 +92,11 @@ class ArchivoController extends Controller
             if($model->validate()) {
                 $fecha = $model->fecha;
                 if($fecha != null){
-                if($fecha < 1943-6-15){$model->etapa = "Infancia";}
-                if(($fecha > 1943-6-14)&&($fecha < 1953-6-15)){$model->etapa = "Adolescencia";}
-                if(($fecha >1953-6-14)&&($fecha < 1958-6-15)){$model->etapa = "Adulto Joven";}
-                if(($fecha > 1958-6-14)&&($fecha < 1967-10-10)){$model->etapa = "Adulto";}
-                if($fecha > 1967-10-9){$model->etapa = "Posterior a 1967";}
+                    if($fecha < "1943-6-15"){$model->etapa = "Infancia";}
+                    if(($fecha > "1943-06-14")&&($fecha < "1953-06-15")){$model->etapa = "Adolescencia";}
+                    if(($fecha >"1953-06-14")&&($fecha < "1958-06-15")){$model->etapa = "Adulto Joven";}
+                    if(($fecha > "1958-06-14")&&($fecha < "1967-10-10")){$model->etapa = "Adulto";}
+                    if($fecha > "1967-10-9"){$model->etapa = "Posterior a 1967";}
                 }
                 if ($fecha == null){
                     $model->etapa = "No definida";

@@ -23,7 +23,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Alert::widget() ?>
     </div>
     <p>
-        <?= Html::a('<span class="glyphicon glyphicon-plus"></span>', ['create'], [
+        <?= Html::a('<span class="fa fa-plus "></span>', ['create'], [
             'class' => 'btn btn-success',
             "title"=>"Agregar"])
         ?>
@@ -57,15 +57,32 @@ $this->params['breadcrumbs'][] = $this->title;
                 'filter'=>array(""=>"Todos","1"=>"Si","0"=>"No"),
             ],
             [
+                'attribute' => 'identificador',
+                'format' => 'raw',
+                'headerOptions' => ['class' => 'col-md-1'],
+                'value' => function ($model) {
+                    return $model->revisado ? 'Entrevista' : 'Discurso';
+                },
+                'filter'=>array(""=>"Todos",'1'=>"Entrevista",'0'=>"Discurso"),
+            ],
+            [
                 'attribute' => 'titulo',                     // Titulo
                 'format' => 'raw',
                 'headerOptions' => ['class' => 'col-md-1'],
             ],
             [
+                'attribute' => 'descripcion',
+                'headerOptions' => ['class' => 'col-md-3'],
+                'format' => 'raw',
+                'value' => function ($model) {
+                    return '<div style="line-height: 1.2em; height: 6em; overflow: hidden;">'.\yii\helpers\HtmlPurifier::process($model->descripcion).'</div>';
+                },
+            ],
+            [
                 'attribute' => 'fecha',
                 'value'=> 'fecha',
                 'format' => 'raw',
-                'headerOptions' => ['class' => 'col-md-3'],
+                'headerOptions' => ['class' => 'col-md-1'],
                 'filter'=>\dosamigos\datepicker\DatePicker::widget([
                     'model'=>$searchModel,
                     'attribute'=>'fecha',
@@ -75,14 +92,6 @@ $this->params['breadcrumbs'][] = $this->title;
                     ],
                 ]),
             ],
-            
-            [
-                'attribute' => 'descripcion',
-                'headerOptions' => ['class' => 'col-md-5'],
-                'format' => 'raw',
-            ],
-
-
             [
                 'attribute' => 'lugar',                     // autor
                 'format' => 'raw',
@@ -94,7 +103,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 'format' => 'raw',
                 'headerOptions' => ['class' => 'col-md-1'],
             ],
-
             [
                 'attribute' => 'entrevistador',                     // fuente
                 'format' => 'raw',

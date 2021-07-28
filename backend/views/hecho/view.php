@@ -13,9 +13,7 @@ $this->title = $model->titulo;
 $this->params['breadcrumbs'][] = ['label' => 'Hechos', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 
-$articuloarchivos = new HechoArchivo();
-$articuloarchivos= HechoArchivo::find()->where(['id_hecho' => $model->id_hecho])->all();
-$archivos = new Archivo();
+
 if ( Yii::$app->user->isGuest )
     return Yii::$app->getResponse()->redirect(\yii\helpers\Url::to(['site/login']));
 if ( !Yii::$app->user->can('gestionar-hecho'))
@@ -33,13 +31,11 @@ if ( !Yii::$app->user->can('gestionar-hecho'))
         <?= Alert::widget() ?>
     </div>
     <p>
-
-        <?= Html::a('Asignar Archivo', ['hecho-archivo/create', 'id' => $model->id_hecho], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Modificar', ['update', 'id' => $model->id_hecho], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('<span class="glyphicon glyphicon-trash"></span>', ['delete', 'id' => $model->id_hecho], [
+        <?= Html::a('<svg aria-hidden="true" style="display:inline-block;font-size:inherit;height:1em;overflow:visible;vertical-align:-.125em;width:1em" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M498 142l-46 46c-5 5-13 5-17 0L324 77c-5-5-5-12 0-17l46-46c19-19 49-19 68 0l60 60c19 19 19 49 0 68zm-214-42L22 362 0 484c-3 16 12 30 28 28l122-22 262-262c5-5 5-13 0-17L301 100c-4-5-12-5-17 0zM124 340c-5-6-5-14 0-20l154-154c6-5 14-5 20 0s5 14 0 20L144 340c-6 5-14 5-20 0zm-36 84h48v36l-64 12-32-31 12-65h36v48z"></path></svg>', ['update', 'id' => $model->id_hecho], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('<span class="fa fa-trash"></span>', ['delete', 'id' => $model->id_hecho], [
             'class' => 'btn btn-danger',
             'data' => [
-                'confirm' => '¿Está seguro de eliminar este elemento?',
+                'confirm' =>'¿Estas seguro que deceas eliminar este elemento?',
                 'method' => 'post',
             ],
         ]) ?>
@@ -49,6 +45,11 @@ if ( !Yii::$app->user->can('gestionar-hecho'))
         'model' => $model,
         'attributes' => [
 
+            'fecha',
+            'etapa',
+            'titulo:ntext',
+            'descripcion:ntext',
+            'cuerpo:ntext',
             [
                 'attribute' => 'revisado',
                 'value' => function ($model) {
@@ -61,70 +62,41 @@ if ( !Yii::$app->user->can('gestionar-hecho'))
                     return $model->publico ? 'Si' : 'No';
                 },
             ],
-            'titulo:ntext',
-            'descripcion:ntext',
-            'fecha',
         ],
     ]) ?>
 
 
-    
     <?php
-   
-
-
-    $archivos = new HechoArchivo();
-    $archivos= HechoArchivo::find()->where(['id_hecho' => $model->id_hecho ])->all();
-
-
-
+    $archivos= HechoArchivo::find()->where(['id_hecho' => $model->id_hecho])->all();
     $searchModel = new backend\models\Archivo\ArchivoSearch();
-    $x=0; $data;
+    $x=0; $data = [];
     foreach ($archivos as $arc):
+        $dataProvider1 = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider1->query->where(['id_archivo'=>$arc->id_archivo]);
+        $data1 = $dataProvider1->getModels();
+        $data = array_merge($data, $data1);
         $x++;
-        if ($x==1){
-            $dataProvider1 = $searchModel->search(Yii::$app->request->queryParams);
-            $dataProvider1->query->where(['id_archivo'=>$arc->id_archivo]);
-            $data = $dataProvider1->getModels();
-        }
-        if ($x==2){
-            $dataProvider2 = $searchModel->search(Yii::$app->request->queryParams);
-            $dataProvider2->query->where(['id_archivo'=>$arc->id_archivo]);
-            $data =  array_merge($dataProvider1->getModels(), $dataProvider2->getModels());
-        }
-        if ($x==3){
-            $dataProvider3 = $searchModel->search(Yii::$app->request->queryParams);
-            $dataProvider3->query->where(['id_archivo'=>$arc->id_archivo]);
-            $data1 = array_merge($dataProvider1->getModels(), $dataProvider2->getModels());
-            $data = array_merge($data1, $dataProvider3->getModels());
-        }
     endforeach;
 
     if ($x!=0){
         $dataProvider = new \yii\data\ArrayDataProvider([
             'allModels' => $data
+
         ]);
     }
     else{
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         $dataProvider->query->where(['id_archivo'=>0]);
     };
-
-    
     ?>
 
 
-
-
-    <?php yii\widgets\Pjax::begin(); 
-    $idnew = $model->id_hecho;
-    ?>
+    <?php yii\widgets\Pjax::begin(); ?>
     <?= kartik\grid\GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'id'=> 'archivo-index-update',
-       
-        
+
         'pjax' => true,
         'pjaxSettings' =>[
             'neverTimeout' => true,
@@ -192,7 +164,7 @@ if ( !Yii::$app->user->can('gestionar-hecho'))
             ],
 
             [
-                'attribute' => 'url_archivo',                     // Url del Archivo
+                'attribute' => 'url_archivo',           'filter'=> false,          // Url del Archivo
                 'format' => 'raw',
                 'headerOptions' => ['class' => 'col-md-3'],
                 'value' => function ($model) {
@@ -221,22 +193,13 @@ if ( !Yii::$app->user->can('gestionar-hecho'))
 
             [
                 'class' =>'kartik\grid\ActionColumn',
-                'template' => '{view} {delete}',
-                 'buttons'=> [
-                        'view' => function($url, $model) {
-                            return Html::a('<span class="fa fa-eye"></span>' , ['archivo/view', 'id' => $model->id_archivo], ['title' => 'view']);
-                        },
+                'template' => '{view}',
+                'buttons'=> [
+                    'view' => function($url, $model) {
+                        return Html::a('<span class="fa fa-eye"></span>' , ['archivo/view', 'id' => $model->id_archivo], ['title' => 'view']);
+                    },
 
-                        'delete' => function($url, $model) use ( $idnew) {
-                            return Html::a('<span class= "glyphicon glyphicon-trash"></span>', ['hecho-archivo/delete', 'id' => $model->id_archivo, 'id2' => $idnew], [
-                            'data' => [
-                                'confirm' => 'Está seguro de que desea eliminar este elemento?',
-                                'method' => 'post',
-                            ],
-                            'title' => "Eliminar"
 
-                            ]);
-                        } ,
                 ],
 
 
@@ -246,4 +209,5 @@ if ( !Yii::$app->user->can('gestionar-hecho'))
 
         ],
     ]); ?>
+
 </div>

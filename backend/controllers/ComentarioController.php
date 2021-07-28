@@ -37,18 +37,24 @@ class ComentarioController extends Controller
     {
 
         $searchModel = new ComentarioSearch();
-        $searchModel->publico = 0; // initial filter don't work
+        $searchModel->revisado = 0; // initial filter don't work
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         $searchModel1 = new ComentarioSearch();
-        $searchModel1->publico = 1; // initial filter don't work
+        $searchModel1->revisado = 1; // initial filter don't work
         $dataProvider1 = $searchModel1->search(Yii::$app->request->queryParams);
+
+        $searchModel2 = new ComentarioSearch();
+        $searchModel2->publico = 1; // initial filter don't work
+        $dataProvider2 = $searchModel2->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
             'searchModel1' => $searchModel1,
             'dataProvider1' => $dataProvider1,
+            'searchModel2' => $searchModel2,
+            'dataProvider2' => $dataProvider2,
         ]);
     }
 

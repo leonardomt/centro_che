@@ -62,7 +62,7 @@ if ( !Yii::$app->user->can('gestionar-investigacion'))
             [
                 'attribute' => 'titulo_investigacion',
                 'format' => 'raw',
-                'headerOptions' => ['class' => 'col-md-1']
+                'headerOptions' => ['class' => 'col-md-2']
             ],
             [
                 'attribute' => 'autor',

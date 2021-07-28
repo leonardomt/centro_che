@@ -17,7 +17,7 @@ class EscritoArchivoSearch extends EscritoArchivo
     public function rules()
     {
         return [
-            [['id_escrito_archivo', 'id_escrito', 'id_archivo', 'portada'], 'integer'],
+            [['id', 'id_escrito', 'id_archivo', 'portada'], 'integer'],
             [['nota'], 'safe'],
         ];
     }
@@ -58,7 +58,7 @@ class EscritoArchivoSearch extends EscritoArchivo
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'id_escrito_archivo' => $this->id_escrito_archivo,
+            'id' => $this->id,
             'id_escrito' => $this->id_escrito,
             'id_archivo' => $this->id_archivo,
             'portada' => $this->portada,

@@ -1,7 +1,8 @@
 <?php
-
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use yii\bootstrap4\Breadcrumbs;
+use common\widgets\Alert;
 use backend\models\Testimonio\TestimonioArchivo;
 
 /* @var $this yii\web\View */
@@ -16,13 +17,18 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="testimonio-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
-
+    <div class="">
+        <?= Breadcrumbs::widget([
+            'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+        ]) ?>
+        <?= Alert::widget() ?>
+    </div>
     <p>
-        <?= Html::a('Modificar', ['update', 'id' => $model->id_testimonio], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('<span class="glyphicon glyphicon-trash"></span>', ['delete', 'id' => $model->id_testimonio], [
+        <?= Html::a('<svg aria-hidden="true" style="display:inline-block;font-size:inherit;height:1em;overflow:visible;vertical-align:-.125em;width:1em" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M498 142l-46 46c-5 5-13 5-17 0L324 77c-5-5-5-12 0-17l46-46c19-19 49-19 68 0l60 60c19 19 19 49 0 68zm-214-42L22 362 0 484c-3 16 12 30 28 28l122-22 262-262c5-5 5-13 0-17L301 100c-4-5-12-5-17 0zM124 340c-5-6-5-14 0-20l154-154c6-5 14-5 20 0s5 14 0 20L144 340c-6 5-14 5-20 0zm-36 84h48v36l-64 12-32-31 12-65h36v48z"></path></svg>', ['update', 'id' => $model->id_testimonio], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('<span class="fa fa-trash"></span>', ['delete', 'id' => $model->id_testimonio], [
             'class' => 'btn btn-danger',
             'data' => [
-                'confirm' => '¿Estas seguro que deceas eliminar este elemento?',
+                'confirm' =>'¿Estas seguro que deceas eliminar este elemento?',
                 'method' => 'post',
             ],
         ]) ?>
@@ -51,62 +57,37 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]) ?>
 
-</div>
-
- <?php
-   
-
-
-    $archivos = new TestimonioArchivo();
+    <?php
     $archivos= TestimonioArchivo::find()->where(['id_testimonio' => $model->id_testimonio ])->all();
-
-
-
     $searchModel = new backend\models\Archivo\ArchivoSearch();
-    $x=0; $data;
+    $x=0; $data = [];
     foreach ($archivos as $arc):
+        $dataProvider1 = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider1->query->where(['id_archivo'=>$arc->id_archivo]);
+        $data1 = $dataProvider1->getModels();
+        $data = array_merge($data, $data1);
         $x++;
-        if ($x==1){
-            $dataProvider1 = $searchModel->search(Yii::$app->request->queryParams);
-            $dataProvider1->query->where(['id_archivo'=>$arc->id_archivo]);
-            $data = $dataProvider1->getModels();
-        }
-        if ($x==2){
-            $dataProvider2 = $searchModel->search(Yii::$app->request->queryParams);
-            $dataProvider2->query->where(['id_archivo'=>$arc->id_archivo]);
-            $data =  array_merge($dataProvider1->getModels(), $dataProvider2->getModels());
-        }
-        if ($x==3){
-            $dataProvider3 = $searchModel->search(Yii::$app->request->queryParams);
-            $dataProvider3->query->where(['id_archivo'=>$arc->id_archivo]);
-            $data1 = array_merge($dataProvider1->getModels(), $dataProvider2->getModels());
-            $data = array_merge($data1, $dataProvider3->getModels());
-        }
     endforeach;
 
     if ($x!=0){
         $dataProvider = new \yii\data\ArrayDataProvider([
             'allModels' => $data
+
         ]);
     }
     else{
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         $dataProvider->query->where(['id_archivo'=>0]);
     };
-
-    
     ?>
 
 
-
-
-    <?php yii\widgets\Pjax::begin(); 
-    $idtestimonio = $model->id_testimonio;?>
+    <?php yii\widgets\Pjax::begin(); ?>
     <?= kartik\grid\GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'id'=> 'archivo-index-update',
-       
+
         'pjax' => true,
         'pjaxSettings' =>[
             'neverTimeout' => true,
@@ -174,7 +155,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
 
             [
-                'attribute' => 'url_archivo',                     // Url del Archivo
+                'attribute' => 'url_archivo',     'filter'=> false,                // Url del Archivo
                 'format' => 'raw',
                 'headerOptions' => ['class' => 'col-md-3'],
                 'value' => function ($model) {
@@ -203,22 +184,13 @@ $this->params['breadcrumbs'][] = $this->title;
 
             [
                 'class' =>'kartik\grid\ActionColumn',
-                'template' => '{view} {delete}',
-                 'buttons'=> [
-                        'view' => function($url, $model) {
-                            return Html::a('<span class="fa fa-eye"></span>' , ['archivo/view', 'id' => $model->id_archivo], ['title' => 'view']);
-                        },
+                'template' => '{view}',
+                'buttons'=> [
+                    'view' => function($url, $model) {
+                        return Html::a('<span class="fa fa-eye"></span>' , ['archivo/view', 'id' => $model->id_archivo], ['title' => 'view']);
+                    },
 
-                        'delete' => function($url, $model) use ($idtestimonio) {
-                            return Html::a('<span class= "glyphicon glyphicon-trash"></span>', ['testimonio-archivo/delete', 'id' => $model->id_archivo, 'id2' => $idtestimonio], [
-                            'data' => [
-                                'confirm' => 'Está seguro de que desea eliminar este elemento?',
-                                'method' => 'post',
-                            ],
-                            'title' => "Eliminar"
 
-                            ]);
-                        } ,
                 ],
 
 
@@ -228,3 +200,5 @@ $this->params['breadcrumbs'][] = $this->title;
 
         ],
     ]); ?>
+
+</div>

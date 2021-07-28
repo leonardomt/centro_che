@@ -17,6 +17,7 @@ use Yii;
  * @property string $cuerpo
  * @property int $revisado
  * @property int $publico
+ * @property int $identificador
  */
 class Discurso extends \yii\db\ActiveRecord
 {
@@ -34,10 +35,10 @@ class Discurso extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['titulo', 'fecha', 'descripcion', 'lugar', 'medio', 'entrevistador', 'cuerpo', 'revisado', 'publico'], 'required'],
+            [['titulo', 'fecha', 'descripcion', 'cuerpo', 'revisado', 'publico', 'identificador'], 'required'],
             [['titulo', 'descripcion', 'lugar', 'entrevistador', 'cuerpo'], 'string'],
             [['fecha'], 'safe'],
-            [['revisado', 'publico'], 'integer'],
+            [['revisado', 'publico', 'identificador'], 'integer'],
             [['medio'], 'string', 'max' => 1024],
         ];
     }
@@ -58,6 +59,7 @@ class Discurso extends \yii\db\ActiveRecord
             'cuerpo' => 'Cuerpo',
             'revisado' => 'Revisado',
             'publico' => 'Publico',
+            'identificador' => 'Tipo',
         ];
     }
 }

@@ -36,6 +36,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'comentario:ntext',
             'tabla',
             'id_tabla',
+            'seccion',
             'publico',
         ],
     ]) ?>

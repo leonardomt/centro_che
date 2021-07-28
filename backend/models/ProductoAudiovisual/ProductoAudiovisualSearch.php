@@ -17,8 +17,8 @@ class ProductoAudiovisualSearch extends ProductoAudiovisual
     public function rules()
     {
         return [
-            [['id_producto_audiovisual', 'revisado', 'publico'], 'integer'],
-            [['descripcion', 'cuerpo','titulo','tipo'], 'safe'],
+            [['id_producto_audiovisual', 'revisado', 'publico','tipo'], 'integer'],
+            [['descripcion', 'cuerpo','titulo', 'autor', 'productora'], 'safe'],
         ];
     }
 
@@ -61,13 +61,14 @@ class ProductoAudiovisualSearch extends ProductoAudiovisual
             'id_producto_audiovisual' => $this->id_producto_audiovisual,
             'revisado' => $this->revisado,
             'publico' => $this->publico,
+            'tipo'=> $this->tipo,
         ]);
 
         $query->andFilterWhere(['like', 'descripcion', $this->descripcion])
             ->andFilterWhere(['like', 'cuerpo', $this->cuerpo])
             ->andFilterWhere(['like', 'titulo', $this->titulo])
-            ->andFilterWhere(['like', 'tipo', $this->tipo])
-
+            ->andFilterWhere(['like', 'autor', $this->autor])
+            ->andFilterWhere(['like', 'productora', $this->productora])
         ;
 
         return $dataProvider;

@@ -68,7 +68,7 @@ use common\widgets\Alert;
 
 
 
-<?php $form = \yii\widgets\ActiveForm::begin(['id' => 'dynamic-form']); ?>
+<?php $form = \kartik\form\ActiveForm::begin(['id' => 'dynamic-form']); ?>
 <div class="row">
     <div class="col-sm-6">
         <?= $form->field($model, 'titulo')->textInput(['maxlength' => true]) ?>
@@ -128,7 +128,7 @@ use common\widgets\Alert;
     <?= Html::submitButton($modelArchivo->isNewRecord ? 'Create' : 'Update', ['class' => 'btn btn-primary']) ?>
 </div>
 
-<?php \yii\widgets\ActiveForm::end(); ?>
+<?php \kartik\form\ActiveForm::end(); ?>
 
 
 

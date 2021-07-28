@@ -1,8 +1,10 @@
 <?php
 namespace backend\controllers;
 
+use backend\models\Articulo\Articulo;
 use backend\models\User\SignupForm;
 use Yii;
+use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
@@ -62,7 +64,19 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        $articulos = Articulo::find()->all(); $x=0; $autores = [];
+        foreach ($articulos as $articulo){
+            $autores[$x]= $articulo->autor;
+            $x++;
+        }
+
+
+        $values = array_count_values($autores);
+        arsort($values);
+        $escritores = array_slice($values, 0, 5, true);
+
+
+        return $this->render('index', array("escritores"=>$values));
     }
 
     /**

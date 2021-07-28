@@ -1,10 +1,11 @@
 <?php
 
 use yii\helpers\Html;
-use yii\grid\GridView;
+use kartik\grid\GridView;
 use yii\widgets\Pjax;
 use yii\bootstrap4\Breadcrumbs;
 use common\widgets\Alert;
+
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\Escrito\EscritoSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -15,18 +16,12 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="escrito-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
-
-    <?php Pjax::begin(); ?>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
-<div class="">
-        <?= Breadcrumbs::widget([
-            'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-        ]) ?>
-        <?= Alert::widget() ?>
-    </div>
+    <?= Breadcrumbs::widget([
+        'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+    ]) ?>
+    <?= Alert::widget() ?>
     <p>
-        <?= Html::a('<span class="glyphicon glyphicon-plus"></span>', ['create'], [
+        <?= Html::a('<span class="fa fa-plus "></span>', ['create'], [
             'class' => 'btn btn-success',
             "title"=>"Agregar"])
         ?>
@@ -59,26 +54,26 @@ $this->params['breadcrumbs'][] = $this->title;
                 },
                 'filter'=>array(""=>"Todos","1"=>"Si","0"=>"No"),
             ],
+            [
+                'attribute' => 'tipo',                     // tipo
+                'format' => 'raw',
+                'headerOptions' => ['class' => 'col-md-3'],
+                'filter' => array('Crónica'=>'Crónica','Poesía'=>'Poesía', 'Artículo'=>'Artículo', 'Apuntes de Lectura'=>'Apuntes de Lectura', 'Prólogo'=>'Prólogo', 'Ensayo'=>'Ensayo', ''=>'Todos'),
+            ],
             [                
                 'attribute' => 'titulo',                     // Titulo
                 'format' => 'raw',
                 'headerOptions' => ['class' => 'col-md-3'],
             ],
-
-             [                
-                'attribute' => 'tipo',                     // tipo
-                'format' => 'raw',
-                'headerOptions' => ['class' => 'col-md-2'],
-                'filter' => array('Crónica'=>'Crónica','Poesía'=>'Poesía', 'Artículo'=>'Artículo', 'Apuntes de Lectura'=>'Apuntes de Lectura', 'Prólogo'=>'Prólogo', 'Ensayo'=>'Ensayo', ''=>'Todos'),
-            ],
-        
             [
                 'attribute' => 'descripcion',
                 'headerOptions' => ['class' => 'col-md-5'],
                 'format' => 'raw',
+                'value' => function ($model) {
+                    return '<div style="line-height: 1.2em; height: 6em; overflow: hidden;">'.\yii\helpers\HtmlPurifier::process($model->descripcion).'</div>';
+                },
             ],
 
-        
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

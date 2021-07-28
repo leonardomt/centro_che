@@ -17,8 +17,8 @@ class ComentarioSearch extends Comentario
     public function rules()
     {
         return [
-            [['id',  'id_tabla', 'publico'], 'integer'],
-            [['fecha','tabla', 'alias', 'correo', 'comentario'], 'safe'],
+            [['id',  'id_tabla', 'publico', 'revisado', 'respuesta'], 'integer'],
+            [['fecha','tabla', 'alias', 'correo', 'comentario', 'seccion'], 'safe'],
         ];
     }
 
@@ -61,12 +61,15 @@ class ComentarioSearch extends Comentario
             'id' => $this->id,
             'id_tabla' => $this->id_tabla,
             'publico' => $this->publico,
+            'revisado' => $this->revisado,
+            'respuesta' => $this->respuesta,
         ]);
 
         $query->andFilterWhere(['like', 'alias', $this->alias])
             ->andFilterWhere(['like', 'correo', $this->correo])
             ->andFilterWhere(['like', 'tabla', $this->tabla])
             ->andFilterWhere(['like', 'fecha', $this->fecha])
+            ->andFilterWhere(['like', 'seccion', $this->seccion])
             ->andFilterWhere(['like', 'comentario', $this->comentario]);
 
         return $dataProvider;

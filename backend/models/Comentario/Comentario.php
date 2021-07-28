@@ -15,6 +15,9 @@ use Yii;
  * @property int $tabla
  * @property int $id_tabla
  * @property int $publico
+ * @property int $revisado
+ * @property string $seccion
+ * @property int $respuesta
  */
 class Comentario extends \yii\db\ActiveRecord
 {
@@ -35,8 +38,8 @@ class Comentario extends \yii\db\ActiveRecord
             [[ 'alias', 'correo', 'comentario', 'tabla', 'id_tabla', 'publico'], 'required'],
             [['fecha'], 'safe'],
             [['comentario', 'tabla'], 'string'],
-            [[ 'id_tabla', 'publico'], 'integer'],
-            [['alias'], 'string', 'max' => 256],
+            [[ 'id_tabla', 'publico', 'revisado', 'respuesta'], 'integer'],
+            [['alias', 'seccion'], 'string', 'max' => 256],
             [['tabla'], 'string', 'max' => 128],
             [['correo'], 'string', 'max' => 512],
         ];
@@ -53,9 +56,12 @@ class Comentario extends \yii\db\ActiveRecord
             'alias' => 'Alias',
             'correo' => 'Correo',
             'comentario' => 'Comentario',
-            'tabla' => 'Tabla',
-            'id_tabla' => 'Tabla',
-            'publico' => 'Publico',
+            'tabla' => 'Sección',
+            'id_tabla' => 'Publicación',
+            'publico' => 'Público',
+            'revisado' => 'Revisado',
+            'respuesta' => 'Respuesta',
+            'seccion' => 'Área',
         ];
     }
 }

@@ -216,21 +216,11 @@ class ArticuloController extends Controller
     public function actionDelete($id)
     {
 
-        $temporal = new ArticuloArchivo();
         $temporal = ArticuloArchivo::find()->where(['id_articulo' => $this->findModel($id)->id_articulo])->all();
         foreach ($temporal as $t) {
             $t->delete();
         }
-
-        $comentarios = new ArticuloComentario();
-        $comentarios = ArticuloComentario::find()->where(['id_articulo' => $this->findModel($id)->id_articulo])->all();
-        foreach ($comentarios as $c) {
-            $c->delete();
-        }
-
         $this->findModel($id)->delete();
-
-
 
         return $this->redirect(['index']);
     }

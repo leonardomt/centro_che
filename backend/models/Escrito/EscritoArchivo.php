@@ -7,7 +7,7 @@ use Yii;
 /**
  * This is the model class for table "escrito_archivo".
  *
- * @property int $id_escrito_archivo
+ * @property int $id
  * @property int $id_escrito
  * @property int $id_archivo
  * @property string $nota
@@ -41,7 +41,7 @@ class EscritoArchivo extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id_escrito_archivo' => 'Escrito Archivo',
+            'id' => 'Escrito Archivo',
             'id_escrito' => 'Escrito',
             'id_archivo' => 'Archivo',
             'nota' => 'Nota',

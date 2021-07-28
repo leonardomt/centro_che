@@ -1,7 +1,8 @@
 <?php
 
 use yii\helpers\Html;
-
+use yii\bootstrap4\Breadcrumbs;
+use common\widgets\Alert;
 /* @var $this yii\web\View */
 /* @var $model backend\models\Galeria\GaleriaVO */
 
@@ -31,14 +32,14 @@ $this->params['breadcrumbs'][] = 'Modificar';
 
     <h1><?= Html::encode($this->title) ?></h1>
     <div class="">
-        <?= \yii\widgets\Breadcrumbs::widget([
+        <?= Breadcrumbs::widget([
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
         ]) ?>
-        <?= \common\widgets\Alert::widget() ?>
+        <?= Alert::widget() ?>
     </div>
 
 
-    <?php $form = \yii\widgets\ActiveForm::begin(['id' => 'dynamic-form']); ?>
+    <?php $form = \kartik\form\ActiveForm::begin(['id' => 'dynamic-form']); ?>
 
     <?= $form->field($model, 'tipo')->hiddenInput(['value' => $tipo])->label(false) ?>
 
@@ -48,9 +49,7 @@ $this->params['breadcrumbs'][] = 'Modificar';
 
 
     <div class="panel panel-default">
-        <div class="panel-heading">
-            <h4><i class="glyphicon glyphicon-envelope"></i> Archivo</h4>
-        </div>
+
         <div class="panel-body">
             <?php \wbraganca\dynamicform\DynamicFormWidget::begin([
                 'widgetContainer' => 'dynamicform_wrapper', // required: only alphanumeric characters plus "_" [A-Za-z0-9_]
@@ -85,8 +84,11 @@ $this->params['breadcrumbs'][] = 'Modificar';
                             }
                             ?>
 
-                            <?= $form->field($modelArchivo, "[{$i}]id_archivo")->dropDownList(
-                                \yii\helpers\ArrayHelper::map(\backend\models\Archivo\Archivo::find()->all(), 'id_archivo', 'titulo_archivo')
+                            <?= $form->field($modelArchivo, "[{$i}]id_archivo")->widget(\kartik\select2\Select2::classname(), [
+                                    'data' => \yii\helpers\ArrayHelper::map(\backend\models\Archivo\Archivo::find()->all(), 'id_archivo', 'titulo_archivo'),
+                                    'options' => ['placeholder' => 'Seleccionar', 'multiple' => false, 'required' => true],
+                                    'theme' => \kartik\select2\Select2::THEME_KRAJEE,
+                                    'size' => 'xs',]
                             ) ?>
 
 
@@ -113,13 +115,13 @@ $this->params['breadcrumbs'][] = 'Modificar';
         </div>
         <div class="col-lg-1">
             <div class="form-group">
-                <?= Html::submitButton($modelArchivo->isNewRecord ? '<i class="fa fa-floppy-o" aria-hidden="true"></i>' : '<i class="fa fa-floppy-o" aria-hidden="true"></i>', ['class' => 'btn btn-primary']) ?>
+                <?= Html::submitButton($modelArchivo->isNewRecord ? '<i class="fa fa-floppy-o" aria-hidden="true"></i>' : '<i class="fa fa-floppy-o" aria-hidden="true"></i>', ['class' => 'btn btn-success']) ?>
             </div>
         </div>
 
     </div>
 
-    <?php \yii\widgets\ActiveForm::end(); ?>
+    <?php \kartik\form\ActiveForm::end(); ?>
 
 
     <?php
@@ -203,7 +205,7 @@ $this->params['breadcrumbs'][] = 'Modificar';
             ],
 
             [
-                'attribute' => 'url_archivo',                     // Url del Archivo
+                'attribute' => 'url_archivo',          'filter'=> false,           // Url del Archivo
                 'format' => 'raw',
                 'headerOptions' => ['class' => 'col-md-3'],
                 'value' => function ($model) {

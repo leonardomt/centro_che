@@ -57,7 +57,6 @@ if ( !Yii::$app->user->can('gestionar-noticia'))
             'etiqueta:ntext',
             'descripcion:ntext',
             'cuerpo:ntext',
-
             [
                 'attribute' => 'revisado',
                 'value' => function ($model) {
@@ -72,6 +71,7 @@ if ( !Yii::$app->user->can('gestionar-noticia'))
                 },
             ],
         ],
+
     ]) ?>
 
 
@@ -173,7 +173,7 @@ if ( !Yii::$app->user->can('gestionar-noticia'))
             ],
 
             [
-                'attribute' => 'url_archivo',                     // Url del Archivo
+                'attribute' => 'url_archivo',             'filter'=> false,        // Url del Archivo
                 'format' => 'raw',
                 'headerOptions' => ['class' => 'col-md-3'],
                 'value' => function ($model) {

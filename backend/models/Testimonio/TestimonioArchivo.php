@@ -29,7 +29,7 @@ class TestimonioArchivo extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [[ 'nota'], 'required'],
+            [[ 'id_archivo'], 'required'],
             [['id_testimonio', 'id_archivo', 'portada'], 'integer'],
             [['nota'], 'string'],
         ];

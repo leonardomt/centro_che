@@ -18,7 +18,7 @@ class HechoSearch extends Hecho
     {
         return [
             [['id_hecho', 'revisado', 'publico'], 'integer'],
-            [['titulo', 'descripcion', 'cuerpo', 'fecha'], 'safe'],
+            [['titulo', 'descripcion', 'cuerpo', 'fecha','etapa'], 'safe'],
         ];
     }
 
@@ -66,7 +66,8 @@ class HechoSearch extends Hecho
 
         $query->andFilterWhere(['like', 'titulo', $this->titulo])
             ->andFilterWhere(['like', 'descripcion', $this->descripcion])
-            ->andFilterWhere(['like', 'cuerpo', $this->cuerpo]);
+            ->andFilterWhere(['like', 'cuerpo', $this->cuerpo])
+            ->andFilterWhere(['like', 'etapa', $this->etapa]);
 
         return $dataProvider;
     }

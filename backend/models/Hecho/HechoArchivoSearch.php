@@ -17,7 +17,7 @@ class HechoArchivoSearch extends HechoArchivo
     public function rules()
     {
         return [
-            [['id_hecho_archivo', 'id_hecho', 'id_archivo', 'portada'], 'integer'],
+            [['id', 'id_hecho', 'id_archivo', 'portada'], 'integer'],
             [['nota'], 'string'],
         ];
     }
@@ -58,7 +58,7 @@ class HechoArchivoSearch extends HechoArchivo
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'id_hecho_archivo' => $this->id_hecho_archivo,
+            'id' => $this->id,
             'id_hecho' => $this->id_hecho,
             'id_archivo' => $this->id_archivo,
             'portada' => $this->portada,

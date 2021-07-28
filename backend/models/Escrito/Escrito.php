@@ -48,7 +48,7 @@ class Escrito extends \yii\db\ActiveRecord
             'tipo' => 'Tipo',
             'titulo' => 'Titulo',
             'descripcion' => 'Descripcion',
-            'cuerpo' => 'Cuerpo',
+            'cuerpo' => 'Contenido',
             'revisado' => 'Revisado',
             'publico' => 'Publico',
         ];

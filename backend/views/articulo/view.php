@@ -173,7 +173,8 @@ if ( !Yii::$app->user->can('gestionar-curso-online'))
                ],
 
                [
-                   'attribute' => 'url_archivo',                     // Url del Archivo
+                   'attribute' => 'url_archivo',
+                   'filter' => false,
                    'format' => 'raw',
                    'headerOptions' => ['class' => 'col-md-3'],
                    'value' => function ($model) {
@@ -202,7 +203,7 @@ if ( !Yii::$app->user->can('gestionar-curso-online'))
 
                [
                    'class' =>'kartik\grid\ActionColumn',
-                   'template' => '{view} {delete}',
+                   'template' => '{view}',
                     'buttons'=> [
                            'view' => function($url, $model) {
                                return Html::a('<span class="fa fa-eye"></span>' , ['archivo/view', 'id' => $model->id_archivo], ['title' => 'view']);

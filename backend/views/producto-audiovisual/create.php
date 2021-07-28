@@ -13,7 +13,7 @@ use yii\helpers\ArrayHelper;
 /* @var $model backend\models\ProductoAudiovisual\ProductoAudiovisual */
 
 $this->title = 'Crear Producto Audiovisual';
-$this->params['breadcrumbs'][] = ['label' => 'Producto Audiovisual', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Productos Audiovisuales', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 if (Yii::$app->user->isGuest)
     return Yii::$app->getResponse()->redirect(\yii\helpers\Url::to(['site/login']));
@@ -30,11 +30,7 @@ if (!Yii::$app->user->can('gestionar-producto-audiovisual'))
         <?= Alert::widget() ?>
     </div>
 
-
-
-
-
-    <?php $form = \yii\widgets\ActiveForm::begin(['id' => 'dynamic-form']); ?>
+    <?php $form = \kartik\form\ActiveForm::begin(['id' => 'dynamic-form']); ?>
 
     <div class="row">
         <div class="col-lg-6 text-lg-left">
@@ -73,9 +69,6 @@ if (!Yii::$app->user->can('gestionar-producto-audiovisual'))
 
 
     <div class="panel panel-default">
-        <div class="panel-heading">
-            <h4><i class="glyphicon glyphicon-envelope"></i> Archivos</h4>
-        </div>
         <div class="panel-body">
             <?php \wbraganca\dynamicform\DynamicFormWidget::begin([
                 'widgetContainer' => 'dynamicform_wrapper', // required: only alphanumeric characters plus "_" [A-Za-z0-9_]
@@ -104,11 +97,7 @@ if (!Yii::$app->user->can('gestionar-producto-audiovisual'))
                             if ($x == 0) $titulo = "Archivo";
 
                             ?>
-
                             <h3 class="panel-title pull-left"><?= $titulo ?></h3>
-                            <div class="pull-right">
-                               
-                            </div>
                             <div class="clearfix"></div>
                         </div>
                         <div class="panel-body">
@@ -118,9 +107,13 @@ if (!Yii::$app->user->can('gestionar-producto-audiovisual'))
                                 echo Html::activeHiddenInput($modelArchivo, "[{$i}]id");
                             }
                             ?>
+                            <?= $form->field($modelArchivo, "[{$i}]nota")->textarea(['rows' => 3]) ?>
 
-                            <?= $form->field($modelArchivo, "[{$i}]id_archivo")->dropDownList(
-                                \yii\helpers\ArrayHelper::map(\backend\models\Archivo\Archivo::find()->all(), 'id_archivo', 'titulo_archivo')
+                            <?= $form->field($modelArchivo, "[{$i}]id_archivo")->widget(\kartik\select2\Select2::classname(), [
+                                    'data' => \yii\helpers\ArrayHelper::map(\backend\models\Archivo\Archivo::find()->all(), 'id_archivo', 'titulo_archivo'),
+                                    'options' => ['placeholder' => 'Seleccionar', 'multiple' => false, 'required' => true],
+                                    'theme' => \kartik\select2\Select2::THEME_KRAJEE,
+                                    'size' => 'xs',]
                             ) ?>
 
 
@@ -154,13 +147,13 @@ if (!Yii::$app->user->can('gestionar-producto-audiovisual'))
         </div>
         <div class="col-lg-1">
             <div class="form-group">
-                <?= Html::submitButton($modelArchivo->isNewRecord ? '<i class="fa fa-floppy-o" aria-hidden="true"></i>' : '<i class="fa fa-floppy-o" aria-hidden="true"></i>', ['class' => 'btn btn-primary']) ?>
+                <?= Html::submitButton($modelArchivo->isNewRecord ? '<i class="fa fa-floppy-o" aria-hidden="true"></i>' : '<i class="fa fa-floppy-o" aria-hidden="true"></i>', ['class' => 'btn btn-success']) ?>
             </div>
         </div>
 
     </div>
 
-    <?php \yii\widgets\ActiveForm::end(); ?>
+    <?php \kartik\form\ActiveForm::end(); ?>
 
 
     <?php
@@ -244,7 +237,7 @@ if (!Yii::$app->user->can('gestionar-producto-audiovisual'))
             ],
 
             [
-                'attribute' => 'url_archivo',                     // Url del Archivo
+                'attribute' => 'url_archivo',          'filter'=> false,           // Url del Archivo
                 'format' => 'raw',
                 'headerOptions' => ['class' => 'col-md-3'],
                 'value' => function ($model) {

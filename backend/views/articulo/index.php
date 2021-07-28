@@ -130,13 +130,6 @@ if ( Yii::$app->user->isGuest )
                     ],
                 ]),
             ],
-
-
-
-
-
-
-
             [
                 'class' => 'yii\grid\ActionColumn',
 

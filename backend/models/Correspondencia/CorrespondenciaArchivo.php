@@ -8,7 +8,7 @@ use backend\models\Archivo\Archivo;
 /**
  * This is the model class for table "correspondencia_archivo".
  *
- * @property string $id_correspondencia_archivo
+ * @property string $id
  * @property int $id_correspondencia
  * @property int $id_archivo
   * @property string $nota
@@ -30,7 +30,7 @@ class CorrespondenciaArchivo extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id_correspondencia', 'id_archivo', 'portada'], 'required'],
+            [['id_archivo'], 'required'],
             [['id_correspondencia', 'id_archivo' , 'portada'], 'integer'],
             [['nota'], 'string'],
         ];

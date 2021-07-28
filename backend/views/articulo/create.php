@@ -7,6 +7,7 @@ use common\widgets\Alert;
 use yii\widgets\Pjax;
 use kartik\grid\GridView;
 use yii\helpers\ArrayHelper;
+use kartik\form\ActiveForm;
 
 /* @var $this yii\web\View */
 /* @var $model backend\models\Articulo\Articulo */
@@ -32,7 +33,7 @@ if (Yii::$app->user->isGuest)
 
 
 
-    <?php $form = \yii\widgets\ActiveForm::begin(['id' => 'dynamic-form']); ?>
+    <?php $form = kartik\form\ActiveForm::begin(['id' => 'dynamic-form']); ?>
 
     <div class="row">
         <div class="col-lg-12 text-lg-left">
@@ -55,9 +56,12 @@ if (Yii::$app->user->isGuest)
         </div>
     </div>
 
-    <?= $form->field($model, 'id_investigacion')->dropDownList(
-        ArrayHelper::map(Investigacion::find()->all(), 'id_investigacion', 'titulo_investigacion'),
-        ['prompt' => 'Ninguna']
+    <?=
+    $form->field($model, 'id_investigacion')->widget(\kartik\select2\Select2::classname(), [
+        'data' => \yii\helpers\ArrayHelper::map(Investigacion::find()->all(), 'id_investigacion', 'titulo_investigacion'),
+        'options' => ['placeholder' => 'Seleccionar', 'multiple' => false, 'required' => true],
+        'theme' => \kartik\select2\Select2::THEME_KRAJEE,
+        'size' => 'xs',]
     ) ?>
 
     <?= $form->field($model, 'resumen')->textarea(['rows' => 2]) ?>
@@ -122,8 +126,11 @@ if (Yii::$app->user->isGuest)
 
                             <?= $form->field($modelArchivo, "[{$i}]nota")->textarea(['rows' => 6]) ?>
 
-                            <?= $form->field($modelArchivo, "[{$i}]id_archivo")->dropDownList(
-                                \yii\helpers\ArrayHelper::map(\backend\models\Archivo\Archivo::find()->all(), 'id_archivo', 'titulo_archivo')
+                            <?= $form->field($modelArchivo, "[{$i}]id_archivo")->widget(\kartik\select2\Select2::classname(), [
+                                'data' => \yii\helpers\ArrayHelper::map(\backend\models\Archivo\Archivo::find()->all(), 'id_archivo', 'titulo_archivo'),
+                                'options' => ['placeholder' => 'Seleccionar', 'multiple' => false, 'required' => true],
+                                'theme' => \kartik\select2\Select2::THEME_KRAJEE,
+                                'size' => 'xs',]
                             ) ?>
 
 
@@ -157,12 +164,12 @@ if (Yii::$app->user->isGuest)
         </div>
         <div class="col-lg-1">
             <div class="form-group">
-                <?= Html::submitButton($modelArchivo->isNewRecord ? '<i class="fa fa-floppy-o" aria-hidden="true"></i>' : '<i class="fa fa-floppy-o" aria-hidden="true"></i>', ['class' => 'btn btn-primary']) ?>
+                <?= Html::submitButton($modelArchivo->isNewRecord ? '<i class="fa fa-floppy-o" aria-hidden="true"></i>' : '<i class="fa fa-floppy-o" aria-hidden="true"></i>', ['class' => 'btn btn-success']) ?>
             </div>
         </div>
     </div>
 
-    <?php \yii\widgets\ActiveForm::end(); ?>
+    <?php kartik\form\ActiveForm::end(); ?>
 
 
     <?php
@@ -249,6 +256,7 @@ if (Yii::$app->user->isGuest)
             [
                 'attribute' => 'url_archivo',                     // Url del Archivo
                 'format' => 'raw',
+                'filter' => false,
                 'headerOptions' => ['class' => 'col-md-3'],
                 'value' => function ($model) {
                     if ($model->url_archivo != ' ' && $model->url_archivo != NULL) { // verifica si fue importada o no

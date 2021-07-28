@@ -164,9 +164,26 @@ class ExposicionController extends Controller
                         if (!empty($deletedIDs)) {
                             ExposicionArchivo::deleteAll(['id' => $deletedIDs]);
                         }
+
                         foreach ($modelsArchivo as $modelArchivo) {
-                            $modelArchivo->id_escrito = $model->id_escrito;
-                            if (! ($flag = $modelArchivo->save(false))) {
+
+                            if ($x == 0) {
+                                $modelArchivo->portada = 1;
+                                $x++;
+                                $archivo = new Archivo();
+                                $archivo = Archivo::find()->where(['id_archivo' => $modelArchivo->id_archivo])->one();
+                                if (!($archivo->tipo_archivo == 1)) {
+                                    Yii::$app->session->setFlash('error', 'Una Expocicion solo puede tener una imagen como portada.');
+                                    return $this->redirect([
+                                        'update', 'model' => $model,
+                                        'modelsArchivo' => (empty($modelsArchivo)) ? [new ExposicionArchivo] : $modelsArchivo,
+                                    ]);
+                                };
+                            } else {
+                                $modelArchivo->portada = 0;
+                            }
+                            $modelArchivo->id_exposicion = $model->id_exposicion;
+                            if (!($flag = $modelArchivo->save(false))) {
                                 $transaction->rollBack();
                                 break;
                             }

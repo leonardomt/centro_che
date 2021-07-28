@@ -3,6 +3,9 @@
 use yii\helpers\Html;
 use kartik\grid\GridView;
 use yii\widgets\Pjax;
+use yii\bootstrap4\Breadcrumbs;
+use common\widgets\Alert;
+
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\Galeria\GaleriaVoSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -26,9 +29,14 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="galeria-vo-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
-
+    <div class="">
+        <?= Breadcrumbs::widget([
+            'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+        ]) ?>
+        <?= Alert::widget() ?>
+    </div>
     <p>
-        <?= Html::a('<span class="glyphicon glyphicon-plus"></span>', ['create', 'tipo' => $tipo,], [
+        <?= Html::a('<span class="fa fa-plus"></span>', ['create', 'tipo' => $tipo,], [
             'class' => 'btn btn-success',
             "title"=>"Agregar"])
         ?>
@@ -41,7 +49,6 @@ $this->params['breadcrumbs'][] = $this->title;
             'dataProvider' => $dataProvider,
             'filterModel' => $searchModel,
             'columns' => [
-                ['class' => 'yii\grid\SerialColumn'],
 
                 [
                     'attribute' => 'publico',

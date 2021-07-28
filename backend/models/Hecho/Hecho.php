@@ -13,6 +13,7 @@ use Yii;
  * @property string $titulo
  * @property string $descripcion
  * @property string $cuerpo
+ * @property string $etapa
  * @property string $fecha
  */
 class Hecho extends \yii\db\ActiveRecord
@@ -33,7 +34,7 @@ class Hecho extends \yii\db\ActiveRecord
         return [
             [['revisado', 'publico', 'titulo', 'descripcion', 'cuerpo', 'fecha'], 'required'],
             [['revisado', 'publico'], 'integer'],
-            [['titulo', 'descripcion', 'cuerpo'], 'string'],
+            [['titulo', 'descripcion', 'cuerpo', 'etapa'], 'string'],
             [['fecha'], 'safe'],
         ];
     }
@@ -51,6 +52,7 @@ class Hecho extends \yii\db\ActiveRecord
             'descripcion' => 'Descripción',
             'cuerpo' => 'Cuerpo',
             'fecha' => 'Fecha',
+            'etapa' => 'Etapa',
         ];
     }
 }

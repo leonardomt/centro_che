@@ -29,7 +29,7 @@ if (!Yii::$app->user->can('gestionar-curso-online'))
     </div>
 
 
-    <?php $form = \yii\widgets\ActiveForm::begin(['id' => 'dynamic-form']); ?>
+    <?php $form = \kartik\form\ActiveForm::begin(['id' => 'dynamic-form']); ?>
 
 
     <div class="row">
@@ -156,7 +156,7 @@ if (!Yii::$app->user->can('gestionar-curso-online'))
     </div>
 
 
-    <?php \yii\widgets\ActiveForm::end(); ?>
+    <?php \kartik\form\ActiveForm::end(); ?>
 
 
 

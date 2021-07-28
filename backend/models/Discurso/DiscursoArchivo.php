@@ -7,7 +7,7 @@ use Yii;
 /**
  * This is the model class for table "discurso_archivo".
  *
- * @property int $id_discurso_archivo
+ * @property int $id
  * @property int $id_discurso
  * @property int $id_archivo
  * @property string $nota
@@ -29,7 +29,7 @@ class DiscursoArchivo extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id_discurso', 'id_archivo', 'nota', 'portada'], 'required'],
+            [['id_archivo'], 'required'],
             [['id_discurso', 'id_archivo', 'portada'], 'integer'],
             [['nota'], 'string'],
         ];
@@ -41,7 +41,7 @@ class DiscursoArchivo extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id_discurso_archivo' => 'Discurso Archivo',
+            'id' => 'Discurso Archivo',
             'id_discurso' => 'Discurso',
             'id_archivo' => 'Archivo',
             'nota' => 'Nota',
