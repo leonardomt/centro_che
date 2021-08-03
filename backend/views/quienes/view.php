@@ -91,24 +91,16 @@ if ( Yii::$app->user->isGuest )
                 }
 
             ],
-
+            
             [
                 'class' => 'kartik\grid\ActionColumn',
                 'template' => '{delete}',
                 'headerOptions' => ['class' => 'col-md-1'],
-                'buttons'=> [
-
-                    'delete' => function($url, $model) {
-                        return Html::a('<span class= "fa fa-trash"></span>', ['quienes-archivo/delete', 'id' => $model->id], [
-                            'data' => [
-                                'confirm' => 'Está seguro de que desea eliminar este elemento?',
-                                'method' => 'post',
-                            ],
-                            'title' => "Eliminar",
-
-
-                        ]);
-                    } ,
+                'buttons' => [
+                    'delete' => function ($url, $model)
+                    {
+                        return Html::a('<button class="btn btn-danger"><i class="fa fa-trash"></i></button>',['quienes-archivo/delete', 'id' => $model->id], ['data-confirm' => '¿Está seguro que desea eliminar este elemento?', 'data-method' =>'POST']);
+                    }
                 ],
             ],
 

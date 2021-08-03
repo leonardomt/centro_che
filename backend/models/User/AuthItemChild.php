@@ -29,8 +29,8 @@ class AuthItemChild extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['parent', 'child'], 'required'],
-            [['parent', 'child'], 'string', 'max' => 64],
+            [['child'], 'required'],
+            [['parent'], 'string', 'max' => 64],
             [['parent', 'child'], 'unique', 'targetAttribute' => ['parent', 'child']],
             [['parent'], 'exist', 'skipOnError' => true, 'targetClass' => AuthItem::className(), 'targetAttribute' => ['parent' => 'name']],
             [['child'], 'exist', 'skipOnError' => true, 'targetClass' => AuthItem::className(), 'targetAttribute' => ['child' => 'name']],

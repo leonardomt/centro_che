@@ -60,66 +60,13 @@ $this->params['breadcrumbs'][] = $this->title;
                             if ($modelpadre->tabla == 'noticia') {
                                 return 'Actualidad';
                             }
-                            if ($modelpadre->tabla == 'revista') {
-                                return 'Revista';
-                            }
-                            if ($modelpadre->tabla == 'quienes') {
-                                return 'Quienes Somoms';
-                            }
-                            if ($modelpadre->tabla == 'linea_investigacion') {
-                                return 'Línea de Investigación';
-                            }
-                            if ($modelpadre->tabla == 'investigacion') {
-                                return 'Investigación';
-                            }
                             if ($modelpadre->tabla == 'articulo') {
                                 return 'Artículo';
-                            }
-                            if ($modelpadre->tabla == 'gestion_documental') {
-                                return 'Colección Documental';
-                            }
-                            if ($modelpadre->tabla == 'coleccion_documental') {
-                                return 'Documento';
-                            }
-                            if ($modelpadre->tabla == 'proyecto') {
-                                return 'Proyecto Editorial';
-                            }
-                            if ($modelpadre->tabla == 'libro') {
-                                return 'Libro';
-                            }
-                            if ($modelpadre->tabla == 'curso_online') {
-                                return 'Curso Online';
-                            }
-                            if ($modelpadre->tabla == 'clase') {
-                                return 'Clase';
                             }
                             if ($modelpadre->tabla == 'taller') {
                                 return 'Proyecto Comunitario';
                             }
-                            if ($modelpadre->tabla == 'exposicion') {
-                                return 'Exposicion';
-                            }
-                            if ($modelpadre->tabla == 'producto_audiovisual') {
-                                return 'Producto Audiovisual';
-                            }
-                            if ($modelpadre->tabla == 'otros') {
-                                return 'Otros Productos';
-                            }
-                            if ($modelpadre->tabla == 'hecho') {
-                                return 'Cronología';
-                            }
-                            if ($modelpadre->tabla == 'correspondencia') {
-                                return 'Correspondencia';
-                            }
-                            if ($modelpadre->tabla == 'escrito') {
-                                return 'Escrito';
-                            }
-                            if ($modelpadre->tabla == 'discurso') {
-                                return 'Discurso y Entrevista';
-                            }
-                            if ($modelpadre->tabla == 'testimonio') {
-                                return 'Testimonio';
-                            }
+
                             $modelpadre = \backend\models\Comentario\Comentario::find()->where(['id' => $modelpadre->id_tabla])->one();
                         }
                         return 'Comentario';
@@ -127,70 +74,16 @@ $this->params['breadcrumbs'][] = $this->title;
                     if ($model->tabla == 'noticia') {
                         return 'Actualidad';
                     }
-                    if ($model->tabla == 'revista') {
-                        return 'Revista';
-                    }
-                    if ($model->tabla == 'quienes') {
-                        return 'Quienes Somoms';
-                    }
-                    if ($model->tabla == 'linea_investigacion') {
-                        return 'Línea de Investigación';
-                    }
-                    if ($model->tabla == 'investigacion') {
-                        return 'Investigación';
-                    }
                     if ($model->tabla == 'articulo') {
                         return 'Artículo';
-                    }
-                    if ($model->tabla == 'gestion_documental') {
-                        return 'Colección Documental';
-                    }
-                    if ($model->tabla == 'coleccion_documental') {
-                        return 'Documento';
-                    }
-                    if ($model->tabla == 'proyecto') {
-                        return 'Proyecto Editorial';
-                    }
-                    if ($model->tabla == 'libro') {
-                        return 'Libro';
-                    }
-                    if ($model->tabla == 'curso_online') {
-                        return 'Curso Online';
-                    }
-                    if ($model->tabla == 'clase') {
-                        return 'Clase';
                     }
                     if ($model->tabla == 'taller') {
                         return 'Proyecto Comunitario';
                     }
-                    if ($model->tabla == 'exposicion') {
-                        return 'Exposicion';
-                    }
-                    if ($model->tabla == 'producto_audiovisual') {
-                        return 'Producto Audiovisual';
-                    }
-                    if ($model->tabla == 'otros') {
-                        return 'Otros Productos';
-                    }
-                    if ($model->tabla == 'hecho') {
-                        return 'Cronología';
-                    }
-                    if ($model->tabla == 'correspondencia') {
-                        return 'Correspondencia';
-                    }
-                    if ($model->tabla == 'escrito') {
-                        return 'Escrito';
-                    }
-                    if ($model->tabla == 'discurso') {
-                        return 'Discurso y Entrevista';
-                    }
-                    if ($model->tabla == 'testimonio') {
-                        return 'Testimonio';
-                    }
+
                 },
                 'format' => 'raw',
-                'headerOptions' => ['class' => 'col-md-2'],
-                'filter' => array('Escritos de Juventud' => 'Escritos de Juventud', 'Antologías' => 'Antologías', 'Memoria Histórica' => 'Memoria Histórica', 'Filosofía y Política' => 'Filosofía y Política', 'Economía Política' => 'Economía Política', 'De Divulgación General' => 'De Divulgación General', 'Lecturas sobre el pensamiento y la obra del Che' => 'Lecturas sobre el pensamiento y la obra del Che'),
+                'filter' => array('noticia' => 'Actualidad', 'articulo' => 'Artículo', 'taller' => 'Proyecto Comunitario', 'comentario' => 'Comentario'),
             ],
 
 
@@ -202,68 +95,120 @@ $this->params['breadcrumbs'][] = $this->title;
                         $modelpadre = \backend\models\Comentario\Comentario::find()->where(['id' => $model->id_tabla])->one();
                         for ($x = 0; $x <= 7; $x++) {
                             if ($modelpadre->tabla == 'noticia') {
+                                $noticia = \backend\models\Noticia\Noticia::find()->where(['id_noticia' => $modelpadre->id_tabla])->one();
+                                return Html::a($noticia->titulo_noticia, ['noticia/view', 'id' => $modelpadre->id_tabla], [
+                                    "title" => "Ver"]);
+                            }
+                            if ($modelpadre->tabla == 'articulo') {
+                                $articulo = \backend\models\Articulo\Articulo::find()->where(['id_articulo' => $modelpadre->id_tabla])->one();
+                                return Html::a($articulo->titulo, ['articulo/view', 'id' => $modelpadre->id_tabla], [
+                                    "title" => "Ver"]);
+                            }
+                            if ($modelpadre->tabla == 'taller') {
+                                $taller = \backend\models\Taller\Taller::find()->where(['id_taller' => $modelpadre->id_tabla])->one();
+                                return Html::a($taller->nombre, ['taller/view', 'id' => $modelpadre->id_tabla], [
+                                    "title" => "Ver"]);
+                            }
+                            $modelpadre = \backend\models\Comentario\Comentario::find()->where(['id' => $modelpadre->id_tabla])->one();
+                        }
+                        return 'Comentario';
+                    }
+                    if ($model->tabla == 'noticia') {
+                        $noticia = \backend\models\Noticia\Noticia::find()->where(['id_noticia' => $model->id_tabla])->one();
+                        return Html::a($noticia->titulo_noticia, ['noticia/view', 'id' => $model->id_tabla], [
+                            "title" => "Ver"]);
+                    }
+                    if ($model->tabla == 'articulo') {
+                        $articulo = \backend\models\Articulo\Articulo::find()->where(['id_articulo' => $model->id_tabla])->one();
+                        return Html::a($articulo->titulo, ['articulo/view', 'id' => $model->id_tabla], [
+                            "title" => "Ver"]);
+                    }
+                    if ($model->tabla == 'taller') {
+                        $taller = \backend\models\Taller\Taller::find()->where(['id_taller' => $model->id_tabla])->one();
+                        return Html::a($taller->nombre, ['taller/view', 'id' => $model->id_tabla], [
+                            "title" => "Ver"]);
+                    }
+                },
+                'format' => 'raw',
+                'filter' => false,
+            ],
+            //'publico',
+
+            [
+                'class' => 'kartik\grid\ActionColumn',
+                'template' => '{view}{aprobar}{delete}',
+                'headerOptions' => ['class' => 'col-md-1'],
+                'buttons' => [
+                    'view' => function ($url, $model) {
+                        return Html::a('<button class="btn btn-success"><i class="fa fa-eye"></i></button>', $url);
+                    },
+                    'aprobar' => function ($url, $model) {
+                        return Html::a('<button class="btn btn-primary"><i class="fa fa-check"></i></button>', $url, ['data-confirm' => '¿Está seguro que desea aprobar este comentario?', 'data-method' => 'POST']);
+                    },
+                    'delete' => function ($url, $model) {
+                        return Html::a('<button class="btn btn-danger"><i class="fa fa-times"></i></button>', $url, ['data-confirm' => '¿Está seguro que desea denegar este comentario?', 'data-method' => 'POST']);
+                    }
+                ],
+            ],
+        ],
+    ]); ?>
+
+    <?php Pjax::end(); ?>
+
+    <hr class="page_separator"/>
+
+    <h1><?= Html::encode($this->title) ?></h1>
+    <h4>Publicados</h4>
+    <?php Pjax::begin(); ?>
+    <?= GridView::widget([
+        'dataProvider' => $dataProvider1,
+        'filterModel' => $searchModel1,
+        'columns' => [
+
+            [
+                'attribute' => 'fecha',
+                'value' => 'fecha',
+                'format' => 'raw',
+                'headerOptions' => ['class' => 'col-md-3'],
+                'filter' => \dosamigos\datepicker\DatePicker::widget([
+                    'model' => $searchModel,
+                    'attribute' => 'fecha',
+                    'clientOptions' => [
+                        'autoclose' => true,
+                        'format' => 'yyyy-mm-dd'
+                    ],
+                ]),
+            ],
+            [
+                'attribute' => 'alias',
+                'headerOptions' => ['class' => 'col-md-2'],
+            ],
+            //'correo',
+            [
+                'attribute' => 'comentario',
+                'headerOptions' => ['class' => 'col-md-3'],
+            ],
+            [
+                'attribute' => 'seccion',
+                'headerOptions' => ['class' => 'col-md-2'],
+            ],
+            [
+                'attribute' => 'tabla',
+                'headerOptions' => ['class' => 'col-md-2'],
+                'value' => function ($model) {
+                    if ($model->tabla == 'comentario') {
+                        $modelpadre = \backend\models\Comentario\Comentario::find()->where(['id' => $model->id_tabla])->one();
+                        for ($x = 0; $x <= 7; $x++) {
+                            if ($modelpadre->tabla == 'noticia') {
                                 return 'Actualidad';
-                            }
-                            if ($modelpadre->tabla == 'revista') {
-                                return 'Revista';
-                            }
-                            if ($modelpadre->tabla == 'quienes') {
-                                return 'Quienes Somoms';
-                            }
-                            if ($modelpadre->tabla == 'linea_investigacion') {
-                                return 'Línea de Investigación';
-                            }
-                            if ($modelpadre->tabla == 'investigacion') {
-                                return 'Investigación';
                             }
                             if ($modelpadre->tabla == 'articulo') {
                                 return 'Artículo';
                             }
-                            if ($modelpadre->tabla == 'gestion_documental') {
-                                return 'Colección Documental';
-                            }
-                            if ($modelpadre->tabla == 'coleccion_documental') {
-                                return 'Documento';
-                            }
-                            if ($modelpadre->tabla == 'proyecto') {
-                                return 'Proyecto Editorial';
-                            }
-                            if ($modelpadre->tabla == 'libro') {
-                                return 'Libro';
-                            }
-                            if ($modelpadre->tabla == 'curso_online') {
-                                return 'Curso Online';
-                            }
-                            if ($modelpadre->tabla == 'clase') {
-                                return 'Clase';
-                            }
                             if ($modelpadre->tabla == 'taller') {
                                 return 'Proyecto Comunitario';
                             }
-                            if ($modelpadre->tabla == 'exposicion') {
-                                return 'Exposicion';
-                            }
-                            if ($modelpadre->tabla == 'producto_audiovisual') {
-                                return 'Producto Audiovisual';
-                            }
-                            if ($modelpadre->tabla == 'otros') {
-                                return 'Otros Productos';
-                            }
-                            if ($modelpadre->tabla == 'hecho') {
-                                return 'Cronología';
-                            }
-                            if ($modelpadre->tabla == 'correspondencia') {
-                                return 'Correspondencia';
-                            }
-                            if ($modelpadre->tabla == 'escrito') {
-                                return 'Escrito';
-                            }
-                            if ($modelpadre->tabla == 'discurso') {
-                                return 'Discurso y Entrevista';
-                            }
-                            if ($modelpadre->tabla == 'testimonio') {
-                                return 'Testimonio';
-                            }
+
                             $modelpadre = \backend\models\Comentario\Comentario::find()->where(['id' => $modelpadre->id_tabla])->one();
                         }
                         return 'Comentario';
@@ -271,129 +216,94 @@ $this->params['breadcrumbs'][] = $this->title;
                     if ($model->tabla == 'noticia') {
                         return 'Actualidad';
                     }
-                    if ($model->tabla == 'revista') {
-                        return 'Revista';
-                    }
-                    if ($model->tabla == 'quienes') {
-                        return 'Quienes Somoms';
-                    }
-                    if ($model->tabla == 'linea_investigacion') {
-                        return 'Línea de Investigación';
-                    }
-                    if ($model->tabla == 'investigacion') {
-                        return 'Investigación';
-                    }
                     if ($model->tabla == 'articulo') {
-                        return Html::a('<span class="fa fa-eye "></span>', ['articulo/view', 'id'=>$model->id_tabla], [
-                            'class' => 'btn btn-success',
-                            "title" => "Ver"]);
-                    }
-                    if ($model->tabla == 'gestion_documental') {
-                        return 'Colección Documental';
-                    }
-                    if ($model->tabla == 'coleccion_documental') {
-                        return 'Documento';
-                    }
-                    if ($model->tabla == 'proyecto') {
-                        return 'Proyecto Editorial';
-                    }
-                    if ($model->tabla == 'libro') {
-                        return 'Libro';
-                    }
-                    if ($model->tabla == 'curso_online') {
-                        return 'Curso Online';
-                    }
-                    if ($model->tabla == 'clase') {
-                        return 'Clase';
+                        return 'Artículo';
                     }
                     if ($model->tabla == 'taller') {
                         return 'Proyecto Comunitario';
                     }
-                    if ($model->tabla == 'exposicion') {
-                        return 'Exposicion';
+
+                },
+                'format' => 'raw',
+                'filter' => array('noticia' => 'Actualidad', 'articulo' => 'Artículo', 'taller' => 'Proyecto Comunitario', 'comentario' => 'Comentario'),
+            ],
+
+
+            [
+                'attribute' => 'id_tabla',
+                'headerOptions' => ['class' => 'col-md-1'],
+                'value' => function ($model) {
+                    if ($model->tabla == 'comentario') {
+                        $modelpadre = \backend\models\Comentario\Comentario::find()->where(['id' => $model->id_tabla])->one();
+                        for ($x = 0; $x <= 7; $x++) {
+                            if ($modelpadre->tabla == 'noticia') {
+                                $noticia = \backend\models\Noticia\Noticia::find()->where(['id_noticia' => $modelpadre->id_tabla])->one();
+                                return Html::a($noticia->titulo_noticia, ['noticia/view', 'id' => $modelpadre->id_tabla], [
+                                    "title" => "Ver"]);
+                            }
+                            if ($modelpadre->tabla == 'articulo') {
+                                $articulo = \backend\models\Articulo\Articulo::find()->where(['id_articulo' => $modelpadre->id_tabla])->one();
+                                return Html::a($articulo->titulo, ['articulo/view', 'id' => $modelpadre->id_tabla], [
+                                    "title" => "Ver"]);
+                            }
+                            if ($modelpadre->tabla == 'taller') {
+                                $taller = \backend\models\Taller\Taller::find()->where(['id_taller' => $modelpadre->id_tabla])->one();
+                                return Html::a($taller->nombre, ['taller/view', 'id' => $modelpadre->id_tabla], [
+                                    "title" => "Ver"]);
+                            }
+                            $modelpadre = \backend\models\Comentario\Comentario::find()->where(['id' => $modelpadre->id_tabla])->one();
+                        }
+                        return 'Comentario';
                     }
-                    if ($model->tabla == 'producto_audiovisual') {
-                        return 'Producto Audiovisual';
+                    if ($model->tabla == 'noticia') {
+                        $noticia = \backend\models\Noticia\Noticia::find()->where(['id_noticia' => $model->id_tabla])->one();
+                        return Html::a($noticia->titulo_noticia, ['noticia/view', 'id' => $model->id_tabla], [
+                            "title" => "Ver"]);
                     }
-                    if ($model->tabla == 'otros') {
-                        return 'Otros Productos';
+                    if ($model->tabla == 'articulo') {
+                        $articulo = \backend\models\Articulo\Articulo::find()->where(['id_articulo' => $model->id_tabla])->one();
+                        return Html::a($articulo->titulo, ['articulo/view', 'id' => $model->id_tabla], [
+                            "title" => "Ver"]);
                     }
-                    if ($model->tabla == 'hecho') {
-                        return 'Cronología';
-                    }
-                    if ($model->tabla == 'correspondencia') {
-                        return 'Correspondencia';
-                    }
-                    if ($model->tabla == 'escrito') {
-                        return 'Escrito';
-                    }
-                    if ($model->tabla == 'discurso') {
-                        return 'Discurso y Entrevista';
-                    }
-                    if ($model->tabla == 'testimonio') {
-                        return 'Testimonio';
+                    if ($model->tabla == 'taller') {
+                        $taller = \backend\models\Taller\Taller::find()->where(['id_taller' => $model->id_tabla])->one();
+                        return Html::a($taller->nombre, ['taller/view', 'id' => $model->id_tabla], [
+                            "title" => "Ver"]);
                     }
                 },
                 'format' => 'raw',
-                'headerOptions' => ['class' => 'col-md-2'],
                 'filter' => false,
             ],
             //'publico',
 
-            ['class' => 'yii\grid\ActionColumn'],
-        ],
-    ]); ?>
-
-    <?php Pjax::end(); ?>
-
-    <hr class="page_separator"/>
-
-    <h1><?= Html::encode($this->title) ?></h1>
-    <h4>Revisados</h4>
-    <?php Pjax::begin(); ?>
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider1,
-        'filterModel' => $searchModel1,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
-
             [
-                'attribute' => 'fecha',
-                'value' => 'fecha',
-                'format' => 'raw',
-                'headerOptions' => ['class' => 'col-md-3'],
-                'filter' => \dosamigos\datepicker\DatePicker::widget([
-                    'model' => $searchModel,
-                    'attribute' => 'fecha',
-                    'clientOptions' => [
-                        'autoclose' => true,
-
-                    ],
-                ]),
+                'class' => 'kartik\grid\ActionColumn',
+                'template' => '{view}{aprobar}{delete}',
+                'headerOptions' => ['class' => 'col-md-1'],
+                'buttons' => [
+                    'view' => function ($url, $model) {
+                        return Html::a('<button class="btn btn-success"><i class="fa fa-eye"></i></button>', $url);
+                    },
+                    'aprobar' => function ($url, $model) {
+                        return Html::a('<button class="btn btn-primary"><i class="fa fa-check"></i></button>', $url, ['data-confirm' => '¿Está seguro que desea aprobar este comentario?', 'data-method' => 'POST']);
+                    },
+                    'delete' => function ($url, $model) {
+                        return Html::a('<button class="btn btn-danger"><i class="fa fa-times"></i></button>', $url, ['data-confirm' => '¿Está seguro que desea denegar este comentario?', 'data-method' => 'POST']);
+                    }
+                ],
             ],
-            'alias',
-            //'correo',
-            'comentario:ntext',
-            'tabla',
-            //'id_tabla',
-            //'publico',
-
-            ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
     <?php Pjax::end(); ?>
 
     <hr class="page_separator"/>
     <h1><?= Html::encode($this->title) ?></h1>
-    <h4>Publicados</h4>
+    <h4>Denegados</h4>
     <?php Pjax::begin(); ?>
     <?= GridView::widget([
         'dataProvider' => $dataProvider2,
         'filterModel' => $searchModel2,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
 
             [
                 'attribute' => 'fecha',
@@ -405,18 +315,123 @@ $this->params['breadcrumbs'][] = $this->title;
                     'attribute' => 'fecha',
                     'clientOptions' => [
                         'autoclose' => true,
-
+                        'format' => 'yyyy-mm-dd'
                     ],
                 ]),
             ],
-            'alias',
+            [
+                'attribute' => 'alias',
+                'headerOptions' => ['class' => 'col-md-2'],
+            ],
             //'correo',
-            'comentario:ntext',
-            'tabla',
-            //'id_tabla',
+            [
+                'attribute' => 'comentario',
+                'headerOptions' => ['class' => 'col-md-3'],
+            ],
+            [
+                'attribute' => 'seccion',
+                'headerOptions' => ['class' => 'col-md-2'],
+            ],
+            [
+                'attribute' => 'tabla',
+                'headerOptions' => ['class' => 'col-md-2'],
+                'value' => function ($model) {
+                    if ($model->tabla == 'comentario') {
+                        $modelpadre = \backend\models\Comentario\Comentario::find()->where(['id' => $model->id_tabla])->one();
+                        for ($x = 0; $x <= 7; $x++) {
+                            if ($modelpadre->tabla == 'noticia') {
+                                return 'Actualidad';
+                            }
+                            if ($modelpadre->tabla == 'articulo') {
+                                return 'Artículo';
+                            }
+                            if ($modelpadre->tabla == 'taller') {
+                                return 'Proyecto Comunitario';
+                            }
+
+                            $modelpadre = \backend\models\Comentario\Comentario::find()->where(['id' => $modelpadre->id_tabla])->one();
+                        }
+                        return 'Comentario';
+                    }
+                    if ($model->tabla == 'noticia') {
+                        return 'Actualidad';
+                    }
+                    if ($model->tabla == 'articulo') {
+                        return 'Artículo';
+                    }
+                    if ($model->tabla == 'taller') {
+                        return 'Proyecto Comunitario';
+                    }
+
+                },
+                'format' => 'raw',
+                'filter' => array('noticia' => 'Actualidad', 'articulo' => 'Artículo', 'taller' => 'Proyecto Comunitario', 'comentario' => 'Comentario'),
+            ],
+
+
+            [
+                'attribute' => 'id_tabla',
+                'headerOptions' => ['class' => 'col-md-1'],
+                'value' => function ($model) {
+                    if ($model->tabla == 'comentario') {
+                        $modelpadre = \backend\models\Comentario\Comentario::find()->where(['id' => $model->id_tabla])->one();
+                        for ($x = 0; $x <= 7; $x++) {
+                            if ($modelpadre->tabla == 'noticia') {
+                                $noticia = \backend\models\Noticia\Noticia::find()->where(['id_noticia' => $modelpadre->id_tabla])->one();
+                                return Html::a($noticia->titulo_noticia, ['noticia/view', 'id' => $modelpadre->id_tabla], [
+                                    "title" => "Ver"]);
+                            }
+                            if ($modelpadre->tabla == 'articulo') {
+                                $articulo = \backend\models\Articulo\Articulo::find()->where(['id_articulo' => $modelpadre->id_tabla])->one();
+                                return Html::a($articulo->titulo, ['articulo/view', 'id' => $modelpadre->id_tabla], [
+                                    "title" => "Ver"]);
+                            }
+                            if ($modelpadre->tabla == 'taller') {
+                                $taller = \backend\models\Taller\Taller::find()->where(['id_taller' => $modelpadre->id_tabla])->one();
+                                return Html::a($taller->nombre, ['taller/view', 'id' => $modelpadre->id_tabla], [
+                                    "title" => "Ver"]);
+                            }
+                            $modelpadre = \backend\models\Comentario\Comentario::find()->where(['id' => $modelpadre->id_tabla])->one();
+                        }
+                        return 'Comentario';
+                    }
+                    if ($model->tabla == 'noticia') {
+                        $noticia = \backend\models\Noticia\Noticia::find()->where(['id_noticia' => $model->id_tabla])->one();
+                        return Html::a($noticia->titulo_noticia, ['noticia/view', 'id' => $model->id_tabla], [
+                            "title" => "Ver"]);
+                    }
+                    if ($model->tabla == 'articulo') {
+                        $articulo = \backend\models\Articulo\Articulo::find()->where(['id_articulo' => $model->id_tabla])->one();
+                        return Html::a($articulo->titulo, ['articulo/view', 'id' => $model->id_tabla], [
+                            "title" => "Ver"]);
+                    }
+                    if ($model->tabla == 'taller') {
+                        $taller = \backend\models\Taller\Taller::find()->where(['id_taller' => $model->id_tabla])->one();
+                        return Html::a($taller->nombre, ['taller/view', 'id' => $model->id_tabla], [
+                            "title" => "Ver"]);
+                    }
+                },
+                'format' => 'raw',
+                'filter' => false,
+            ],
             //'publico',
 
-            ['class' => 'kartik\grid\ActionColumn'],
+            [
+                'class' => 'kartik\grid\ActionColumn',
+                'template' => '{view}{aprobar}{delete}',
+                'headerOptions' => ['class' => 'col-md-1'],
+                'buttons' => [
+                    'view' => function ($url, $model) {
+                        return Html::a('<button class="btn btn-success"><i class="fa fa-eye"></i></button>', $url);
+                    },
+                    'aprobar' => function ($url, $model) {
+                        return Html::a('<button class="btn btn-primary"><i class="fa fa-check"></i></button>', $url, ['data-confirm' => '¿Está seguro que desea aprobar este comentario?', 'data-method' => 'POST']);
+                    },
+                    'delete' => function ($url, $model) {
+                        return Html::a('<button class="btn btn-danger"><i class="fa fa-times"></i></button>', $url, ['data-confirm' => '¿Está seguro que desea denegar este comentario?', 'data-method' => 'POST']);
+                    }
+                ],
+            ],
         ],
     ]); ?>
     <?php Pjax::end(); ?>

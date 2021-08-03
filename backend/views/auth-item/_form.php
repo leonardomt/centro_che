@@ -24,18 +24,22 @@ use common\widgets\Alert;
                     <div class="box box-content">
                         <div class="inbox-editor">
                             <div class="row">
-                                <div class="col-lg-6 text-lg-left">
+                                <div class="col-lg-12 text-lg-left">
                                     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
                                 </div>
-                                <div class="col-lg-6 text-lg-left">
-                                    <?=$form->field($model, 'type')->dropDownList(['1' => 'Rol', '0' => 'Permiso'],['prompt'=>'-']) ?>
-                                </div>
+                                <?= $form->field($model, 'type')->hiddenInput(['value' => 1])->label(false) ?>
                             </div>
                             <div class="row">
                                 <div class="col-lg-12 text-lg-left">
-                                    <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
+                                    <?= $form->field($model, 'description')->textarea(['rows' => 2]) ?>
                                 </div>
                             </div>
+                            <?= $form->field([$modelChild], "child")->widget(\kartik\select2\Select2::classname(), [
+                                    'data' => \yii\helpers\ArrayHelper::map(\backend\models\User\AuthItem::find()->where(['type'=> 2])->all(), 'name', 'name'),
+                                    'options' => ['placeholder' => 'Seleccionar', 'multiple' => true, 'required' => true],
+                                    'theme' => \kartik\select2\Select2::THEME_KRAJEE,
+                                    'size' => 'xs',]
+                            ) ?>
 
                                 <div class="row">
                             <div class="form-group ">

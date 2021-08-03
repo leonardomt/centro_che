@@ -14,7 +14,7 @@ use yii\widgets\ActiveForm;
 
     <?php if ($model->isNewRecord) { ?>
 
-    <?= $form->field($model, 'file')->widget(
+        <?= $form->field($model, 'file')->widget(
             \kartik\file\FileInput::classname(),
             [
                 'pluginOptions' => [
@@ -27,9 +27,20 @@ use yii\widgets\ActiveForm;
             ]
         );
     }; ?>
-    <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+
+    <div class="row panel-heading">
+        <div class="col-lg-1"></div>
+        <div class="col-lg-5">
+        </div>
+        <div class="col-lg-4 ">
+        </div>
+        <div class="col-lg-1">
+            <div class="form-group">
+                <?= Html::submitButton('<i class="fa fa-floppy-o" aria-hidden="true"></i>', ['class' => 'btn btn-success']) ?>
+            </div>
+        </div>
     </div>
+
 
     <?php ActiveForm::end(); ?>
 

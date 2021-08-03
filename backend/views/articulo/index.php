@@ -1,11 +1,10 @@
-
 <?php
 
 use yii\helpers\Html;
-use yii\grid\GridView;
 use yii\widgets\Pjax;
 use yii\bootstrap4\Breadcrumbs;
 use common\widgets\Alert;
+use kartik\grid\GridView;
 
 
 /* @var $this yii\web\View */
@@ -14,10 +13,9 @@ use common\widgets\Alert;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 
-
 $this->title = 'Artículos';
 $this->params['breadcrumbs'][] = $this->title;
-if ( Yii::$app->user->isGuest )
+if (Yii::$app->user->isGuest)
     return Yii::$app->getResponse()->redirect(\yii\helpers\Url::to(['site/login']));
 ?>
 
@@ -34,117 +32,104 @@ if ( Yii::$app->user->isGuest )
     <p>
         <?= Html::a('<span class="fa fa-plus "></span>', ['create'], [
             'class' => 'btn btn-success',
-            "title"=>"Agregar"])
+            "title" => "Agregar"])
         ?>
     </p>
-
-    <?php Pjax::begin([
-        'id' => 'articulo-index-update',
-    ]); ?>
-
-
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => (new \backend\models\Articulo\ArticuloSearch()),
-        'id'=> 'articulo-index-update',
-        
-        'columns' => [
-
-            [
-                'attribute' => 'revisado',
-                'format' => 'raw',
-                'headerOptions' => ['class' => 'col-md-1'],
-                'value' => function ($model) {
-                    return $model->revisado ? 'Si' : 'No';
-                },
-                'filter'=>array(""=>"Todos","1"=>"Si","0"=>"No"),
-            ],
-            [
-                'attribute' => 'publico',
-                'format' => 'raw',
-                'headerOptions' => ['class' => 'col-md-1'],
-                'value' => function ($model) {
-                    return $model->publico ? 'Si' : 'No';
-                },
-                'filter'=>array(""=>"Todos","1"=>"Si","0"=>"No"),
-            ],
-            [
-                'attribute' => 'titulo',                     // Titulo
-                'format' => 'raw',
-                'headerOptions' => ['class' => 'col-md-1']
-            ],
-            [
-                'attribute' => 'autor',                     // Titulo
-                'format' => 'raw',
-                'headerOptions' => ['class' => 'col-md-1']
-            ],
+    <div class="col-md-12">
+        <?php Pjax::begin([
+            'id' => 'articulo-index-update',
+        ]); ?>
 
 
-            [
-                'attribute'=>'id_investigacion',
-                'value'=>'investigacionInscrita.titulo_investigacion',
-                'format' => 'raw',
-                'headerOptions' => ['class' => 'col-md-1'],
-                'filter' => \yii\helpers\ArrayHelper::map(\backend\models\Investigacion\Investigacion::find()->asArray()->all(), 'id_investigacion', 'titulo_investigacion'),
+        <?= GridView::widget([
+            'dataProvider' => $dataProvider,
+            'filterModel' => (new \backend\models\Articulo\ArticuloSearch()),
+            'id' => 'articulo-index-update',
 
-            ],
+            'columns' => [
+                [
+                    'attribute' => 'revisado',
+                    'format' => 'raw',
+                    'headerOptions' => ['class' => 'col-md-1'],
+                    'value' => function ($model) {
+                        return $model->revisado ? 'Si' : 'No';
+                    },
+                    'filter' => array("" => "Todos", "1" => "Si", "0" => "No"),
+                ],
+                [
+                    'attribute' => 'publico',
+                    'format' => 'raw',
+                    'headerOptions' => ['class' => 'col-md-1'],
+                    'value' => function ($model) {
+                        return $model->publico ? 'Si' : 'No';
+                    },
+                    'filter' => array("" => "Todos", "1" => "Si", "0" => "No"),
+                ],
+                [
+                    'attribute' => 'titulo',
+                    'format' => 'raw',
+                    'headerOptions' => ['class' => 'col-md-1'],
 
-            [
-                'attribute' => 'resumen',                     // Titulo
-                'format' => 'raw',
-                'headerOptions' => ['class' => 'col-md-1'],
-                'value' => function ($model) {
-                    return '<div style="line-height: 1.2em; height: 6em; overflow: hidden;">'.\yii\helpers\HtmlPurifier::process($model->resumen).'</div>';
-                },
+                ],
+                [
+                    'attribute' => 'autor',                     // Titulo
+                    'format' => 'raw',
+                    'headerOptions' => ['class' => 'col-md-1'],
+                ],
+                [
+                    'attribute' => 'id_investigacion',
+                    'value' => 'investigacionInscrita.titulo_investigacion',
+                    'format' => 'raw',
+                    'filter' => \yii\helpers\ArrayHelper::map(\backend\models\Investigacion\Investigacion::find()->asArray()->all(), 'id_investigacion', 'titulo_investigacion'),
+                ],
+                [
+                    'attribute' => 'palabras_clave',                     // Titulo
+                    'format' => 'raw',
+                    'headerOptions' => ['class' => 'col-md-1'],
+                ],
+                [
+                    'attribute' => 'fecha',
+                    'value' => 'fecha',
+                    'format' => 'raw',
+                    'filter' => \dosamigos\datepicker\DatePicker::widget([
+                        'model' => $searchModel,
+                        'attribute' => 'fecha',
+                        'clientOptions' => [
+                            'autoclose' => true,
+                            'format' => 'yyyy-mm-dd'
+                        ],
+                    ]),
 
-
-            ],
-
-            [
-                'attribute' => 'palabras_clave',                     // Titulo
-                'format' => 'raw',
-                'headerOptions' => ['class' => 'col-md-1']
-            ],
-
-            [
-                'attribute' => 'keywords',                     // Titulo
-                'format' => 'raw',
-                'headerOptions' => ['class' => 'col-md-1']
-            ],
-
-
-
-
-
-             [
-                            'attribute' => 'fecha',
-                            'value'=> 'fecha',
-                            'format' => 'raw',
-                            'headerOptions' => ['class' => 'col-md-1'],
-                            'filter'=>\dosamigos\datepicker\DatePicker::widget([
-                                'model'=>$searchModel,
-                                'attribute'=>'fecha',
-                                'clientOptions'=>[
-                                    'autoclose'=>true,
-                            'format'=>'yyyy-mm-dd'
+                ],
+                [
+                    'class' => 'kartik\grid\ActionColumn',
+                    'template' => '{view}{update}{delete}',
+                    'headerOptions' => ['class' => 'col-md-1'],
+                    'buttons' => [
+                        'view' => function ($url, $model)
+                        {
+                            return Html::a('<button class="btn btn-success"><i class="fa fa-eye"></i></button>',$url);
+                        },
+                        'update' => function ($url, $model)
+                        {
+                            return Html::a('<button class="btn btn-primary"><i class="fa fa-pencil"></i></button>',$url);
+                        },
+                        'delete' => function ($url, $model)
+                        {
+                            return Html::a('<button class="btn btn-danger"><i class="fa fa-trash"></i></button>',$url, ['data-confirm' => '¿Está seguro que desea eliminar este elemento?', 'data-method' =>'POST']);
+                        }
                     ],
-                ]),
+                ],
             ],
-            [
-                'class' => 'yii\grid\ActionColumn',
-
-            ],
-        ],
-    ]); ?>
+        ]); ?>
+    </div>
 
     <?php Pjax::end(); ?>
 
 </div>
 
 
-
 <?php
-
 
 
 $this->registerJs(

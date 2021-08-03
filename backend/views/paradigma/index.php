@@ -1,7 +1,7 @@
 <?php
 
 use yii\helpers\Html;
-use yii\grid\GridView;
+use kartik\grid\GridView;
 use yii\widgets\Pjax;
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\Revista\ParadigmaSearch */
@@ -25,13 +25,28 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
             'descripcion:ntext',
-            'enlace:ntext',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            [
+                'class' => 'kartik\grid\ActionColumn',
+                'template' => '{view}{update}{delete}',
+                'headerOptions' => ['class' => 'col-md-1'],
+                'buttons' => [
+                    'view' => function ($url, $model)
+                    {
+                        return Html::a('<button class="btn btn-success"><i class="fa fa-eye"></i></button>',$url);
+                    },
+                    'update' => function ($url, $model)
+                    {
+                        return Html::a('<button class="btn btn-primary"><i class="fa fa-pencil"></i></button>',$url);
+                    },
+                    'delete' => function ($url, $model)
+                    {
+                        return Html::a('<button class="btn btn-danger"><i class="fa fa-trash"></i></button>',$url, ['data-confirm' => '¿Está seguro que desea eliminar este elemento?', 'data-method' =>'POST']);
+                    }
+                ],
+            ],
         ],
     ]); ?>
 

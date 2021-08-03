@@ -8,7 +8,7 @@ use backend\models\Comentario\ComentarioSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-
+use yii\db\Expression;
 /**
  * ComentarioController implements the CRUD actions for Comentario model.
  */
@@ -38,14 +38,17 @@ class ComentarioController extends Controller
 
         $searchModel = new ComentarioSearch();
         $searchModel->revisado = 0; // initial filter don't work
+        $searchModel->publico = 0; // initial filter don't work
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         $searchModel1 = new ComentarioSearch();
         $searchModel1->revisado = 1; // initial filter don't work
+        $searchModel1->publico = 1; // initial filter don't work
         $dataProvider1 = $searchModel1->search(Yii::$app->request->queryParams);
 
         $searchModel2 = new ComentarioSearch();
-        $searchModel2->publico = 1; // initial filter don't work
+        $searchModel2->publico = 0; // initial filter don't work
+        $searchModel2->revisado = 1; // initial filter don't work
         $dataProvider2 = $searchModel2->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -76,9 +79,17 @@ class ComentarioController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate($tabla, $id)
+    public function actionCreate($id)
     {
         $model = new Comentario();
+        $padre = $this->findModel($id);
+        if ($model->load(Yii::$app->request->post())){
+            $model->fecha = new Expression('NOW()');
+            $model->seccion = $padre->seccion;
+            $model->tabla = 'comentario';
+            $model->respuesta = 1;
+            };
+
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -86,7 +97,6 @@ class ComentarioController extends Controller
 
         return $this->render('create', [
             'model' => $model,
-            'tabla' => $tabla,
             'id' => $id,
         ]);
     }
@@ -120,7 +130,22 @@ class ComentarioController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $model = $this->findModel($id);
+        $model->publico = 0;
+        $model->revisado = 1;
+        $model->save();
+
+
+        return $this->redirect(['index']);
+    }
+
+    public function actionAprobar($id)
+    {
+        $model = $this->findModel($id);
+        $model->publico = 1;
+        $model->revisado = 1;
+        $model->save();
+
 
         return $this->redirect(['index']);
     }

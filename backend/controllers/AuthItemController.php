@@ -2,12 +2,18 @@
 
 namespace backend\controllers;
 
+use backend\models\User\AuthAssignment;
+use backend\models\User\AuthItemChild;
 use Yii;
 use backend\models\User\AuthItem;
 use backend\models\User\AuthItemSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\base\Model;
+use yii\web\Response;
+use yii\widgets\ActiveForm;
+use yii\helpers\ArrayHelper;
 
 /**
  * AuthItemController implements the CRUD actions for AuthItem model.
@@ -66,13 +72,19 @@ class AuthItemController extends Controller
     public function actionCreate()
     {
         $model = new AuthItem();
-
+        $modelChild = new AuthItemChild();
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->name]);
+            $modelChild->child = implode(",",$_POST['AuthItemChild']['child']);
+
+            $modelChild->parent = $model->name;
+            $modelChild->save();
+
+            return $this->redirect(['index']);
         }
 
         return $this->render('create', [
             'model' => $model,
+            'modelChild' => $modelChild,
         ]);
     }
 

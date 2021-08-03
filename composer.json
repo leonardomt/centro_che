@@ -35,7 +35,9 @@
         "almasaeed2010/adminlte": "~3.1.0",
         "yii2mod/yii2-c3-chart": "*",
         "2amigos/yii2-chartjs-widget": "~2.0",
-        "kartik-v/yii2-widget-activeform": "@dev"
+        "kartik-v/yii2-widget-activeform": "@dev",
+        "kartik-v/yii2-icons": "@dev",
+        "rmrevin/yii2-fontawesome": "~3.5"
         
     },
     "require-dev": {

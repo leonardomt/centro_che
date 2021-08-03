@@ -7,7 +7,8 @@ use common\widgets\Alert;
 use backend\models\Articulo\ArticuloArchivo;
 use backend\models\Archivo\Archivo;
 use backend\models\Otros\OtrosArchivo;
-
+use kartik\icons\Icon;
+Icon::map($this, Icon::EL); // Maps the Elusive icon font framework
 /* @var $this yii\web\View */
 /* @var $model backend\models\Articulo\Articulo */
 
@@ -206,7 +207,7 @@ if ( !Yii::$app->user->can('gestionar-curso-online'))
                    'template' => '{view}',
                     'buttons'=> [
                            'view' => function($url, $model) {
-                               return Html::a('<span class="fa fa-eye"></span>' , ['archivo/view', 'id' => $model->id_archivo], ['title' => 'view']);
+                               return Html::a('<button class="btn btn-success"><i class="fa fa-eye"></i></button>' , ['archivo/view', 'id' => $model->id_archivo], ['title' => 'Ver' ]);
                            },
                    ],
 
