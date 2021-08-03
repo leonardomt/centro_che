@@ -23,9 +23,18 @@ use yii\widgets\ActiveForm;
         </div>
     </div>
     <?= $form->field($model, 'correo')->textInput(['maxlength' => true]) ?>
-
-    <div class="form-group">
-        <?= Html::submitButton('Guardar', ['class' => 'btn btn-success']) ?>
+    
+    <div class="row panel-heading">
+        <div class="col-lg-1"></div>
+        <div class="col-lg-5">
+        </div>
+        <div class="col-lg-4 ">
+        </div>
+        <div class="col-lg-1">
+            <div class="form-group">
+                <?= Html::submitButton('<i class="fa fa-floppy-o" aria-hidden="true"></i>', ['class' => 'btn btn-success']) ?>
+            </div>
+        </div>
     </div>
 
     <?php ActiveForm::end(); ?>

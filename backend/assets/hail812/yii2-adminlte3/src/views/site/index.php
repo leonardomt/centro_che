@@ -414,7 +414,7 @@ $bundle->js[] = 'chart/Chart.js';
 
 
         <!--------------------------------------------Escritores Destacados --------------------------------------------------->
-
+        <?php if($escritores != null): ?>
         <div class="col-md-4">
             <div class="card card-default">
                 <div class="card-header">
@@ -490,6 +490,7 @@ $bundle->js[] = 'chart/Chart.js';
                 </div>
             </div>
         </div>
+        <?php endif;?>
     </div>
 
 

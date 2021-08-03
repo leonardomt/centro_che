@@ -91,7 +91,7 @@ if ( Yii::$app->user->isGuest )
                 }
 
             ],
-            
+
             [
                 'class' => 'kartik\grid\ActionColumn',
                 'template' => '{delete}',
