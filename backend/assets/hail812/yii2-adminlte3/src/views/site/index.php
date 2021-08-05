@@ -13,70 +13,6 @@ $bundle->js[] = 'chart/Chart.js';
 ?>
 <div class="container-fluid">
 
-    <!-------------------------------------------Comentarios--------------------------------------------------------->
-
-    <div class="card card-default collapsed-card">
-        <div class="card-header">
-            <h3 class="card-title">Comentarios</h3>
-
-            <div class="card-tools">
-                <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                    <i class="fas fa-plus"></i>
-                </button>
-            </div>
-        </div>
-        <div class="card-body">
-            <div class="chart">
-                <?php
-                $comInicio = count(\backend\models\Comentario\Comentario::find()->where(['seccion' => 'Inicio'])->all());
-                $comInicioRev = count(\backend\models\Comentario\Comentario::find()->where(['seccion' => 'Inicio', 'revisado' =>1])->all());
-                $comCoordinacion = count(\backend\models\Comentario\Comentario::find()->where(['seccion' => 'Coordinación Académica'])->all());
-                $comCoordinacionRev = count(\backend\models\Comentario\Comentario::find()->where(['seccion' => 'Coordinación Académica', 'revisado' =>1])->all());
-                $comTaller = count(\backend\models\Comentario\Comentario::find()->where(['seccion' => 'Proyectos Alternativos'])->all());
-                $comTallerRev = count(\backend\models\Comentario\Comentario::find()->where(['seccion' => 'Proyectos Alternativos', 'revisado' =>1])->all());
-
-                ?>
-                <?= ChartJs::widget([
-                    'type' => 'bar',
-                    'options' => [
-                        'height' => 180,
-                        'width' => 400
-                    ],
-                    'data' => [
-                        'labels' => ["Actualidad", "Artículos", "Proyectos Comunitarios"],
-                        'datasets' => [
-                            [
-                                'label' => "Total",
-                                'backgroundColor' => "#007bff",
-                                'borderColor' => "#007bff",
-                                'pointBackgroundColor' => "#007bff",
-                                'pointBorderColor' => "#fff",
-                                'pointHoverBackgroundColor' => "#fff",
-                                'pointHoverBorderColor' => "#007bff",
-                                'data' => [$comInicio, $comCoordinacion, $comTaller]
-                            ],
-                            [
-                                'label' => "Revisados",
-                                'backgroundColor' => "#17a2b8",
-                                'borderColor' => "#17a2b8",
-                                'pointBackgroundColor' => "#17a2b8",
-                                'pointBorderColor' => "#fff",
-                                'pointHoverBackgroundColor' => "#fff",
-                                'pointHoverBorderColor' => "#17a2b8",
-                                'data' => [$comInicioRev, $comCoordinacionRev, $comTallerRev]
-                            ],
-
-                        ]
-                    ]
-                ]);
-                ?>
-            </div>
-
-
-        </div>
-    </div>
-    <hr class="page_separator"/>
-
     <div class="row">
 
         <!---------------------------------------------------Estadisticas Inicio-------------------------------------------->
@@ -84,7 +20,7 @@ $bundle->js[] = 'chart/Chart.js';
 
             <div class="card card-default ">
                 <div class="card-header">
-                    <h3 class="card-title">Cantidad de Elementos Subidos</h3>
+                    <h3 class="card-title" data-card-widget="collapse">Cantidad de Elementos Subidos</h3>
 
                     <div class="card-tools">
                         <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -99,7 +35,7 @@ $bundle->js[] = 'chart/Chart.js';
                     <div class="col ">
                         <div class="card card-primary collapsed-card ">
                             <div class="card-header">
-                                <h3 class="card-title">Inicio</h3>
+                                <h3 class="card-title" data-card-widget="collapse">Inicio</h3>
 
                                 <div class="card-tools">
                                     <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -150,7 +86,7 @@ $bundle->js[] = 'chart/Chart.js';
 
                         <div class="card card-info collapsed-card">
                             <div class="card-header">
-                                <h3 class="card-title">Coordinación Académica</h3>
+                                <h3 class="card-title" data-card-widget="collapse">Coordinación Académica</h3>
 
                                 <div class="card-tools">
                                     <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -207,7 +143,7 @@ $bundle->js[] = 'chart/Chart.js';
 
                         <div class="card card-success collapsed-card">
                             <div class="card-header">
-                                <h3 class="card-title">Proyectos Alternativos</h3>
+                                <h3 class="card-title" data-card-widget="collapse">Proyectos Alternativos</h3>
 
                                 <div class="card-tools">
                                     <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -258,7 +194,7 @@ $bundle->js[] = 'chart/Chart.js';
 
                         <div class="card card-danger collapsed-card">
                             <div class="card-header">
-                                <h3 class="card-title">Vida y Obra</h3>
+                                <h3 class="card-title" data-card-widget="collapse">Vida y Obra</h3>
 
                                 <div class="card-tools">
                                     <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -320,7 +256,7 @@ $bundle->js[] = 'chart/Chart.js';
         <div class="col-md-4">
             <div class="card card-default">
                 <div class="card-header">
-                    <h3 class="card-title">Cantidad de Archivos Subidos</h3>
+                    <h3 class="card-title" data-card-widget="collapse">Cantidad de Archivos Subidos</h3>
 
                     <div class="card-tools">
                         <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -418,7 +354,7 @@ $bundle->js[] = 'chart/Chart.js';
         <div class="col-md-4">
             <div class="card card-default">
                 <div class="card-header">
-                    <h3 class="card-title">Escritores Destacados</h3>
+                    <h3 class="card-title" data-card-widget="collapse">Escritores Destacados</h3>
 
                     <div class="card-tools">
                         <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -492,6 +428,70 @@ $bundle->js[] = 'chart/Chart.js';
         </div>
         <?php endif;?>
     </div>
+    <hr class="page_separator"/>
+    <!-------------------------------------------Comentarios--------------------------------------------------------->
+
+    <div class="card card-default">
+        <div class="card-header">
+            <h3 class="card-title" data-card-widget="collapse">Comentarios</h3>
+
+            <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                    <i class="fas fa-minus"></i>
+                </button>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="chart">
+                <?php
+                $comInicio = count(\backend\models\Comentario\Comentario::find()->where(['seccion' => 'Inicio'])->all());
+                $comInicioRev = count(\backend\models\Comentario\Comentario::find()->where(['seccion' => 'Inicio', 'revisado' =>1])->all());
+                $comCoordinacion = count(\backend\models\Comentario\Comentario::find()->where(['seccion' => 'Coordinación Académica'])->all());
+                $comCoordinacionRev = count(\backend\models\Comentario\Comentario::find()->where(['seccion' => 'Coordinación Académica', 'revisado' =>1])->all());
+                $comTaller = count(\backend\models\Comentario\Comentario::find()->where(['seccion' => 'Proyectos Alternativos'])->all());
+                $comTallerRev = count(\backend\models\Comentario\Comentario::find()->where(['seccion' => 'Proyectos Alternativos', 'revisado' =>1])->all());
+
+                ?>
+                <?= ChartJs::widget([
+                    'type' => 'bar',
+                    'options' => [
+                        'height' => 180,
+                        'width' => 400
+                    ],
+                    'data' => [
+                        'labels' => ["Actualidad", "Artículos", "Proyectos Comunitarios"],
+                        'datasets' => [
+                            [
+                                'label' => "Total",
+                                'backgroundColor' => "#007bff",
+                                'borderColor' => "#007bff",
+                                'pointBackgroundColor' => "#007bff",
+                                'pointBorderColor' => "#fff",
+                                'pointHoverBackgroundColor' => "#fff",
+                                'pointHoverBorderColor' => "#007bff",
+                                'data' => [$comInicio, $comCoordinacion, $comTaller]
+                            ],
+                            [
+                                'label' => "Revisados",
+                                'backgroundColor' => "#17a2b8",
+                                'borderColor' => "#17a2b8",
+                                'pointBackgroundColor' => "#17a2b8",
+                                'pointBorderColor' => "#fff",
+                                'pointHoverBackgroundColor' => "#fff",
+                                'pointHoverBorderColor' => "#17a2b8",
+                                'data' => [$comInicioRev, $comCoordinacionRev, $comTallerRev]
+                            ],
+
+                        ]
+                    ]
+                ]);
+                ?>
+            </div>
+
+
+        </div>
+    </div>
+
 
 
 </div>

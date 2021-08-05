@@ -7,7 +7,7 @@
 $this->registerCssFile('https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700');
 $this->registerCssFile('https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css');
 \hail812\adminlte3\assets\PluginAsset::register($this)->add(['fontawesome', 'icheck-bootstrap', 'chart']);
-?>
+$this->registerLinkTag(['rel' => 'icon', 'type' => 'image/png', 'href' => 'img/logo/che_negativo.png']);?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
 <html>
@@ -22,9 +22,9 @@ $this->registerCssFile('https://code.ionicframework.com/ionicons/2.0.1/css/ionic
 </head>
 <body class="hold-transition login-page">
 <?php  $this->beginBody() ?>
-<div class="login-box">
+<div class="login-box" style="margin: auto; padding: 70px 0 ">
     <div class="login-logo">
-        <a href="<?=Yii::$app->homeUrl?>"><b>Admin</b>LTE</a>
+        <a href="<?=Yii::$app->homeUrl?>"><b>Centro</b>Che</a>
     </div>
     <!-- /.login-logo -->
 

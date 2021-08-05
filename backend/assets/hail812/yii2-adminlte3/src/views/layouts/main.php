@@ -1,6 +1,7 @@
 <?php
 
 /* @var $this \yii\web\View */
+
 /* @var $content string */
 
 use yii\helpers\Html;
@@ -17,48 +18,54 @@ $bundle->js[] = 'chart/Chart.js';
 $assetDir = Yii::$app->assetManager->getPublishedUrl('@vendor/almasaeed2010/adminlte/dist');
 ?>
 <?php $this->beginPage() ?>
-<!DOCTYPE html>
+    <!DOCTYPE html>
 <html lang="<?= Yii::$app->language ?>">
 
-<head>
-    <link href="/assets/fontawesome-free-5.15.1-web/css/fontawesome.css" rel="stylesheet">
-    <meta charset="<?= Yii::$app->charset ?>">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <?php $this->registerCsrfMetaTags() ?>
-    <title><?= Html::encode($this->title) ?></title>
-    <?php $this->head() ?>
-</head>
+    <head>
+        <link href="/assets/fontawesome-free-5.15.1-web/css/fontawesome.css" rel="stylesheet">
+        <meta charset="<?= Yii::$app->charset ?>">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <?php $this->registerCsrfMetaTags() ?>
+        <title><?= Html::encode($this->title) ?></title>
+        <?php $this->head() ?>
+    </head>
 
 <body class="hold-transition sidebar-mini">
-    <?php $this->beginBody(['class' => "skin-green"]) ?>
+<?php $this->beginBody(['class' => "skin-green"]) ?>
 
-    <div class="wrapper">
-        <!-- Navbar -->
-        <?= $this->render('navbar', ['assetDir' => $assetDir, 'class' => "skin-green"]) ?>
-        <!-- /.navbar -->
+<div class="wrapper">
 
-        <!-- Main Sidebar Container -->
-        <?= $this->render('sidebar', ['assetDir' => $assetDir]) ?>
+<?php if (!Yii::$app->user->isGuest): ?>
+    <!-- Navbar -->
+    <?= $this->render('navbar', ['assetDir' => $assetDir, 'class' => "skin-green"]) ?>
+    <!-- /.navbar -->
 
-        <!-- Content Wrapper. Contains page content -->
-        <?= $this->render('content', ['content' => $content, 'assetDir' => $assetDir]) ?>
-        <!-- /.content-wrapper -->
+    <!-- Main Sidebar Container -->
+    <?= $this->render('sidebar', ['assetDir' => $assetDir]) ?>
 
-        <!-- Control Sidebar -->
-        <?= $this->render('control-sidebar') ?>
-        <!-- /.control-sidebar -->
+    <!-- Content Wrapper. Contains page content -->
+    <?= $this->render('content', ['content' => $content, 'assetDir' => $assetDir]) ?>
+    <!-- /.content-wrapper -->
 
-        <!-- Main Footer -->
-        <?= $this->render('footer') ?>
+    <!-- Control Sidebar -->
+    <?= $this->render('control-sidebar') ?>
+    <!-- /.control-sidebar -->
+
+    <!-- Main Footer -->
+    <?= $this->render('footer') ?>
+<?php endif; ?>
+
+<?php if (Yii::$app->user->isGuest): ?>
+    <?= $this->render('main-login', ['content' => $content, 'assetDir' => $assetDir]) ?>
+<?php endif; ?>
+
     </div>
 
     <?php $this->endBody() ?>
 
 
+    </body>
 
-
-</body>
-
-</html>
-<?php $this->endPage() ?>
+    </html>
+    <?php $this->endPage() ?>
