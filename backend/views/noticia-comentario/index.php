@@ -51,8 +51,8 @@ if ( Yii::$app->user->isGuest )
                 'value' => function ($model) {
                     return $model->revisado ? 'Si' : 'No';
                 },
-                'filter'=>array(""=>"Todos","1"=>"Si","0"=>"No"),
-            ],
+                'filter'=>array("1"=>"Si","0"=>"No"),
+                'filterInputOptions' => array('class' => 'form-control', 'id' => null, 'prompt' => 'Todos'),],
             [
                 'attribute' => 'publico',
                 'format' => 'raw',
@@ -60,8 +60,8 @@ if ( Yii::$app->user->isGuest )
                 'value' => function ($model) {
                     return $model->publico ? 'Si' : 'No';
                 },
-                'filter'=>array(""=>"Todos","1"=>"Si","0"=>"No"),
-            ],
+                'filter'=>array("1"=>"Si","0"=>"No"),
+                'filterInputOptions' => array('class' => 'form-control', 'id' => null, 'prompt' => 'Todos'),    ],
 
             [
                 'attribute' => 'autor',                     // Titulo
@@ -97,7 +97,7 @@ if ( Yii::$app->user->isGuest )
                 'format' => 'raw',
                 'headerOptions' => ['class' => 'col-md-2'],
                 'filter'=>\yii\helpers\ArrayHelper::map(\backend\models\Noticia\Noticia::find()->asArray()->all(), 'id_noticia', 'titulo_noticia'),
-            ],
+                'filterInputOptions' => array('class' => 'form-control', 'id' => null, 'prompt' => 'Todos'),    ],
 
 
 

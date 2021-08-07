@@ -57,7 +57,8 @@ $this->params['breadcrumbs'][] = $this->title;
                     'value' => function ($model) {
                         return $model->publico ? 'Si' : 'No';
                     },
-                    'filter'=>array(""=>"Todos","1"=>"Si","0"=>"No"),
+                    'filter'=>array("1"=>"Si","0"=>"No"),
+                    'filterInputOptions' => array('class' => 'form-control', 'id' => null, 'prompt' => 'Todos'),
                 ],
 
                 [
@@ -95,15 +96,15 @@ $this->params['breadcrumbs'][] = $this->title;
                     'template' => '{view} {update} {delete}',
                     'buttons'=> [
                         'view' => function($url, $model) use ($tipo) {
-                            return Html::a('<span class="fa fa-eye"></span>' , ['galeria-v-o/view', 'id' => $model->id_galeria_vo, 'tipo' => $tipo], ['title' => 'view']);
+                            return Html::a('<button class="btn btn-success" style="width: 40px ; margin-top: 2px"><i class="fa fa-eye"></i></button>' , ['galeria-v-o/view', 'id' => $model->id_galeria_vo, 'tipo' => $tipo], ['title' => 'view']);
                         },
 
                         'update' => function($url, $model) use ($tipo) {
-                            return Html::a('<span class="glyphicon glyphicon-pencil"></span>' , ['galeria-v-o/update', 'id' => $model->id_galeria_vo, 'tipo' => $tipo], ['title' => 'update']);
+                            return Html::a('<button class="btn btn-primary" style="width: 40px; margin-top: 2px"><i class="fa fa-pencil"></i></button>' , ['galeria-v-o/update', 'id' => $model->id_galeria_vo, 'tipo' => $tipo], ['title' => 'update']);
                         },
 
                         'delete' => function($url, $model) use ($tipo) {
-                            return Html::a('<span class= "glyphicon glyphicon-trash"></span>', ['galeria-v-o/delete', 'id' => $model->id_galeria_vo, 'tipo' => $tipo], [
+                            return Html::a('<button class="btn btn-danger" style="width: 40px ; margin-top: 2px"><i class="fa fa-trash"></i></button>', ['galeria-v-o/delete', 'id' => $model->id_galeria_vo, 'tipo' => $tipo], [
                                 'data' => [
                                     'confirm' => 'Está seguro de que desea eliminar este elemento?',
                                     'method' => 'post',
@@ -123,8 +124,6 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
             [
                 'attribute' => 'publico',
                 'format' => 'raw',
@@ -132,7 +131,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value' => function ($model) {
                     return $model->publico ? 'Si' : 'No';
                 },
-                'filter'=>array(""=>"Todos","1"=>"Si","0"=>"No"),
+                'filter'=>array("1"=>"Si","0"=>"No"),
+                'filterInputOptions' => array('class' => 'form-control', 'id' => null, 'prompt' => 'Todos'),
             ],
 
             [
@@ -168,15 +168,15 @@ $this->params['breadcrumbs'][] = $this->title;
                 'template' => '{view} {update} {delete}',
                 'buttons'=> [
                     'view' => function($url, $model) use ($tipo) {
-                        return Html::a('<span class="fa fa-eye"></span>' , ['galeria-v-o/view', 'id' => $model->id_galeria_vo, 'tipo' => $tipo], ['title' => 'view']);
+                        return Html::a('<button class="btn btn-success" style="width: 40px ; margin-top: 2px"><i class="fa fa-eye"></i></button>' , ['galeria-v-o/view', 'id' => $model->id_galeria_vo, 'tipo' => $tipo], ['title' => 'view']);
                     },
 
                     'update' => function($url, $model) use ($tipo) {
-                        return Html::a('<span class="glyphicon glyphicon-pencil"></span>' , ['galeria-v-o/update', 'id' => $model->id_galeria_vo, 'tipo' => $tipo], ['title' => 'update']);
+                        return Html::a('<button class="btn btn-primary" style="width: 40px; margin-top: 2px"><i class="fa fa-pencil"></i></button>' , ['galeria-v-o/update', 'id' => $model->id_galeria_vo, 'tipo' => $tipo], ['title' => 'update']);
                     },
 
                     'delete' => function($url, $model) use ($tipo) {
-                        return Html::a('<span class= "glyphicon glyphicon-trash"></span>', ['galeria-v-o/delete', 'id' => $model->id_galeria_vo, 'tipo' => $tipo], [
+                        return Html::a('<button class="btn btn-danger" style="width: 40px ; margin-top: 2px"><i class="fa fa-trash"></i></button>', ['galeria-v-o/delete', 'id' => $model->id_galeria_vo, 'tipo' => $tipo], [
                             'data' => [
                                 'confirm' => 'Está seguro de que desea eliminar este elemento?',
                                 'method' => 'post',

@@ -48,7 +48,8 @@ if ( !Yii::$app->user->can('gestionar-noticia'))
                 'attribute' => 'area',                     // area
                 'format' => 'raw',
                 'headerOptions' => ['class' => 'col-md-2'],
-                'filter'=>array(['Dirección' => 'Dirección', 'Coordinación Académica' => 'Coordinación Académica', 'Coordinación de Proyectos Alternativos' => 'Coordinación de Proyectos Alternativos']),
+                'filter'=>array('Dirección' => 'Dirección', 'Coordinación Académica' => 'Coordinación Académica', 'Coordinación de Proyectos Alternativos' => 'Coordinación de Proyectos Alternativos'),
+                'filterInputOptions' => array('class' => 'form-control', 'id' => null, 'prompt' => 'Todos'),
             ],
 
 
@@ -59,15 +60,15 @@ if ( !Yii::$app->user->can('gestionar-noticia'))
                 'buttons' => [
                     'view' => function ($url, $model)
                     {
-                        return Html::a('<button class="btn btn-success"><i class="fa fa-eye"></i></button>',$url);
+                        return Html::a('<button class="btn btn-success" style="width: 40px ; margin-top: 2px"><i class="fa fa-eye"></i></button>',$url);
                     },
                     'update' => function ($url, $model)
                     {
-                        return Html::a('<button class="btn btn-primary"><i class="fa fa-pencil"></i></button>',$url);
+                        return Html::a('<button class="btn btn-primary" style="width: 40px ; margin-top: 2px"><i class="fa fa-pencil"></i></button>',$url);
                     },
                     'delete' => function ($url, $model)
                     {
-                        return Html::a('<button class="btn btn-danger"><i class="fa fa-trash"></i></button>',$url, ['data-confirm' => '¿Está seguro que desea eliminar este elemento?', 'data-method' =>'POST']);
+                        return Html::a('<button class="btn btn-danger" style="width: 40px ; margin-top: 2px"><i class="fa fa-trash"></i></button>',$url, ['data-confirm' => '¿Está seguro que desea eliminar este elemento?', 'data-method' =>'POST']);
                     }
                 ],
             ],

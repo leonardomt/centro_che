@@ -147,8 +147,8 @@ if ( !Yii::$app->user->can('gestionar-curso-online'))
                 },
                 'headerOptions' => ['class' => 'col-md-1'],
 
-                'filter'=>array(""=>"Todos","1"=>"Si","0"=>"No"),
-
+                'filter'=>array("1"=>"Si","0"=>"No"),
+                'filterInputOptions' => array('class' => 'form-control', 'id' => null, 'prompt' => 'Todos'),
             ],
             [
                 'attribute' => 'publico',                     // Revisado
@@ -162,8 +162,8 @@ if ( !Yii::$app->user->can('gestionar-curso-online'))
                 },
                 'headerOptions' => ['class' => 'col-md-1'],
 
-                'filter'=>array(""=>"Todos","1"=>"Si","0"=>"No"),
-
+                'filter'=>array("1"=>"Si","0"=>"No"),
+                'filterInputOptions' => array('class' => 'form-control', 'id' => null, 'prompt' => 'Todos'),
             ],
             [
                 'attribute' => 'titulo',                     // Titulo
@@ -193,21 +193,24 @@ if ( !Yii::$app->user->can('gestionar-curso-online'))
             ],
 
             [
-                'class' =>'kartik\grid\ActionColumn',
-                'template' => '{view} {update} {delete}',
-                'buttons'=> [
-                    'view' => function($url, $model) {
-                        return Html::a('<span class="fa fa-eye"></span>' , ['clase/view', 'id' => $model->id], ['title' => 'view']);
+                'class' => 'kartik\grid\ActionColumn',
+                'template' => '{view}{update}{delete}',
+                'headerOptions' => ['class' => 'col-md-1'],
+                'buttons' => [
+                    'view' => function ($url, $model)
+                    {
+                        return Html::a('<button class="btn btn-success" style="width: 40px ; margin-top: 2px"><i class="fa fa-eye"></i></button>',$url);
                     },
-                    'update' => function($url, $model) {
-                        return Html::a('<span class="fa fa-pencil"></span>' , ['clase/update', 'id' => $model->id], ['title' => 'update']);
+                    'update' => function ($url, $model)
+                    {
+                        return Html::a('<button class="btn btn-primary" style="width: 40px; margin-top: 2px"><i class="fa fa-pencil"></i></button>',$url);
                     },
-                    'delete' => function($url, $model) {
-                        return Html::a('<span class="fa fa-trash"></span>' , ['clase/delete', 'id' => $model->id], ['title' => 'delete']);
-                    },
+                    'delete' => function ($url, $model)
+                    {
+
+                        return Html::a('<button class="btn btn-danger" style="width: 40px ; margin-top: 2px"><i class="fa fa-trash"></i></button>',$url, ['data-confirm' => '¿Está seguro que desea eliminar este elemento?', 'data-method' =>'POST']);
+                    }
                 ],
-
-
             ],
 
         ],

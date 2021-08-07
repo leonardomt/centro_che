@@ -74,6 +74,7 @@ class ArchivoSearch extends Archivo
             ->andFilterWhere(['like', 'autor_archivo', $this->autor_archivo])
             ->andFilterWhere(['like', 'etiqueta', $this->etiqueta])
             ->andFilterWhere(['like', 'fuente', $this->fuente])
+            ->andFilterWhere(['like', 'fecha', $this->fecha])
             ->andFilterWhere(['like', 'etapa', $this->etapa])
             ->andFilterWhere(['like', 'descripcion_archivo', $this->descripcion_archivo])
             ->andFilterWhere(['like', 'url_archivo', $this->url_archivo]);

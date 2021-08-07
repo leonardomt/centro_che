@@ -130,6 +130,7 @@ $bundle->js[] = 'chart/Chart.js';
                                         ]
                                     ]);
                                     ?>
+
                                 </div>
                             </div>
                             <!-- /.card-body -->
@@ -492,6 +493,7 @@ $bundle->js[] = 'chart/Chart.js';
         </div>
     </div>
 
+    <hr class="page_separator"/>
 
 
 </div>

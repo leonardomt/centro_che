@@ -34,7 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
-        'filterModel' => (new \backend\models\Testimonio\TestimonioSearch()),
+        'filterModel' => $searchModel,
         'id'=> 'noticia-index-update',
         'columns' => [
 
@@ -45,7 +45,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value' => function ($model) {
                     return $model->revisado ? 'Si' : 'No';
                 },
-                'filter'=>array(""=>"Todos","1"=>"Si","0"=>"No"),
+                'filter'=>array("1"=>"Si","0"=>"No"),
+                'filterInputOptions' => array('class' => 'form-control', 'id' => null, 'prompt' => 'Todos'),
             ],
             [
                 'attribute' => 'publico',
@@ -54,7 +55,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value' => function ($model) {
                     return $model->publico ? 'Si' : 'No';
                 },
-                'filter'=>array(""=>"Todos","1"=>"Si","0"=>"No"),
+                'filter'=>array("1"=>"Si","0"=>"No"),
+                'filterInputOptions' => array('class' => 'form-control', 'id' => null, 'prompt' => 'Todos'),
             ],
             [
                 'attribute' => 'fecha',
@@ -97,15 +99,15 @@ $this->params['breadcrumbs'][] = $this->title;
                 'buttons' => [
                     'view' => function ($url, $model)
                     {
-                        return Html::a('<button class="btn btn-success"><i class="fa fa-eye"></i></button>',$url);
+                        return Html::a('<button class="btn btn-success" style="width: 40px ; margin-top: 2px"><i class="fa fa-eye"></i></button>',$url);
                     },
                     'update' => function ($url, $model)
                     {
-                        return Html::a('<button class="btn btn-primary"><i class="fa fa-pencil"></i></button>',$url);
+                        return Html::a('<button class="btn btn-primary" style="width: 40px ; margin-top: 2px"><i class="fa fa-pencil"></i></button>',$url);
                     },
                     'delete' => function ($url, $model)
                     {
-                        return Html::a('<button class="btn btn-danger"><i class="fa fa-trash"></i></button>',$url, ['data-confirm' => '¿Está seguro que desea eliminar este elemento?', 'data-method' =>'POST']);
+                        return Html::a('<button class="btn btn-danger" style="width: 40px ; margin-top: 2px"><i class="fa fa-trash"></i></button>',$url, ['data-confirm' => '¿Está seguro que desea eliminar este elemento?', 'data-method' =>'POST']);
                     }
                 ],
             ],

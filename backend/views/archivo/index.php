@@ -1,13 +1,10 @@
 <?php
 
 use yii\helpers\Html;
-use kartik\grid\GridView;
-use kartik\select2\Select2;
 use yii\bootstrap4\Breadcrumbs;
 use common\widgets\Alert;
+use kartik\grid\GridView;
 use yii\helpers\Url;
-use kartik\daterange\DateRangePicker;
-
 
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\Archivo\ArchivoSearch */
@@ -38,7 +35,6 @@ if (Yii::$app->user->isGuest)
     </p>
 
 
-
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
@@ -47,20 +43,6 @@ if (Yii::$app->user->isGuest)
         'pjaxSettings' => [
             'neverTimeout' => true,
 
-        ],
-        'toolbar' => [
-            'options' => ['class' => 'pull-left'],
-            [
-                'content' =>
-                Html::a('<span class="glyphicon glyphicon-plus"></span>', ['create'], [
-                    'data-pjax' => 0,
-                    'class' => 'btn btn-success',
-                    "title" => "Agregar"
-                ]) . ' ' .
-                    Html::a('<i class="glyphicon glyphicon-repeat"></i>', 'index.php?r=archivo%2Findex', ['class' => 'btn btn-default', 'title' => 'Reiniciar']),
-            ],
-            '{toggleData}',
-            '{export}',
         ],
         'columns' => [
 
@@ -79,7 +61,8 @@ if (Yii::$app->user->isGuest)
                 },
                 'headerOptions' => ['class' => 'col-md-1'],
 
-                'filter' => array("" => "Todos", "1" => "Si", "0" => "No"),
+                'filter' => array( "1" => "Si", "0" => "No"),
+                'filterInputOptions' => array('class' => 'form-control', 'id' => null, 'prompt' => 'Todos'),
 
             ],
 
@@ -94,6 +77,7 @@ if (Yii::$app->user->isGuest)
                 'format' => 'raw',
                 'headerOptions' => ['class' => 'col-md-2'],
                 'filter' => \yii\helpers\ArrayHelper::map(\backend\models\Archivo\TipoArchivo::find()->asArray()->all(), 'id_tipo_archivo', 'tipo_archivo'),
+                'filterInputOptions' => array('class' => 'form-control', 'id' => null, 'prompt' => 'Todos'),
             ],
             [
                 'attribute' => 'autor_archivo',                     // autor
@@ -127,34 +111,27 @@ if (Yii::$app->user->isGuest)
             ],
 */
             [
-                'attribute' => 'fecha', //value does not need to format time if the timestamp type is datetime
-                'filterType' => GridView::FILTER_DATE_RANGE,
-                'value' => function ($model) {
-                    if ($model->fecha) {
-                        return date($model->fecha);
-                    }
-                    return null;
-                },
+                'attribute' => 'fecha',
+                'value' => 'fecha',
+                'format' => 'raw',
+                'filter' => \dosamigos\datepicker\DatePicker::widget([
+                    'model' => $searchModel,
+                    'attribute' => 'fecha',
+                    'clientOptions' => [
+                        'autoclose' => true,
+                        'format' => 'yyyy-mm-dd'
+                    ],
+                ]),
 
-
-                'filterWidgetOptions' => [
-                    'startAttribute' => 'created_at_c', //Attribute of start time
-                    'endAttribute' => 'created_at_e',   //The attributes of the end time
-                    'convertFormat' => true, // Importantly, true uses the local - > format time format to convert PHP time format to js time format.
-                    'pluginOptions' => [
-                        'format' => 'yyyy-mm-dd ', //Date format
-
-
-                    ]
-                ],
             ],
 
-            [
+            array(
                 'attribute' => 'etapa',                     // etapa
                 'format' => 'raw',
-                'headerOptions' => ['class' => 'col-md-2'],
+                'headerOptions' => array('class' => 'col-md-2'),
                 'filter' => array("Infancia" => "Infancia", "Adolescencia" => "Adolescencia", "Adulto Joven" => "Adulto Joven", "Adulto" => "Adulto", "Posterior a 1967" => "Posterior a 1967", "No definida" => "No definida"),
-            ],
+                'filterInputOptions' => array('class' => 'form-control', 'id' => null, 'prompt' => 'Todos'),
+            ),
 
             [
                 'attribute' => 'url_archivo',         'filter'=> false,            // Url del Archivo
@@ -193,15 +170,16 @@ if (Yii::$app->user->isGuest)
                 'buttons' => [
                     'view' => function ($url, $model)
                     {
-                        return Html::a('<button class="btn btn-success"><i class="fa fa-eye"></i></button>',$url);
+                        return Html::a('<button class="btn btn-success" style="width: 40px ; margin-top: 2px"><i class="fa fa-eye"></i></button>',$url);
                     },
                     'update' => function ($url, $model)
                     {
-                        return Html::a('<button class="btn btn-primary"><i class="fa fa-pencil"></i></button>',$url);
+                        return Html::a('<button class="btn btn-primary" style="width: 40px; margin-top: 2px"><i class="fa fa-pencil"></i></button>',$url);
                     },
                     'delete' => function ($url, $model)
                     {
-                        return Html::a('<button class="btn btn-danger"><i class="fa fa-trash"></i></button>',$url, ['data-confirm' => '¿Está seguro que desea eliminar este elemento?', 'data-method' =>'POST']);
+
+                        return Html::a('<button class="btn btn-danger" style="width: 40px ; margin-top: 2px"><i class="fa fa-trash"></i></button>',$url, ['data-confirm' => '¿Está seguro que desea eliminar este elemento?', 'data-method' =>'POST']);
                     }
                 ],
             ],

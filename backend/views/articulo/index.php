@@ -1,14 +1,12 @@
 <?php
 
 use yii\helpers\Html;
-use yii\widgets\Pjax;
 use yii\bootstrap4\Breadcrumbs;
 use common\widgets\Alert;
 use kartik\grid\GridView;
-
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
-
 /* @var $searchModel backend\models\Articulo\ArticuloSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
@@ -16,7 +14,7 @@ use kartik\grid\GridView;
 $this->title = 'Artículos';
 $this->params['breadcrumbs'][] = $this->title;
 if (Yii::$app->user->isGuest)
-    return Yii::$app->getResponse()->redirect(\yii\helpers\Url::to(['site/login']));
+    return Yii::$app->getResponse()->redirect(Url::to(['site/login']));
 ?>
 
 <div class="articulo-index  col-md-12">
@@ -36,25 +34,34 @@ if (Yii::$app->user->isGuest)
         ?>
     </p>
     <div class="col-md-12">
-        <?php Pjax::begin([
-            'id' => 'articulo-index-update',
-        ]); ?>
-
 
         <?= GridView::widget([
             'dataProvider' => $dataProvider,
-            'filterModel' => (new \backend\models\Articulo\ArticuloSearch()),
+            'filterModel' => $searchModel,
             'id' => 'articulo-index-update',
+            'pjax' => true,
+            'pjaxSettings' => [
+                'neverTimeout' => true,
+
+            ],
 
             'columns' => [
                 [
-                    'attribute' => 'revisado',
+                    'attribute' => 'revisado',                     // Revisado
                     'format' => 'raw',
-                    'headerOptions' => ['class' => 'col-md-1'],
+
                     'value' => function ($model) {
-                        return $model->revisado ? 'Si' : 'No';
+                        if ($model->revisado != '0') {
+                            return 'Si';
+                        } else {
+                            return 'No';
+                        }
                     },
-                    'filter' => array("" => "Todos", "1" => "Si", "0" => "No"),
+                    'headerOptions' => ['class' => 'col-md-1'],
+
+                    'filter' => array( "1" => "Si", "0" => "No"),
+                    'filterInputOptions' => array('class' => 'form-control', 'id' => null, 'prompt' => 'Todos'),
+
                 ],
                 [
                     'attribute' => 'publico',
@@ -63,7 +70,8 @@ if (Yii::$app->user->isGuest)
                     'value' => function ($model) {
                         return $model->publico ? 'Si' : 'No';
                     },
-                    'filter' => array("" => "Todos", "1" => "Si", "0" => "No"),
+                    'filter' => array("1" => "Si", "0" => "No"),
+                    'filterInputOptions' => array('class' => 'form-control', 'id' => null, 'prompt' => 'Todos'),
                 ],
                 [
                     'attribute' => 'titulo',
@@ -81,6 +89,7 @@ if (Yii::$app->user->isGuest)
                     'value' => 'investigacionInscrita.titulo_investigacion',
                     'format' => 'raw',
                     'filter' => \yii\helpers\ArrayHelper::map(\backend\models\Investigacion\Investigacion::find()->asArray()->all(), 'id_investigacion', 'titulo_investigacion'),
+                    'filterInputOptions' => array('class' => 'form-control', 'id' => null, 'prompt' => 'Todos'),
                 ],
                 [
                     'attribute' => 'palabras_clave',                     // Titulo
@@ -108,15 +117,15 @@ if (Yii::$app->user->isGuest)
                     'buttons' => [
                         'view' => function ($url, $model)
                         {
-                            return Html::a('<button class="btn btn-success"><i class="fa fa-eye"></i></button>',$url);
+                            return Html::a('<button class="btn btn-success" style="width: 40px ; margin-top: 2px"><i class="fa fa-eye"></i></button>',$url);
                         },
                         'update' => function ($url, $model)
                         {
-                            return Html::a('<button class="btn btn-primary"><i class="fa fa-pencil"></i></button>',$url);
+                            return Html::a('<button class="btn btn-primary" style="width: 40px ; margin-top: 2px"><i class="fa fa-pencil"></i></button>',$url);
                         },
                         'delete' => function ($url, $model)
                         {
-                            return Html::a('<button class="btn btn-danger"><i class="fa fa-trash"></i></button>',$url, ['data-confirm' => '¿Está seguro que desea eliminar este elemento?', 'data-method' =>'POST']);
+                            return Html::a('<button class="btn btn-danger" style="width: 40px ; margin-top: 2px"><i class="fa fa-trash"></i></button>',$url, ['data-confirm' => '¿Está seguro que desea eliminar este elemento?', 'data-method' =>'POST']);
                         }
                     ],
                 ],
@@ -124,26 +133,9 @@ if (Yii::$app->user->isGuest)
         ]); ?>
     </div>
 
-    <?php Pjax::end(); ?>
 
 </div>
 
 
 <?php
 
-
-$this->registerJs(
-
-    '$("document").ready(function(){ 
-
-        $("#search-form").on("pjax:end", function() {
-
-            $.pjax.reload({container:"#articulo-index-update"});  //Reload GridView
-
-        });
-
-    });'
-
-);
-
-?>

@@ -83,8 +83,8 @@ if ( Yii::$app->user->isGuest )
                 },
                 'headerOptions' => ['class' => 'col-md-1'],
 
-                'filter'=>array(""=>"Todos","1"=>"Si","0"=>"No"),
-
+                'filter'=>array("1"=>"Si","0"=>"No"),
+                'filterInputOptions' => array('class' => 'form-control', 'id' => null, 'prompt' => 'Todos'),
             ],
 
             [
@@ -98,7 +98,7 @@ if ( Yii::$app->user->isGuest )
                 'format' => 'raw',
                 'headerOptions' => ['class' => 'col-md-2'],
                 'filter'=>\yii\helpers\ArrayHelper::map(\backend\models\Archivo\TipoArchivo::find()->asArray()->all(), 'id_tipo_archivo', 'tipo_archivo'),
-            ],
+                'filterInputOptions' => array('class' => 'form-control', 'id' => null, 'prompt' => 'Todos'),    ],
             [
                 'attribute' => 'autor_archivo',                     // autor
                 'format' => 'raw',

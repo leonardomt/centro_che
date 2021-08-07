@@ -22,6 +22,11 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'pjax' => true,
+        'pjaxSettings' => [
+            'neverTimeout' => true,
+
+        ],
         'columns' => [
             [
                 'attribute' => 'fecha',
@@ -140,13 +145,13 @@ $this->params['breadcrumbs'][] = $this->title;
                 'headerOptions' => ['class' => 'col-md-1'],
                 'buttons' => [
                     'view' => function ($url, $model) {
-                        return Html::a('<button class="btn btn-success"><i class="fa fa-eye"></i></button>', $url);
+                        return Html::a('<button class="btn btn-success" style="width: 40px ; margin-top: 2px"><i class="fa fa-eye"></i></button>', $url);
                     },
                     'aprobar' => function ($url, $model) {
-                        return Html::a('<button class="btn btn-primary"><i class="fa fa-check"></i></button>', $url, ['data-confirm' => '¿Está seguro que desea aprobar este comentario?', 'data-method' => 'POST']);
+                        return Html::a('<button class="btn btn-primary" style="width: 40px ; margin-top: 2px"><i class="fa fa-check"></i></button>', $url, ['data-confirm' => '¿Está seguro que desea aprobar este comentario?', 'data-method' => 'POST']);
                     },
                     'delete' => function ($url, $model) {
-                        return Html::a('<button class="btn btn-danger"><i class="fa fa-times"></i></button>', $url, ['data-confirm' => '¿Está seguro que desea denegar este comentario?', 'data-method' => 'POST']);
+                        return Html::a('<button class="btn btn-danger" style="width: 40px ; margin-top: 2px"><i class="fa fa-times"></i></button>', $url, ['data-confirm' => '¿Está seguro que desea denegar este comentario?', 'data-method' => 'POST']);
                     }
                 ],
             ],
@@ -163,6 +168,11 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= GridView::widget([
         'dataProvider' => $dataProvider1,
         'filterModel' => $searchModel1,
+        'pjax' => true,
+        'pjaxSettings' => [
+            'neverTimeout' => true,
+
+        ],
         'columns' => [
 
             [
@@ -282,13 +292,13 @@ $this->params['breadcrumbs'][] = $this->title;
                 'headerOptions' => ['class' => 'col-md-1'],
                 'buttons' => [
                     'view' => function ($url, $model) {
-                        return Html::a('<button class="btn btn-success"><i class="fa fa-eye"></i></button>', $url);
+                        return Html::a('<button class="btn btn-success" style="width: 40px ; margin-top: 2px"><i class="fa fa-eye"></i></button>', $url);
                     },
                     'aprobar' => function ($url, $model) {
-                        return Html::a('<button class="btn btn-primary"><i class="fa fa-check"></i></button>', $url, ['data-confirm' => '¿Está seguro que desea aprobar este comentario?', 'data-method' => 'POST']);
+                        return Html::a('<button class="btn btn-primary" style="width: 40px ; margin-top: 2px"><i class="fa fa-check"></i></button>', $url, ['data-confirm' => '¿Está seguro que desea aprobar este comentario?', 'data-method' => 'POST']);
                     },
                     'delete' => function ($url, $model) {
-                        return Html::a('<button class="btn btn-danger"><i class="fa fa-times"></i></button>', $url, ['data-confirm' => '¿Está seguro que desea denegar este comentario?', 'data-method' => 'POST']);
+                        return Html::a('<button class="btn btn-danger" style="width: 40px ; margin-top: 2px"><i class="fa fa-times"></i></button>', $url, ['data-confirm' => '¿Está seguro que desea denegar este comentario?', 'data-method' => 'POST']);
                     }
                 ],
             ],
@@ -303,6 +313,11 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= GridView::widget([
         'dataProvider' => $dataProvider2,
         'filterModel' => $searchModel2,
+        'pjax' => true,
+        'pjaxSettings' => [
+            'neverTimeout' => true,
+
+        ],
         'columns' => [
 
             [
@@ -366,6 +381,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 },
                 'format' => 'raw',
                 'filter' => array('noticia' => 'Actualidad', 'articulo' => 'Artículo', 'taller' => 'Proyecto Comunitario', 'comentario' => 'Comentario'),
+                'filterInputOptions' => array('class' => 'form-control', 'id' => null, 'prompt' => 'Todos'),
             ],
 
 
@@ -422,13 +438,13 @@ $this->params['breadcrumbs'][] = $this->title;
                 'headerOptions' => ['class' => 'col-md-1'],
                 'buttons' => [
                     'view' => function ($url, $model) {
-                        return Html::a('<button class="btn btn-success"><i class="fa fa-eye"></i></button>', $url);
+                        return Html::a('<button class="btn btn-success" style="width: 40px ; margin-top: 2px"><i class="fa fa-eye"></i></button>', $url);
                     },
                     'aprobar' => function ($url, $model) {
-                        return Html::a('<button class="btn btn-primary"><i class="fa fa-check"></i></button>', $url, ['data-confirm' => '¿Está seguro que desea aprobar este comentario?', 'data-method' => 'POST']);
+                        return Html::a('<button class="btn btn-primary" style="width: 40px ; margin-top: 2px"><i class="fa fa-check"></i></button>', $url, ['data-confirm' => '¿Está seguro que desea aprobar este comentario?', 'data-method' => 'POST']);
                     },
                     'delete' => function ($url, $model) {
-                        return Html::a('<button class="btn btn-danger"><i class="fa fa-times"></i></button>', $url, ['data-confirm' => '¿Está seguro que desea denegar este comentario?', 'data-method' => 'POST']);
+                        return Html::a('<button class="btn btn-danger" style="width: 40px ; margin-top: 2px"><i class="fa fa-times"></i></button>', $url, ['data-confirm' => '¿Está seguro que desea denegar este comentario?', 'data-method' => 'POST']);
                     }
                 ],
             ],

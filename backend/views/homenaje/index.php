@@ -38,7 +38,7 @@ if ( !Yii::$app->user->can('gestionar-homenaje'))
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
-        'filterModel' => (new \backend\models\Homenaje\HomenajeSearch()),
+        'filterModel' => $searchModel,
         'id'=> 'homenaje-index-update',
         'columns' => [
 
@@ -49,7 +49,8 @@ if ( !Yii::$app->user->can('gestionar-homenaje'))
                 'value' => function ($model) {
                     return $model->revisado ? 'Si' : 'No';
                 },
-                'filter'=>array(""=>"Todos","1"=>"Si","0"=>"No"),
+                'filter'=>array("1"=>"Si","0"=>"No"),
+                'filterInputOptions' => array('class' => 'form-control', 'id' => null, 'prompt' => 'Todos'),
             ],
             [
                 'attribute' => 'publico',
@@ -58,7 +59,8 @@ if ( !Yii::$app->user->can('gestionar-homenaje'))
                 'value' => function ($model) {
                     return $model->publico ? 'Si' : 'No';
                 },
-                'filter'=>array(""=>"Todos","1"=>"Si","0"=>"No"),
+                'filter'=>array("1"=>"Si","0"=>"No"),
+                'filterInputOptions' => array('class' => 'form-control', 'id' => null, 'prompt' => 'Todos'),
             ],
             [
                 'attribute' => 'titulo',                     // Titulo
@@ -76,6 +78,7 @@ if ( !Yii::$app->user->can('gestionar-homenaje'))
                 'format' => 'raw',
                 'headerOptions' => ['class' => 'col-md-2'],
                 'filter'=>\yii\helpers\ArrayHelper::map(\backend\models\Homenaje\TipoHomenaje::find()->asArray()->all(), 'id_tipo_homenaje', 'tipo_homenaje'),
+                'filterInputOptions' => array('class' => 'form-control', 'id' => null, 'prompt' => 'Todos'),
             ],
 
             [
@@ -85,15 +88,15 @@ if ( !Yii::$app->user->can('gestionar-homenaje'))
                 'buttons' => [
                     'view' => function ($url, $model)
                     {
-                        return Html::a('<button class="btn btn-success"><i class="fa fa-eye"></i></button>',$url);
+                        return Html::a('<button class="btn btn-success" style="width: 40px ; margin-top: 2px"><i class="fa fa-eye"></i></button>',$url);
                     },
                     'update' => function ($url, $model)
                     {
-                        return Html::a('<button class="btn btn-primary"><i class="fa fa-pencil"></i></button>',$url);
+                        return Html::a('<button class="btn btn-primary" style="width: 40px ; margin-top: 2px"><i class="fa fa-pencil"></i></button>',$url);
                     },
                     'delete' => function ($url, $model)
                     {
-                        return Html::a('<button class="btn btn-danger"><i class="fa fa-trash"></i></button>',$url, ['data-confirm' => '¿Está seguro que desea eliminar este elemento?', 'data-method' =>'POST']);
+                        return Html::a('<button class="btn btn-danger" style="width: 40px ; margin-top: 2px"><i class="fa fa-trash"></i></button>',$url, ['data-confirm' => '¿Está seguro que desea eliminar este elemento?', 'data-method' =>'POST']);
                     }
                 ],
             ],

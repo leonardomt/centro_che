@@ -140,8 +140,8 @@ if ( !Yii::$app->user->can('gestionar-curso-online'))
                    },
                    'headerOptions' => ['class' => 'col-md-1'],
 
-                   'filter'=>array(""=>"Todos","1"=>"Si","0"=>"No"),
-
+                   'filter'=>array("1"=>"Si","0"=>"No"),
+                   'filterInputOptions' => array('class' => 'form-control', 'id' => null, 'prompt' => 'Todos'),
                ],
 
                [
@@ -202,17 +202,6 @@ if ( !Yii::$app->user->can('gestionar-curso-online'))
                    },
                ],
 
-               [
-                   'class' =>'kartik\grid\ActionColumn',
-                   'template' => '{view}',
-                    'buttons'=> [
-                           'view' => function($url, $model) {
-                               return Html::a('<button class="btn btn-success"><i class="fa fa-eye"></i></button>' , ['archivo/view', 'id' => $model->id_archivo], ['title' => 'Ver' ]);
-                           },
-                   ],
-
-
-               ],
 
 
 

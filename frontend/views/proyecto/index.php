@@ -43,7 +43,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
-        'filterModel' => (new \backend\models\Proyecto\ProyectoSearch()),
+        'filterModel' => $searchModel,
         'id'=> 'proyecto-index-update',
         'columns' => [
 
@@ -54,7 +54,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value' => function ($model) {
                     return $model->revisado ? 'Si' : 'No';
                 },
-                'filter'=>array(""=>"Todos","1"=>"Si","0"=>"No"),
+                'filter'=>array("1"=>"Si","0"=>"No"), 'filterInputOptions' => array('class' => 'form-control', 'id' => null, 'prompt' => 'Todos'),
             ],
             [
                 'attribute' => 'publico',
@@ -63,7 +63,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value' => function ($model) {
                     return $model->publico ? 'Si' : 'No';
                 },
-                'filter'=>array(""=>"Todos","1"=>"Si","0"=>"No"),
+                'filter'=>array("1"=>"Si","0"=>"No"),
+                'filterInputOptions' => array('class' => 'form-control', 'id' => null, 'prompt' => 'Todos'),
             ],
             [
                 'attribute' => 'titulo',                     // Titulo

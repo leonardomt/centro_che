@@ -19,11 +19,10 @@ $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 
 
-if ( Yii::$app->user->isGuest )
+if (Yii::$app->user->isGuest)
     return Yii::$app->getResponse()->redirect(\yii\helpers\Url::to(['site/login']));
-if ( !Yii::$app->user->can('gestionar-escrito'))
+if (!Yii::$app->user->can('gestionar-escrito'))
     return Yii::$app->getResponse()->redirect(\yii\helpers\Url::to(['site/login']));
-
 
 
 ?>
@@ -42,12 +41,12 @@ if ( !Yii::$app->user->can('gestionar-escrito'))
         <?= Html::a('<span class="fa fa-trash"></span>', ['delete', 'id' => $model->id_escrito], [
             'class' => 'btn btn-danger',
             'data' => [
-                'confirm' =>'¿Estas seguro que deceas eliminar este elemento?',
+                'confirm' => '¿Estas seguro que deceas eliminar este elemento?',
                 'method' => 'post',
             ],
         ]) ?>
     </p>
-   
+
 
     <?= DetailView::widget([
         'model' => $model,
@@ -75,26 +74,26 @@ if ( !Yii::$app->user->can('gestionar-escrito'))
 
 
     <?php
-    $archivos= EscritoArchivo::find()->where(['id_escrito' => $model->id_escrito])->all();
+    $archivos = EscritoArchivo::find()->where(['id_escrito' => $model->id_escrito])->all();
     $searchModel = new backend\models\Archivo\ArchivoSearch();
-    $x=0; $data = [];
+    $x = 0;
+    $data = [];
     foreach ($archivos as $arc):
         $dataProvider1 = $searchModel->search(Yii::$app->request->queryParams);
-        $dataProvider1->query->where(['id_archivo'=>$arc->id_archivo]);
+        $dataProvider1->query->where(['id_archivo' => $arc->id_archivo]);
         $data1 = $dataProvider1->getModels();
         $data = array_merge($data, $data1);
         $x++;
     endforeach;
 
-    if ($x!=0){
+    if ($x != 0) {
         $dataProvider = new \yii\data\ArrayDataProvider([
             'allModels' => $data
 
         ]);
-    }
-    else{
+    } else {
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        $dataProvider->query->where(['id_archivo'=>0]);
+        $dataProvider->query->where(['id_archivo' => 0]);
     };
     ?>
 
@@ -103,21 +102,21 @@ if ( !Yii::$app->user->can('gestionar-escrito'))
     <?= kartik\grid\GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
-        'id'=> 'archivo-index-update',
+        'id' => 'archivo-index-update',
 
         'pjax' => true,
-        'pjaxSettings' =>[
+        'pjaxSettings' => [
             'neverTimeout' => true,
 
         ],
-        'toolbar'=>[
+        'toolbar' => [
             'options' => ['class' => 'pull-left'],
-            ['content'=>
+            ['content' =>
                 Html::a('<span class="glyphicon glyphicon-plus"></span>', ['create'], [
                     'data-pjax' => 0,
                     'class' => 'btn btn-success',
-                    "title"=>"Agregar"]). ' '.
-                Html::a('<i class="glyphicon glyphicon-repeat"></i>', 'index.php?r=archivo%2Findex', [ 'class'=>'btn btn-default', 'title'=>'Reiniciar']),
+                    "title" => "Agregar"]) . ' ' .
+                Html::a('<i class="glyphicon glyphicon-repeat"></i>', 'index.php?r=archivo%2Findex', ['class' => 'btn btn-default', 'title' => 'Reiniciar']),
             ],
             '{toggleData}',
             '{export}',
@@ -130,16 +129,16 @@ if ( !Yii::$app->user->can('gestionar-escrito'))
                 'attribute' => 'revisado',                     // Revisado
                 'format' => 'raw',
                 'value' => function ($model) {
-                    if($model->revisado != '0'){
+                    if ($model->revisado != '0') {
                         return 'Si';
-                    }else{
+                    } else {
                         return 'No';
                     }
                 },
                 'headerOptions' => ['class' => 'col-md-1'],
 
-                'filter'=>array(""=>"Todos","1"=>"Si","0"=>"No"),
-
+                'filter' => array("1" => "Si", "0" => "No"),
+                'filterInputOptions' => array('class' => 'form-control', 'id' => null, 'prompt' => 'Todos'),
             ],
 
             [
@@ -148,11 +147,12 @@ if ( !Yii::$app->user->can('gestionar-escrito'))
                 'headerOptions' => ['class' => 'col-md-2']
             ],
             [
-                'attribute'=>'tipo_archivo',
-                'value'=>'tipoArchivo.tipo_archivo',
+                'attribute' => 'tipo_archivo',
+                'value' => 'tipoArchivo.tipo_archivo',
                 'format' => 'raw',
                 'headerOptions' => ['class' => 'col-md-2'],
-                'filter'=>\yii\helpers\ArrayHelper::map(\backend\models\Archivo\TipoArchivo::find()->asArray()->all(), 'id_tipo_archivo', 'tipo_archivo'),
+                'filter' => \yii\helpers\ArrayHelper::map(\backend\models\Archivo\TipoArchivo::find()->asArray()->all(), 'id_tipo_archivo', 'tipo_archivo'),
+                'filterInputOptions' => array('class' => 'form-control', 'id' => null, 'prompt' => 'Todos'),
             ],
             [
                 'attribute' => 'autor_archivo',                     // autor
@@ -172,11 +172,11 @@ if ( !Yii::$app->user->can('gestionar-escrito'))
             ],
 
             [
-                'attribute' => 'url_archivo',         'filter'=> false,            // Url del Archivo
+                'attribute' => 'url_archivo', 'filter' => false,            // Url del Archivo
                 'format' => 'raw',
                 'headerOptions' => ['class' => 'col-md-3'],
                 'value' => function ($model) {
-                    if($model->url_archivo != ' ' && $model->url_archivo != NULL) { // verifica si fue importada o no
+                    if ($model->url_archivo != ' ' && $model->url_archivo != NULL) { // verifica si fue importada o no
                         if ($model->tipo_archivo == 1) {
                             return Html::img('../../frontend/web/' . $model->url_archivo,
                                 ['alt' => $model->url_archivo, 'height' => 100]);
@@ -200,11 +200,11 @@ if ( !Yii::$app->user->can('gestionar-escrito'))
             ],
 
             [
-                'class' =>'kartik\grid\ActionColumn',
+                'class' => 'kartik\grid\ActionColumn',
                 'template' => '{view}',
-                'buttons'=> [
-                    'view' => function($url, $model) {
-                        return Html::a('<span class="fa fa-eye"></span>' , ['archivo/view', 'id' => $model->id_archivo], ['title' => 'view']);
+                'buttons' => [
+                    'view' => function ($url, $model) {
+                        return Html::a('<button class="btn btn-success" style="width: 40px ; margin-top: 2px"><i class="fa fa-eye"></i></button>', ['archivo/view', 'id' => $model->id_archivo], ['title' => 'view']);
                     },
 
 
@@ -212,8 +212,6 @@ if ( !Yii::$app->user->can('gestionar-escrito'))
 
 
             ],
-
-
 
         ],
     ]); ?>

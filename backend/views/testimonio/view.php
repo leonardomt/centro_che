@@ -121,8 +121,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 },
                 'headerOptions' => ['class' => 'col-md-1'],
 
-                'filter'=>array(""=>"Todos","1"=>"Si","0"=>"No"),
-
+                'filter'=>array("1"=>"Si","0"=>"No"),
+                'filterInputOptions' => array('class' => 'form-control', 'id' => null, 'prompt' => 'Todos'),
             ],
 
             [
@@ -136,7 +136,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'format' => 'raw',
                 'headerOptions' => ['class' => 'col-md-2'],
                 'filter'=>\yii\helpers\ArrayHelper::map(\backend\models\Archivo\TipoArchivo::find()->asArray()->all(), 'id_tipo_archivo', 'tipo_archivo'),
-            ],
+                'filterInputOptions' => array('class' => 'form-control', 'id' => null, 'prompt' => 'Todos'),    ],
             [
                 'attribute' => 'autor_archivo',                     // autor
                 'format' => 'raw',
@@ -183,11 +183,11 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
 
             [
-                'class' =>'kartik\grid\ActionColumn',
+                'class' => 'kartik\grid\ActionColumn',
                 'template' => '{view}',
-                'buttons'=> [
-                    'view' => function($url, $model) {
-                        return Html::a('<span class="fa fa-eye"></span>' , ['archivo/view', 'id' => $model->id_archivo], ['title' => 'view']);
+                'buttons' => [
+                    'view' => function ($url, $model) {
+                        return Html::a('<button class="btn btn-success" style="width: 40px ; margin-top: 2px"><i class="fa fa-eye"></i></button>', ['archivo/view', 'id' => $model->id_archivo], ['title' => 'view']);
                     },
 
 
@@ -195,9 +195,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
             ],
-
-
-
         ],
     ]); ?>
 
