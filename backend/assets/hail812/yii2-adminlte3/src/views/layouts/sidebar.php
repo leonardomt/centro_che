@@ -6,95 +6,129 @@
         <span class="brand-text font-weight-light">Menu</span>
     </a>
     <?php
+
+    //-------------------------Inicio-----------------------------------------------------------------------------------
     $actualidadrev = count(\backend\models\Noticia\Noticia::find()->where(["revisado"=> 0])->all());
-    if(Yii::$app->user->can('revisar')){
+    if(Yii::$app->user->can('revisar') && $actualidadrev!= null){
         $actualidad = '<span class="badge badge-info right">'.$actualidadrev.'</span>';
     } else $actualidad = '';
 
-    $archivorev = count(\backend\models\Archivo\Archivo::find()->where(["revisado"=> 0])->all());
-    if(Yii::$app->user->can('revisar')){
-        $archivo = '<span class="badge badge-info right">'.$archivorev.'</span>';
-    } else $archivo = '';
-
-    $lineasrev = count(\backend\models\LineaInvestigacion\LineaInvestigacion::find()->where(["revisado"=> 0])->all());
-    if(Yii::$app->user->can('revisar')){
-        $lineas = '<span class="badge badge-info right">'.$lineasrev.'</span>';
-    } else $lineas = '';
-
     $revistarev = count(\backend\models\Revista\Revista::find()->where(["revisado"=> 0])->all());
-    if(Yii::$app->user->can('revisar')){
+    if(Yii::$app->user->can('revisar') && $revistarev!=null){
         $revista = '<span class="badge badge-info right">'.$revistarev.'</span>';
     } else $revista = '';
 
+    $iniciorev = $actualidadrev + $revistarev;
+    if(Yii::$app->user->can('revisar') && $iniciorev!=null){
+        $inicio = '<span class="badge badge-info right">'.$iniciorev.'</span>';
+    } else $inicio = '';
+    //-------------------------Coordinación Académica-------------------------------------------------------------------
+
+    $lineasrev = count(\backend\models\LineaInvestigacion\LineaInvestigacion::find()->where(["revisado"=> 0])->all());
+    if(Yii::$app->user->can('revisar') && $lineasrev!=null){
+        $lineas = '<span class="badge badge-info right">'.$lineasrev.'</span>';
+    } else $lineas = '';
+
     $investigacionrev = count(\backend\models\Investigacion\Investigacion::find()->where(["revisado"=> 0])->all());
-    if(Yii::$app->user->can('revisar')){
+    if(Yii::$app->user->can('revisar') && $investigacionrev!=null){
         $investigacion = '<span class="badge badge-info right">'.$investigacionrev.'</span>';
     } else $investigacion = '';
 
     $articulorev = count(\backend\models\Articulo\Articulo::find()->where(["revisado"=> 0])->all());
-    if(Yii::$app->user->can('revisar')){
+    if(Yii::$app->user->can('revisar') && $articulorev!=null){
         $articulo = '<span class="badge badge-info right">'.$articulorev.'</span>';
     } else $articulo = '';
 
-    $hechorev = count(\backend\models\Hecho\Hecho::find()->where(["revisado"=> 0])->all());
-    if(Yii::$app->user->can('revisar')){
-        $hecho = '<span class="badge badge-info right">'.$hechorev.'</span>';
-    } else $hecho = '';
-
     $cdrev = count(\backend\models\ColeccionDocumental\ColeccionDocumental::find()->where(["revisado"=> 0])->all());
-    if(Yii::$app->user->can('revisar')){
+    if(Yii::$app->user->can('revisar') && $cdrev!=null){
         $cd = '<span class="badge badge-info right">'.$cdrev.'</span>';
     } else $cd = '';
 
     $librorev = count(\backend\models\Libro\Libro::find()->where(["revisado"=> 0])->all());
-    if(Yii::$app->user->can('revisar')){
+    if(Yii::$app->user->can('revisar') && $librorev!=null){
         $libro = '<span class="badge badge-info right">'.$librorev.'</span>';
     } else $libro = '';
 
     $corev = count(\backend\models\CursoOnline\CursoOnline::find()->where(["revisado"=> 0])->all());
-    if(Yii::$app->user->can('revisar')){
+    if(Yii::$app->user->can('revisar') && $corev!=null){
         $co = '<span class="badge badge-info right">'.$corev.'</span>';
     } else $co = '';
 
+
+    $cademicarev = $lineasrev + $investigacionrev + $articulorev + $cdrev + $librorev + $corev;
+    if(Yii::$app->user->can('revisar') && $cademicarev!=null){
+        $cademica = '<span class="badge badge-info right">'.$cademicarev.'</span>';
+    } else $cademica = '';
+
+
+    //-------------------------Proyectos Alternativos-------------------------------------------------------------------
     $tallerrev = count(\backend\models\Taller\Taller::find()->where(["revisado"=> 0])->all());
-    if(Yii::$app->user->can('revisar')){
+    if(Yii::$app->user->can('revisar') && $tallerrev!=null){
         $taller = '<span class="badge badge-info right">'.$tallerrev.'</span>';
     } else $taller = '';
 
     $exporev = count(\backend\models\Exposicion\Exposicion::find()->where(["revisado"=> 0])->all());
-    if(Yii::$app->user->can('revisar')){
+    if(Yii::$app->user->can('revisar') && $exporev!=null){
         $expo = '<span class="badge badge-info right">'.$exporev.'</span>';
     } else $expo = '';
 
     $parev = count(\backend\models\ProductoAudiovisual\ProductoAudiovisual::find()->where(["revisado"=> 0])->all());
-    if(Yii::$app->user->can('revisar')){
+    if(Yii::$app->user->can('revisar') && $parev!=null){
         $pa = '<span class="badge badge-info right">'.$parev.'</span>';
     } else $pa = '';
 
     $otrosrev = count(\backend\models\Otros\Otros::find()->where(["revisado"=> 0])->all());
-    if(Yii::$app->user->can('revisar')){
+    if(Yii::$app->user->can('revisar') && $otrosrev!=null){
         $otros = '<span class="badge badge-info right">'.$otrosrev.'</span>';
     } else $otros = '';
 
+    $palternativosrev = $tallerrev + $exporev + $parev + $otrosrev;
+    if(Yii::$app->user->can('revisar') && $palternativosrev!=null){
+        $palternativos = '<span class="badge badge-info right">'.$palternativosrev.'</span>';
+    } else $palternativos = '';
+
+
+    //-------------------------Vida y Obra------------------------------------------------------------------------------
+
+    $hechorev = count(\backend\models\Hecho\Hecho::find()->where(["revisado"=> 0])->all());
+    if(Yii::$app->user->can('revisar') && $hechorev!=null){
+        $hecho = '<span class="badge badge-info right">'.$hechorev.'</span>';
+    } else $hecho = '';
+
     $escritorev = count(\backend\models\Escrito\Escrito::find()->where(["revisado"=> 0])->all());
-    if(Yii::$app->user->can('revisar')){
+    if(Yii::$app->user->can('revisar') && $escritorev!=null){
         $escrito = '<span class="badge badge-info right">'.$escritorev.'</span>';
     } else $escrito = '';
 
     $testimoniorev = count(\backend\models\Testimonio\Testimonio::find()->where(["revisado"=> 0])->all());
-    if(Yii::$app->user->can('revisar')){
+    if(Yii::$app->user->can('revisar') && $testimoniorev!=null){
         $testimonio = '<span class="badge badge-info right">'.$testimoniorev.'</span>';
     } else $testimonio = '';
 
     $discursorev = count(\backend\models\Discurso\Discurso::find()->where(["revisado"=> 0])->all());
-    if(Yii::$app->user->can('revisar')){
+    if(Yii::$app->user->can('revisar') && $discursorev!=null){
         $discurso = '<span class="badge badge-info right">'.$discursorev.'</span>';
     } else $discurso = '';
 
     $correspondenciarev = count(\backend\models\Correspondencia\Correspondencia::find()->where(["revisado"=> 0])->all());
-    if(Yii::$app->user->can('revisar')){
+    if(Yii::$app->user->can('revisar') && $correspondenciarev!=null){
         $correspondencia = '<span class="badge badge-info right">'.$correspondenciarev.'</span>';
     } else $correspondencia = '';
+
+
+    $vidaobrarev = $hechorev + $escritorev + $testimoniorev + $discursorev + $correspondenciarev;
+    if(Yii::$app->user->can('revisar') && $vidaobrarev!=null){
+        $vidaobra = '<span class="badge badge-info right">'.$vidaobrarev.'</span>';
+    } else $vidaobra = '';
+
+
+    //-------------------------Archivo----------------------------------------------------------------------------------
+    $archivorev = count(\backend\models\Archivo\Archivo::find()->where(["revisado"=> 0])->all());
+    if(Yii::$app->user->can('revisar') && $archivorev!=null){
+        $archivo = '<span class="badge badge-info right">'.$archivorev.'</span>';
+    } else $archivo = '';
+
+    //------------------------------------------------------------------------------------------------------------------
 
     ?>
 
@@ -136,6 +170,7 @@
                     [
                         'label' => 'Inicio',
                         'icon' => 'fas fa-home',
+                        'badge' => $inicio,
                         'items' => [
                             ['label' => 'Actualidad', 'iconStyle' => 'far' , 'url' => ['/noticia/index'], 'visible' => Yii::$app->user->can('gestionar-noticia'), 'badge' => $actualidad],
                             ['label' => 'Carrusel', 'iconStyle' => 'far' , 'url' => ['/carrusel/index'], 'visible' => Yii::$app->user->can('gestionar-noticia')],
@@ -151,6 +186,7 @@
                     [
                         'label' => 'C. Académica',
                         'icon' => 'fa fa-brain',
+                        'badge' => $cademica,
                         'items' => [
                             ['label' => 'Líneas de Investigación', 'iconStyle' => 'far' , 'url' => ['/linea-investigacion/index'], 'visible' => Yii::$app->user->can('gestionar-linea-investigacion'), 'badge' => $lineas],
                             ['label' => 'Investigaciones', 'iconStyle' => 'far' , 'url' => ['/investigacion/index'], 'visible' => Yii::$app->user->can('gestionar-investigacion'), 'badge' => $investigacion],
@@ -166,6 +202,7 @@
                     [
                         'label' => 'Proyectos Alternativos',
                         'icon' => 'far fa-lightbulb',
+                        'badge' => $palternativos,
                         'items' => [
                             ['label' => 'Proyectos Comunitarios', 'iconStyle' => 'far' , 'url' => ['/taller/index'], 'visible' => Yii::$app->user->can('gestionar-taller'),'badge' => $taller],
                             [
@@ -186,6 +223,7 @@
                     [
                         'label' => 'Vida y Obra',
                         'icon' => 'fas fa-pen-nib',
+                        'badge' => $vidaobra,
                         'items' => [
                             ['label' => 'Cronología', 'iconStyle' => 'far' , 'url' => ['/hecho/index'], 'visible' => Yii::$app->user->can('gestionar-hecho'), 'badge' => $hecho],
                             ['label' => 'Correspondencias', 'iconStyle' => 'far' , 'url' => ['/correspondencia/index'], 'visible' => Yii::$app->user->can('gestionar-correspondencia'), 'badge' => $correspondencia],

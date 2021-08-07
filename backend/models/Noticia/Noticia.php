@@ -36,7 +36,7 @@ class Noticia extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['revisado', 'publico', 'titulo_noticia', 'fecha', 'referencia', 'descripcion', 'cuerpo', 'autor', 'contacto', 'fuente', 'etiqueta'], 'required'],
+            [['revisado', 'publico', 'titulo_noticia', 'fecha', 'descripcion', 'cuerpo', 'autor', 'etiqueta'], 'required'],
             [['revisado', 'publico'], 'integer'],
             [['titulo_noticia', 'referencia', 'descripcion', 'cuerpo', 'autor', 'contacto', 'fuente', 'etiqueta'], 'string'],
             [['fecha'], 'safe'],
