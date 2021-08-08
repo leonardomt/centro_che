@@ -10,7 +10,7 @@ use yii\bootstrap4\Breadcrumbs;
 $this->title = 'Modificar información del Trabajador: ' . $model->nombre;
 $this->params['breadcrumbs'][] = ['label' => 'Trabajador', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->nombre, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->params['breadcrumbs'][] = 'Modificar';
 ?>
 <div class="trabajador-update">
 

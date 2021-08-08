@@ -24,13 +24,14 @@ use kartik\form\ActiveForm;
     </div>
     <?= $form->field($model, 'area')->dropDownList(['Dirección' => 'Dirección', 'Coordinación Académica' => 'Coordinación Académica', 'Coordinación de Proyectos Alternativos' => 'Coordinación de Proyectos Alternativos']) ?>
 
+    <br>
 
-
-
-    <div class="form-group">
-        <?= Html::submitButton('  <i class="fa fa-floppy-o" aria-hidden="true"></i>', ['class' => 'btn btn-success']) ?>
+    <div class="row">
+        <div class="col-md-10"></div>
+        <div class="form-group">
+            <?= Html::submitButton('  <i class="fa fa-floppy-o" aria-hidden="true"></i>', ['class' => 'btn btn-success']) ?>
+        </div>
     </div>
-
     <?php ActiveForm::end(); ?>
 
 </div>

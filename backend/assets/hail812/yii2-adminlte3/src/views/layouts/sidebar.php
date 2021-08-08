@@ -128,6 +128,12 @@
         $archivo = '<span class="badge badge-info right">'.$archivorev.'</span>';
     } else $archivo = '';
 
+    //-------------------------Comentarios------------------------------------------------------------------------------
+    $comentariorev = count(\backend\models\Comentario\Comentario::find()->where(["revisado"=> 0 , "publico"=> 0])->all());
+    if(Yii::$app->user->can('revisar') && $comentariorev!=null){
+        $comentario = '<span class="badge badge-info right">'.$comentariorev.'</span>';
+    } else $comentario = '';
+
     //------------------------------------------------------------------------------------------------------------------
 
     ?>
@@ -258,7 +264,7 @@
                         ]
                     ],
 
-                    ['label' => 'Comentarios', 'url' => ['/comentario/index'], 'icon' => 'far fa-comments' , 'visible' => Yii::$app->user->can('gestionar-comentario')],
+                    ['label' => 'Gestión de Comentarios', 'url' => ['/comentario/index'], 'icon' => 'far fa-comments' , 'visible' => Yii::$app->user->can('gestionar-comentario'), 'badge' => $comentario,],
 
 
                 ],

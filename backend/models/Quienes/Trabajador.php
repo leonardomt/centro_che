@@ -32,6 +32,7 @@ class Trabajador extends \yii\db\ActiveRecord
             [['nombre', 'cargo', 'correo', 'area'], 'required'],
             [['nombre', 'cargo', 'correo'], 'string', 'max' => 256],
             [['area'], 'string', 'max' => 128],
+            [['correo'], 'email'],
         ];
     }
 

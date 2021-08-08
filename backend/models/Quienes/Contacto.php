@@ -32,7 +32,7 @@ class Contacto extends \yii\db\ActiveRecord
             [['direccion', 'telefono1', 'correo'], 'required'],
             [['direccion'], 'string'],
             [['telefono1', 'telefono2'], 'string', 'max' => 64],
-            [['correo'], 'string', 'max' => 256],
+            [['correo'], 'email'],
         ];
     }
 

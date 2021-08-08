@@ -63,8 +63,8 @@ use backend\models\Archivo\TipoArchivo;
             [
                 'pluginOptions' => [
                     'showUpload' => false,
-                    'browseLabel' => 'Insertar Archivo',
-                    'removeLabel' => '',
+                    'browseLabel' => '',
+                    'showCancel' => false,
                     'mainClass' => 'input-group-md',
                      'allowedFileExtensions' => ['png', 'jpg', 'gif', 'jpeg', 'mp4', 'mp3'],
                     'maxFileSize' => 20048,

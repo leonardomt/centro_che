@@ -20,7 +20,7 @@ $bundle->js[] = 'chart/Chart.js';
 
             <div class="card card-default ">
                 <div class="card-header">
-                    <h3 class="card-title" data-card-widget="collapse">Cantidad de Elementos Subidos</h3>
+                    <h3 class="card-title" data-card-widget="collapse">Publicaciones por Sección</h3>
 
                     <div class="card-tools">
                         <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -48,8 +48,6 @@ $bundle->js[] = 'chart/Chart.js';
                                 <div class="chart">
                                     <?php
                                     $actualidad = count(\backend\models\Noticia\Noticia::find()->all());
-                                    $paradigma = count(\backend\models\Revista\Revista::find()->all());
-                                    $equipo = count(\backend\models\Quienes\Trabajador::find()->all());
                                     ?>
                                     <?= ChartJs::widget([
                                         'type' => 'bar',
@@ -58,7 +56,7 @@ $bundle->js[] = 'chart/Chart.js';
                                             'width' => 400
                                         ],
                                         'data' => [
-                                            'labels' => ["Actualidad", "Revistas", "Equipo"],
+                                            'labels' => ["Actualidad"],
                                             'datasets' => [
                                                 [
                                                     'label' => "Cantidad",
@@ -68,7 +66,7 @@ $bundle->js[] = 'chart/Chart.js';
                                                     'pointBorderColor' => "#fff",
                                                     'pointHoverBackgroundColor' => "#fff",
                                                     'pointHoverBorderColor' => "#007bff",
-                                                    'data' => [$actualidad, $paradigma, $equipo]
+                                                    'data' => [$actualidad]
                                                 ],
 
                                             ]
@@ -257,7 +255,7 @@ $bundle->js[] = 'chart/Chart.js';
         <div class="col-md-4">
             <div class="card card-default">
                 <div class="card-header">
-                    <h3 class="card-title" data-card-widget="collapse">Cantidad de Archivos Subidos</h3>
+                    <h3 class="card-title" data-card-widget="collapse">Archivos</h3>
 
                     <div class="card-tools">
                         <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -287,16 +285,16 @@ $bundle->js[] = 'chart/Chart.js';
                         ?>
                         <div class="">
                             <div class="">
-                                <div class="info-box bg-gradient-primary">
+                                <div class="info-box bg-gradient-primary ">
                                     <span class="info-box-icon"><i class="far fa-image"></i></span>
 
                                     <div class="info-box-content">
                                         <span class="info-box-number">Total de Imágenes: <?= $archivoIT ?></span>
                                         <div class="progress">
-                                            <div class="progress-bar" style="width: <?= $Irev ?>%"></div>
+                                            <div class="progress-bar " style="width: <?= $Irev ?>%"></div>
                                         </div>
-                                        <span class="progress-description"><?= $Irev ?>
-                                            % de las imágenes están revisadas</span>
+                                        <span class="progress-description"><?= 100-$Irev ?>
+                                            % pendientes de revisión</span>
                                     </div>
                                     <!-- /.info-box-content -->
                                 </div>
@@ -312,10 +310,10 @@ $bundle->js[] = 'chart/Chart.js';
                                         <span class="info-box-number">Total de Audios: <?= $archivoAT ?></span>
 
                                         <div class="progress">
-                                            <div class="progress-bar" style="width: <?= $Arev ?>%"></div>
+                                            <div class="progress-bar" style="width: <?= 100-$Arev ?>%"></div>
                                         </div>
                                         <span class="progress-description"><?= $Arev ?>
-                                            % de los audios están revisados</span>
+                                            % pendientes de revisión</span>
                                     </div>
                                     <!-- /.info-box-content -->
                                 </div>
@@ -331,10 +329,10 @@ $bundle->js[] = 'chart/Chart.js';
                                         <span class="info-box-number">Total de Videos: <?= $archivoVT ?></span>
 
                                         <div class="progress">
-                                            <div class="progress-bar" style="width: <?= $Vrev ?>%"></div>
+                                            <div class="progress-bar" style="width: <?= 100-$Vrev ?>%"></div>
                                         </div>
                                         <span class="progress-description"><?= $Vrev ?>
-                                            % de los videos están revisados</span>
+                                            % pendientes de revisión</span>
                                     </div>
                                     <!-- /.info-box-content -->
                                 </div>
@@ -351,11 +349,11 @@ $bundle->js[] = 'chart/Chart.js';
 
 
         <!--------------------------------------------Escritores Destacados --------------------------------------------------->
-        <?php if($escritores != null): ?>
+
         <div class="col-md-4">
             <div class="card card-default">
                 <div class="card-header">
-                    <h3 class="card-title" data-card-widget="collapse">Escritores Destacados</h3>
+                    <h3 class="card-title" data-card-widget="collapse">Autores Destacados</h3>
 
                     <div class="card-tools">
                         <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -377,9 +375,9 @@ $bundle->js[] = 'chart/Chart.js';
                                     <span class="info-box-icon"><i class="fas fa-book"></i></span>
 
                                     <div class="info-box-content">
-                                        <span class="info-box-number">1er lugar: <?= $keys[0] ?></span>
+                                        <span class="info-box-number">1er lugar: <?php if(isset($keys[0])) echo $keys[0]; ?></span>
 
-                                        <span class="progress-description"><?= $values[0] ?>
+                                        <span class="progress-description"><?php if(isset($values[0])) echo $values[0]; ?>
                                              artículos publicados</span>
                                     </div>
                                     <!-- /.info-box-content -->
@@ -393,10 +391,10 @@ $bundle->js[] = 'chart/Chart.js';
                                     <span class="info-box-icon"><i class="fas fa-book"></i></span>
 
                                     <div class="info-box-content">
-                                        <span class="info-box-number">2do lugar: <?=  $keys[1] ?></span>
+                                        <span class="info-box-number">2do lugar: <?php if(isset($keys[1])) echo $keys[1]; ?></span>
 
 
-                                        <span class="progress-description"><?= $values[1] ?>
+                                        <span class="progress-description"><?php if(isset($values[1])) echo $values[1]; ?>
                                              artículos publicados</span>
                                     </div>
                                     <!-- /.info-box-content -->
@@ -410,9 +408,9 @@ $bundle->js[] = 'chart/Chart.js';
                                     <span class="info-box-icon"><i class="fas fa-book"></i></span>
 
                                     <div class="info-box-content">
-                                        <span class="info-box-number">3er lugar: <?=  $keys[2] ?></span>
+                                        <span class="info-box-number">3er lugar: <?php if(isset($keys[2])) echo $keys[2]; ?></span>
 
-                                        <span class="progress-description"><?= $values[2] ?>
+                                        <span class="progress-description"><?php if(isset($values[2])) echo $values[2]; ?>
                                              artículos publicados</span>
                                     </div>
                                     <!-- /.info-box-content -->
@@ -427,7 +425,6 @@ $bundle->js[] = 'chart/Chart.js';
                 </div>
             </div>
         </div>
-        <?php endif;?>
     </div>
     <hr class="page_separator"/>
     <!-------------------------------------------Comentarios--------------------------------------------------------->
@@ -446,11 +443,11 @@ $bundle->js[] = 'chart/Chart.js';
             <div class="chart">
                 <?php
                 $comInicio = count(\backend\models\Comentario\Comentario::find()->where(['seccion' => 'Inicio'])->all());
-                $comInicioRev = count(\backend\models\Comentario\Comentario::find()->where(['seccion' => 'Inicio', 'revisado' =>1])->all());
+                $comInicioRev = count(\backend\models\Comentario\Comentario::find()->where(['seccion' => 'Inicio', 'revisado' =>0, 'publico' =>0])->all());
                 $comCoordinacion = count(\backend\models\Comentario\Comentario::find()->where(['seccion' => 'Coordinación Académica'])->all());
-                $comCoordinacionRev = count(\backend\models\Comentario\Comentario::find()->where(['seccion' => 'Coordinación Académica', 'revisado' =>1])->all());
+                $comCoordinacionRev = count(\backend\models\Comentario\Comentario::find()->where(['seccion' => 'Coordinación Académica', 'revisado' =>0, 'publico' =>0])->all());
                 $comTaller = count(\backend\models\Comentario\Comentario::find()->where(['seccion' => 'Proyectos Alternativos'])->all());
-                $comTallerRev = count(\backend\models\Comentario\Comentario::find()->where(['seccion' => 'Proyectos Alternativos', 'revisado' =>1])->all());
+                $comTallerRev = count(\backend\models\Comentario\Comentario::find()->where(['seccion' => 'Proyectos Alternativos', 'revisado' =>0, 'publico' =>0])->all());
 
                 ?>
                 <?= ChartJs::widget([
@@ -463,7 +460,7 @@ $bundle->js[] = 'chart/Chart.js';
                         'labels' => ["Actualidad", "Artículos", "Proyectos Comunitarios"],
                         'datasets' => [
                             [
-                                'label' => "Total",
+                                'label' => "Total de Comentarios",
                                 'backgroundColor' => "#007bff",
                                 'borderColor' => "#007bff",
                                 'pointBackgroundColor' => "#007bff",
@@ -473,7 +470,7 @@ $bundle->js[] = 'chart/Chart.js';
                                 'data' => [$comInicio, $comCoordinacion, $comTaller]
                             ],
                             [
-                                'label' => "Revisados",
+                                'label' => "Pendientes de Revisión",
                                 'backgroundColor' => "#17a2b8",
                                 'borderColor' => "#17a2b8",
                                 'pointBackgroundColor' => "#17a2b8",
