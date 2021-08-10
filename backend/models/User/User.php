@@ -18,7 +18,7 @@ use yii\web\IdentityInterface;
  * @property string $email
  * @property string $auth_key
  * @property integer $status
- * @property string $roles
+ * @property string $rol
  * @property integer $created_at
  * @property integer $updated_at
  * @property string $password write-only password
@@ -29,7 +29,6 @@ class User extends ActiveRecord implements IdentityInterface
     const STATUS_INACTIVE = 9;
     const STATUS_ACTIVE = 10;
     public $new_password;
-    public $roles;
 
     /**
      * {@inheritdoc}
@@ -146,7 +145,7 @@ class User extends ActiveRecord implements IdentityInterface
             'password' => 'Contraseña',
             'first_name' => 'Nombre',
             'last_name' => 'Apellidos',
-            'roles' => 'Roles',
+            'rol' => 'Rol',
          
         ];
     }

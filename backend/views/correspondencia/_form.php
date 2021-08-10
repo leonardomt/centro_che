@@ -46,9 +46,9 @@ use common\widgets\Alert;
                                 </div>
                             </div>
 
-                            <?= $form->field($model, 'descripcion')->textarea(['rows' => 2]) ?>
+                            <?= $form->field($model, 'descripcion')->textarea(['rows' => 2,'style' => 'resize:none']) ?>
         
-                            <?= $form->field($model, 'cuerpo')->textarea(['rows' => 6]) ?>
+                            <?= $form->field($model, 'cuerpo')->textarea(['rows' => 6,'style' => 'resize:none']) ?>
                             
                             <br>
                             <div class="row">

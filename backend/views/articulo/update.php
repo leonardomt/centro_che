@@ -60,15 +60,15 @@ if ( Yii::$app->user->isGuest )
         ArrayHelper::map(Investigacion::find()->all(), 'id_investigacion', 'titulo_investigacion'), ['prompt'=>'Ninguna']
     ) ?>
 
-    <?= $form->field($model, 'resumen')->textarea(['rows' => 2]) ?>
+    <?= $form->field($model, 'resumen')->textarea(['rows' => 2,'style' => 'resize:none']) ?>
 
     <?= $form->field($model, 'palabras_clave')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'abstract')->textarea(['rows' => 2]) ?>
+    <?= $form->field($model, 'abstract')->textarea(['rows' => 2,'style' => 'resize:none']) ?>
 
     <?= $form->field($model, 'keywords')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'cuerpo')->textarea(['rows' => 6]) ?>
+    <?= $form->field($model, 'cuerpo')->textarea(['rows' => 6,'style' => 'resize:none']) ?>
 
 
 
@@ -132,15 +132,15 @@ if ( Yii::$app->user->isGuest )
                                 echo Html::activeHiddenInput($modelArchivo, "[{$i}]id");
                             }
                             ?>
-
-                            <?= $form->field($modelArchivo, "[{$i}]nota")->textarea(['rows' => 6]) ?>
-
                             <?= $form->field($modelArchivo, "[{$i}]id_archivo")->widget(\kartik\select2\Select2::classname(), [
                                     'data' => \yii\helpers\ArrayHelper::map(\backend\models\Archivo\Archivo::find()->all(), 'id_archivo', 'titulo_archivo'),
                                     'options' => ['placeholder' => 'Seleccionar', 'multiple' => false, 'required' => true],
                                     'theme' => \kartik\select2\Select2::THEME_KRAJEE,
                                     'size' => 'xs',]
                             ) ?>
+
+                            <?= $form->field($modelArchivo, "[{$i}]nota")->textarea(['rows' => 6,'style' => 'resize:none']) ?>
+
 
 
 

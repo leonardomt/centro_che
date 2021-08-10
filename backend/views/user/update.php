@@ -9,7 +9,7 @@ use yii\bootstrap4\ActiveForm;
 use yii\bootstrap4\Breadcrumbs;
 use common\widgets\Alert;
 
-$this->title = 'Modificar Usuario Usuario';
+$this->title = 'Modificar Usuario';
 $this->params['breadcrumbs'][] = ['label' => 'Usuarios', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -46,6 +46,12 @@ $this->params['breadcrumbs'][] = $this->title;
 
             <?= $form->field($model, 'email') ?>
 
+            <?= $form->field($modelRol, 'item_name')->widget(\kartik\select2\Select2::classname(), [
+                    'data' => \yii\helpers\ArrayHelper::map(\backend\models\User\AuthItem::find()->where(['type'=>1])->all(), 'name', 'name'),
+                    'options' => ['placeholder' => 'Seleccionar', 'multiple' => false, 'required' => true],
+                    'theme' => \kartik\select2\Select2::THEME_KRAJEE,
+                    'size' => 'xs',]
+            ) ?>
 
             <div class="col-lg-1">
                 <div class="form-group">

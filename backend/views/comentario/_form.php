@@ -19,7 +19,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'correo')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'comentario')->textarea(['rows' => 6]) ?>
+    <?= $form->field($model, 'comentario')->textarea(['rows' => 6,'style' => 'resize:none']) ?>
 
     <?= $form->field($model, 'tabla')->textInput() ?>
 

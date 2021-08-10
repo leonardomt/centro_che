@@ -24,6 +24,7 @@ use Yii;
  */
 class AuthItem extends \yii\db\ActiveRecord
 {
+    public $rol;
     /**
      * {@inheritdoc}
      */
@@ -38,7 +39,7 @@ class AuthItem extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'type'], 'required'],
+            [['name', 'type', 'rol'], 'required'],
             [['type', 'created_at', 'updated_at'], 'integer'],
             [['description', 'data'], 'string'],
             [['name', 'rule_name'], 'string', 'max' => 64],
@@ -60,6 +61,7 @@ class AuthItem extends \yii\db\ActiveRecord
             'data' => 'Data',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
+            'rol' => 'Permisos',
         ];
     }
 

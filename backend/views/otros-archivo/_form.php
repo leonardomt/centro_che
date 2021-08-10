@@ -18,7 +18,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'portada')->textInput() ?>
 
-    <?= $form->field($model, 'nota')->textarea(['rows' => 6]) ?>
+    <?= $form->field($model, 'nota')->textarea(['rows' => 6,'style' => 'resize:none']) ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

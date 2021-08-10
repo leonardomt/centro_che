@@ -18,7 +18,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'genero')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'nota')->textarea(['rows' => 6]) ?>
+    <?= $form->field($model, 'nota')->textarea(['rows' => 6,'style' => 'resize:none']) ?>
 
     <?= $form->field($model, 'publico')->textInput() ?>
 

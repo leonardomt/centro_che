@@ -41,9 +41,9 @@ use kartik\grid\GridView;
 
     <?= $form->field($model, 'etiqueta')->textInput() ?>
 
-    <?= $form->field($model, 'descripcion')->textarea(['rows' => 2]) ?>
+    <?= $form->field($model, 'descripcion')->textarea(['rows' => 2,'style' => 'resize:none']) ?>
 
-    <?= $form->field($model, 'cuerpo')->textarea(['rows' => 6]) ?>
+    <?= $form->field($model, 'cuerpo')->textarea(['rows' => 6,'style' => 'resize:none']) ?>
 
 
     <div class="panel panel-default">
@@ -96,7 +96,7 @@ use kartik\grid\GridView;
 
 
 
-                            <?= $form->field($modelArchivo, "[{$i}]nota")->textarea(['rows' => 6]) ?>
+                            <?= $form->field($modelArchivo, "[{$i}]nota")->textarea(['rows' => 6,'style' => 'resize:none']) ?>
 
                             <?= $form->field($modelArchivo, "[{$i}]id_archivo")->dropDownList(
                                 \yii\helpers\ArrayHelper::map(\backend\models\Archivo\Archivo::find()->all(), 'id_archivo', 'titulo_archivo')

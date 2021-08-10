@@ -62,7 +62,7 @@ if (!Yii::$app->user->can('gestionar-producto-audiovisual'))
 
     <?= $form->field($model, 'productora')->textInput() ?>
 
-    <?= $form->field($model, 'descripcion')->textarea(['rows' => 2]) ?>
+    <?= $form->field($model, 'descripcion')->textarea(['rows' => 2,'style' => 'resize:none']) ?>
 
 
 
@@ -107,8 +107,6 @@ if (!Yii::$app->user->can('gestionar-producto-audiovisual'))
                                 echo Html::activeHiddenInput($modelArchivo, "[{$i}]id");
                             }
                             ?>
-                            <?= $form->field($modelArchivo, "[{$i}]nota")->textarea(['rows' => 3]) ?>
-
                             <?= $form->field($modelArchivo, "[{$i}]id_archivo")->widget(\kartik\select2\Select2::classname(), [
                                     'data' => \yii\helpers\ArrayHelper::map(\backend\models\Archivo\Archivo::find()->all(), 'id_archivo', 'titulo_archivo'),
                                     'options' => ['placeholder' => 'Seleccionar', 'multiple' => false, 'required' => true],
@@ -116,7 +114,7 @@ if (!Yii::$app->user->can('gestionar-producto-audiovisual'))
                                     'size' => 'xs',]
                             ) ?>
 
-
+                            <?= $form->field($modelArchivo, "[{$i}]nota")->textarea(['rows' => 3,'style' => 'resize:none']) ?>
 
                         </div>
                     </div>

@@ -45,7 +45,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= $form->field($model, 'tipo')->hiddenInput(['value' => $tipo])->label(false) ?>
 
 
-    <?php if($tipo == 4) { echo $form->field($model, 'genero')->textarea(['rows' => 2]); }?>
+    <?php if($tipo == 4) { echo $form->field($model, 'genero')->textarea(['rows' => 2,'style' => 'resize:none']); }?>
 
 
     <div class="panel panel-default">
@@ -90,8 +90,6 @@ $this->params['breadcrumbs'][] = $this->title;
                                     'theme' => \kartik\select2\Select2::THEME_KRAJEE,
                                     'size' => 'xs',]
                             ) ?>
-
-
 
                         </div>
                     </div>

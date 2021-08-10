@@ -53,7 +53,7 @@ if (!Yii::$app->user->can('gestionar-revista'))
 
     <?= $form->field($model, 'titulo')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'descripcion')->textarea(['rows' => 2]) ?>
+    <?= $form->field($model, 'descripcion')->textarea(['rows' => 2,'style' => 'resize:none']) ?>
 
     <?= $form->field($model, 'enlace')->textInput(['maxlength' => true]) ?>
 

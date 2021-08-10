@@ -30,9 +30,9 @@ use common\widgets\Alert;
                                     <?= $form->field($model, 'enlace')->textInput(['maxlength' => true]) ?>
                                 </div>
                             </div>
-                            <?= $form->field($model, 'descripcion')->textarea(['rows' => 2]) ?>
+                            <?= $form->field($model, 'descripcion')->textarea(['rows' => 2,'style' => 'resize:none']) ?>
 
-                            <?= $form->field($model, 'cuerpo')->textarea(['rows' => 6]) ?>
+                            <?= $form->field($model, 'cuerpo')->textarea(['rows' => 6,'style' => 'resize:none']) ?>
                             <br>
                             <div class="row">
                                 <div class="col-lg-6 text-lg-left">

@@ -42,10 +42,10 @@ if ( Yii::$app->user->isGuest )
                             </div>
                             <div class="row">
                                 <div class="col-lg-12 text-lg-left">
-                                    <?= $form->field($model, 'description')->textarea(['rows' => 2]) ?>
+                                    <?= $form->field($model, 'description')->textarea(['rows' => 2,'style' => 'resize:none']) ?>
                                 </div>
                             </div>
-                            <?= $form->field($modelChild, "child[]")->widget(\kartik\select2\Select2::classname(), [
+                            <?= $form->field($model, "rol")->widget(\kartik\select2\Select2::classname(), [
                                     'data' => \yii\helpers\ArrayHelper::map(\backend\models\User\AuthItem::find()->where(['type'=> 2])->all(), 'name', 'name'),
                                     'options' => ['placeholder' => 'Seleccionar', 'multiple' => true, 'required' => true],
                                     'theme' => \kartik\select2\Select2::THEME_KRAJEE,

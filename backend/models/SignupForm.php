@@ -16,6 +16,7 @@ class SignupForm extends Model
     public $username;
     public $email;
     public $password;
+    public $rol;
 
 
     /**
@@ -24,6 +25,7 @@ class SignupForm extends Model
     public function rules()
     {
         return [
+            ['rol', 'trim'],
             ['username', 'trim'],
             ['username', 'required'],
             ['first_name', 'required'],
@@ -59,9 +61,11 @@ class SignupForm extends Model
         $user->username = $this->username;
         $user->email = $this->email;
         $user->status = 10;
+        $user->rol = $this->rol;
         $user->setPassword($this->password);
         $user->generateAuthKey();
         $user->generateEmailVerificationToken();
+
         return $user->save() ;
 
     }

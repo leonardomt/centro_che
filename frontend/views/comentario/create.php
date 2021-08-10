@@ -31,7 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                                 </div>
 
-                                <?= $form->field($model, 'comentario')->textarea(['rows' => 6]) ?>
+                                <?= $form->field($model, 'comentario')->textarea(['rows' => 6,'style' => 'resize:none']) ?>
                                 <?=$form->field($model, 'tabla')->hiddenInput(['value' => $tabla])->label(false) ?>
                                 <?=$form->field($model, 'id_tabla')->hiddenInput(['value' => $id])->label(false) ?>
 

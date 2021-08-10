@@ -14,7 +14,7 @@ use common\widgets\Alert;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'tipo_articulo')->textarea(['rows' => 6]) ?>
+    <?= $form->field($model, 'tipo_articulo')->textarea(['rows' => 6,'style' => 'resize:none']) ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

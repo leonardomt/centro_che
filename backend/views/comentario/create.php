@@ -28,7 +28,7 @@ $comentario = \backend\models\Comentario\Comentario::find()->where(['id'=> $id])
 
     <?= $form->field($model, 'correo')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'comentario')->textarea(['rows' => 3]) ?>
+    <?= $form->field($model, 'comentario')->textarea(['rows' => 3,'style' => 'resize:none']) ?>
 
     <?=$form->field($model, 'tabla')->hiddenInput(['value' => $comentario->tabla])->label(false) ?>
     <?=$form->field($model, 'id_tabla')->hiddenInput(['value' => $comentario->id_tabla])->label(false) ?>

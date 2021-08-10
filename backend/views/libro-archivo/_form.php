@@ -16,7 +16,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'id_libro')->textInput() ?>
 
-    <?= $form->field($model, 'nota')->textarea(['rows' => 6]) ?>
+    <?= $form->field($model, 'nota')->textarea(['rows' => 6,'style' => 'resize:none']) ?>
 
     <?= $form->field($model, 'portada')->textInput() ?>
 

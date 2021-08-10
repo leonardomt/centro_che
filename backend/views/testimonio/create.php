@@ -51,9 +51,9 @@ if ( !Yii::$app->user->can('gestionar-testimonio'))
 
     <?= $form->field($model, 'titulo')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'descripcion')->textarea(['rows' => 2]) ?>
+    <?= $form->field($model, 'descripcion')->textarea(['rows' => 2,'style' => 'resize:none']) ?>
 
-    <?= $form->field($model, 'cuerpo')->textarea(['rows' => 6]) ?>
+    <?= $form->field($model, 'cuerpo')->textarea(['rows' => 6,'style' => 'resize:none']) ?>
 
 
 
@@ -100,8 +100,6 @@ if ( !Yii::$app->user->can('gestionar-testimonio'))
                                 echo Html::activeHiddenInput($modelArchivo, "[{$i}]id");
                             }
                             ?>
-                            <?= $form->field($modelArchivo, "[{$i}]nota")->textarea(['rows' => 3]) ?>
-
                             <?= $form->field($modelArchivo, "[{$i}]id_archivo")->widget(\kartik\select2\Select2::classname(), [
                                     'data' => \yii\helpers\ArrayHelper::map(\backend\models\Archivo\Archivo::find()->all(), 'id_archivo', 'titulo_archivo'),
                                     'options' => ['placeholder' => 'Seleccionar', 'multiple' => false, 'required' => true],
@@ -109,6 +107,8 @@ if ( !Yii::$app->user->can('gestionar-testimonio'))
                                     'size' => 'xs',]
                             ) ?>
 
+
+                            <?= $form->field($modelArchivo, "[{$i}]nota")->textarea(['rows' => 3,'style' => 'resize:none']) ?>
 
 
                         </div>

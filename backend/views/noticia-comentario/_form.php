@@ -50,7 +50,7 @@ use common\widgets\Alert;
                                 </div>
                             </div>
 
-                            <?= $form->field($model, 'comentario')->textarea(['rows' => 6]) ?>
+                            <?= $form->field($model, 'comentario')->textarea(['rows' => 6,'style' => 'resize:none']) ?>
 
                             <br>
                             <div class="row">

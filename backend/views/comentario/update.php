@@ -26,7 +26,7 @@ $this->params['breadcrumbs'][] = 'Update';
     </div>
     <?= $form->field($model, 'correo')->textInput(['maxlength' => true, 'readonly' => !$model->isNewRecord]) ?>
 
-    <?= $form->field($model, 'comentario')->textarea(['rows' => 6, 'readonly' => !$model->isNewRecord]) ?>
+    <?= $form->field($model, 'comentario')->textarea(['rows' => 6, 'readonly' => !$model->isNewRecord,'style' => 'resize:none']) ?>
 
     <div class="row">
         <div class="col-md-6">

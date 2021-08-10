@@ -20,7 +20,7 @@ use common\widgets\Alert;
 
     <?=$form->field($model, 'id_noticia')->hiddenInput(['value' => $id])->label(false) ?>
 
-    <?= $form->field($model, 'nota')->textarea(['rows' => 2]) ?>
+    <?= $form->field($model, 'nota')->textarea(['rows' => 2,'style' => 'resize:none']) ?>
 
     <?=$form->field($model, 'portada')->dropDownList(['1' => 'Si', '0' => 'No'],['prompt'=>'-']) ?>
 

@@ -36,9 +36,9 @@ use yii\helpers\ArrayHelper;
                                 ArrayHelper::map(LineaInvestigacion::find()->all(), 'id_linea_investigacion','nombre_linea')
 
                             ) ?>
-                            <?= $form->field($model, 'descripcion')->textarea(['rows' => 2]) ?>
+                            <?= $form->field($model, 'descripcion')->textarea(['rows' => 2,'style' => 'resize:none']) ?>
 
-                            <?= $form->field($model, 'cuerpo')->textarea(['rows' => 6]) ?>
+                            <?= $form->field($model, 'cuerpo')->textarea(['rows' => 6,'style' => 'resize:none']) ?>
 
                             <br>
                             <div class="row">

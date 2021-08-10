@@ -4,6 +4,7 @@ namespace backend\controllers;
 
 use backend\models\User\AuthAssignment;
 use backend\models\User\AuthItemChild;
+use backend\models\User\AuthItemChildSpecial;
 use Yii;
 use backend\models\User\AuthItem;
 use backend\models\User\AuthItemSearch;
@@ -72,20 +73,37 @@ class AuthItemController extends Controller
     public function actionCreate()
     {
         $model = new AuthItem();
-        $modelChild = new AuthItemChild();
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            $modelChild->child = implode(",",$_POST['AuthItemChild']['child']);
 
-            $modelChild->parent = $model->name;
-            $modelChild->save();
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            $model->save();
+
+            if (is_array($model->rol)) {
+                foreach ($model->rol as $rol) {
+                    Yii::$app->session->setFlash('error', 'Esta en el form.');
+                    $rolTemp = new AuthItemChild();
+                    $rolTemp->parent = $model->name;
+                    $rolTemp->child = $rol;
+                    $rolTemp->save();
+                }
+            }
 
             return $this->redirect(['index']);
         }
 
         return $this->render('create', [
             'model' => $model,
-            'modelChild' => $modelChild,
         ]);
+    }
+
+    private function createAuthAssignment($model){
+
+        if (is_array($model->rol))
+            foreach ($model->rol as $rol){
+                $rolTemp = new AuthItemChild();
+                $rolTemp->parent = $model->name;
+                $rolTemp->child = $rol;
+                $rolTemp->save();
+            }
     }
 
     /**

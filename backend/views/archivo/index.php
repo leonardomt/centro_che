@@ -27,7 +27,7 @@ if (Yii::$app->user->isGuest)
         <?= Alert::widget() ?>
     </div>
     <p>
-        <?= Html::a('<span class="fa fa-plus "></span>', ['create'], [
+        <?= Html::a('<span class="fas fa-file-upload "></span>', ['create'], [
             'class' => 'btn btn-success',
             "title" => "Agregar"
         ])

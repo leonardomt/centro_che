@@ -56,7 +56,7 @@ $.pjax.reload({container:"#articuloupdate"});
 
                             </div>
 
-                            <?= $form->field($model, 'descripcion')->textarea(['rows' => 6]) ?>
+                            <?= $form->field($model, 'descripcion')->textarea(['rows' => 6,'style' => 'resize:none']) ?>
 
                             <br>
                             <div class="row">

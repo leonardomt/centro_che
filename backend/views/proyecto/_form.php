@@ -12,9 +12,9 @@ use kartik\form\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'descripcion')->textarea(['rows' => 3]) ?>
+    <?= $form->field($model, 'descripcion')->textarea(['rows' => 3,'style' => 'resize:none']) ?>
 
-    <?= $form->field($model, 'enlace')->textarea(['rows' => 1]) ?>
+    <?= $form->field($model, 'enlace')->textarea(['rows' => 1,'style' => 'resize:none']) ?>
 
     <div class="row">
         <div class="col-md-11"></div>

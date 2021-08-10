@@ -61,9 +61,9 @@ $this->params['breadcrumbs'][] = 'Modificar';
 
 
 
-    <?= $form->field($model, 'descripcion')->textarea(['rows' => 2]) ?>
+    <?= $form->field($model, 'descripcion')->textarea(['rows' => 2,'style' => 'resize:none']) ?>
 
-    <?= $form->field($model, 'cuerpo')->textarea(['rows' => 6]) ?>
+    <?= $form->field($model, 'cuerpo')->textarea(['rows' => 6,'style' => 'resize:none']) ?>
 
     <div class="panel panel-default">
 
@@ -111,14 +111,14 @@ $this->params['breadcrumbs'][] = 'Modificar';
                             }
                             ?>
 
-                            <?= $form->field($modelArchivo, "[{$i}]nota")->textarea(['rows' => 3, 'maxlength' => 300,'style' => 'resize:none']) ?>
-
                             <?= $form->field($modelArchivo, "[{$i}]id_archivo")->widget(\kartik\select2\Select2::classname(), [
                                     'data' => \yii\helpers\ArrayHelper::map(\backend\models\Archivo\Archivo::find()->all(), 'id_archivo', 'titulo_archivo'),
                                     'options' => ['placeholder' => 'Seleccionar', 'multiple' => false, 'required' => true],
                                     'theme' => \kartik\select2\Select2::THEME_KRAJEE,
                                     'size' => 'xs',]
                             ) ?>
+
+                            <?= $form->field($modelArchivo, "[{$i}]nota")->textarea(['rows' => 3, 'maxlength' => 300,'style' => 'resize:none']) ?>
 
                         </div>
                     </div>

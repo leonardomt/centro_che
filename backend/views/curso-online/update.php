@@ -43,7 +43,7 @@ if ( !Yii::$app->user->can('gestionar-curso-online'))
          </div>
     </div>
 
-    <?= $form->field($model, 'descripcion')->textarea(['rows' => 4]) ?>
+    <?= $form->field($model, 'descripcion')->textarea(['rows' => 4,'style' => 'resize:none']) ?>
 
     <?= $form->field($model, 'enlace')->textInput(['maxlength' => true]) ?>
 
@@ -123,7 +123,7 @@ if ( !Yii::$app->user->can('gestionar-curso-online'))
                                 </div>
                             </div>
 
-                            <?= $form->field($modelClase, "[{$i}]descripcion")->textarea(['rows' => 2]) ?>
+                            <?= $form->field($modelClase, "[{$i}]descripcion")->textarea(['rows' => 2,'style' => 'resize:none']) ?>
 
                             <?= $form->field($modelClase, "[{$i}]enlace")->textInput(['maxlength' => true]) ?>
                         </div>

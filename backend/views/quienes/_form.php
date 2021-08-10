@@ -12,7 +12,7 @@ use kartik\form\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'descripcion')->textarea(['rows' => 6]) ?>
+    <?= $form->field($model, 'descripcion')->textarea(['rows' => 6,'style' => 'resize:none']) ?>
 
 
 

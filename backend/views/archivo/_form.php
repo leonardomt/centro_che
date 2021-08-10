@@ -1,7 +1,7 @@
 <?php
 
 use yii\helpers\Html;
-use kartik\form\ActiveForm;
+use kartik\widgets\ActiveForm;
 use yii\helpers\ArrayHelper;
 use backend\models\Archivo\TipoArchivo;
 
@@ -51,7 +51,7 @@ use backend\models\Archivo\TipoArchivo;
         </div>
     </div>
 
-    <?= $form->field($model, 'descripcion_archivo')->textarea(['rows' => 3, 'maxlength' => 300,'style' => 'resize:none']) ?>
+    <?= $form->field($model, 'descripcion_archivo')->textarea(['rows' => 3, 'maxlength' => 3000,'style' => 'resize:none']) ?>
 
 
 

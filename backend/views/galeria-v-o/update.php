@@ -45,7 +45,7 @@ $this->params['breadcrumbs'][] = 'Modificar';
 
 
 
-    <?php if($tipo == 4) { echo $form->field($model, 'genero')->textarea(['rows' => 2]); }?>
+    <?php if($tipo == 4) { echo $form->field($model, 'genero')->textarea(['rows' => 2,'style' => 'resize:none']); }?>
 
 
     <div class="panel panel-default">

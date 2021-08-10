@@ -31,7 +31,7 @@ use common\widgets\Alert;
                             </div>
                             <div class="row">
                                 <div class="col-lg-12 text-lg-left">
-                                    <?= $form->field($model, 'description')->textarea(['rows' => 2]) ?>
+                                    <?= $form->field($model, 'description')->textarea(['rows' => 2,'style' => 'resize:none']) ?>
                                 </div>
                             </div>
                             <?= $form->field([$modelChild], "child")->widget(\kartik\select2\Select2::classname(), [

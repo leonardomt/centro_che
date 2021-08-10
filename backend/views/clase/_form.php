@@ -23,7 +23,7 @@ use kartik\form\ActiveForm;
         </div>
     </div>
 
-    <?= $form->field($model, 'descripcion')->textarea(['rows' => 3]) ?>
+    <?= $form->field($model, 'descripcion')->textarea(['rows' => 3,'style' => 'resize:none']) ?>
 
     <div class="row panel-heading">
         <div class="col-lg-1"></div>

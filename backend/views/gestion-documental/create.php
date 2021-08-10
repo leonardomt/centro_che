@@ -15,7 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php $form = \kartik\form\ActiveForm::begin(['id' => 'dynamic-form']); ?>
 
-    <?= $form->field($model, 'descripcion')->textarea(['rows' => 2]) ?>
+    <?= $form->field($model, 'descripcion')->textarea(['rows' => 2,'style' => 'resize:none']) ?>
 
     <?= $form->field($modelArchivo, 'url[]')->widget(\kartik\file\FileInput::classname(), [
         'options' => ['multiple' => 'true'],

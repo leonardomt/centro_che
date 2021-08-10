@@ -75,20 +75,21 @@ class UserController extends Controller implements IdentityInterface
     {
 
         $model = new SignupForm();
-        if ($model->load(Yii::$app->request->post()) && $model->signup()) {
-            $arrayRol = $model->roles;
-            foreach ($arrayRol as $rol){
-                Yii::$app->session->setFlash('success', 'Usuario creado con éxito');
-                //$modelRol = new AuthAssignment();
-               // $modelRol->item_name = $rol;
-               // $modelRol->save();
-            }
-            Yii::$app->session->setFlash('success', 'Usuario creado con éxito');
-            return $this->redirect(['index']);
+        $modelRol = new AuthAssignment();
+        if ($model->load(Yii::$app->request->post()) && $modelRol->load(Yii::$app->request->post()) && $model->signup()) {
+
+            $user = User::find()->where(['username' => $model->username])->one();
+            $modelRol->user_id = $user->id;
+            $modelRol->save();
+
+            Yii::$app->session->setFlash('success', $modelRol->user_id.' - '.$modelRol->item_name);
+            //Yii::$app->session->setFlash('success', 'Usuario creado con éxito');
+            //return $this->redirect(['index']);
         }
 
         return $this->render('create', [
             'model' => $model,
+            'modelRol' => $modelRol,
         ]);
 
 
@@ -104,14 +105,19 @@ class UserController extends Controller implements IdentityInterface
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-
-        if ($model->load(Yii::$app->request->post()) && $model->signupmodify($id)) {
+        $modelRol = new AuthAssignment();
+        if ($model->load(Yii::$app->request->post()) && $modelRol->load(Yii::$app->request->post()) && $model->signupmodify($id)) {
+            $modelAssign = new AuthAssignment();
+            $modelAssign->item_name = $modelRol->item_name;
+            $modelAssign->user_id = $id;
+            $modelAssign->save();
             Yii::$app->session->setFlash('success', 'Usuario modificado con éxito');
             return $this->redirect(['index']);
         }
 
         return $this->render('update', [
             'model' => $model,
+            'modelRol' => $modelRol,
         ]);
     }
 

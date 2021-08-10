@@ -46,10 +46,12 @@ $this->params['breadcrumbs'][] = $this->title;
 
             <?= $form->field($model, 'email') ?>
 
-            <?= $form->field($model, 'roles[]')->checkboxList( \yii\helpers\ArrayHelper::map(\backend\models\User\AuthItem::find()->where(['type'=>1])->all(), 'name', 'name'),
-            ['separator' => '   ']); ?>
-
-
+            <?= $form->field($modelRol, 'item_name')->widget(\kartik\select2\Select2::classname(), [
+                    'data' => \yii\helpers\ArrayHelper::map(\backend\models\User\AuthItem::find()->where(['type'=>1])->all(), 'name', 'name'),
+                    'options' => ['placeholder' => 'Seleccionar', 'multiple' => false, 'required' => true],
+                    'theme' => \kartik\select2\Select2::THEME_KRAJEE,
+                    'size' => 'xs',]
+            ) ?>
 
 
             <div class="row">

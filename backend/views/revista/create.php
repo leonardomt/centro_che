@@ -53,7 +53,7 @@ $x = 0; ?>
 
     <?= $form->field($model, 'titulo')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'descripcion')->textarea(['rows' => 2]) ?>
+    <?= $form->field($model, 'descripcion')->textarea(['rows' => 2,'style' => 'resize:none']) ?>
 
     <?= $form->field($model, 'enlace')->textInput(['maxlength' => true]) ?>
 
@@ -104,15 +104,12 @@ $x = 0; ?>
                             }
                             ?>
 
-
                             <?= $form->field($modelArchivo, "[{$i}]id_archivo")->widget(\kartik\select2\Select2::classname(), [
                                     'data' => \yii\helpers\ArrayHelper::map(\backend\models\Archivo\Archivo::find()->all(), 'id_archivo', 'titulo_archivo'),
                                     'options' => ['placeholder' => 'Seleccionar', 'multiple' => false, 'required' => true],
                                     'theme' => \kartik\select2\Select2::THEME_KRAJEE,
                                     'size' => 'xs',]
                             ) ?>
-
-
 
                         </div>
                     </div>
