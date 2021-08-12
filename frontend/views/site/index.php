@@ -8,8 +8,8 @@
         ?>
 
 
-
-        <div class="row" style="margin-top: -50px">
+<br><br><br><br><br>
+        <div class="" style="margin-top: 0px">
             <div id="carouselExampleIndicators" class="carousel slide " data-ride="carousel">
                 <ol class="carousel-indicators">
                     <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
@@ -138,8 +138,8 @@
                 Se desarrollan disímiles proyectos con el objetivo de promover no sólo la vida y obra del Che sino tambien el quehacer institucional.</h3>
         </div>
 
-
-        <iframe src="https://www.google.com/maps/d/embed?mid=1UQQMw-m_DPTKOJPfYTs3ZkFBobP39SBE&hl=es" width="100%" height="480"></iframe>
+        <!--------Mapa------------------------------------------------------------------------------------------------->
+        <!--<iframe src="https://www.google.com/maps/d/embed?mid=1UQQMw-m_DPTKOJPfYTs3ZkFBobP39SBE&hl=es" width="100%" height="480"></iframe>---->
         <br>
         <br>
         <br>

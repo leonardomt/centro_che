@@ -18,7 +18,7 @@ use yii\web\IdentityInterface;
  * @property string $email
  * @property string $auth_key
  * @property integer $status
- * @property string $rol
+ * @property string $type
  * @property integer $created_at
  * @property integer $updated_at
  * @property string $password write-only password
@@ -143,9 +143,11 @@ class User extends ActiveRecord implements IdentityInterface
         return [
             'username' => 'Nombre de Usuario',
             'password' => 'Contraseña',
+            'new_password' => 'Contraseña',
             'first_name' => 'Nombre',
             'last_name' => 'Apellidos',
             'rol' => 'Rol',
+            'type' => 'Rol',
          
         ];
     }
@@ -280,7 +282,7 @@ class User extends ActiveRecord implements IdentityInterface
         $user->username = $this->username;
         $user->email = $this->email;
         $user->status = 10;
-        $user->setPassword($this->password);
+        $user->setPassword($this->new_password);
         $user->generateAuthKey();
         $user->generateEmailVerificationToken();
         return $user->save() ;
@@ -305,5 +307,8 @@ class User extends ActiveRecord implements IdentityInterface
         return $user->save() ;
 
     }
+
+
+
 
 }

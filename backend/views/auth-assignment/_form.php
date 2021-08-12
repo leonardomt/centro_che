@@ -19,21 +19,18 @@ use common\widgets\Alert;
     <?php $form = ActiveForm::begin(); ?>
 
 
-    <?= $form->field($model, 'user_id')->dropDownList(
-        ArrayHelper::map(\backend\models\User\User::find()->asArray()->all(), 'id', 'username')) ?>
-
+    <?= $form->field($model, 'user_id')->hiddenInput(['value' => $id])->label(false) ?>
 
     <?= $form->field($model, 'item_name')->dropDownList(
-        ArrayHelper::map(\backend\models\User\AuthItem::find()->asArray()->all(), 'name', 'name') )?>
+        ArrayHelper::map(\backend\models\User\AuthItem::find()->where(['type'=>1])->asArray()->all(), 'name', 'name') )?>
 
 
 
-
-
-
-
-    <div class="form-group">
-        <button type="submit" class="btn btn-success">Save</button>
+    <div class="row">
+        <div class="col-md-11"></div>
+        <div class="form-group">
+            <?= Html::submitButton('  <i class="fa fa-floppy-o" aria-hidden="true"></i>', ['class' => 'btn btn-success ']) ?>
+        </div>
     </div>
 
     <?php ActiveForm::end(); ?>

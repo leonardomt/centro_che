@@ -20,7 +20,7 @@ if ( Yii::$app->user->isGuest )
     return Yii::$app->getResponse()->redirect(\yii\helpers\Url::to(['site/login']));
 if ( Yii::$app->user->isGuest )
     return Yii::$app->getResponse()->redirect(\yii\helpers\Url::to(['site/login']));
-if ( !Yii::$app->user->can('gestionar-curso-online'))
+if ( !Yii::$app->user->can('gestionar-articulo'))
     return Yii::$app->getResponse()->redirect(\yii\helpers\Url::to(['site/login']));
 \yii\web\YiiAsset::register($this);
 ?>

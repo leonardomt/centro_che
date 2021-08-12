@@ -2,14 +2,14 @@
 
 /* @var $this yii\web\View */
 /* @var $form yii\bootstrap4\ActiveForm */
-/* @var $model \backend\models\SignupForm */
+/* @var $model \backend\models\User\User */
 
 use yii\helpers\Html;
 use yii\bootstrap4\ActiveForm;
 use yii\bootstrap4\Breadcrumbs;
 use common\widgets\Alert;
 
-$this->title = 'Insertar Usuario';
+$this->title = 'Crear Usuario';
 $this->params['breadcrumbs'][] = ['label' => 'Usuarios', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -40,18 +40,12 @@ $this->params['breadcrumbs'][] = $this->title;
                     <?= $form->field($model, 'username')->textInput(['autofocus' => true]) ?>
                 </div>
                 <div class="col-lg-6 text-lg-left">
-                    <?= $form->field($model, 'password')->passwordInput() ?>
+                    <?= $form->field($model, 'new_password')->passwordInput() ?>
                 </div>
             </div>
 
             <?= $form->field($model, 'email') ?>
 
-            <?= $form->field($modelRol, 'item_name')->widget(\kartik\select2\Select2::classname(), [
-                    'data' => \yii\helpers\ArrayHelper::map(\backend\models\User\AuthItem::find()->where(['type'=>1])->all(), 'name', 'name'),
-                    'options' => ['placeholder' => 'Seleccionar', 'multiple' => false, 'required' => true],
-                    'theme' => \kartik\select2\Select2::THEME_KRAJEE,
-                    'size' => 'xs',]
-            ) ?>
 
 
             <div class="row">

@@ -4,7 +4,6 @@ namespace backend\controllers;
 
 use backend\models\User\AuthAssignment;
 use backend\models\User\AuthItem;
-use backend\models\User\SignupForm;
 use Yii;
 use backend\models\User\User;
 use backend\models\User\UserSearch;
@@ -74,17 +73,13 @@ class UserController extends Controller implements IdentityInterface
     public function actionCreate()
     {
 
-        $model = new SignupForm();
+        $model = new User();
         $modelRol = new AuthAssignment();
-        if ($model->load(Yii::$app->request->post()) && $modelRol->load(Yii::$app->request->post()) && $model->signup()) {
+        if ($model->load(Yii::$app->request->post())  && $model->signup()) {
 
             $user = User::find()->where(['username' => $model->username])->one();
-            $modelRol->user_id = $user->id;
-            $modelRol->save();
 
-            Yii::$app->session->setFlash('success', $modelRol->user_id.' - '.$modelRol->item_name);
-            //Yii::$app->session->setFlash('success', 'Usuario creado con éxito');
-            //return $this->redirect(['index']);
+            return $this->redirect(['/auth-assignment/create', 'id'=>$user->id]);
         }
 
         return $this->render('create', [
@@ -105,19 +100,14 @@ class UserController extends Controller implements IdentityInterface
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        $modelRol = new AuthAssignment();
-        if ($model->load(Yii::$app->request->post()) && $modelRol->load(Yii::$app->request->post()) && $model->signupmodify($id)) {
-            $modelAssign = new AuthAssignment();
-            $modelAssign->item_name = $modelRol->item_name;
-            $modelAssign->user_id = $id;
-            $modelAssign->save();
-            Yii::$app->session->setFlash('success', 'Usuario modificado con éxito');
-            return $this->redirect(['index']);
+        $modelRol = AuthAssignment::find()->where(['user_id' => $id])->one();
+        if ($model->load(Yii::$app->request->post())  && $model->signupmodify($id)) {
+
+            return $this->redirect(['/auth-assignment/update','item_name'=> $modelRol->item_name, 'user_id'=>$id]);
         }
 
         return $this->render('update', [
             'model' => $model,
-            'modelRol' => $modelRol,
         ]);
     }
 

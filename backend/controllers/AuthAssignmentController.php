@@ -2,6 +2,7 @@
 
 namespace backend\controllers;
 
+use backend\models\User\User;
 use Yii;
 use backend\models\User\AuthAssignment;
 use backend\models\User\AuthAssignmentSearch;
@@ -66,16 +67,19 @@ class AuthAssignmentController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreate($id)
     {
         $model = new AuthAssignment();
-
+        $user = User::find()->where(['id'=>$id])->one();
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'item_name' => $model->item_name, 'user_id' => $model->user_id]);
+            $user->type = $model->item_name;
+            $user->save();
+            return $this->redirect(['/user/index']);
         }
 
         return $this->render('create', [
             'model' => $model,
+            'id' => $id,
         ]);
     }
 
@@ -90,13 +94,16 @@ class AuthAssignmentController extends Controller
     public function actionUpdate($item_name, $user_id)
     {
         $model = $this->findModel($item_name, $user_id);
-
+        $user = User::find()->where(['id'=>$user_id])->one();
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'item_name' => $model->item_name, 'user_id' => $model->user_id]);
+            $user->type = $model->item_name;
+            $user->save();
+            return $this->redirect(['/user/index']);
         }
 
         return $this->render('update', [
             'model' => $model,
+            'id' =>$user_id,
         ]);
     }
 

@@ -1,4 +1,4 @@
-\<?php
+<?php
 
 /* @var $this yii\web\View */
 /* @var $form yii\bootstrap4\ActiveForm */
@@ -46,14 +46,10 @@ $this->params['breadcrumbs'][] = $this->title;
 
             <?= $form->field($model, 'email') ?>
 
-            <?= $form->field($modelRol, 'item_name')->widget(\kartik\select2\Select2::classname(), [
-                    'data' => \yii\helpers\ArrayHelper::map(\backend\models\User\AuthItem::find()->where(['type'=>1])->all(), 'name', 'name'),
-                    'options' => ['placeholder' => 'Seleccionar', 'multiple' => false, 'required' => true],
-                    'theme' => \kartik\select2\Select2::THEME_KRAJEE,
-                    'size' => 'xs',]
-            ) ?>
 
-            <div class="col-lg-1">
+
+            <div class="row">
+                <div class="col-md-11"></div>
                 <div class="form-group">
                     <?= Html::submitButton($model->isNewRecord ? '  <i class="fa fa-floppy-o" aria-hidden="true"></i>' : '  <i class="fa fa-floppy-o" aria-hidden="true"></i>', ['class' => 'btn btn-success']) ?>
                 </div>

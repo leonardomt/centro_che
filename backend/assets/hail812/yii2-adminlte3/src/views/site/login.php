@@ -37,7 +37,7 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/png', 'href' => 'img/l
                 ]) ?>
             </div>
             <div class="col-4" style="color:green">
-                <?= Html::submitButton('Autenticar', ['class' => 'btn btn-primary btn-block']) ?>
+                <?= Html::submitButton('Entrar', ['class' => 'btn btn-primary btn-block']) ?>
             </div>
         </div>
 

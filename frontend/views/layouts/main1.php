@@ -9,9 +9,6 @@ use yii\bootstrap4\NavBar;
 use yii\bootstrap4\Breadcrumbs;
 use frontend\assets\AppAsset;
 use common\widgets\Alert;
-use kartik\sidenav\SideNav;
-
-
 
 AppAsset::register($this);
 ?>

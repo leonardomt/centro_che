@@ -471,12 +471,12 @@ $bundle->js[] = 'chart/Chart.js';
                             ],
                             [
                                 'label' => "Pendientes de Revisión",
-                                'backgroundColor' => "#17a2b8",
-                                'borderColor' => "#17a2b8",
-                                'pointBackgroundColor' => "#17a2b8",
+                                'backgroundColor' => "#ffc107",
+                                'borderColor' => "#ffc107",
+                                'pointBackgroundColor' => "#ffc107",
                                 'pointBorderColor' => "#fff",
                                 'pointHoverBackgroundColor' => "#fff",
-                                'pointHoverBorderColor' => "#17a2b8",
+                                'pointHoverBorderColor' => "#ffc107",
                                 'data' => [$comInicioRev, $comCoordinacionRev, $comTallerRev]
                             ],
 

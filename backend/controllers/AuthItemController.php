@@ -60,8 +60,10 @@ class AuthItemController extends Controller
      */
     public function actionView($id)
     {
+        $model = $this->findModel($id);
+        $model->rol = ArrayHelper::map(AuthItemChild::find()->where(['parent'=> $model->name])->all(), 'child', 'child');
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
         ]);
     }
 
@@ -79,7 +81,6 @@ class AuthItemController extends Controller
 
             if (is_array($model->rol)) {
                 foreach ($model->rol as $rol) {
-                    Yii::$app->session->setFlash('error', 'Esta en el form.');
                     $rolTemp = new AuthItemChild();
                     $rolTemp->parent = $model->name;
                     $rolTemp->child = $rol;
@@ -95,17 +96,6 @@ class AuthItemController extends Controller
         ]);
     }
 
-    private function createAuthAssignment($model){
-
-        if (is_array($model->rol))
-            foreach ($model->rol as $rol){
-                $rolTemp = new AuthItemChild();
-                $rolTemp->parent = $model->name;
-                $rolTemp->child = $rol;
-                $rolTemp->save();
-            }
-    }
-
     /**
      * Updates an existing AuthItem model.
      * If update is successful, the browser will be redirected to the 'view' page.
@@ -116,9 +106,26 @@ class AuthItemController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-
+        $model->rol = ArrayHelper::map(AuthItemChild::find()->where(['parent'=> $model->name])->all(), 'child', 'child');
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->name]);
+
+            if (is_array($model->rol)) {
+                $array = ArrayHelper::map(AuthItemChild::find()->where(['parent'=> $model->name])->all(), 'child', 'child');
+                foreach ($array as $rolDelete){
+                    $delete = AuthItemChild::find()->where(['parent'=>$model->name])->one();
+                    $delete->delete();
+
+                };
+
+                foreach ($model->rol as $rol) {
+                    $rolTemp = new AuthItemChild();
+                    $rolTemp->parent = $model->name;
+                    $rolTemp->child = $rol;
+                    $rolTemp->save();
+                }
+            }
+
+            return $this->redirect(['index']);
         }
 
         return $this->render('update', [

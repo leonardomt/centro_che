@@ -47,6 +47,20 @@ class SignupForm extends Model
      *
      * @return bool whether the creating new account was successful and email was sent
      */
+
+    public function attributeLabels()
+    {
+        return [
+            'username' => 'Nombre de Usuario',
+            'password' => 'Contraseña',
+            'first_name' => 'Nombre',
+            'last_name' => 'Apellidos',
+            'rol' => 'Rol',
+
+        ];
+    }
+
+
     public function signup()
     {
         if (!$this->validate()) {
