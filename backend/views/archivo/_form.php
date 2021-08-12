@@ -42,7 +42,7 @@ use backend\models\Archivo\TipoArchivo;
 
         <div class="col-md-6 ">
             <?= $form->field($model, 'fecha')->widget(\dosamigos\datepicker\DatePicker::className(), [
-                'inline' => false,
+                'inline' => false, 'language' => 'es',
                 'clientOptions' => [
                     'autoclose' => true,
                     'format' => 'yyyy-mm-dd'
@@ -100,3 +100,4 @@ use backend\models\Archivo\TipoArchivo;
     <?php ActiveForm::end(); ?>
 
 </div>
+

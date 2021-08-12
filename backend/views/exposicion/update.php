@@ -50,7 +50,7 @@ if (!Yii::$app->user->can('gestionar-exposicion'))
         </div>
         <div class="col-lg-4 text-lg-left">
             <?= $form->field($model, 'fecha')->widget(\dosamigos\datepicker\DatePicker::className(), [
-                'inline' => false,
+                'inline' => false, 'language' => 'es',
                 'clientOptions' => [
                     'autoclose' => true,
                     'format' => 'yyyy-m-d'
@@ -59,7 +59,7 @@ if (!Yii::$app->user->can('gestionar-exposicion'))
         </div>
         <div class="col-lg-4 text-lg-left">
             <?= $form->field($model, 'fecha_fin')->widget(\dosamigos\datepicker\DatePicker::className(), [
-                'inline' => false,
+                'inline' => false, 'language' => 'es',
                 'clientOptions' => [
                     'autoclose' => true,
                     'format' => 'yyyy-m-d'
