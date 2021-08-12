@@ -18,7 +18,7 @@ use kartik\form\ActiveForm;
             \kartik\file\FileInput::classname(),
             [
                 'pluginOptions' => [
-                    'showUpload' => false,
+                    'showUpload' => false,'showRemove' => false,'showCancel' => false,
                     'browseLabel' => 'Insertar Imagen',
                     'removeLabel' => '',
                     'mainClass' => 'input-group-md',

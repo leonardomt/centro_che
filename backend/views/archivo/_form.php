@@ -65,6 +65,7 @@ use backend\models\Archivo\TipoArchivo;
                     'showUpload' => false,
                     'browseLabel' => '',
                     'showCancel' => false,
+                    'showRemove' => false,
                     'mainClass' => 'input-group-md',
                      'allowedFileExtensions' => ['png', 'jpg', 'gif', 'jpeg', 'mp4', 'mp3'],
                     'maxFileSize' => 20048,

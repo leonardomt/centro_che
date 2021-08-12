@@ -52,7 +52,7 @@ if ( !Yii::$app->user->can('gestionar-curso-online'))
         \kartik\file\FileInput::classname(),
         [
             'pluginOptions' => [
-                'showUpload' => false,
+                'showUpload' => false,'showRemove' => false,'showCancel' => false,
                 'browseLabel' => 'Insertar PDF',
                 'removeLabel' => '',
                 'mainClass' => 'input-group-md',
