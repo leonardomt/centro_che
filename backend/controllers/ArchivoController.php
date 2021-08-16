@@ -114,6 +114,13 @@ class ArchivoController extends Controller
 
                 $imageName = $model->titulo_archivo;
                 $model->file = UploadedFile::getInstance($model, 'file');
+                if ($model->file == null){
+                    Yii::$app->session->setFlash('error', 'El archivo no puede estar vacío.');
+                    return $this->redirect([
+                        'create',
+                        'model' => $model,
+                    ]);
+                };
                 $model->file->saveAs('../../frontend/web/uploads/' . $imageName . '.' . $model->file->extension);
                 $model->url_archivo = 'uploads/' . $imageName . '.' . $model->file->extension;
 

@@ -33,13 +33,18 @@ if ( !Yii::$app->user->can('gestionar-revista'))
         ?>
     </p>
 
-    <?php Pjax::begin(); ?>
+
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => (new \backend\models\Revista\RevistaSearch()),
         'id'=> 'revista-index-update',
+        'pjax' => true,
+        'pjaxSettings' => [
+            'neverTimeout' => true,
+
+        ],
         'columns' => [
 
             [
@@ -69,11 +74,11 @@ if ( !Yii::$app->user->can('gestionar-revista'))
                 'format' => 'raw',
                 'headerOptions' => ['class' => 'col-md-2'],
                 'filter'=>\dosamigos\datepicker\DatePicker::widget([
-                    'model'=>$searchModel,
+                    'model'=>$searchModel,'language' => 'es',
                     'attribute'=>'fecha',
                     'clientOptions'=>[
                         'autoclose'=>true,
-                        'format'=>'yyyy-mm-dd'
+                        'format'=>'yyyy-mm-dd', 'endDate' => date('Y-m-d')
                     ],
                 ]),
             ],
@@ -125,6 +130,5 @@ if ( !Yii::$app->user->can('gestionar-revista'))
         ],
     ]); ?>
 
-    <?php Pjax::end(); ?>
 
 </div>

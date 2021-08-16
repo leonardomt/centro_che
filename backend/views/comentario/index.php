@@ -16,7 +16,6 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
 
-    <?php Pjax::begin(); ?>
 
     <h4>Sin Revisar</h4>
     <?= GridView::widget([
@@ -35,10 +34,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 'headerOptions' => ['class' => 'col-md-3'],
                 'filter' => \dosamigos\datepicker\DatePicker::widget([
                     'model' => $searchModel,
-                    'attribute' => 'fecha',
+                    'attribute' => 'fecha','language' => 'es',
                     'clientOptions' => [
                         'autoclose' => true,
-                        'format' => 'yyyy-mm-dd'
+                        'format' => 'yyyy-mm-dd', 'endDate' => date('Y-m-d')
                     ],
                 ]),
             ],
@@ -158,13 +157,13 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]); ?>
 
-    <?php Pjax::end(); ?>
+
 
     <hr class="page_separator"/>
 
     <h1><?= Html::encode($this->title) ?></h1>
     <h4>Publicados</h4>
-    <?php Pjax::begin(); ?>
+
     <?= GridView::widget([
         'dataProvider' => $dataProvider1,
         'filterModel' => $searchModel1,
@@ -185,7 +184,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'attribute' => 'fecha',
                     'clientOptions' => [
                         'autoclose' => true,
-                        'format' => 'yyyy-mm-dd'
+                        'format' => 'yyyy-mm-dd', 'endDate' => date('Y-m-d')
                     ],
                 ]),
             ],
@@ -304,12 +303,12 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ],
     ]); ?>
-    <?php Pjax::end(); ?>
+
 
     <hr class="page_separator"/>
     <h1><?= Html::encode($this->title) ?></h1>
     <h4>Denegados</h4>
-    <?php Pjax::begin(); ?>
+
     <?= GridView::widget([
         'dataProvider' => $dataProvider2,
         'filterModel' => $searchModel2,
@@ -330,7 +329,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'attribute' => 'fecha',
                     'clientOptions' => [
                         'autoclose' => true,
-                        'format' => 'yyyy-mm-dd'
+                        'format' => 'yyyy-mm-dd', 'endDate' => date('Y-m-d')
                     ],
                 ]),
             ],
@@ -450,6 +449,6 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ],
     ]); ?>
-    <?php Pjax::end(); ?>
+
 
 </div>

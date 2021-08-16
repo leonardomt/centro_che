@@ -78,7 +78,7 @@ if ( Yii::$app->user->isGuest )
                     'attribute'=>'fecha',
                     'clientOptions'=>[
                         'autoclose'=>true,
-                        'format'=>'yyyy-mm-dd'
+                        'format'=>'yyyy-mm-dd', 'endDate' => date('Y-m-d')
                     ],
                 ]),
             ],

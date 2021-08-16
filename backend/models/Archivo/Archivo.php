@@ -49,6 +49,7 @@ class Archivo extends \yii\db\ActiveRecord
             [['fecha'], 'safe'],
             [
                 ['file'], 'file',
+                'skipOnEmpty' => false,
                 'on' => 'create',
                 'extensions' => 'mp4 , jpg, jpeg, png, mp3, gif',
                 'maxSize' => 1024 * 1024 * 100,

@@ -18,12 +18,17 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('Create Contacto', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
-    <?php Pjax::begin(); ?>
+
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'pjax' => true,
+        'pjaxSettings' => [
+            'neverTimeout' => true,
+
+        ],
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
@@ -36,7 +41,5 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
-
-    <?php Pjax::end(); ?>
 
 </div>

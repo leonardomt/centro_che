@@ -32,12 +32,18 @@ if ( !Yii::$app->user->can('gestionar-noticia'))
         ?>
     </p>
 
-    <?php Pjax::begin(); ?>
+
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'pjax' => true,
+        'pjaxSettings' => [
+            'neverTimeout' => true,
+
+        ],
+        'id'=> 'trabajador-index-update',
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
@@ -75,6 +81,5 @@ if ( !Yii::$app->user->can('gestionar-noticia'))
         ],
     ]); ?>
 
-    <?php Pjax::end(); ?>
 
 </div>

@@ -34,7 +34,7 @@ if ( !Yii::$app->user->can('gestionar-exposicion'))
     </p>
 
 
-    <?php Pjax::begin(); ?>
+
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
 
@@ -44,6 +44,11 @@ if ( !Yii::$app->user->can('gestionar-exposicion'))
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'id'=> 'exposicion-index-update',
+        'pjax' => true,
+        'pjaxSettings' => [
+            'neverTimeout' => true,
+
+        ],
         'columns' => [
 
             [
@@ -87,10 +92,10 @@ if ( !Yii::$app->user->can('gestionar-exposicion'))
                 'headerOptions' => ['class' => 'col-md-1'],
                 'filter'=>\dosamigos\datepicker\DatePicker::widget([
                     'model'=>$searchModel,
-                    'attribute'=>'fecha',
+                    'attribute'=>'fecha','language' => 'es',
                     'clientOptions'=>[
                         'autoclose'=>true,
-                        'format'=>'yyyy-mm-dd'
+                        'format'=>'yyyy-mm-dd', 'endDate' => date('Y-m-d')
                     ],
                 ]),
             ],
@@ -101,10 +106,10 @@ if ( !Yii::$app->user->can('gestionar-exposicion'))
                 'headerOptions' => ['class' => 'col-md-1'],
                 'filter'=>\dosamigos\datepicker\DatePicker::widget([
                     'model'=>$searchModel,
-                    'attribute'=>'fecha',
+                    'attribute'=>'fecha','language' => 'es',
                     'clientOptions'=>[
                         'autoclose'=>true,
-                        'format'=>'yyyy-mm-dd'
+                        'format'=>'yyyy-mm-dd', 'endDate' => date('Y-m-d')
                     ],
                 ]),
             ],
@@ -155,6 +160,6 @@ if ( !Yii::$app->user->can('gestionar-exposicion'))
         ],
     ]); ?>
 
-    <?php Pjax::end(); ?>
+
 
 </div>

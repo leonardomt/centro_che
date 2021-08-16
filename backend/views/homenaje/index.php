@@ -33,13 +33,18 @@ if ( !Yii::$app->user->can('gestionar-homenaje'))
         ?>
     </p>
 
-    <?php Pjax::begin(); ?>
+
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'id'=> 'homenaje-index-update',
+        'pjax' => true,
+        'pjaxSettings' => [
+            'neverTimeout' => true,
+
+        ],
         'columns' => [
 
             [
@@ -103,6 +108,5 @@ if ( !Yii::$app->user->can('gestionar-homenaje'))
         ],
     ]); ?>
 
-    <?php Pjax::end(); ?>
 
 </div>

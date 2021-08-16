@@ -37,15 +37,16 @@ if ( !Yii::$app->user->can('gestionar-producto-audiovisual'))
         ?>
     </p>
 
-    <?php Pjax::begin([
-        'id' => 'producto-audiovisual-index-update',
-    ]); ?>
-
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
-        'id'=> 'proyecto-index-update',
+        'id'=> 'producto-index-update',
+        'pjax' => true,
+        'pjaxSettings' => [
+            'neverTimeout' => true,
+
+        ],
         'columns' => [
 
             [
@@ -78,7 +79,7 @@ if ( !Yii::$app->user->can('gestionar-producto-audiovisual'))
                     'attribute'=>'fecha',
                     'clientOptions'=>[
                         'autoclose'=>true,
-                        'format'=>'yyyy-mm-dd'
+                        'format'=>'yyyy-mm-dd', 'endDate' => date('Y-m-d')
                     ],
                 ]),
             ],
@@ -139,28 +140,6 @@ if ( !Yii::$app->user->can('gestionar-producto-audiovisual'))
         ],
     ]); ?>
 
-    <?php Pjax::end(); ?>
-
 </div>
 
 
-
-<?php
-
-
-
-$this->registerJs(
-
-    '$("document").ready(function(){ 
-
-        $("#search-form").on("pjax:end", function() {
-
-            $.pjax.reload({container:"#articulo-index-update"});  //Reload GridView
-
-        });
-
-    });'
-
-);
-
-?>

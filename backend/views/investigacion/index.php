@@ -33,13 +33,17 @@ if ( !Yii::$app->user->can('gestionar-investigacion'))
         ?>
     </p>
 
-    <?php Pjax::begin(); ?>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'id'=> 'investigacion-index-update',
+        'pjax' => true,
+        'pjaxSettings' => [
+            'neverTimeout' => true,
+
+        ],
         'columns' => [
             [
                 'attribute' => 'revisado',
@@ -98,10 +102,10 @@ if ( !Yii::$app->user->can('gestionar-investigacion'))
                 'headerOptions' => ['class' => 'col-md-1'],
                 'filter'=>\dosamigos\datepicker\DatePicker::widget([
                     'model'=>$searchModel,
-                    'attribute'=>'fecha',
+                    'attribute'=>'fecha','language' => 'es',
                     'clientOptions'=>[
                         'autoclose'=>true,
-                        'format'=>'yyyy-mm-dd'
+                        'format'=>'yyyy-mm-dd', 'endDate' => date('Y-m-d')
                     ],
                 ]),
             ],
@@ -134,6 +138,5 @@ if ( !Yii::$app->user->can('gestionar-investigacion'))
         ],
     ]); ?>
 
-    <?php Pjax::end(); ?>
 
 </div>

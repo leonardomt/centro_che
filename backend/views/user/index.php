@@ -32,13 +32,17 @@ $this->params['breadcrumbs'][] = $this->title;
         ?>
     </p>
 
-    <?php Pjax::begin(); ?>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
-        'filterModel' => (new \backend\models\User\UserSearch()),
+        'filterModel' => $searchModel,
         'id' => 'user-index-update',
+        'pjax' => true,
+        'pjaxSettings' => [
+            'neverTimeout' => true,
+
+        ],
         'columns' => [
 
 
@@ -95,6 +99,6 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]); ?>
 
-    <?php Pjax::end(); ?>
+
 
 </div>

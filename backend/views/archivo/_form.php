@@ -24,7 +24,7 @@ use backend\models\Archivo\TipoArchivo;
 
 
     <div class="row">
-     
+
         <div class="col-md-6">
             <?= $form->field($model, 'autor_archivo')->textInput(['maxlength' => true]) ?>
         </div>
@@ -45,13 +45,13 @@ use backend\models\Archivo\TipoArchivo;
                 'inline' => false, 'language' => 'es',
                 'clientOptions' => [
                     'autoclose' => true,
-                    'format' => 'yyyy-mm-dd'
+                    'format' => 'yyyy-mm-dd', 'endDate' => date('Y-m-d')
                 ]
             ]) ?>
         </div>
     </div>
 
-    <?= $form->field($model, 'descripcion_archivo')->textarea(['rows' => 3, 'maxlength' => 3000,'style' => 'resize:none']) ?>
+    <?= $form->field($model, 'descripcion_archivo')->textarea(['rows' => 3, 'maxlength' => 3000, 'style' => 'resize:none']) ?>
 
 
 
@@ -67,7 +67,7 @@ use backend\models\Archivo\TipoArchivo;
                     'showCancel' => false,
                     'showRemove' => false,
                     'mainClass' => 'input-group-md',
-                     'allowedFileExtensions' => ['png', 'jpg', 'gif', 'jpeg', 'mp4', 'mp3'],
+                    'allowedFileExtensions' => ['png', 'jpg', 'gif', 'jpeg', 'mp4', 'mp3'],
                     'maxFileSize' => 20048,
                     'msgSizeTooLarge' => 'El archivo supera el límite permitido de <b>20mb</b>.',
 
@@ -79,8 +79,8 @@ use backend\models\Archivo\TipoArchivo;
 
 
     <div class="row">
-
-        <div class="col-md-10">
+        <div class="col-md-1"></div>
+        <div class="col-md-9">
             <?php if (Yii::$app->user->can('revisar')) : ?>
                 <?= $form->field($model, "revisado")->checkbox(); ?>
             <?php else : $x = 0; ?>
@@ -95,7 +95,6 @@ use backend\models\Archivo\TipoArchivo;
         </div>
     </div>
 
-    
 
     <?php ActiveForm::end(); ?>
 

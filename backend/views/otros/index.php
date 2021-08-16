@@ -31,14 +31,18 @@ $this->params['breadcrumbs'][] = $this->title;
         ?>
     </p>
 
-    <?php Pjax::begin( [
-        'id' => 'otros-index',
-    ]); ?>
+
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'pjax' => true,
+        'pjaxSettings' => [
+            'neverTimeout' => true,
+
+        ],
+        'id'=> 'otros-index-update',
         'columns' => [
 
             [
@@ -113,8 +117,6 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ],
     ]); ?>
-
-    <?php Pjax::end(); ?>
 
 </div>
 

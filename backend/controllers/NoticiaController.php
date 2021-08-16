@@ -15,6 +15,7 @@ use yii\web\Response;
 use yii\widgets\ActiveForm;
 use yii\helpers\ArrayHelper;
 use yii\base\Model;
+use Exception;
 
 /**
  * NoticiaController implements the CRUD actions for Noticia model.

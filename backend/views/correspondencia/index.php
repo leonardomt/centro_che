@@ -34,14 +34,18 @@ if ( !Yii::$app->user->can('gestionar-correspondencia'))
         ?>
     </p>
 
-    <?php Pjax::begin(); ?>
+
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'id'=> 'correspondencia-index-update',
+        'pjax' => true,
+        'pjaxSettings' => [
+            'neverTimeout' => true,
 
+        ],
         'columns' => [
 
             [
@@ -65,7 +69,7 @@ if ( !Yii::$app->user->can('gestionar-correspondencia'))
                 'filterInputOptions' => array('class' => 'form-control', 'id' => null, 'prompt' => 'Todos'),
             ],
             [
-                'attribute' => 'fecha',                     // Titulo
+                'attribute' => 'fecha',                     // Fecha
                 'format' => 'raw',
                 'headerOptions' => ['class' => 'col-md-2'],
                 'filter'=>\dosamigos\datepicker\DatePicker::widget([
@@ -73,7 +77,7 @@ if ( !Yii::$app->user->can('gestionar-correspondencia'))
                     'attribute'=>'fecha',
                     'clientOptions'=>[
                         'autoclose'=>true,
-                        'format'=>'yyyy-mm-dd'
+                        'format'=>'yyyy-mm-dd', 'endDate' => date('Y-m-d')
                     ],
                 ]),
             ],
@@ -124,6 +128,6 @@ if ( !Yii::$app->user->can('gestionar-correspondencia'))
         ],
     ]); ?>
 
-    <?php Pjax::end(); ?>
+
 
 </div>

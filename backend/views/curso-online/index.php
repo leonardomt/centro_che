@@ -33,13 +33,18 @@ if ( !Yii::$app->user->can('gestionar-curso-online'))
         ?>
     </p>
 
-    <?php Pjax::begin(); ?>
+
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => (new \backend\models\CursoOnline\CursoOnlineSearch()),
         'id'=> 'curso-online-index-update',
+        'pjax' => true,
+        'pjaxSettings' => [
+            'neverTimeout' => true,
+
+        ],
         'columns' => [
 
             [
@@ -109,6 +114,6 @@ if ( !Yii::$app->user->can('gestionar-curso-online'))
         ],
     ]); ?>
 
-    <?php Pjax::end(); ?>
+
 
 </div>

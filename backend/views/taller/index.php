@@ -34,13 +34,17 @@ if ( !Yii::$app->user->can('gestionar-taller'))
         ?>
     </p>
 
-    <?php Pjax::begin(); ?>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'id'=> 'taller-index-update',
+        'pjax' => true,
+        'pjaxSettings' => [
+            'neverTimeout' => true,
+
+        ],
         'columns' => [
 
             [
@@ -118,6 +122,6 @@ if ( !Yii::$app->user->can('gestionar-taller'))
         ],
     ]); ?>
 
-    <?php Pjax::end(); ?>
+
 
 </div>

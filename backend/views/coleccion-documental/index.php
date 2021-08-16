@@ -35,7 +35,6 @@ if ( !Yii::$app->user->can('gestionar-coleccion-documental'))
     </p>
 
 
-    <?php Pjax::begin(); ?>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <?= GridView::widget([
@@ -85,7 +84,7 @@ if ( !Yii::$app->user->can('gestionar-coleccion-documental'))
                     'attribute'=>'fecha',
                     'clientOptions'=>[
                         'autoclose'=>true,
-                        'format'=>'yyyy-mm-dd'
+                        'format'=>'yyyy-mm-dd', 'endDate' => date('Y-m-d')
                     ],
                 ]),
             ],
@@ -145,6 +144,6 @@ if ( !Yii::$app->user->can('gestionar-coleccion-documental'))
         ],
     ]); ?>
 
-    <?php Pjax::end(); ?>
+
 
 </div>

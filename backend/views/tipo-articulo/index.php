@@ -28,12 +28,17 @@ $this->params['breadcrumbs'][] = $this->title;
             "title"=>"Agregar"])
         ?>
     </p>
-    <?php Pjax::begin(); ?>
-    <?php  echo $this->render('_search', ['model' => $searchModel]); ?>
+
+
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
+        'pjax' => true,
+        'pjaxSettings' => [
+            'neverTimeout' => true,
+
+        ],
 
         'columns' => [
 
@@ -49,6 +54,6 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]); ?>
 
-    <?php Pjax::end(); ?>
+
 
 </div>

@@ -33,13 +33,18 @@ if ( !Yii::$app->user->can('gestionar-linea-investigacion'))
         ?>
     </p>
 
-    <?php Pjax::begin(); ?>
+
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'id'=> 'linea-investigacion-index-update',
+        'pjax' => true,
+        'pjaxSettings' => [
+            'neverTimeout' => true,
+
+        ],
         'columns' => [
 
             [
@@ -100,6 +105,6 @@ if ( !Yii::$app->user->can('gestionar-linea-investigacion'))
         ],
     ]); ?>
 
-    <?php Pjax::end(); ?>
+
 
 </div>

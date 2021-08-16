@@ -29,12 +29,17 @@ $this->params['breadcrumbs'][] = $this->title;
         ?>
     </p>
 
-    <?php Pjax::begin(); ?>
+
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'pjax' => true,
+        'pjaxSettings' => [
+            'neverTimeout' => true,
+
+        ],
         'id'=> 'discurso-index-update',
         'columns' => [
 
@@ -87,11 +92,11 @@ $this->params['breadcrumbs'][] = $this->title;
                 'format' => 'raw',
                 'headerOptions' => ['class' => 'col-md-1'],
                 'filter'=>\dosamigos\datepicker\DatePicker::widget([
-                    'model'=>$searchModel,
+                    'model'=>$searchModel,'language' => 'es',
                     'attribute'=>'fecha',
                     'clientOptions'=>[
                             'autoclose'=>true,
-                            'format'=>'yyyy-mm-dd'
+                            'format'=>'yyyy-mm-dd', 'endDate' => date('Y-m-d')
                     ],
                 ]),
             ],
@@ -136,7 +141,7 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]); ?>
 
-    <?php Pjax::end(); ?>
+
 
 
 </div>

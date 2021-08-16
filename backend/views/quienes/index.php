@@ -30,12 +30,18 @@ if ( !Yii::$app->user->can('gestionar-quienes'))
         <?= Html::a('Create Quienes', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
-    <?php Pjax::begin(); ?>
+
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'pjax' => true,
+        'pjaxSettings' => [
+            'neverTimeout' => true,
+
+        ],
+        'id'=> 'quienes-index-update',
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
@@ -64,7 +70,5 @@ if ( !Yii::$app->user->can('gestionar-quienes'))
             ],
         ],
     ]); ?>
-
-    <?php Pjax::end(); ?>
 
 </div>
