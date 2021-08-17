@@ -49,7 +49,7 @@ if ( !Yii::$app->user->can('gestionar-noticia'))
             [
                 'attribute' => 'revisado',
                 'format' => 'raw',
-                'headerOptions' => ['class' => 'col-md-0'],
+                'headerOptions' => ['class' => 'col-md-1'],
                 'value' => function ($model) {
                     return $model->revisado ? 'Si' : 'No';
                 },
@@ -59,7 +59,7 @@ if ( !Yii::$app->user->can('gestionar-noticia'))
             [
                 'attribute' => 'publico',
                 'format' => 'raw',
-                'headerOptions' => ['class' => 'col-md-0'],
+                'headerOptions' => ['class' => 'col-md-1'],
                 'value' => function ($model) {
                     return $model->publico ? 'Si' : 'No';
                 },
@@ -120,7 +120,7 @@ if ( !Yii::$app->user->can('gestionar-noticia'))
             [
                 'class' => 'kartik\grid\ActionColumn',
                 'template' => '{view}{update}{delete}',
-                'headerOptions' => ['class' => 'col-md-1'],
+                'headerOptions' => ['class' => 'col-md-2'],
                 'buttons' => [
                     'view' => function ($url, $model)
                     {

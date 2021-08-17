@@ -98,10 +98,6 @@ $this->params['breadcrumbs'][] = 'Modificar';
                             ?>
 
                             <h3 class="panel-title pull-left"><?= $titulo ?></h3>
-                            <div class="pull-right">
-                                <button type="button" class="add-item btn btn-success btn-xs"><i class="fa fa-plus"></i></button>
-                                <button type="button" class="remove-item btn btn-danger btn-xs"><i class="fa fa-minus"></i></button>
-                            </div>
                             <div class="clearfix"></div>
                         </div>
                         <div class="panel-body">
@@ -122,6 +118,12 @@ $this->params['breadcrumbs'][] = 'Modificar';
                             <?= $form->field($modelArchivo, "[{$i}]nota")->textarea(['rows' => 3, 'maxlength' => 300,'style' => 'resize:none']) ?>
 
                         </div>
+                        <div class="pull-right">
+                            <button type="button" title="Agregar" class="add-item btn btn-success btn-xs"><i class="fa fa-plus"></i></button>
+                            <button type="button" title="Eliminar" class="remove-item btn btn-danger btn-xs"><i class="fa fa-trash"></i></button>
+                        </div>
+                        <div class="clearfix"></div>
+                        <br>
                     </div>
                     <?php $x++;
                 endforeach; ?>
