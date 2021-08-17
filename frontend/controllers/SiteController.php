@@ -77,6 +77,14 @@ class SiteController extends Controller
         return $this->render('index');
     }
 
+    public function actionCentroEstudios()
+    {
+        return $this->render('centro_estudios');
+    }
+    public function actionVidaObra()
+    {
+        return $this->render('vida_y_obra');
+    }
     /**
      * Logs in a user.
      *

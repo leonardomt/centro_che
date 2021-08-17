@@ -50,7 +50,8 @@ if ( Yii::$app->user->isGuest )
                 'inline' => false, 'language' => 'es',
                 'clientOptions' => [
                     'autoclose' => true,
-                    'format' => 'yyyy-m-d'
+                    'format' => 'yyyy-m-d',
+                    'endDate' => date('Y-m-d'),
                 ]
             ]) ?>
         </div>
@@ -78,7 +79,8 @@ if ( Yii::$app->user->isGuest )
                 'inline' => false, 'language' => 'es',
                 'clientOptions' => [
                     'autoclose' => true,
-                    'format' => 'yyyy-m-d'
+                    'format' => 'yyyy-m-d',
+                    'endDate' => date('Y-m-d'),
                 ]
             ]) ?>
 

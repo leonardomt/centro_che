@@ -25,7 +25,8 @@ use kartik\grid\GridView;
                 'inline' => false, 'language' => 'es',
                 'clientOptions' => [
                     'autoclose' => true,
-                    'format' => 'yyyy-m-d'
+                    'format' => 'yyyy-m-d',
+                    'endDate' => date('Y-m-d'),
                 ]
             ]) ?>
         </div>

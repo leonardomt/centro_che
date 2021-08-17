@@ -53,7 +53,8 @@ if (!Yii::$app->user->can('gestionar-exposicion'))
                     'inline' => false, 'language' => 'es',
                     'clientOptions' => [
                         'autoclose' => true,
-                        'format' => 'yyyy-m-d'
+                        'format' => 'yyyy-m-d',
+                        'endDate' => date('Y-m-d'),
                     ]
                 ]) ?>
             </div>
@@ -62,7 +63,7 @@ if (!Yii::$app->user->can('gestionar-exposicion'))
                     'inline' => false, 'language' => 'es',
                     'clientOptions' => [
                         'autoclose' => true,
-                        'format' => 'yyyy-m-d'
+                        'format' => 'yyyy-m-d',
                     ]
                 ]) ?>
             </div>

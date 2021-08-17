@@ -51,8 +51,12 @@ class ArticuloController extends Controller
      */
     public function actionView($id)
     {
+        $bread= '<li class=\"breadcrumb-item\"><a href=\"'.Yii::$app->homeUrl.'\">Inicio</a></li>
+                    <li class=\"breadcrumb-item\"><a href=\"#\">Library</a></li>
+                    <li class=\"breadcrumb-item active\" aria-current=\"page\"><?= Html::encode($this->title) ?></li>';
         return $this->render('view', [
             'model' => $this->findModel($id),
+            'bread' => $bread,
         ]);
     }
 
