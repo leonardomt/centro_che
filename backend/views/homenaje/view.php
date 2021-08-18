@@ -34,11 +34,12 @@ if ( !Yii::$app->user->can('gestionar-homenaje'))
         <?= Alert::widget() ?>
     </div>
     <p>
-        <?= Html::a('Modificar', ['update', 'id' => $model->id_homenaje], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Modificar', ['update', 'id' => $model->id_homenaje], ['class' => 'btn btn-primary', 'title'=>"Modificar",]) ?>
         <?= Html::a('<span class="glyphicon glyphicon-trash"></span>', ['delete', 'id' => $model->id_homenaje], [
             'class' => 'btn btn-danger',
+            'title'=>"Eliminar",
             'data' => [
-                'confirm' => '¿Esta seguro que deceas eliminar este elemento?',
+                'confirm' => '¿Esta seguro que deseas eliminar este elemento?',
                 'method' => 'post',
             ],
         ]) ?>

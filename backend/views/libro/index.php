@@ -67,7 +67,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'fecha',
                 'value'=> 'fecha',
                 'format' => 'raw',
-                'headerOptions' => ['class' => 'col-md-3'],
+                'headerOptions' => ['class' => 'col-md-1'],
                 'filter'=>\dosamigos\datepicker\DatePicker::widget([
                     'model'=>$searchModel,
                     'attribute'=>'fecha',
@@ -77,21 +77,41 @@ $this->params['breadcrumbs'][] = $this->title;
                     ],
                 ]),
             ],
-            'titulo',
-           'autor',
-            'compilador',
+            [
+                'attribute' => 'titulo',
+                'format' => 'raw',
+                'headerOptions' => ['class' => 'col-md-1'],
+
+            ],
+            [
+                'attribute' => 'autor',
+                'format' => 'raw',
+                'headerOptions' => ['class' => 'col-md-1'],
+
+            ],
+            [
+                'attribute' => 'compilador',
+                'format' => 'raw',
+                'headerOptions' => ['class' => 'col-md-1'],
+
+            ],
             [
                 'attribute' => 'linea',
                 'format' => 'raw',
-                'headerOptions' => ['class' => 'col-md-2'],
+                'headerOptions' => ['class' => 'col-md-1'],
                 'filter' => array('Escritos de Juventud' => 'Escritos de Juventud', 'Antologías' => 'Antologías', 'Memoria Histórica' => 'Memoria Histórica', 'Filosofía y Política' => 'Filosofía y Política', 'Economía Política' => 'Economía Política', 'De Divulgación General' => 'De Divulgación General', 'Lecturas sobre el pensamiento y la obra del Che' => 'Lecturas sobre el pensamiento y la obra del Che'),
                 'filterInputOptions' => array('class' => 'form-control', 'id' => null, 'prompt' => 'Todos'),
             ],
+            [
+                'attribute' => 'palabras_clave',
+                'format' => 'raw',
+                'headerOptions' => ['class' => 'col-md-1'],
 
-            'palabras_clave',
+            ],
+
             [
                 'attribute' => 'descripcion',
-                'headerOptions' => ['class' => 'col-md-3'],
+                'headerOptions' => ['class' => 'col-md-2'],
                 'format' => 'raw',
                 'value' => function ($model) {
                     return '<div style="line-height: 1.2em; height: 6em; overflow: hidden;">'.\yii\helpers\HtmlPurifier::process($model->descripcion).'</div>';
@@ -102,19 +122,19 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'class' => 'kartik\grid\ActionColumn',
                 'template' => '{view}{update}{delete}',
-                'headerOptions' => ['class' => 'col-md-1'],
+                'headerOptions' => ['class' => 'col-md-2'],
                 'buttons' => [
                     'view' => function ($url, $model)
                     {
-                        return Html::a('<button class="btn btn-success" style="width: 40px ; margin-top: 2px;  margin-left: 2px"><i class="fa fa-eye"></i></button>',$url);
+                        return Html::a('<button title="Ver" class="btn btn-success" style="width: 40px ; margin-top: 2px;  margin-left: 2px"><i class="fa fa-eye"></i></button>',$url);
                     },
                     'update' => function ($url, $model)
                     {
-                        return Html::a('<button class="btn btn-primary" style="width: 40px ; margin-top: 2px;  margin-left: 2px"><i class="fa fa-pencil"></i></button>',$url);
+                        return Html::a('<button title="Modificar" class="btn btn-primary" style="width: 40px ; margin-top: 2px;  margin-left: 2px"><i class="fa fa-pencil"></i></button>',$url);
                     },
                     'delete' => function ($url, $model)
                     {
-                        return Html::a('<button class="btn btn-danger" style="width: 40px ; margin-top: 2px;  margin-left: 2px"><i class="fa fa-trash"></i></button>',$url, ['data-confirm' => '¿Está seguro que desea eliminar este elemento?', 'data-method' =>'POST']);
+                        return Html::a('<button title="Eliminar" class="btn btn-danger" style="width: 40px ; margin-top: 2px;  margin-left: 2px"><i class="fa fa-trash"></i></button>',$url, ['data-confirm' => '¿Está seguro que desea eliminar este elemento?', 'data-method' =>'POST']);
                     }
                 ],
             ],

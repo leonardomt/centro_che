@@ -35,7 +35,6 @@ if ( Yii::$app->user->isGuest )
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
 
             'id_coleccion_documental_archivo',
             'id_coleccion_documental',

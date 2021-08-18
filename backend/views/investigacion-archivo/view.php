@@ -29,7 +29,7 @@ if ( Yii::$app->user->isGuest )
         <?= Html::a('Delete', ['delete', 'id' => $model->id_investigacion_archivo], [
             'class' => 'btn btn-danger',
             'data' => [
-                'confirm' => 'Estas seguguro que decea eliminar este elemento?',
+                'confirm' => 'Estas seguguro que desea eliminar este elemento?',
                 'method' => 'post',
             ],
         ]) ?>

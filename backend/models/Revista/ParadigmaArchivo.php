@@ -47,7 +47,7 @@ class ParadigmaArchivo extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'url' => '',
-            'file' => '',
+            'file' => 'Archivo',
         ];
     }
 }

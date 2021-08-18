@@ -31,7 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'fecha',
                 'value' => 'fecha',
                 'format' => 'raw',
-                'headerOptions' => ['class' => 'col-md-3'],
+                'headerOptions' => ['class' => 'col-md-1'],
                 'filter' => \dosamigos\datepicker\DatePicker::widget([
                     'model' => $searchModel,
                     'attribute' => 'fecha','language' => 'es',
@@ -48,7 +48,7 @@ $this->params['breadcrumbs'][] = $this->title;
             //'correo',
             [
                 'attribute' => 'comentario',
-                'headerOptions' => ['class' => 'col-md-3'],
+                'headerOptions' => ['class' => 'col-md-2'],
             ],
             [
                 'attribute' => 'seccion',
@@ -141,16 +141,16 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'class' => 'kartik\grid\ActionColumn',
                 'template' => '{view}{aprobar}{delete}',
-                'headerOptions' => ['class' => 'col-md-1'],
+                'headerOptions' => ['class' => 'col-md-2'],
                 'buttons' => [
                     'view' => function ($url, $model) {
-                        return Html::a('<button class="btn btn-success" style="width: 40px ; margin-top: 2px;  margin-left: 2px"><i class="fa fa-eye"></i></button>', $url);
+                        return Html::a('<button title="Ver" class="btn btn-success" style="width: 40px ; margin-top: 2px;  margin-left: 2px"><i class="fa fa-eye"></i></button>', $url);
                     },
                     'aprobar' => function ($url, $model) {
-                        return Html::a('<button class="btn btn-primary" style="width: 40px ; margin-top: 2px;  margin-left: 2px"><i class="fa fa-check"></i></button>', $url, ['data-confirm' => '¿Está seguro que desea aprobar este comentario?', 'data-method' => 'POST']);
+                        return Html::a('<button title="Modificar" class="btn btn-primary" style="width: 40px ; margin-top: 2px;  margin-left: 2px"><i class="fa fa-check"></i></button>', $url, ['data-confirm' => '¿Está seguro que desea aprobar este comentario?', 'data-method' => 'POST']);
                     },
                     'delete' => function ($url, $model) {
-                        return Html::a('<button class="btn btn-danger" style="width: 40px ; margin-top: 2px;  margin-left: 2px"><i class="fa fa-times"></i></button>', $url, ['data-confirm' => '¿Está seguro que desea denegar este comentario?', 'data-method' => 'POST']);
+                        return Html::a('<button title="Eliminar" class="btn btn-danger" style="width: 40px ; margin-top: 2px;  margin-left: 2px"><i class="fa fa-times"></i></button>', $url, ['data-confirm' => '¿Está seguro que desea denegar este comentario?', 'data-method' => 'POST']);
                     }
                 ],
             ],
@@ -178,7 +178,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'fecha',
                 'value' => 'fecha',
                 'format' => 'raw',
-                'headerOptions' => ['class' => 'col-md-3'],
+                'headerOptions' => ['class' => 'col-md-1'],
                 'filter' => \dosamigos\datepicker\DatePicker::widget([
                     'model' => $searchModel,
                     'attribute' => 'fecha',
@@ -195,7 +195,7 @@ $this->params['breadcrumbs'][] = $this->title;
             //'correo',
             [
                 'attribute' => 'comentario',
-                'headerOptions' => ['class' => 'col-md-3'],
+                'headerOptions' => ['class' => 'col-md-2'],
             ],
             [
                 'attribute' => 'seccion',
@@ -288,16 +288,16 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'class' => 'kartik\grid\ActionColumn',
                 'template' => '{view}{aprobar}{delete}',
-                'headerOptions' => ['class' => 'col-md-1'],
+                'headerOptions' => ['class' => 'col-md-2'],
                 'buttons' => [
                     'view' => function ($url, $model) {
-                        return Html::a('<button class="btn btn-success" style="width: 40px ; margin-top: 2px;  margin-left: 2px"><i class="fa fa-eye"></i></button>', $url);
+                        return Html::a('<button title="Ver" class="btn btn-success" style="width: 40px ; margin-top: 2px;  margin-left: 2px"><i class="fa fa-eye"></i></button>', $url);
                     },
                     'aprobar' => function ($url, $model) {
-                        return Html::a('<button class="btn btn-primary" style="width: 40px ; margin-top: 2px;  margin-left: 2px"><i class="fa fa-check"></i></button>', $url, ['data-confirm' => '¿Está seguro que desea aprobar este comentario?', 'data-method' => 'POST']);
+                        return Html::a('<button title="Aprobar" class="btn btn-primary" style="width: 40px ; margin-top: 2px;  margin-left: 2px"><i class="fa fa-check"></i></button>', $url, ['data-confirm' => '¿Está seguro que desea aprobar este comentario?', 'data-method' => 'POST']);
                     },
                     'delete' => function ($url, $model) {
-                        return Html::a('<button class="btn btn-danger" style="width: 40px ; margin-top: 2px;  margin-left: 2px"><i class="fa fa-times"></i></button>', $url, ['data-confirm' => '¿Está seguro que desea denegar este comentario?', 'data-method' => 'POST']);
+                        return Html::a('<button title="Denegar" class="btn btn-danger" style="width: 40px ; margin-top: 2px;  margin-left: 2px"><i class="fa fa-times"></i></button>', $url, ['data-confirm' => '¿Está seguro que desea denegar este comentario?', 'data-method' => 'POST']);
                     }
                 ],
             ],
@@ -323,7 +323,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'fecha',
                 'value' => 'fecha',
                 'format' => 'raw',
-                'headerOptions' => ['class' => 'col-md-3'],
+                'headerOptions' => ['class' => 'col-md-1'],
                 'filter' => \dosamigos\datepicker\DatePicker::widget([
                     'model' => $searchModel,
                     'attribute' => 'fecha',
@@ -340,7 +340,7 @@ $this->params['breadcrumbs'][] = $this->title;
             //'correo',
             [
                 'attribute' => 'comentario',
-                'headerOptions' => ['class' => 'col-md-3'],
+                'headerOptions' => ['class' => 'col-md-2'],
             ],
             [
                 'attribute' => 'seccion',
@@ -434,16 +434,16 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'class' => 'kartik\grid\ActionColumn',
                 'template' => '{view}{aprobar}{delete}',
-                'headerOptions' => ['class' => 'col-md-1'],
+                'headerOptions' => ['class' => 'col-md-2'],
                 'buttons' => [
                     'view' => function ($url, $model) {
-                        return Html::a('<button class="btn btn-success" style="width: 40px ; margin-top: 2px;  margin-left: 2px"><i class="fa fa-eye"></i></button>', $url);
+                        return Html::a('<button title="Ver" class="btn btn-success" style="width: 40px ; margin-top: 2px;  margin-left: 2px"><i class="fa fa-eye"></i></button>', $url);
                     },
                     'aprobar' => function ($url, $model) {
-                        return Html::a('<button class="btn btn-primary" style="width: 40px ; margin-top: 2px;  margin-left: 2px"><i class="fa fa-check"></i></button>', $url, ['data-confirm' => '¿Está seguro que desea aprobar este comentario?', 'data-method' => 'POST']);
+                        return Html::a('<button title="Aprobar" class="btn btn-primary" style="width: 40px ; margin-top: 2px;  margin-left: 2px"><i class="fa fa-check"></i></button>', $url, ['data-confirm' => '¿Está seguro que desea aprobar este comentario?', 'data-method' => 'POST']);
                     },
                     'delete' => function ($url, $model) {
-                        return Html::a('<button class="btn btn-danger" style="width: 40px ; margin-top: 2px;  margin-left: 2px"><i class="fa fa-times"></i></button>', $url, ['data-confirm' => '¿Está seguro que desea denegar este comentario?', 'data-method' => 'POST']);
+                        return Html::a('<button title="Denegar" class="btn btn-danger" style="width: 40px ; margin-top: 2px;  margin-left: 2px"><i class="fa fa-times"></i></button>', $url, ['data-confirm' => '¿Está seguro que desea denegar este comentario?', 'data-method' => 'POST']);
                     }
                 ],
             ],

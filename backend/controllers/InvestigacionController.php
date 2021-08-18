@@ -216,7 +216,7 @@ class InvestigacionController extends Controller
         $temporal = Articulo::find()->where(['id_investigacion' => $this->findModel($id)->id_investigacion])->all();
         if (count($temporal) > 0) {
             Yii::$app->session->setFlash('error', 'La Investigación tiene Artículos asociados, no puede ser eliminada.');
-            $searchModel = new Investigacion();
+            $searchModel = new InvestigacionSearch();
             $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
             return $this->render('index', [

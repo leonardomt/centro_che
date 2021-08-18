@@ -40,6 +40,7 @@ class ProyectoArchivo extends \yii\db\ActiveRecord
         return [
             'id' => 'Id',
             'url' => ' ',
+            'file' => 'Archivo',
         ];
     }
 }

@@ -45,11 +45,23 @@ if ( !Yii::$app->user->can('gestionar-noticia'))
         ],
         'id'=> 'trabajador-index-update',
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
 
-            'nombre',
-            'cargo',
-            'correo',
+            [
+                'attribute' => 'nombre',                     // area
+                'format' => 'raw',
+                'headerOptions' => ['class' => 'col-md-3'],
+            ],
+            [
+                'attribute' => 'cargo',                     // area
+                'format' => 'raw',
+                'headerOptions' => ['class' => 'col-md-2'],
+            ],
+            [
+                'attribute' => 'correo',                     // area
+                'format' => 'raw',
+                'headerOptions' => ['class' => 'col-md-3'],
+            ],
+
             [
                 'attribute' => 'area',                     // area
                 'format' => 'raw',
@@ -58,23 +70,22 @@ if ( !Yii::$app->user->can('gestionar-noticia'))
                 'filterInputOptions' => array('class' => 'form-control', 'id' => null, 'prompt' => 'Todos'),
             ],
 
-
             [
                 'class' => 'kartik\grid\ActionColumn',
                 'template' => '{view}{update}{delete}',
-                'headerOptions' => ['class' => 'col-md-1'],
+                'headerOptions' => ['class' => 'col-md-2'],
                 'buttons' => [
                     'view' => function ($url, $model)
                     {
-                        return Html::a('<button class="btn btn-success" style="width: 40px ; margin-top: 2px;  margin-left: 2px"><i class="fa fa-eye"></i></button>',$url);
+                        return Html::a('<button title="Ver" class="btn btn-success" style="width: 40px ; margin-top: 2px;  margin-left: 2px"><i class="fa fa-eye"></i></button>',$url);
                     },
                     'update' => function ($url, $model)
                     {
-                        return Html::a('<button class="btn btn-primary" style="width: 40px ; margin-top: 2px;  margin-left: 2px"><i class="fa fa-pencil"></i></button>',$url);
+                        return Html::a('<button title="Modificar" class="btn btn-primary" style="width: 40px ; margin-top: 2px;  margin-left: 2px"><i class="fa fa-pencil"></i></button>',$url);
                     },
                     'delete' => function ($url, $model)
                     {
-                        return Html::a('<button class="btn btn-danger" style="width: 40px ; margin-top: 2px;  margin-left: 2px"><i class="fa fa-trash"></i></button>',$url, ['data-confirm' => '¿Está seguro que desea eliminar este elemento?', 'data-method' =>'POST']);
+                        return Html::a('<button title="Eliminar" class="btn btn-danger" style="width: 40px ; margin-top: 2px;  margin-left: 2px"><i class="fa fa-trash"></i></button>',$url, ['data-confirm' => '¿Está seguro que desea eliminar este elemento?', 'data-method' =>'POST']);
                     }
                 ],
             ],

@@ -37,7 +37,7 @@ class Archivo extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['revisado', 'titulo_archivo', 'etiqueta',  'descripcion_archivo'], 'required'],
+            [['revisado', 'titulo_archivo', 'etiqueta', 'descripcion_archivo'], 'required'],
             [['revisado'], 'integer'],
             [['descripcion_archivo'], 'string'],
             [['titulo_archivo'], 'string', 'max' => 124],

@@ -33,7 +33,7 @@ if ( Yii::$app->user->isGuest )
         <?= Html::a('<span class="glyphicon glyphicon-trash"></span>', ['delete', 'id' => $model->id_articulo_comentario], [
             'class' => 'btn btn-danger',
             'data' => [
-                'confirm' => '¿Estas seguro que deceas eliminar este elemento?',
+                'confirm' => '¿Estas seguro que deseas eliminar este elemento?',
                 'method' => 'post',
             ],
         ]) ?>

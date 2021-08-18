@@ -23,28 +23,35 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Alert::widget() ?>
     </div>
     <p>
-        <?= Html::a('Crear', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('<span class="fa fa-plus "></span>', ['create'], [
+            'class' => 'btn btn-success',
+            'style'=>"width: 40px ; height: 40px",
+            "title"=>"Agregar"])
+        ?>
     </p>
 
-    <?php Pjax::begin(); ?>
+
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
             'tipo:ntext',
 
-            ['class' => 'kartik\grid\ActionColumn',
-            'template' => '{delete}',
-            'headerOptions' => ['class' => 'col-md-1'],
-        ],
+            [
+                'class' => 'kartik\grid\ActionColumn',
+                'template' => '{delete}',
+                'headerOptions' => ['class' => 'col-md-2'],
+                'buttons' => [
+                    'delete' => function ($url, $model) {
+                        return Html::a('<button title="Eliminar" class="btn btn-danger" style="width: 40px ; margin-top: 2px;  margin-left: 2px"><i class="fa fa-trash"></i></button>', $url, ['data-confirm' => '¿Está seguro que desea eliminar este elemento?', 'data-method' => 'POST']);
+                    }
+                ],
+            ],
         ],
     ]); ?>
 
-    <?php Pjax::end(); ?>
 
 </div>

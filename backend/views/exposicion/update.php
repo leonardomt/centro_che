@@ -45,30 +45,34 @@ if (!Yii::$app->user->can('gestionar-exposicion'))
     <br>
 
     <div class="row">
-        <div class="col-lg-4 text-lg-left">
-            <?= $form->field($model, 'tipo_fecha')->radioList([0 => 'Fecha Exacta', 1 => 'Año', 2 => 'Rango de Fecha']); ?>
+        <div class=" col-lg-2 text-lg-left" > </div>
+        <div class=" col-lg-2 text-lg-left" >
+            <?= $form->field($model, 'tipo_fecha')->radioList([0 => 'Fecha Exacta', 1 => 'Año', 2 => 'Rango de Fecha'], ['separator'=>'<br/>']); ?>
         </div>
-        <div class="col-lg-4 text-lg-left">
-            <?= $form->field($model, 'fecha')->widget(\dosamigos\datepicker\DatePicker::className(), [
-                'inline' => false, 'language' => 'es',
-                'clientOptions' => [
-                    'autoclose' => true,
-                    'format' => 'yyyy-m-d',
-                    'endDate' => date('Y-m-d'),
-                ]
-            ]) ?>
-        </div>
-        <div class="col-lg-4 text-lg-left">
-            <?= $form->field($model, 'fecha_fin')->widget(\dosamigos\datepicker\DatePicker::className(), [
-                'inline' => false, 'language' => 'es',
-                'clientOptions' => [
-                    'autoclose' => true,
-                    'format' => 'yyyy-m-d'
-                ]
-            ]) ?>
+        <div class=" col-lg-2 text-lg-left" > </div>
+        <div class="col-lg-6">
+            <div class=" text-lg-left">
+                <?= $form->field($model, 'fecha')->widget(\dosamigos\datepicker\DatePicker::className(), [
+                    'inline' => false, 'language' => 'es',
+                    'clientOptions' => [
+                        'autoclose' => true,
+                        'format' => 'yyyy-m-d',
+                        'endDate' => date('Y-m-d'),
+                    ]
+                ]) ?>
+            </div>
+            <div class="text-lg-left">
+                <?= $form->field($model, 'fecha_fin')->widget(\dosamigos\datepicker\DatePicker::className(), [
+                    'inline' => false, 'language' => 'es',
+
+                    'clientOptions' => [
+                        'autoclose' => true,
+                        'format' => 'yyyy-m-d',
+                    ]
+                ]) ?>
+            </div>
         </div>
     </div>
-
     <div class="row">
         <div class="col-lg-6 text-lg-left">
             <?= $form->field($model, 'enlace')->textInput(['maxlength' => true]) ?>
@@ -139,8 +143,8 @@ if (!Yii::$app->user->can('gestionar-exposicion'))
 
                         </div>
                         <div class="pull-right">
-                            <button type="button" title="Agregar" class="add-item btn btn-success btn-xs"><i class="fa fa-plus"></i></button>
-                            <button type="button" title="Eliminar" class="remove-item btn btn-danger btn-xs"><i class="fa fa-trash"></i></button>
+                            <button type="button" title="Agregar" style="width: 40px ; height: 40px" class="add-item btn btn-success"><i class="fa fa-plus"></i></button>
+                            <button type="button" title="Eliminar" style="width: 40px ; height: 40px" class="remove-item btn btn-danger"><i class="fa fa-trash"></i></button>
                         </div>
                         <div class="clearfix"></div>
                         <br>
@@ -171,7 +175,7 @@ if (!Yii::$app->user->can('gestionar-exposicion'))
         </div>
         <div class="col-lg-1">
             <div class="form-group">
-                <?= Html::submitButton($modelArchivo->isNewRecord ? '<i class="fa fa-floppy-o" aria-hidden="true"></i>' : '<i class="fa fa-floppy-o" aria-hidden="true"></i>', ['class' => 'btn btn-success']) ?>
+                <?= Html::submitButton($modelArchivo->isNewRecord ? '<i class="fa fa-floppy-o" aria-hidden="true"></i>' : '<i class="fa fa-floppy-o" aria-hidden="true"></i>', ['class' => 'btn btn-success', 'style'=>"width: 40px; height: 40px", 'title' => 'Guardar']) ?>
             </div>
         </div>
     </div>

@@ -80,6 +80,12 @@ $this->params['breadcrumbs'][] = $this->title;
                 'class' => 'kartik\grid\ActionColumn',
                 'template' => '{delete}',
                 'headerOptions' => ['class' => 'col-md-1'],
+                'buttons' => [
+                    'delete' => function ($url, $model)
+                    {
+                        return Html::a('<button title="Eliminar" class="btn btn-danger"><i class="fa fa-trash"></i></button>',['delete', 'id' => $model->id], ['data-confirm' => '¿Está seguro que desea eliminar este elemento?', 'data-method' =>'POST']);
+                    }
+                ],
             ],
 
         ],

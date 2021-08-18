@@ -18,10 +18,13 @@ use kartik\form\ActiveForm;
             \kartik\file\FileInput::classname(),
             [
                 'pluginOptions' => [
-                    'showUpload' => false,'showRemove' => false,'showCancel' => false,
-                    'browseLabel' => 'Insertar Imagen',
-                    'removeLabel' => '',
+                    'showUpload' => false,
+                    'browseLabel' => '',
+                    'showCancel' => false,
+                    'showRemove' => false,
                     'mainClass' => 'input-group-md',
+                    'removeLabel' => '',
+
                      'allowedFileExtensions' => ['png', 'jpg', 'gif', 'jpeg'],
                     'maxFileSize' => 20048,
                     'msgSizeTooLarge' => 'El archivo supera el límite permitido de <b>20mb</b>.',
@@ -33,7 +36,7 @@ use kartik\form\ActiveForm;
 <div class="row">
 <div class="col-md-11"></div>
     <div class="form-group">
-        <?= Html::submitButton('  <i class="fa fa-floppy-o" aria-hidden="true"></i>', ['class' => 'btn btn-success ']) ?>
+        <?= Html::submitButton('  <i class="fa fa-floppy-o" aria-hidden="true"></i>', ['class' => 'btn btn-success ', 'style'=>"width: 40px; height: 40px", 'title' => 'Guardar']) ?>
     </div>
 </div>
     <?php ActiveForm::end(); ?>

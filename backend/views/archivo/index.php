@@ -29,7 +29,8 @@ if (Yii::$app->user->isGuest)
     <p>
         <?= Html::a('<span class="fas fa-file-upload "></span>', ['create'], [
             'class' => 'btn btn-success',
-            "title" => "Agregar"
+            "title" => "Agregar",
+            'style'=>"width: 40px ; height: 40px",
         ])
         ?>
     </p>
@@ -75,14 +76,14 @@ if (Yii::$app->user->isGuest)
                 'attribute' => 'tipo_archivo',
                 'value' => 'tipoArchivo.tipo_archivo',
                 'format' => 'raw',
-                'headerOptions' => ['class' => 'col-md-2'],
+                'headerOptions' => ['class' => 'col-md-1'],
                 'filter' => \yii\helpers\ArrayHelper::map(\backend\models\Archivo\TipoArchivo::find()->asArray()->all(), 'id_tipo_archivo', 'tipo_archivo'),
                 'filterInputOptions' => array('class' => 'form-control', 'id' => null, 'prompt' => 'Todos'),
             ],
             [
                 'attribute' => 'autor_archivo',                     // autor
                 'format' => 'raw',
-                'headerOptions' => ['class' => 'col-md-2'],
+                'headerOptions' => ['class' => 'col-md-1'],
 
             ],
 
@@ -90,7 +91,7 @@ if (Yii::$app->user->isGuest)
                 'attribute' => 'etiqueta',                     // etiqueta
                 'format' => 'raw',
                 'headerOptions' => [
-                        'class' => 'col-md-2',
+                        'class' => 'col-md-1',
                         'value' => '"<a><span class=\"icon-camera\"></span></a>"',
                 ]
             ],
@@ -114,6 +115,7 @@ if (Yii::$app->user->isGuest)
                 'attribute' => 'fecha',
                 'value' => 'fecha',
                 'format' => 'raw',
+                'headerOptions' => ['class' => 'col-md-1'],
                 'filter' => \dosamigos\datepicker\DatePicker::widget([
                     'model' => $searchModel,
                     'attribute' => 'fecha','language' => 'es',
@@ -128,7 +130,7 @@ if (Yii::$app->user->isGuest)
             array(
                 'attribute' => 'etapa',                     // etapa
                 'format' => 'raw',
-                'headerOptions' => array('class' => 'col-md-2'),
+                'headerOptions' => array('class' => 'col-md-1'),
                 'filter' => array("Infancia" => "Infancia", "Adolescencia" => "Adolescencia", "Adulto Joven" => "Adulto Joven", "Adulto" => "Adulto", "Posterior a 1967" => "Posterior a 1967", "No definida" => "No definida"),
                 'filterInputOptions' => array('class' => 'form-control', 'id' => null, 'prompt' => 'Todos'),
             ),
@@ -136,7 +138,7 @@ if (Yii::$app->user->isGuest)
             [
                 'attribute' => 'url_archivo',         'filter'=> false,            // Url del Archivo
                 'format' => 'raw',
-                'headerOptions' => ['class' => 'col-md-3'],
+                'headerOptions' => ['class' => 'col-md-2'],
                 'value' => function ($model) {
                     if ($model->url_archivo != ' ' && $model->url_archivo != NULL) { // verifica si fue importada o no
                         if ($model->tipo_archivo == 1) {
@@ -166,20 +168,20 @@ if (Yii::$app->user->isGuest)
             [
                 'class' => 'kartik\grid\ActionColumn',
                 'template' => '{view}{update}{delete}',
-                'headerOptions' => ['class' => 'col-md-1'],
+                'headerOptions' => ['class' => 'col-md-2'],
                 'buttons' => [
                     'view' => function ($url, $model)
                     {
-                        return Html::a('<button class="btn btn-success" style="width: 40px ; margin-top: 2px;  margin-left: 2px"><i class="fa fa-eye"></i></button>',$url);
+                        return Html::a('<button title="Ver" class="btn btn-success" style="width: 40px ; margin-top: 2px;  margin-left: 2px"><i class="fa fa-eye"></i></button>',$url);
                     },
                     'update' => function ($url, $model)
                     {
-                        return Html::a('<button class="btn btn-primary" style="width: 40px; margin-top: 2px;  margin-left: 2px"><i class="fa fa-pencil"></i></button>',$url);
+                        return Html::a('<button title="Modificar" class="btn btn-primary" style="width: 40px; margin-top: 2px;  margin-left: 2px"><i class="fa fa-pencil"></i></button>',$url);
                     },
                     'delete' => function ($url, $model)
                     {
 
-                        return Html::a('<button class="btn btn-danger" style="width: 40px ; margin-top: 2px;  margin-left: 2px"><i class="fa fa-trash"></i></button>',$url, ['data-confirm' => '¿Está seguro que desea eliminar este elemento?', 'data-method' =>'POST']);
+                        return Html::a('<button title="Eliminar" class="btn btn-danger" style="width: 40px ; margin-top: 2px;  margin-left: 2px"><i class="fa fa-trash"></i></button>',$url, ['data-confirm' => '¿Está seguro que desea eliminar este elemento?', 'data-method' =>'POST']);
                     }
                 ],
             ],

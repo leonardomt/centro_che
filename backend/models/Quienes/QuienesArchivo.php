@@ -49,7 +49,7 @@ class QuienesArchivo extends \yii\db\ActiveRecord
             'id' => 'ID',
             'url' => 'Imagen',
             'extra' => 'Extra',
-            'file' => '',
+            'file' => 'Archivo',
         ];
     }
 }

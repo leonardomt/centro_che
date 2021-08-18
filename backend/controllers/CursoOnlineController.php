@@ -217,4 +217,16 @@ class CursoOnlineController extends Controller
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
+
+
+    public function actionPdf($id) {
+        $model = CursoOnline::findOne($id);
+
+        // This will need to be the path relative to the root of your app.
+        $filePath = '../../frontend/web/';
+        // Might need to change '@app' for another alias
+        $completePath = Yii::getAlias($filePath.'/'.$model->pdf);
+
+        return Yii::$app->response->sendFile($completePath, $model->pdf);
+    }
 }

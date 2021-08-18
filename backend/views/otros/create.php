@@ -102,8 +102,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
                         </div>
                         <div class="pull-right">
-                            <button type="button" title="Agregar" class="add-item btn btn-success btn-xs"><i class="fa fa-plus"></i></button>
-                            <button type="button" title="Eliminar" class="remove-item btn btn-danger btn-xs"><i class="fa fa-trash"></i></button>
+                            <button type="button" title="Agregar" style="width: 40px ; height: 40px" class="add-item btn btn-success"><i class="fa fa-plus"></i></button>
+                            <button type="button" title="Eliminar" style="width: 40px ; height: 40px" class="remove-item btn btn-danger"><i class="fa fa-trash"></i></button>
                         </div>
                         <div class="clearfix"></div>
                         <br>
@@ -135,7 +135,7 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
         <div class="col-lg-1">
             <div class="form-group">
-                <?= Html::submitButton($modelArchivo->isNewRecord ? '<i class="fa fa-floppy-o" aria-hidden="true"></i>' : '<i class="fa fa-floppy-o" aria-hidden="true"></i>', ['class' => 'btn btn-success']) ?>
+                <?= Html::submitButton($modelArchivo->isNewRecord ? '<i class="fa fa-floppy-o" aria-hidden="true"></i>' : '<i class="fa fa-floppy-o" aria-hidden="true"></i>', ['class' => 'btn btn-success', 'style'=>"width: 40px; height: 40px", 'title' => 'Guardar']) ?>
             </div>
         </div>
 

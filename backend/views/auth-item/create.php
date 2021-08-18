@@ -55,7 +55,7 @@ if ( Yii::$app->user->isGuest )
                             <div class="row">
                                 <div class="col-md-11"></div>
                                 <div class="form-group">
-                                    <?= Html::submitButton('  <i class="fa fa-floppy-o" aria-hidden="true"></i>', ['class' => 'btn btn-success ']) ?>
+                                    <?= Html::submitButton('  <i class="fa fa-floppy-o" aria-hidden="true"></i>', ['class' => 'btn btn-success ', 'style'=>"width: 40px; height: 40px", 'title' => 'Guardar']) ?>
                                 </div>
                             </div>
 

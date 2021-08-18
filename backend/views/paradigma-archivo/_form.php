@@ -18,15 +18,17 @@ use yii\widgets\ActiveForm;
             \kartik\file\FileInput::classname(),
             [
                 'pluginOptions' => [
-                    'showUpload' => false,
+                    'showUpload' => false,'showRemove' => false,'showCancel' => false,
                     'browseLabel' => 'Insertar Imagen',
                     'removeLabel' => '',
-                    'mainClass' => 'input-group-md'
+                    'mainClass' => 'input-group-md',
+                    'allowedFileExtensions' => ['png', 'jpg', 'gif', 'jpeg'],
+                    'maxFileSize' => 20048,
+                    'msgSizeTooLarge' => 'El archivo supera el límite permitido de <b>20mb</b>.',
                 ],
 
             ]
-        );
-    }; ?>
+        ); }; ?>
 
     <div class="row panel-heading">
         <div class="col-lg-1"></div>
@@ -36,7 +38,7 @@ use yii\widgets\ActiveForm;
         </div>
         <div class="col-lg-1">
             <div class="form-group">
-                <?= Html::submitButton('<i class="fa fa-floppy-o" aria-hidden="true"></i>', ['class' => 'btn btn-success']) ?>
+                <?= Html::submitButton('<i class="fa fa-floppy-o" aria-hidden="true"></i>', ['class' => 'btn btn-success', 'style'=>"width: 40px; height: 40px", 'title' => 'Guardar']) ?>
             </div>
         </div>
     </div>

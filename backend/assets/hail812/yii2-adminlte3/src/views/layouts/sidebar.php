@@ -259,7 +259,7 @@
                             ['label' => 'Usuarios', 'iconStyle' => 'far' , 'url' => ['/user/index'], 'visible' => Yii::$app->user->can('gestionar-usuarios')],
                             ['label' => 'Roles', 'iconStyle' => 'far' , 'url' => ['/auth-item/index'], 'visible' => Yii::$app->user->can('gestionar-usuarios')],
                             ['label' => 'Géneros de Productos Audiovisuales', 'iconStyle' => 'far' , 'url' => ['/tipo-producto/index'], 'visible' => Yii::$app->user->can('gestionar-usuarios')],
-                            ['label' => 'Tipos de Proyectos Comunitarios', 'iconStyle' => 'far' , 'url' => ['/tipo-taller/view', 'id'=>1], 'visible' => Yii::$app->user->can('gestionar-usuarios')],
+                            ['label' => 'Tipos de Proyectos Comunitarios', 'iconStyle' => 'far' , 'url' => ['/tipo-taller/index'], 'visible' => Yii::$app->user->can('gestionar-usuarios')],
 
                         ]
                     ],
