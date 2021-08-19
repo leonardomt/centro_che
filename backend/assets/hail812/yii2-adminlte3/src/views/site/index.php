@@ -353,7 +353,7 @@ $bundle->js[] = 'chart/Chart.js';
         <div class="col-md-4">
             <div class="card card-default">
                 <div class="card-header">
-                    <h3 class="card-title" data-card-widget="collapse">Destacados</h3>
+                    <h3 class="card-title" data-card-widget="collapse">Autores</h3>
 
                     <div class="card-tools">
                         <button type="button" class="btn btn-tool" data-card-widget="collapse">
