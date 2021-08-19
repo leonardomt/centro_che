@@ -70,7 +70,7 @@ if (Yii::$app->user->isGuest)
             [
                 'attribute' => 'titulo_archivo',                     // Titulo
                 'format' => 'raw',
-                'headerOptions' => ['class' => 'col-md-2']
+                'headerOptions' => ['class' => 'col-md-1']
             ],
             [
                 'attribute' => 'tipo_archivo',

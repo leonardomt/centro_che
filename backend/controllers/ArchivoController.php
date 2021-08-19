@@ -115,7 +115,7 @@ class ArchivoController extends Controller
                 $imageName = $model->titulo_archivo;
                 $model->file = UploadedFile::getInstance($model, 'file');
                 if ($model->file == null){
-                    Yii::$app->session->setFlash('error', 'El archivo no puede estar vacío.');
+                    Yii::$app->session->setFlash('error', 'No ha cargado ningún archivo.');
                     return $this->redirect([
                         'create',
                         'model' => $model,
