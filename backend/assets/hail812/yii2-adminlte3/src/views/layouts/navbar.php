@@ -12,7 +12,7 @@ use yii\helpers\Html;
     <!-- Left navbar links -->
     <ul class="navbar-nav">
         <li class="nav-item">
-            <a class="nav-link" style="color:white" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+            <a class="nav-link"  id="a" style="color:white" data-widget="pushmenu" href="#" role="button"><i class="fa fa-arrow-left"></i></a>
         </li>
 
     </ul>
@@ -40,3 +40,20 @@ use yii\helpers\Html;
     </ul>
 </nav>
 <!-- /.navbar -->
+<script>
+
+    document.querySelector('a').addEventListener('click', function() {
+        const icon = this.querySelector('i');
+        const text = this.querySelector('span');
+
+        if (icon.classList.contains('fa-arrow-left')) {
+            icon.classList.remove('fa-arrow-left');
+            icon.classList.add('fa-arrow-right');
+            text.innerHTML = 'Hide';
+        } else {
+            icon.classList.remove('fa-arrow-right');
+            icon.classList.add('fa-arrow-left');
+            text.innerHTML = 'Show';
+        }
+    });
+</script>
