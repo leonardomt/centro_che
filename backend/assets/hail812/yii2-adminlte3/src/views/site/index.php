@@ -11,6 +11,13 @@ $bundle->css[] = 'chart/Chart.css';
 $bundle->js[] = 'chart/Chart.js';
 
 ?>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.1/chart.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.1/chart.min.js"
+        integrity="sha512-Wt1bJGtlnMtGP0dqNFH1xlkLBNpEodaiQ8ZN5JLA5wpc1sUlk/O5uuOMNgvzddzkpvZ9GLyYNa8w2s7rqiTk5Q=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.1/chart.js"
+        integrity="sha512-b3xr4frvDIeyC3gqR1/iOi6T+m3pLlQyXNuvn5FiRrrKiMUJK3du2QqZbCywH6JxS5EOfW0DY0M6WwdXFbCBLQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <div class="container-fluid">
 
     <div class="row">
@@ -33,13 +40,13 @@ $bundle->js[] = 'chart/Chart.js';
                 <div class="card-body">
 
                     <div class="col ">
-                        <div class="card card-primary collapsed-card ">
-                            <div class="card-header">
+                        <div class="card collapsed-card " >
+                            <div class="card-header" style="background-color: #164A7D; color: #fff">
                                 <h3 class="card-title" data-card-widget="collapse">Inicio</h3>
 
                                 <div class="card-tools">
                                     <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                        <i class="fas fa-plus"></i>
+                                        <i class="fas fa-plus" style="color: #fff"></i>
                                     </button>
 
                                 </div>
@@ -49,46 +56,23 @@ $bundle->js[] = 'chart/Chart.js';
                                     <?php
                                     $actualidad = count(\backend\models\Noticia\Noticia::find()->all());
                                     ?>
-                                    <?= ChartJs::widget([
-                                        'type' => 'bar',
-                                        'options' => [
-                                            'height' => 400,
-                                            'width' => 400
-                                        ],
-                                        'data' => [
-                                            'labels' => ["Actualidad"],
-                                            'datasets' => [
-                                                [
-                                                    'label' => "Cantidad",
-                                                    'backgroundColor' => "#007bff",
-                                                    'borderColor' => "#007bff",
-                                                    'pointBackgroundColor' => "#007bff",
-                                                    'pointBorderColor' => "#fff",
-                                                    'pointHoverBackgroundColor' => "#fff",
-                                                    'pointHoverBorderColor' => "#007bff",
-                                                    'data' => [$actualidad]
-                                                ],
-
-                                            ]
-                                        ]
-                                    ]);
-                                    ?>
+                                    <canvas id="inicio-chart" width="400" height="350"></canvas>
                                 </div>
                             </div>
                         </div>
                         <!-- /.card-body -->
 
-
+                        <div style="height: 16px"></div>
                         <!--------------------------------------------Estadisticas Coordinacion Academica-------------------------------->
 
 
-                        <div class="card card-info collapsed-card">
-                            <div class="card-header">
+                        <div class="card collapsed-card">
+                            <div class="card-header" style="background-color: #3971A5; color: #fff">
                                 <h3 class="card-title" data-card-widget="collapse">Coordinación Académica</h3>
 
                                 <div class="card-tools">
                                     <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                        <i class="fas fa-plus"></i>
+                                        <i class="fas fa-plus" style="color: #fff"></i>
                                     </button>
                                 </div>
                             </div>
@@ -104,30 +88,7 @@ $bundle->js[] = 'chart/Chart.js';
                                     $clases = count(\backend\models\CursoOnline\Clase::find()->all());
 
                                     ?>
-                                    <?= ChartJs::widget([
-                                        'type' => 'bar',
-                                        'options' => [
-                                            'height' => 400,
-                                            'width' => 400
-                                        ],
-                                        'data' => [
-                                            'labels' => ["Artículos", "Líneas de Investigación", "Investigaciones", "Documentos", "Libros", "Cursos Online", "Clases"],
-                                            'datasets' => [
-                                                [
-                                                    'label' => "Cantidad",
-                                                    'backgroundColor' => "#17a2b8",
-                                                    'borderColor' => "#17a2b8",
-                                                    'pointBackgroundColor' => "#17a2b8",
-                                                    'pointBorderColor' => "#fff",
-                                                    'pointHoverBackgroundColor' => "#fff",
-                                                    'pointHoverBorderColor' => "#17a2b8",
-                                                    'data' => [$articulos, $lineas, $investigaciones, $documentos, $libros, $cursos, $clases]
-                                                ],
-
-                                            ]
-                                        ]
-                                    ]);
-                                    ?>
+                                    <canvas id="coordinacion-chart" width="400" height="350"></canvas>
 
                                 </div>
                             </div>
@@ -135,18 +96,18 @@ $bundle->js[] = 'chart/Chart.js';
                         </div>
 
                         <!-- /.card -->
-
+                        <div style="height: 16px"></div>
 
                         <!--------------------------------------------Estadisticas Proyectos Alternativos-------------------------------->
                         <!-- BAR CHART -->
 
-                        <div class="card card-success collapsed-card">
-                            <div class="card-header">
+                        <div class="card collapsed-card">
+                            <div class="card-header" style="background-color: #5593C7; color: #fff">
                                 <h3 class="card-title" data-card-widget="collapse">Proyectos Alternativos</h3>
 
                                 <div class="card-tools">
                                     <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                        <i class="fas fa-plus"></i>
+                                        <i class="fas fa-plus" style="color: #fff"></i>
                                     </button>
 
                                 </div>
@@ -159,45 +120,22 @@ $bundle->js[] = 'chart/Chart.js';
                                     $audiovisuales = count(\backend\models\ProductoAudiovisual\ProductoAudiovisual::find()->all());
                                     $otros = count(\backend\models\Otros\Otros::find()->all());
                                     ?>
-                                    <?= ChartJs::widget([
-                                        'type' => 'bar',
-                                        'options' => [
-                                            'height' => 400,
-                                            'width' => 400
-                                        ],
-                                        'data' => [
-                                            'labels' => ["Talleres", "Exposiciones", "Productos Audiovisuales", "Otros"],
-                                            'datasets' => [
-                                                [
-                                                    'label' => "Cantidad",
-                                                    'backgroundColor' => "#28a745",
-                                                    'borderColor' => "#28a745",
-                                                    'pointBackgroundColor' => "#28a745",
-                                                    'pointBorderColor' => "#fff",
-                                                    'pointHoverBackgroundColor' => "#fff",
-                                                    'pointHoverBorderColor' => "#28a745",
-                                                    'data' => [$talleres, $expos, $audiovisuales, $otros]
-                                                ],
-
-                                            ]
-                                        ]
-                                    ]);
-                                    ?>
+                                    <canvas id="proyectos-chart" width="400" height="350"></canvas>
                                 </div>
                             </div>
                             <!-- /.card-body -->
                         </div>
-
+                        <div style="height: 16px"></div>
                         <!--------------------------------------------Estadisticas Vida y Obra---------------------------------------->
 
 
-                        <div class="card card-danger collapsed-card">
-                            <div class="card-header">
+                        <div class="card collapsed-card">
+                            <div class="card-header" style="background-color: #68A7DC; color: #fff">
                                 <h3 class="card-title" data-card-widget="collapse">Vida y Obra</h3>
 
                                 <div class="card-tools">
                                     <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                        <i class="fas fa-plus"></i>
+                                        <i class="fas fa-plus" style="color: #fff"></i>
                                     </button>
 
                                 </div>
@@ -215,36 +153,14 @@ $bundle->js[] = 'chart/Chart.js';
                                     $video = count(\backend\models\Galeria\GaleriaVo::find(['tipo' => 3])->all());
                                     $homenajes = count(\backend\models\Galeria\GaleriaVo::find(['tipo' => 4])->all());
                                     ?>
-                                    <?= ChartJs::widget([
-                                        'type' => 'bar',
-                                        'options' => [
-                                            'height' => 400,
-                                            'width' => 400
-                                        ],
-                                        'data' => [
-                                            'labels' => ["Cronología", "Correspondencias", "Escritos", "Discursos y Entrevistas", "Testimonios", "Galería de Fotografías", "Galería de Audios", "Galería de Videos", "Galería de Homenajes"],
-                                            'datasets' => [
-                                                [
-                                                    'label' => "Cantidad",
-                                                    'backgroundColor' => "#dc3545",
-                                                    'borderColor' => "#dc3545",
-                                                    'pointBackgroundColor' => "#dc3545",
-                                                    'pointBorderColor' => "#fff",
-                                                    'pointHoverBackgroundColor' => "#fff",
-                                                    'pointHoverBorderColor' => "#dc3545",
-                                                    'data' => [$crono, $correspondencia, $escritos, $discursos, $testimonios, $foto, $audio, $video, $homenajes]
-                                                ],
-
-                                            ]
-                                        ]
-                                    ]);
-                                    ?>
+                                    <canvas id="vida-chart"  height="350"></canvas>
                                 </div>
                             </div>
                             <!-- /.card-body -->
                         </div>
-
+                        <div style="height: 8px"></div>
                     </div>
+
 
                 </div>
             </div>
@@ -285,7 +201,7 @@ $bundle->js[] = 'chart/Chart.js';
                         ?>
                         <div class="">
                             <div class="">
-                                <div class="info-box bg-gradient-primary ">
+                                <div class="info-box bg-gradient-default " style="background-color: #353A3F; color: #fff">
                                     <span class="info-box-icon"><i class="far fa-image"></i></span>
 
                                     <div class="info-box-content">
@@ -293,7 +209,7 @@ $bundle->js[] = 'chart/Chart.js';
                                         <div class="progress">
                                             <div class="progress-bar " style="width: <?= $Irev ?>%"></div>
                                         </div>
-                                        <span class="progress-description"><?= 100-$Irev ?>
+                                        <span class="progress-description"><?= 100 - $Irev ?>
                                             % pendientes de revisión</span>
                                     </div>
                                     <!-- /.info-box-content -->
@@ -303,14 +219,14 @@ $bundle->js[] = 'chart/Chart.js';
                         </div>
                         <div class="">
                             <div class="">
-                                <div class="info-box bg-gradient-info">
+                                <div class="info-box bg-gradient" style="background-color: #5F6266; color: #fff">
                                     <span class="info-box-icon"><i class="fas fa-volume-up"></i></span>
 
                                     <div class="info-box-content">
                                         <span class="info-box-number">Total de Audios: <?= $archivoAT ?></span>
 
                                         <div class="progress">
-                                            <div class="progress-bar" style="width: <?= 100-$Arev ?>%"></div>
+                                            <div class="progress-bar" style="width: <?= 100 - $Arev ?>%"></div>
                                         </div>
                                         <span class="progress-description"><?= $Arev ?>
                                             % pendientes de revisión</span>
@@ -322,14 +238,14 @@ $bundle->js[] = 'chart/Chart.js';
                         </div>
                         <div class="">
                             <div class="">
-                                <div class="info-box bg-gradient-warning">
+                                <div class="info-box bg-gradient" style="background-color: #8A8C8E; color: #fff">
                                     <span class="info-box-icon"><i class="fas fa-video"></i></span>
 
                                     <div class="info-box-content">
                                         <span class="info-box-number">Total de Videos: <?= $archivoVT ?></span>
 
                                         <div class="progress">
-                                            <div class="progress-bar" style="width: <?= 100-$Vrev ?>%"></div>
+                                            <div class="progress-bar" style="width: <?= 100 - $Vrev ?>%"></div>
                                         </div>
                                         <span class="progress-description"><?= $Vrev ?>
                                             % pendientes de revisión</span>
@@ -362,27 +278,29 @@ $bundle->js[] = 'chart/Chart.js';
                     </div>
                 </div>
                 <div class="card-body">
-
+                    <canvas id="bar-chart" width="400" height="400"></canvas>
+                    <!-----
                     <div class="">
                         <?php
-                        $keys = array_keys($escritores);		// return array
-                        $values = array_values($escritores);
+                    $keys = array_keys($escritores);        // return array
+                    $values = array_values($escritores);
 
-                        ?>
+                    ?>
+
                         <div class="">
                             <div class="">
                                 <div class="info-box bg-gradient-warning">
                                     <span class="info-box-icon"><i class="fas fa-book"></i></span>
 
                                     <div class="info-box-content">
-                                        <span class="info-box-number">1er lugar: <?php if(isset($keys[0])) echo $keys[0]; ?></span>
+                                        <span class="info-box-number">1er lugar: <?php if (isset($keys[0])) echo $keys[0]; ?></span>
 
-                                        <span class="progress-description"><?php if(isset($values[0])) echo $values[0]; ?>
+                                        <span class="progress-description"><?php if (isset($values[0])) echo $values[0]; ?>
                                              artículos publicados</span>
                                     </div>
-                                    <!-- /.info-box-content -->
+
                                 </div>
-                                <!-- /.info-box -->
+
                             </div>
                         </div>
                         <div class="">
@@ -391,15 +309,15 @@ $bundle->js[] = 'chart/Chart.js';
                                     <span class="info-box-icon"><i class="fas fa-book"></i></span>
 
                                     <div class="info-box-content">
-                                        <span class="info-box-number">2do lugar: <?php if(isset($keys[1])) echo $keys[1]; ?></span>
+                                        <span class="info-box-number">2do lugar: <?php if (isset($keys[1])) echo $keys[1]; ?></span>
 
 
-                                        <span class="progress-description"><?php if(isset($values[1])) echo $values[1]; ?>
+                                        <span class="progress-description"><?php if (isset($values[1])) echo $values[1]; ?>
                                              artículos publicados</span>
                                     </div>
-                                    <!-- /.info-box-content -->
+
                                 </div>
-                                <!-- /.info-box -->
+
                             </div>
                         </div>
                         <div class="">
@@ -408,21 +326,22 @@ $bundle->js[] = 'chart/Chart.js';
                                     <span class="info-box-icon"><i class="fas fa-book"></i></span>
 
                                     <div class="info-box-content">
-                                        <span class="info-box-number">3er lugar: <?php if(isset($keys[2])) echo $keys[2]; ?></span>
+                                        <span class="info-box-number">3er lugar: <?php if (isset($keys[2])) echo $keys[2]; ?></span>
 
-                                        <span class="progress-description"><?php if(isset($values[2])) echo $values[2]; ?>
+                                        <span class="progress-description"><?php if (isset($values[2])) echo $values[2]; ?>
                                              artículos publicados</span>
                                     </div>
-                                    <!-- /.info-box-content -->
+
                                 </div>
-                                <!-- /.info-box -->
+
                             </div>
                         </div>
 
 
                     </div>
-
+                     -->
                 </div>
+                <div style="height: 6px"></div>
             </div>
         </div>
     </div>
@@ -443,11 +362,11 @@ $bundle->js[] = 'chart/Chart.js';
             <div class="chart">
                 <?php
                 $comInicio = count(\backend\models\Comentario\Comentario::find()->where(['seccion' => 'Inicio'])->all());
-                $comInicioRev = count(\backend\models\Comentario\Comentario::find()->where(['seccion' => 'Inicio', 'revisado' =>0, 'publico' =>0])->all());
+                $comInicioRev = count(\backend\models\Comentario\Comentario::find()->where(['seccion' => 'Inicio', 'revisado' => 0, 'publico' => 0])->all());
                 $comCoordinacion = count(\backend\models\Comentario\Comentario::find()->where(['seccion' => 'Coordinación Académica'])->all());
-                $comCoordinacionRev = count(\backend\models\Comentario\Comentario::find()->where(['seccion' => 'Coordinación Académica', 'revisado' =>0, 'publico' =>0])->all());
+                $comCoordinacionRev = count(\backend\models\Comentario\Comentario::find()->where(['seccion' => 'Coordinación Académica', 'revisado' => 0, 'publico' => 0])->all());
                 $comTaller = count(\backend\models\Comentario\Comentario::find()->where(['seccion' => 'Proyectos Alternativos'])->all());
-                $comTallerRev = count(\backend\models\Comentario\Comentario::find()->where(['seccion' => 'Proyectos Alternativos', 'revisado' =>0, 'publico' =>0])->all());
+                $comTallerRev = count(\backend\models\Comentario\Comentario::find()->where(['seccion' => 'Proyectos Alternativos', 'revisado' => 0, 'publico' => 0])->all());
 
                 ?>
                 <?= ChartJs::widget([
@@ -471,12 +390,12 @@ $bundle->js[] = 'chart/Chart.js';
                             ],
                             [
                                 'label' => "Pendientes de Revisión",
-                                'backgroundColor' => "#ffc107",
-                                'borderColor' => "#ffc107",
-                                'pointBackgroundColor' => "#ffc107",
+                                'backgroundColor' => "#68A7DC",
+                                'borderColor' => "#68A7DC",
+                                'pointBackgroundColor' => "#68A7DC",
                                 'pointBorderColor' => "#fff",
                                 'pointHoverBackgroundColor' => "#fff",
-                                'pointHoverBorderColor' => "#ffc107",
+                                'pointHoverBorderColor' => "#68A7DC",
                                 'data' => [$comInicioRev, $comCoordinacionRev, $comTallerRev]
                             ],
 
@@ -490,14 +409,174 @@ $bundle->js[] = 'chart/Chart.js';
         </div>
     </div>
 
-    <hr class="page_separator"/>
-
-    <canvas id="myChart" width="1600" height="900"></canvas>
-
-</div>
 
 
-<!-- ./col -->
+
+    <script>
+
+        new Chart(document.getElementById("bar-chart"), {
+            type: 'bar',
+            data: {
+                labels: ['<?php if (isset($keys[0])) echo $keys[0]; ?>', '<?php if (isset($keys[1])) echo $keys[1]; ?>', '<?php if (isset($keys[2])) echo $keys[2]; ?>', '<?php if (isset($keys[3])) echo $keys[3]; ?>', '<?php if (isset($keys[4])) echo $keys[4]; ?>'],
+                datasets: [
+                    {
+                        label: "Publicaciones",
+                        backgroundColor: "#3e95cd",
+                        data: ['<?php if (isset($values[0])) echo $values[0]; ?>', '<?php if (isset($values[1])) echo $values[1]; ?>', '<?php if (isset($values[2])) echo $values[2]; ?>', '<?php if (isset($values[3])) echo $values[3]; ?>', '<?php if (isset($values[4])) echo $values[4]; ?>']
+                    },
+                ]
+            },
+            options: {
+                scales: {
+                    x: {
+                        ticks: {
+                            stepSize: 1
+                        }
+                    }
+                },
+                indexAxis: 'y',
+                title: {
+                    display: true,
+                    text: 'Autores'
+                },
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                }
+
+            }
+        });
+
+        //------------------------------------------Inicio----------------------------------------------------------
+        new Chart(document.getElementById("inicio-chart"), {
+            type: 'bar',
+            data: {
+                labels: ["Actualidad"],
+                datasets: [
+                    {
+                        label: "Total",
+                        backgroundColor: "#164A7D",
+                        data: ['<?php echo $actualidad; ?>'],
+                        barThickness: 50,  // number (pixels) or 'flex'
+                        maxBarThickness: 80 // number (pixels)
+                    },
+                ]
+            },
+            options: {
+                scales: {
+                    x: {
+                        max: parseInt('<?php echo $actualidad+5; ?>'),
+                        min: 0,
+                        ticks: {
+                            stepSize: 1
+                        },
+                    }
+
+                },
+                indexAxis: 'y',
+
+                title: {
+                    display: true,
+                    text: 'Inicio'
+                },
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                }
+            }
+        });
+
+//------------------------------------------Coordinacion Academica ----------------------------------------------------
+        new Chart(document.getElementById("coordinacion-chart"), {
+            type: 'bar',
+            data: {
+                labels: [ "Líneas", "Investigaciones", "Artículos", "Documentos", "Libros", "Cursos Online", "Clases"],
+                datasets: [
+                    {
+                        label: "Total",
+                        backgroundColor: "#3971A5",
+                        data: ['<?php echo $lineas; ?>', '<?php echo $investigaciones; ?>', '<?php echo $articulos; ?>', '<?php echo $documentos; ?>', '<?php echo $libros; ?>', '<?php echo $cursos; ?>', '<?php echo $clases; ?>']
+                    },
+
+                ]
+            },
+
+        options: {
+                indexAxis: 'y',
+                title: {
+                    display: true,
+                    text: 'Coordinación Académica'
+                },
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                }
+            }
+        });
+
+        //------------------------------------------Proyectos Alternativos ---------------------------------------------
+        new Chart(document.getElementById("proyectos-chart"), {
+            type: 'bar',
+            data: {
+                labels: [ "Talleres", "Exposiciones", "Audiovisuales", "Otros"],
+                datasets: [
+                    {
+                        label: "Total",
+                        backgroundColor: "#5593C7",
+                        data: ['<?php echo $talleres; ?>', '<?php echo $expos; ?>', '<?php echo $audiovisuales; ?>', '<?php echo $otros; ?>']
+                    },
+                ]
+            },
+
+            options: {
+                indexAxis: 'y',
+                title: {
+                    display: true,
+                    text: 'Proyectos Alternativos'
+                },
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                }
+            }
+        });
+
+
+        //------------------------------------------Vida y Obra---- ----------------------------------------------------
+        new Chart(document.getElementById("vida-chart"), {
+            type: 'bar',
+            data: {
+                labels: ["Cronología", "Correspondencias", "Escritos", "Discursos y Entrevistas", "Testimonios", "Galería de Fotografías", "Galería de Audios", "Galería de Videos", "Galería de Homenajes"],
+                datasets: [
+                    {
+                        label: "Total",
+                        backgroundColor: "#68A7DC",
+                        data: ['<?php echo $crono; ?>', '<?php echo $correspondencia; ?>', '<?php echo $escritos; ?>', '<?php echo $discursos; ?>', '<?php echo $testimonios; ?>', '<?php echo $foto; ?>', '<?php echo $audio; ?>', '<?php echo $video; ?>', '<?php echo $homenajes; ?>']
+                    },
+                ]
+            },
+
+
+        options: {
+                indexAxis: 'y',
+                title: {
+                    display: true,
+                    text: 'Vida y Obra'
+                },
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                }
+            }
+        });
+    </script>
+
+
 
 
 

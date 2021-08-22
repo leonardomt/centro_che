@@ -56,4 +56,7 @@ use yii\helpers\Html;
             text.innerHTML = 'Show';
         }
     });
+
+
+
 </script>

@@ -24,6 +24,7 @@ $assetDir = Yii::$app->assetManager->getPublishedUrl('@vendor/almasaeed2010/admi
     <head>
         <link href="/assets/fontawesome-free-5.15.1-web/css/fontawesome.css" rel="stylesheet">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
         <meta charset="<?= Yii::$app->charset ?>">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -53,8 +54,7 @@ $assetDir = Yii::$app->assetManager->getPublishedUrl('@vendor/almasaeed2010/admi
     <?= $this->render('control-sidebar') ?>
     <!-- /.control-sidebar -->
 
-    <!-- Main Footer -->
-    <?= $this->render('footer') ?>
+
 <?php endif; ?>
 
 <?php if (Yii::$app->user->isGuest): ?>
