@@ -24,8 +24,9 @@ $this->params['breadcrumbs'][] = $this->title;
     <p>
 
         <?php if ($model->publico == 0): ?>
-            <?= Html::a('<button title="Aprobar" class="btn btn-primary"><i class="fa fa-check"></i></button>', ['aprobar', 'id' => $model->id], [
+            <?= Html::a('<span class="fa fa-check"></span>', ['aprobar', 'id' => $model->id], [
                     'class' => 'btn btn-primary',
+                    'style'=>"width: 40px ; height: 40px",
                     'title'=>"Aprobar",
                     'data' => [
                         'confirm' => 'Está seguro de que desea publicar este comentario?',
@@ -35,8 +36,9 @@ $this->params['breadcrumbs'][] = $this->title;
             ) ?>
         <?php endif; ?>
         <?php if ($model->publico == 0 && $model->revisado == 0): ?>
-            <?= Html::a('<button title="Denegar" class="btn btn-danger"><i class="fa fa-times"></i></button>', ['delete', 'id' => $model->id], [
+            <?= Html::a('<span class="fa fa-times"></span>', ['delete', 'id' => $model->id], [
                 'class' => 'btn btn-danger',
+                'style'=>"width: 40px ; height: 40px",
                 'title'=>"Denegar",
                 'data' => [
                     'confirm' => 'Está seguro de que desea denegar este comentario?',
@@ -44,8 +46,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
             ]) ?>
         <?php endif; ?>
-        <?= Html::a('<button title="Responder" class="btn btn-warning"><i class="fa fa-pencil"></i></button>', ['create', 'id' => $model->id_tabla ], [
+        <?= Html::a('<span class="fa fa-pencil"></span>', ['create', 'id' => $model->id ], [
             'class' => 'btn btn-warning',
+            'style'=>"width: 40px ; height: 40px",
             'title'=>"Responder",
             'data' => [
                 'confirm' => 'Está seguro de que desea responder como institución este comentario?',
@@ -62,9 +65,13 @@ $this->params['breadcrumbs'][] = $this->title;
             'correo',
             'comentario:ntext',
             'tabla',
-            'id_tabla',
             'seccion',
-            'publico',
+            [
+                'attribute' => 'Publico',
+                'value' => function ($model) {
+                    return $model->revisado ? 'Si' : 'No';
+                },
+            ],
         ],
     ]) ?>
 

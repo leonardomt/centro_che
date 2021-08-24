@@ -35,20 +35,6 @@ if (Yii::$app->user->isGuest)
         ?>
     </p>
 
-    <?= \yii\widgets\ListView::widget([
-
-        'dataProvider' => $dataProvider,
-
-        'itemOptions' => ['class' => 'item'],
-
-        'itemView' => function ($model, $key, $index, $widget) {
-
-            return Html::a(Html::encode($model->titulo_archivo), ['view', 'id' => $model->id_archivo]);
-
-        },
-
-    ]) ?>
-
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,

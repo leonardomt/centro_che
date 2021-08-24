@@ -88,6 +88,7 @@ class ComentarioController extends Controller
             $model->seccion = $padre->seccion;
             $model->tabla = 'comentario';
             $model->respuesta = 1;
+            $model->id_tabla = $padre->id;
             };
 
 

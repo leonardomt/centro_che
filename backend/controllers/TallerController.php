@@ -2,6 +2,7 @@
 
 namespace backend\controllers;
 
+use backend\models\Comentario\Comentario;
 use backend\models\Taller\TallerArchivo;
 use Yii;
 use backend\models\Taller\Taller;
@@ -194,7 +195,21 @@ class TallerController extends Controller
         foreach ($temporal12 as $t12){
             $t12->delete();
         }
-
+        $comentarios = Comentario::find()->where(['tabla' => 'taller', 'id_tabla' => $id])->all();
+        $eliminar = Comentario::find()->where(['tabla' => 'taller', 'id_tabla' => $id])->all();
+        foreach ($comentarios as $comentario) {
+            for ($x = 0; $x <= 7; $x++) {
+                $padres = Comentario::find()->where(['tabla' => 'comentario', 'id_tabla' => $comentario->id])->all();
+                $eliminar = array_merge($eliminar, $padres);
+                foreach ($padres as $padre){
+                    $abuelos = Comentario::find()->where(['tabla' => 'comentario', 'id_tabla' => $padre->id])->all();
+                    $eliminar = array_merge($eliminar, $abuelos);
+                }
+            }
+        }
+        foreach ($eliminar as $e){
+            $e->delete();
+        }
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);

@@ -469,7 +469,17 @@ $bundle->js[] = 'chart/Chart.js';
                         max: parseInt('<?php echo $actualidad+5; ?>'),
                         min: 0,
                         ticks: {
-                            stepSize: 1
+                            stepSize: 1,
+                            font: {
+                                size: 12,
+                            }
+                        },
+                    },
+                    y: {
+                        ticks: {
+                            font: {
+                                size: 12,
+                            }
                         },
                     }
 
@@ -550,7 +560,7 @@ $bundle->js[] = 'chart/Chart.js';
         new Chart(document.getElementById("vida-chart"), {
             type: 'bar',
             data: {
-                labels: ["Cronología", "Correspondencias", "Escritos", "Discursos y Entrevistas", "Testimonios", "Galería de Fotografías", "Galería de Audios", "Galería de Videos", "Galería de Homenajes"],
+                labels: ["Cronología", "Correspondencias", "Escritos", "D. y Entrevistas", "Testimonios", "G. de Fotografías", "G. de Audios", "G.", "G. de Homenajes"],
                 datasets: [
                     {
                         label: "Total",

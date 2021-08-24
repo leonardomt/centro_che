@@ -4,6 +4,7 @@ namespace backend\controllers;
 
 use backend\models\Archivo\Archivo;
 use backend\models\Articulo\ArticuloArchivo;
+use backend\models\Comentario\Comentario;
 use Yii;
 use backend\models\Articulo\Articulo;
 use backend\models\Articulo\ArticuloComentario;
@@ -220,6 +221,25 @@ class ArticuloController extends Controller
         foreach ($temporal as $t) {
             $t->delete();
         }
+
+
+        $comentarios = Comentario::find()->where(['tabla' => 'articulo', 'id_tabla' => $id])->all();
+        $eliminar = Comentario::find()->where(['tabla' => 'articulo', 'id_tabla' => $id])->all();
+        foreach ($comentarios as $comentario) {
+            for ($x = 0; $x <= 7; $x++) {
+                $padres = Comentario::find()->where(['tabla' => 'comentario', 'id_tabla' => $comentario->id])->all();
+                $eliminar = array_merge($eliminar, $padres);
+                foreach ($padres as $padre) {
+                    $abuelos = Comentario::find()->where(['tabla' => 'comentario', 'id_tabla' => $padre->id])->all();
+                    $eliminar = array_merge($eliminar, $abuelos);
+                }
+            }
+        }
+        foreach ($eliminar as $e) {
+            $e->delete();
+        }
+
+
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
@@ -232,7 +252,8 @@ class ArticuloController extends Controller
      * @return Articulo the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id)
+    protected
+    function findModel($id)
     {
         if (($model = Articulo::findOne($id)) !== null) {
             return $model;

@@ -3,6 +3,7 @@
 namespace backend\controllers;
 
 use backend\models\Archivo\Archivo;
+use backend\models\Comentario\Comentario;
 use backend\models\Noticia\NoticiaArchivo;
 use backend\models\Noticia\NoticiaComentario;
 use Yii;
@@ -250,10 +251,20 @@ class NoticiaController extends Controller
     public function actionDelete($id)
     {
 
-        $temporal9 = new NoticiaComentario();
-        $temporal9 = NoticiaComentario::find()->where(['id_noticia' => $this->findModel($id)->id_noticia])->all();
-        foreach ($temporal9 as $t9) {
-            $t9->delete();
+        $comentarios = Comentario::find()->where(['tabla' => 'noticia', 'id_tabla' => $id])->all();
+        $eliminar = Comentario::find()->where(['tabla' => 'noticia', 'id_tabla' => $id])->all();
+        foreach ($comentarios as $comentario) {
+            for ($x = 0; $x <= 7; $x++) {
+                $padres = Comentario::find()->where(['tabla' => 'comentario', 'id_tabla' => $comentario->id])->all();
+                $eliminar = array_merge($eliminar, $padres);
+                foreach ($padres as $padre){
+                    $abuelos = Comentario::find()->where(['tabla' => 'comentario', 'id_tabla' => $padre->id])->all();
+                    $eliminar = array_merge($eliminar, $abuelos);
+                }
+            }
+        }
+        foreach ($eliminar as $e){
+            $e->delete();
         }
 
         $temporal = new NoticiaArchivo();

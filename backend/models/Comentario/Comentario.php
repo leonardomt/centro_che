@@ -41,7 +41,7 @@ class Comentario extends \yii\db\ActiveRecord
             [[ 'id_tabla', 'publico', 'revisado', 'respuesta'], 'integer'],
             [['alias', 'seccion'], 'string', 'max' => 256],
             [['tabla'], 'string', 'max' => 128],
-            [['correo'], 'string', 'max' => 512],
+            [['correo'], 'email'],
         ];
     }
 
