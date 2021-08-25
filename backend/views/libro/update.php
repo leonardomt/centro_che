@@ -176,9 +176,6 @@ $this->params['breadcrumbs'][] = 'Modificar';
     $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
     ?>
 
-
-
-    <?php Pjax::begin(); ?>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
@@ -211,14 +208,15 @@ $this->params['breadcrumbs'][] = 'Modificar';
                 'format' => 'raw',
                 'value' => function ($model) {
                     if ($model->revisado != '0') {
-                        return 'Si';
+                        return 'Sí';
                     } else {
                         return 'No';
                     }
                 },
                 'headerOptions' => ['class' => 'col-md-1'],
 
-                'filter' => array("" => "Todos", "1" => "Si", "0" => "No"),
+                'filter' => array( "1" => "Sí", "0" => "No"),
+                'filterInputOptions' => array('class' => 'form-control', 'id' => null, 'prompt' => 'Todos'),
 
             ],
 
@@ -233,6 +231,7 @@ $this->params['breadcrumbs'][] = 'Modificar';
                 'format' => 'raw',
                 'headerOptions' => ['class' => 'col-md-2'],
                 'filter' => \yii\helpers\ArrayHelper::map(\backend\models\Archivo\TipoArchivo::find()->asArray()->all(), 'id_tipo_archivo', 'tipo_archivo'),
+                'filterInputOptions' => array('class' => 'form-control', 'id' => null, 'prompt' => 'Todos'),
             ],
             [
                 'attribute' => 'autor_archivo',                     // autor
@@ -246,15 +245,32 @@ $this->params['breadcrumbs'][] = 'Modificar';
                 'headerOptions' => ['class' => 'col-md-2']
             ],
             [
-                'attribute' => 'fuente',                     // fuente
+                'attribute' => 'fecha',
+                'value' => 'fecha',
                 'format' => 'raw',
-                'headerOptions' => ['class' => 'col-md-2']
+                'headerOptions' => ['class' => 'col-md-1'],
+                'filter' => \dosamigos\datepicker\DatePicker::widget([
+                    'model' => $searchModel,
+                    'attribute' => 'fecha','language' => 'es',
+                    'clientOptions' => [
+                        'autoclose' => true,
+                        'format' => 'yyyy-mm-dd', 'endDate' => date('Y-m-d')
+                    ],
+                ]),
+
+            ],
+            [
+                'attribute' => 'etapa',                     // etapa
+                'format' => 'raw',
+                'headerOptions' => array('class' => 'col-md-2'),
+                'filter' => array("Infancia" => "Infancia", "Adolescencia" => "Adolescencia", "Adulto Joven" => "Adulto Joven", "Adulto" => "Adulto", "Posterior a 1967" => "Posterior a 1967", "No definida" => "No definida"),
+                'filterInputOptions' => array('class' => 'form-control', 'id' => null, 'prompt' => 'Todos'),
             ],
 
             [
-                'attribute' => 'url_archivo',           'filter'=> false,          // Url del Archivo
+                'attribute' => 'url_archivo', 'filter' => false,             // Url del Archivo
                 'format' => 'raw',
-                'headerOptions' => ['class' => 'col-md-3'],
+                'headerOptions' => ['class' => 'col-md-2'],
                 'value' => function ($model) {
                     if ($model->url_archivo != ' ' && $model->url_archivo != NULL) { // verifica si fue importada o no
                         if ($model->tipo_archivo == 1) {
@@ -281,11 +297,6 @@ $this->params['breadcrumbs'][] = 'Modificar';
             ],
 
 
-
         ],
     ]); ?>
-
-    <?php Pjax::end(); ?>
-
-
 </div>

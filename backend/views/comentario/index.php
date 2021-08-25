@@ -88,6 +88,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 },
                 'format' => 'raw',
                 'filter' => array('noticia' => 'Actualidad', 'articulo' => 'Artículo', 'taller' => 'Proyecto Comunitario', 'comentario' => 'Comentario'),
+                'filterInputOptions' => array('class' => 'form-control', 'id' => null, 'prompt' => 'Todos'),
             ],
 
 
@@ -235,7 +236,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 },
                 'format' => 'raw',
                 'filter' => array('noticia' => 'Actualidad', 'articulo' => 'Artículo', 'taller' => 'Proyecto Comunitario', 'comentario' => 'Comentario'),
-            ],
+                'filterInputOptions' => array('class' => 'form-control', 'id' => null, 'prompt' => 'Todos'),
+                ],
 
 
             [

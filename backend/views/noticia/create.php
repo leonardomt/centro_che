@@ -55,11 +55,9 @@ if (!Yii::$app->user->can('gestionar-noticia'))
 
     <?= $form->field($model, 'etiqueta')->textInput() ?>
 
-    <?= $form->field($model, 'descripcion')->textarea(['rows' => 2,'style' => 'resize:none']) ?>
+    <?= $form->field($model, 'descripcion')->textarea(['rows' => 2, 'style' => 'resize:none']) ?>
 
-    <?= $form->field($model, 'cuerpo')->textarea(['rows' => 6,'style' => 'resize:none']) ?>
-
-
+    <?= $form->field($model, 'cuerpo')->textarea(['rows' => 6, 'style' => 'resize:none']) ?>
 
 
     <div class="panel panel-default">
@@ -82,13 +80,14 @@ if (!Yii::$app->user->can('gestionar-noticia'))
 
             <div class="container-items">
                 <!-- widgetContainer -->
-                <?php  $x = 0; foreach ($modelsArchivo as $i => $modelArchivo) : ?>
+                <?php $x = 0;
+                foreach ($modelsArchivo as $i => $modelArchivo) : ?>
                     <div class="item panel panel-default">
                         <!-- widgetBody -->
                         <div class="panel-heading">
 
                             <?php
-                           
+
                             if ($x == 0) $titulo = "Archivo";
 
                             ?>
@@ -111,17 +110,19 @@ if (!Yii::$app->user->can('gestionar-noticia'))
                                     'size' => 'xs',]
                             ) ?>
 
-                            <?= $form->field($modelArchivo, "[{$i}]nota")->textarea(['rows' => 3,'style' => 'resize:none']) ?>
+                            <?= $form->field($modelArchivo, "[{$i}]nota")->textarea(['rows' => 3, 'style' => 'resize:none']) ?>
 
                         </div>
                         <div class="pull-right">
-                            <button type="button" title="Agregar" style="width: 40px ; height: 40px" class="add-item btn btn-success"><i class="fa fa-plus"></i></button>
-                            <button type="button" title="Eliminar" style="width: 40px ; height: 40px" class="remove-item btn btn-danger"><i class="fa fa-trash"></i></button>
+                            <button type="button" title="Agregar" style="width: 40px ; height: 40px"
+                                    class="add-item btn btn-success"><i class="fa fa-plus"></i></button>
+                            <button type="button" title="Eliminar" style="width: 40px ; height: 40px"
+                                    class="remove-item btn btn-danger"><i class="fa fa-trash"></i></button>
                         </div>
                         <div class="clearfix"></div>
                         <br>
                     </div>
-                <?php $x++;
+                    <?php $x++;
                 endforeach; ?>
             </div>
 
@@ -148,7 +149,7 @@ if (!Yii::$app->user->can('gestionar-noticia'))
         </div>
         <div class="col-lg-1">
             <div class="form-group">
-                <?= Html::submitButton($modelArchivo->isNewRecord ? '<i class="fa fa-floppy-o" aria-hidden="true"></i>' : '<i class="fa fa-floppy-o" aria-hidden="true"></i>', ['class' => 'btn btn-success', 'style'=>"width: 40px; height: 40px", 'title' => 'Guardar']) ?>
+                <?= Html::submitButton($modelArchivo->isNewRecord ? '<i class="fa fa-floppy-o" aria-hidden="true"></i>' : '<i class="fa fa-floppy-o" aria-hidden="true"></i>', ['class' => 'btn btn-success', 'style' => "width: 40px; height: 40px", 'title' => 'Guardar']) ?>
             </div>
         </div>
 
@@ -162,9 +163,6 @@ if (!Yii::$app->user->can('gestionar-noticia'))
     $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
     ?>
 
-
-
-    <?php Pjax::begin(); ?>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
@@ -178,11 +176,11 @@ if (!Yii::$app->user->can('gestionar-noticia'))
             'options' => ['class' => 'pull-left'],
             [
                 'content' =>
-                Html::a('<span class="glyphicon glyphicon-plus"></span>', ['create'], [
-                    'data-pjax' => 0,
-                    'class' => 'btn btn-success',
-                    "title" => "Agregar"
-                ]) . ' ' .
+                    Html::a('<span class="glyphicon glyphicon-plus"></span>', ['create'], [
+                        'data-pjax' => 0,
+                        'class' => 'btn btn-success',
+                        "title" => "Agregar"
+                    ]) . ' ' .
                     Html::a('<i class="glyphicon glyphicon-repeat"></i>', 'index.php?r=archivo%2Findex', ['class' => 'btn btn-default', 'title' => 'Reiniciar']),
             ],
             '{toggleData}',
@@ -197,14 +195,15 @@ if (!Yii::$app->user->can('gestionar-noticia'))
                 'format' => 'raw',
                 'value' => function ($model) {
                     if ($model->revisado != '0') {
-                        return 'Si';
+                        return 'Sí';
                     } else {
                         return 'No';
                     }
                 },
                 'headerOptions' => ['class' => 'col-md-1'],
 
-                'filter' => array("" => "Todos", "1" => "Si", "0" => "No"),
+                'filter' => array( "1" => "Sí", "0" => "No"),
+                'filterInputOptions' => array('class' => 'form-control', 'id' => null, 'prompt' => 'Todos'),
 
             ],
 
@@ -219,7 +218,8 @@ if (!Yii::$app->user->can('gestionar-noticia'))
                 'format' => 'raw',
                 'headerOptions' => ['class' => 'col-md-2'],
                 'filter' => \yii\helpers\ArrayHelper::map(\backend\models\Archivo\TipoArchivo::find()->asArray()->all(), 'id_tipo_archivo', 'tipo_archivo'),
-            ],
+                'filterInputOptions' => array('class' => 'form-control', 'id' => null, 'prompt' => 'Todos'),
+                ],
             [
                 'attribute' => 'autor_archivo',                     // autor
                 'format' => 'raw',
@@ -232,15 +232,32 @@ if (!Yii::$app->user->can('gestionar-noticia'))
                 'headerOptions' => ['class' => 'col-md-2']
             ],
             [
-                'attribute' => 'fuente',                     // fuente
+                'attribute' => 'fecha',
+                'value' => 'fecha',
                 'format' => 'raw',
-                'headerOptions' => ['class' => 'col-md-2']
+                'headerOptions' => ['class' => 'col-md-1'],
+                'filter' => \dosamigos\datepicker\DatePicker::widget([
+                    'model' => $searchModel,
+                    'attribute' => 'fecha','language' => 'es',
+                    'clientOptions' => [
+                        'autoclose' => true,
+                        'format' => 'yyyy-mm-dd', 'endDate' => date('Y-m-d')
+                    ],
+                ]),
+
+            ],
+            [
+                'attribute' => 'etapa',                     // etapa
+                'format' => 'raw',
+                'headerOptions' => array('class' => 'col-md-2'),
+                'filter' => array("Infancia" => "Infancia", "Adolescencia" => "Adolescencia", "Adulto Joven" => "Adulto Joven", "Adulto" => "Adulto", "Posterior a 1967" => "Posterior a 1967", "No definida" => "No definida"),
+                'filterInputOptions' => array('class' => 'form-control', 'id' => null, 'prompt' => 'Todos'),
             ],
 
             [
-                'attribute' => 'url_archivo',        'filter'=> false,             // Url del Archivo
+                'attribute' => 'url_archivo', 'filter' => false,             // Url del Archivo
                 'format' => 'raw',
-                'headerOptions' => ['class' => 'col-md-3'],
+                'headerOptions' => ['class' => 'col-md-2'],
                 'value' => function ($model) {
                     if ($model->url_archivo != ' ' && $model->url_archivo != NULL) { // verifica si fue importada o no
                         if ($model->tipo_archivo == 1) {
@@ -267,13 +284,8 @@ if (!Yii::$app->user->can('gestionar-noticia'))
             ],
 
 
-
         ],
     ]); ?>
-
-    <?php Pjax::end(); ?>
-
-
 
 
 </div>

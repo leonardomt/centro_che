@@ -47,13 +47,13 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'revisado',
                 'value' => function ($model) {
-                    return $model->revisado ? 'Si' : 'No';
+                    return $model->revisado ? 'Sí' : 'No';
                 },
             ],
             [
                 'attribute' => 'publico',
                 'value' => function ($model) {
-                    return $model->publico ? 'Si' : 'No';
+                    return $model->publico ? 'Sí' : 'No';
                 },
             ],
         ],
@@ -84,10 +84,8 @@ $this->params['breadcrumbs'][] = $this->title;
     ?>
 
 
-    <?php yii\widgets\Pjax::begin(); ?>
     <?= kartik\grid\GridView::widget([
         'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
         'id'=> 'archivo-index-update',
 
         'pjax' => true,
@@ -116,14 +114,14 @@ $this->params['breadcrumbs'][] = $this->title;
                 'format' => 'raw',
                 'value' => function ($model) {
                     if($model->revisado != '0'){
-                        return 'Si';
+                        return 'Sí';
                     }else{
                         return 'No';
                     }
                 },
                 'headerOptions' => ['class' => 'col-md-1'],
 
-                'filter'=>array("1"=>"Si","0"=>"No"),
+                'filter'=>array("1"=>"Sí","0"=>"No"),
                 'filterInputOptions' => array('class' => 'form-control', 'id' => null, 'prompt' => 'Todos'),
             ],
 
@@ -151,13 +149,18 @@ $this->params['breadcrumbs'][] = $this->title;
                 'headerOptions' => ['class' => 'col-md-2']
             ],
             [
-                'attribute' => 'fuente',                     // fuente
+                'attribute' => 'fecha',
+                'format' => 'raw',
+                'headerOptions' => ['class' => 'col-md-2']
+            ],
+            [
+                'attribute' => 'etapa',
                 'format' => 'raw',
                 'headerOptions' => ['class' => 'col-md-2']
             ],
 
             [
-                'attribute' => 'url_archivo',     'filter'=> false,                // Url del Archivo
+                'attribute' => 'url_archivo',             'filter'=> false,        // Url del Archivo
                 'format' => 'raw',
                 'headerOptions' => ['class' => 'col-md-3'],
                 'value' => function ($model) {

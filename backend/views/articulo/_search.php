@@ -25,10 +25,10 @@ use yii\widgets\Pjax;
     <div class="row">
         <?php // echo $form->field($model, 'id_archivo') ?>
         <div class="col-md-1">
-            <?=$form->field($model, 'revisado')->dropDownList(['1' => 'Si', '0' => 'No'],['prompt'=>'-']) ?>
+            <?=$form->field($model, 'revisado')->dropDownList(['1' => 'Sí', '0' => 'No'],['prompt'=>'-']) ?>
         </div>
         <div class="col-md-1">
-            <?= $form->field($model, 'publico')->dropDownList(['1' => 'Si', '0' => 'No'],['prompt'=>'-']); ?>
+            <?= $form->field($model, 'publico')->dropDownList(['1' => 'Sí', '0' => 'No'],['prompt'=>'-']); ?>
         </div>
         <div class="col-md-2">
             <?= $form->field($model, 'titulo') ?>

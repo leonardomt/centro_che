@@ -19,7 +19,7 @@ use backend\models\Archivo\Archivo;
 
     <?= $form->field($model, 'nota')->textarea(['rows' => 6,'style' => 'resize:none']) ?>
 
-     <?=$form->field($model, 'portada')->dropDownList(['1' => 'Si', '0' => 'No'],['prompt'=>'-']) ?>
+     <?=$form->field($model, 'portada')->dropDownList(['1' => 'Sí', '0' => 'No'],['prompt'=>'-']) ?>
 
       <?= $form->field($model, 'id_archivo')->dropDownList(
         ArrayHelper::map(Archivo::find()->all(), 'id_archivo','titulo_archivo') ) ?>

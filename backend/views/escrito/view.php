@@ -62,13 +62,13 @@ if (!Yii::$app->user->can('gestionar-escrito'))
                 'attribute' => 'revisado',
                 'value' => function ($model) {
 
-                    return $model->revisado ? 'Si' : 'No';
+                    return $model->revisado ? 'Sí' : 'No';
                 },
             ],
             [
                 'attribute' => 'publico',
                 'value' => function ($model) {
-                    return $model->publico ? 'Si' : 'No';
+                    return $model->publico ? 'Sí' : 'No';
                 },
             ],
         ],
@@ -100,25 +100,23 @@ if (!Yii::$app->user->can('gestionar-escrito'))
     ?>
 
 
-    <?php yii\widgets\Pjax::begin(); ?>
     <?= kartik\grid\GridView::widget([
         'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'id' => 'archivo-index-update',
+        'id'=> 'archivo-index-update',
 
         'pjax' => true,
-        'pjaxSettings' => [
+        'pjaxSettings' =>[
             'neverTimeout' => true,
 
         ],
-        'toolbar' => [
+        'toolbar'=>[
             'options' => ['class' => 'pull-left'],
-            ['content' =>
+            ['content'=>
                 Html::a('<span class="glyphicon glyphicon-plus"></span>', ['create'], [
                     'data-pjax' => 0,
                     'class' => 'btn btn-success',
-                    "title" => "Agregar"]) . ' ' .
-                Html::a('<i class="glyphicon glyphicon-repeat"></i>', 'index.php?r=archivo%2Findex', ['class' => 'btn btn-default', 'title' => 'Reiniciar']),
+                    "title"=>"Agregar"]). ' '.
+                Html::a('<i class="glyphicon glyphicon-repeat"></i>', 'index.php?r=archivo%2Findex', [ 'class'=>'btn btn-default', 'title'=>'Reiniciar']),
             ],
             '{toggleData}',
             '{export}',
@@ -131,15 +129,15 @@ if (!Yii::$app->user->can('gestionar-escrito'))
                 'attribute' => 'revisado',                     // Revisado
                 'format' => 'raw',
                 'value' => function ($model) {
-                    if ($model->revisado != '0') {
-                        return 'Si';
-                    } else {
+                    if($model->revisado != '0'){
+                        return 'Sí';
+                    }else{
                         return 'No';
                     }
                 },
                 'headerOptions' => ['class' => 'col-md-1'],
 
-                'filter' => array("1" => "Si", "0" => "No"),
+                'filter'=>array("1"=>"Sí","0"=>"No"),
                 'filterInputOptions' => array('class' => 'form-control', 'id' => null, 'prompt' => 'Todos'),
             ],
 
@@ -149,13 +147,12 @@ if (!Yii::$app->user->can('gestionar-escrito'))
                 'headerOptions' => ['class' => 'col-md-2']
             ],
             [
-                'attribute' => 'tipo_archivo',
-                'value' => 'tipoArchivo.tipo_archivo',
+                'attribute'=>'tipo_archivo',
+                'value'=>'tipoArchivo.tipo_archivo',
                 'format' => 'raw',
                 'headerOptions' => ['class' => 'col-md-2'],
-                'filter' => \yii\helpers\ArrayHelper::map(\backend\models\Archivo\TipoArchivo::find()->asArray()->all(), 'id_tipo_archivo', 'tipo_archivo'),
-                'filterInputOptions' => array('class' => 'form-control', 'id' => null, 'prompt' => 'Todos'),
-            ],
+                'filter'=>\yii\helpers\ArrayHelper::map(\backend\models\Archivo\TipoArchivo::find()->asArray()->all(), 'id_tipo_archivo', 'tipo_archivo'),
+                'filterInputOptions' => array('class' => 'form-control', 'id' => null, 'prompt' => 'Todos'),    ],
             [
                 'attribute' => 'autor_archivo',                     // autor
                 'format' => 'raw',
@@ -168,17 +165,22 @@ if (!Yii::$app->user->can('gestionar-escrito'))
                 'headerOptions' => ['class' => 'col-md-2']
             ],
             [
-                'attribute' => 'fuente',                     // fuente
+                'attribute' => 'fecha',
+                'format' => 'raw',
+                'headerOptions' => ['class' => 'col-md-2']
+            ],
+            [
+                'attribute' => 'etapa',
                 'format' => 'raw',
                 'headerOptions' => ['class' => 'col-md-2']
             ],
 
             [
-                'attribute' => 'url_archivo', 'filter' => false,            // Url del Archivo
+                'attribute' => 'url_archivo',             'filter'=> false,        // Url del Archivo
                 'format' => 'raw',
                 'headerOptions' => ['class' => 'col-md-3'],
                 'value' => function ($model) {
-                    if ($model->url_archivo != ' ' && $model->url_archivo != NULL) { // verifica si fue importada o no
+                    if($model->url_archivo != ' ' && $model->url_archivo != NULL) { // verifica si fue importada o no
                         if ($model->tipo_archivo == 1) {
                             return Html::img('../../frontend/web/' . $model->url_archivo,
                                 ['alt' => $model->url_archivo, 'height' => 100]);
@@ -214,7 +216,6 @@ if (!Yii::$app->user->can('gestionar-escrito'))
 
 
             ],
-
         ],
     ]); ?>
 

@@ -75,14 +75,14 @@ if ( Yii::$app->user->isGuest )
                 'format' => 'raw',
                 'value' => function ($model) {
                     if($model->revisado != '0'){
-                        return 'Si';
+                        return 'Sí';
                     }else{
                         return 'No';
                     }
                 },
                 'headerOptions' => ['class' => 'col-md-1'],
 
-                'filter'=>array(""=>"Todos","1"=>"Si","0"=>"No"),
+                'filter'=>array(""=>"Todos","1"=>"Sí","0"=>"No"),
 
             ],
 

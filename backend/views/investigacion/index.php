@@ -51,9 +51,9 @@ if ( !Yii::$app->user->can('gestionar-investigacion'))
                 'format' => 'raw',
                 'headerOptions' => ['class' => 'col-md-1'],
                 'value' => function ($model) {
-                    return $model->revisado ? 'Si' : 'No';
+                    return $model->revisado ? 'Sí' : 'No';
                 },
-                'filter'=>array("1"=>"Si","0"=>"No"),
+                'filter'=>array("1"=>"Sí","0"=>"No"),
                 'filterInputOptions' => array('class' => 'form-control', 'id' => null, 'prompt' => 'Todos'),
 
             ],
@@ -62,9 +62,9 @@ if ( !Yii::$app->user->can('gestionar-investigacion'))
                 'format' => 'raw',
                 'headerOptions' => ['class' => 'col-md-1'],
                 'value' => function ($model) {
-                    return $model->publico ? 'Si' : 'No';
+                    return $model->publico ? 'Sí' : 'No';
                 },
-                'filter'=>array("1"=>"Si","0"=>"No"),
+                'filter'=>array("1"=>"Sí","0"=>"No"),
                 'filterInputOptions' => array('class' => 'form-control', 'id' => null, 'prompt' => 'Todos'),
             ],
             [

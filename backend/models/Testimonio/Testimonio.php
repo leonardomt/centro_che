@@ -50,10 +50,10 @@ class Testimonio extends \yii\db\ActiveRecord
             'titulo' => 'Título',
             'autor' => 'Autor',
             'fecha' => 'Fecha',
-            'descripcion' => 'Descripcion',
+            'descripcion' => 'Descripción',
             'cuerpo' => 'Cuerpo',
             'revisado' => 'Revisado',
-            'publico' => 'Publico',
+            'publico' => 'Público',
         ];
     }
 }

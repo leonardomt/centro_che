@@ -48,29 +48,11 @@ $this->params['breadcrumbs'][] = $this->title;
         ]) ?>
     </p>
 
-    <?php if($tipo != 4){ echo DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            [
-                'attribute' => 'publico',
-                'value' => function ($model) {
-                    return $model->publico ? 'Si' : 'No';
-                },
-            ],
-
-        ],
-    ]) ;}?>
 
     <?php if($tipo == 4){ echo  DetailView::widget([
         'model' => $model,
         'attributes' => [
             'genero',
-            [
-                'attribute' => 'publico',
-                'value' => function ($model) {
-                    return $model->publico ? 'Si' : 'No';
-                },
-            ],
 
         ],
     ]) ;} ?>

@@ -45,6 +45,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
 
+
         <?php if($tipo !=4){  echo GridView::widget([
             'dataProvider' => $dataProvider,
             'filterModel' => $searchModel,
@@ -55,21 +56,12 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             'columns' => [
 
-                [
-                    'attribute' => 'publico',
-                    'format' => 'raw',
-                    'headerOptions' => ['class' => 'col-md-4'],
-                    'value' => function ($model) {
-                        return $model->publico ? 'Si' : 'No';
-                    },
-                    'filter'=>array("1"=>"Si","0"=>"No"),
-                    'filterInputOptions' => array('class' => 'form-control', 'id' => null, 'prompt' => 'Todos'),
-                ],
+
 
                 [
                     'attribute' => 'id_archivo',                     // Url del Archivo
                     'format' => 'raw',
-                    'headerOptions' => ['class' => 'col-md-6'],
+                    'headerOptions' => ['class' => 'col-md-10'],
                     'value' => function ($model) {
                         if($model->id_archivo != ' ' && $model->id_archivo != NULL) { // verifica si fue importada o no
                             if ($model->tipo_archivo == 1) {
@@ -129,21 +121,12 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            [
-                'attribute' => 'publico',
-                'format' => 'raw',
-                'headerOptions' => ['class' => 'col-md-4'],
-                'value' => function ($model) {
-                    return $model->publico ? 'Si' : 'No';
-                },
-                'filter'=>array("1"=>"Si","0"=>"No"),
-                'filterInputOptions' => array('class' => 'form-control', 'id' => null, 'prompt' => 'Todos'),
-            ],
+
 
             [
                 'attribute' => 'id_archivo',                     // Url del Archivo
                 'format' => 'raw',
-                'headerOptions' => ['class' => 'col-md-6'],
+                'headerOptions' => ['class' => 'col-md-10'],
                 'value' => function ($model) {
                     if($model->id_archivo != ' ' && $model->id_archivo != NULL) { // verifica si fue importada o no
                         if ($model->tipo_archivo == 1) {

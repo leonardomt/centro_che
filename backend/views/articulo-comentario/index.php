@@ -48,18 +48,18 @@ if ( Yii::$app->user->isGuest )
                 'format' => 'raw',
                 'headerOptions' => ['class' => 'col-md-1'],
                 'value' => function ($model) {
-                    return $model->revisado ? 'Si' : 'No';
+                    return $model->revisado ? 'Sí' : 'No';
                 },
-                'filter'=>array(""=>"Todos","1"=>"Si","0"=>"No"),
+                'filter'=>array(""=>"Todos","1"=>"Sí","0"=>"No"),
             ],
             [
                 'attribute' => 'publico',
                 'format' => 'raw',
                 'headerOptions' => ['class' => 'col-md-1'],
                 'value' => function ($model) {
-                    return $model->publico ? 'Si' : 'No';
+                    return $model->publico ? 'Sí' : 'No';
                 },
-                'filter'=>array(""=>"Todos","1"=>"Si","0"=>"No"),
+                'filter'=>array(""=>"Todos","1"=>"Sí","0"=>"No"),
             ],
 
             [

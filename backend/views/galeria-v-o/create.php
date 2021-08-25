@@ -105,11 +105,8 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="col-lg-6"></div>
 
         <div class="col-lg-4 ">
-            <?php if (Yii::$app->user->can('publicar')) : ?>
-                <?= $form->field($model, "publico")->checkbox(); ?>
-            <?php else : $x = 0; ?>
-                <?= $form->field($model, 'publico')->hiddenInput(['value' => $x])->label(false) ?>
-            <?php endif; ?>
+
+                <?= $form->field($model, 'publico')->hiddenInput(['value' => 1])->label(false) ?>
         </div>
         <div class="col-lg-1">
             <div class="form-group">
@@ -162,14 +159,14 @@ $this->params['breadcrumbs'][] = $this->title;
                 'format' => 'raw',
                 'value' => function ($model) {
                     if ($model->revisado != '0') {
-                        return 'Si';
+                        return 'Sí';
                     } else {
                         return 'No';
                     }
                 },
                 'headerOptions' => ['class' => 'col-md-1'],
 
-                'filter' => array("" => "Todos", "1" => "Si", "0" => "No"),
+                'filter' => array("" => "Todos", "1" => "Sí", "0" => "No"),
 
             ],
 

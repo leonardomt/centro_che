@@ -54,14 +54,14 @@ if (Yii::$app->user->isGuest)
 
                 'value' => function ($model) {
                     if ($model->revisado != '0') {
-                        return 'Si';
+                        return 'Sí';
                     } else {
                         return 'No';
                     }
                 },
                 'headerOptions' => ['class' => 'col-md-1'],
 
-                'filter' => array( "1" => "Si", "0" => "No"),
+                'filter' => array( "1" => "Sí", "0" => "No"),
                 'filterInputOptions' => array('class' => 'form-control', 'id' => null, 'prompt' => 'Todos'),
 
             ],
@@ -126,13 +126,13 @@ if (Yii::$app->user->isGuest)
 
             ],
 
-            array(
+            [
                 'attribute' => 'etapa',                     // etapa
                 'format' => 'raw',
                 'headerOptions' => array('class' => 'col-md-1'),
                 'filter' => array("Infancia" => "Infancia", "Adolescencia" => "Adolescencia", "Adulto Joven" => "Adulto Joven", "Adulto" => "Adulto", "Posterior a 1967" => "Posterior a 1967", "No definida" => "No definida"),
                 'filterInputOptions' => array('class' => 'form-control', 'id' => null, 'prompt' => 'Todos'),
-            ),
+            ],
 
             [
                 'attribute' => 'url_archivo',         'filter'=> false,            // Url del Archivo

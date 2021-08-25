@@ -38,7 +38,7 @@ class GestionDocumental extends \yii\db\ActiveRecord
     {
         return [
             'id_gestion_documental' => 'Id Gestion Documental',
-            'descripcion' => 'Descripcion',
+            'descripcion' => 'Descripción',
         ];
     }
 }

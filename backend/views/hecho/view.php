@@ -55,13 +55,13 @@ if ( !Yii::$app->user->can('gestionar-hecho'))
             [
                 'attribute' => 'revisado',
                 'value' => function ($model) {
-                    return $model->revisado ? 'Si' : 'No';
+                    return $model->revisado ? 'Sí' : 'No';
                 },
             ],
             [
                 'attribute' => 'publico',
                 'value' => function ($model) {
-                    return $model->publico ? 'Si' : 'No';
+                    return $model->publico ? 'Sí' : 'No';
                 },
             ],
         ],
@@ -93,10 +93,8 @@ if ( !Yii::$app->user->can('gestionar-hecho'))
     ?>
 
 
-    <?php yii\widgets\Pjax::begin(); ?>
     <?= kartik\grid\GridView::widget([
         'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
         'id'=> 'archivo-index-update',
 
         'pjax' => true,
@@ -125,14 +123,14 @@ if ( !Yii::$app->user->can('gestionar-hecho'))
                 'format' => 'raw',
                 'value' => function ($model) {
                     if($model->revisado != '0'){
-                        return 'Si';
+                        return 'Sí';
                     }else{
                         return 'No';
                     }
                 },
                 'headerOptions' => ['class' => 'col-md-1'],
 
-                'filter'=>array("1"=>"Si","0"=>"No"),
+                'filter'=>array("1"=>"Sí","0"=>"No"),
                 'filterInputOptions' => array('class' => 'form-control', 'id' => null, 'prompt' => 'Todos'),
             ],
 
@@ -160,13 +158,18 @@ if ( !Yii::$app->user->can('gestionar-hecho'))
                 'headerOptions' => ['class' => 'col-md-2']
             ],
             [
-                'attribute' => 'fuente',                     // fuente
+                'attribute' => 'fecha',
+                'format' => 'raw',
+                'headerOptions' => ['class' => 'col-md-2']
+            ],
+            [
+                'attribute' => 'etapa',
                 'format' => 'raw',
                 'headerOptions' => ['class' => 'col-md-2']
             ],
 
             [
-                'attribute' => 'url_archivo',           'filter'=> false,          // Url del Archivo
+                'attribute' => 'url_archivo',             'filter'=> false,        // Url del Archivo
                 'format' => 'raw',
                 'headerOptions' => ['class' => 'col-md-3'],
                 'value' => function ($model) {
@@ -193,7 +196,19 @@ if ( !Yii::$app->user->can('gestionar-hecho'))
                 },
             ],
 
+            [
+                'class' => 'kartik\grid\ActionColumn',
+                'template' => '{view}',
+                'buttons' => [
+                    'view' => function ($url, $model) {
+                        return Html::a('<button title="Ver" class="btn btn-success" style="width: 40px ; margin-top: 2px;  margin-left: 2px"><i class="fa fa-eye"></i></button>', ['archivo/view', 'id' => $model->id_archivo], ['title' => 'view']);
+                    },
 
+
+                ],
+
+
+            ],
         ],
     ]); ?>
 

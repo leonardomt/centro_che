@@ -163,8 +163,6 @@ if (!Yii::$app->user->can('gestionar-taller'))
     ?>
 
 
-
-    <?php Pjax::begin(); ?>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
@@ -178,11 +176,11 @@ if (!Yii::$app->user->can('gestionar-taller'))
             'options' => ['class' => 'pull-left'],
             [
                 'content' =>
-                Html::a('<span class="glyphicon glyphicon-plus"></span>', ['create'], [
-                    'data-pjax' => 0,
-                    'class' => 'btn btn-success',
-                    "title" => "Agregar"
-                ]) . ' ' .
+                    Html::a('<span class="glyphicon glyphicon-plus"></span>', ['create'], [
+                        'data-pjax' => 0,
+                        'class' => 'btn btn-success',
+                        "title" => "Agregar"
+                    ]) . ' ' .
                     Html::a('<i class="glyphicon glyphicon-repeat"></i>', 'index.php?r=archivo%2Findex', ['class' => 'btn btn-default', 'title' => 'Reiniciar']),
             ],
             '{toggleData}',
@@ -197,14 +195,15 @@ if (!Yii::$app->user->can('gestionar-taller'))
                 'format' => 'raw',
                 'value' => function ($model) {
                     if ($model->revisado != '0') {
-                        return 'Si';
+                        return 'Sí';
                     } else {
                         return 'No';
                     }
                 },
                 'headerOptions' => ['class' => 'col-md-1'],
 
-                'filter' => array("" => "Todos", "1" => "Si", "0" => "No"),
+                'filter' => array( "1" => "Sí", "0" => "No"),
+                'filterInputOptions' => array('class' => 'form-control', 'id' => null, 'prompt' => 'Todos'),
 
             ],
 
@@ -219,6 +218,7 @@ if (!Yii::$app->user->can('gestionar-taller'))
                 'format' => 'raw',
                 'headerOptions' => ['class' => 'col-md-2'],
                 'filter' => \yii\helpers\ArrayHelper::map(\backend\models\Archivo\TipoArchivo::find()->asArray()->all(), 'id_tipo_archivo', 'tipo_archivo'),
+                'filterInputOptions' => array('class' => 'form-control', 'id' => null, 'prompt' => 'Todos'),
             ],
             [
                 'attribute' => 'autor_archivo',                     // autor
@@ -232,15 +232,32 @@ if (!Yii::$app->user->can('gestionar-taller'))
                 'headerOptions' => ['class' => 'col-md-2']
             ],
             [
-                'attribute' => 'fuente',                     // fuente
+                'attribute' => 'fecha',
+                'value' => 'fecha',
                 'format' => 'raw',
-                'headerOptions' => ['class' => 'col-md-2']
+                'headerOptions' => ['class' => 'col-md-1'],
+                'filter' => \dosamigos\datepicker\DatePicker::widget([
+                    'model' => $searchModel,
+                    'attribute' => 'fecha','language' => 'es',
+                    'clientOptions' => [
+                        'autoclose' => true,
+                        'format' => 'yyyy-mm-dd', 'endDate' => date('Y-m-d')
+                    ],
+                ]),
+
+            ],
+            [
+                'attribute' => 'etapa',                     // etapa
+                'format' => 'raw',
+                'headerOptions' => array('class' => 'col-md-2'),
+                'filter' => array("Infancia" => "Infancia", "Adolescencia" => "Adolescencia", "Adulto Joven" => "Adulto Joven", "Adulto" => "Adulto", "Posterior a 1967" => "Posterior a 1967", "No definida" => "No definida"),
+                'filterInputOptions' => array('class' => 'form-control', 'id' => null, 'prompt' => 'Todos'),
             ],
 
             [
-                'attribute' => 'url_archivo',       'filter'=> false,              // Url del Archivo
+                'attribute' => 'url_archivo', 'filter' => false,             // Url del Archivo
                 'format' => 'raw',
-                'headerOptions' => ['class' => 'col-md-3'],
+                'headerOptions' => ['class' => 'col-md-2'],
                 'value' => function ($model) {
                     if ($model->url_archivo != ' ' && $model->url_archivo != NULL) { // verifica si fue importada o no
                         if ($model->tipo_archivo == 1) {
@@ -267,10 +284,6 @@ if (!Yii::$app->user->can('gestionar-taller'))
             ],
 
 
-
         ],
     ]); ?>
-
-    <?php Pjax::end(); ?>
-
 </div>

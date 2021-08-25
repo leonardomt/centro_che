@@ -50,15 +50,15 @@ class Discurso extends \yii\db\ActiveRecord
     {
         return [
             'id_discurso' => 'Id Discurso',
-            'titulo' => 'Titulo',
+            'titulo' => 'Título',
             'fecha' => 'Fecha',
-            'descripcion' => 'Descripcion',
+            'descripcion' => 'Descripción',
             'lugar' => 'Lugar',
             'medio' => 'Medio',
             'entrevistador' => 'Entrevistador',
             'cuerpo' => 'Cuerpo',
             'revisado' => 'Revisado',
-            'publico' => 'Publico',
+            'publico' => 'Público',
             'identificador' => 'Tipo',
         ];
     }

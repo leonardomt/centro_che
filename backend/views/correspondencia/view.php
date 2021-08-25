@@ -58,13 +58,13 @@ if ( !Yii::$app->user->can('gestionar-correspondencia'))
                 'attribute' => 'revisado',
                 'value' => function ($model) {
 
-                    return $model->revisado ? 'Si' : 'No';
+                    return $model->revisado ? 'Sí' : 'No';
                 },
             ],
             [
                 'attribute' => 'publico',
                 'value' => function ($model) {
-                    return $model->publico ? 'Si' : 'No';
+                    return $model->publico ? 'Sí' : 'No';
                 },
             ],
         ],
@@ -97,10 +97,8 @@ if ( !Yii::$app->user->can('gestionar-correspondencia'))
     ?>
 
 
-    <?php yii\widgets\Pjax::begin(); ?>
     <?= kartik\grid\GridView::widget([
         'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
         'id'=> 'archivo-index-update',
 
         'pjax' => true,
@@ -129,14 +127,14 @@ if ( !Yii::$app->user->can('gestionar-correspondencia'))
                 'format' => 'raw',
                 'value' => function ($model) {
                     if($model->revisado != '0'){
-                        return 'Si';
+                        return 'Sí';
                     }else{
                         return 'No';
                     }
                 },
                 'headerOptions' => ['class' => 'col-md-1'],
 
-                'filter'=>array("1"=>"Si","0"=>"No"),
+                'filter'=>array("1"=>"Sí","0"=>"No"),
                 'filterInputOptions' => array('class' => 'form-control', 'id' => null, 'prompt' => 'Todos'),
             ],
 
@@ -164,13 +162,18 @@ if ( !Yii::$app->user->can('gestionar-correspondencia'))
                 'headerOptions' => ['class' => 'col-md-2']
             ],
             [
-                'attribute' => 'fuente',                     // fuente
+                'attribute' => 'fecha',
+                'format' => 'raw',
+                'headerOptions' => ['class' => 'col-md-2']
+            ],
+            [
+                'attribute' => 'etapa',
                 'format' => 'raw',
                 'headerOptions' => ['class' => 'col-md-2']
             ],
 
             [
-                'attribute' => 'url_archivo',       'filter'=> false,              // Url del Archivo
+                'attribute' => 'url_archivo',             'filter'=> false,        // Url del Archivo
                 'format' => 'raw',
                 'headerOptions' => ['class' => 'col-md-3'],
                 'value' => function ($model) {
@@ -196,6 +199,7 @@ if ( !Yii::$app->user->can('gestionar-correspondencia'))
 
                 },
             ],
+
             [
                 'class' => 'kartik\grid\ActionColumn',
                 'template' => '{view}',

@@ -53,13 +53,13 @@ if ( !Yii::$app->user->can('gestionar-investigacion'))
             [
                 'attribute' => 'revisado',
                 'value' => function ($model) {
-                    return $model->revisado ? 'Si' : 'No';
+                    return $model->revisado ? 'Sí' : 'No';
                 },
             ],
             [
                 'attribute' => 'publico',
                 'value' => function ($model) {
-                    return $model->publico ? 'Si' : 'No';
+                    return $model->publico ? 'Sí' : 'No';
                 },
             ],
             'titulo_investigacion:ntext',
@@ -102,11 +102,8 @@ if ( !Yii::$app->user->can('gestionar-investigacion'))
     ?>
 
 
-    <?php yii\widgets\Pjax::begin();?>
-
     <?= kartik\grid\GridView::widget([
         'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
         'id'=> 'archivo-index-update',
 
         'pjax' => true,
@@ -135,14 +132,14 @@ if ( !Yii::$app->user->can('gestionar-investigacion'))
                 'format' => 'raw',
                 'value' => function ($model) {
                     if($model->revisado != '0'){
-                        return 'Si';
+                        return 'Sí';
                     }else{
                         return 'No';
                     }
                 },
                 'headerOptions' => ['class' => 'col-md-1'],
 
-                'filter'=>array("1"=>"Si","0"=>"No"),
+                'filter'=>array("1"=>"Sí","0"=>"No"),
                 'filterInputOptions' => array('class' => 'form-control', 'id' => null, 'prompt' => 'Todos'),
             ],
 
@@ -170,14 +167,18 @@ if ( !Yii::$app->user->can('gestionar-investigacion'))
                 'headerOptions' => ['class' => 'col-md-2']
             ],
             [
-                'attribute' => 'fuente',                     // fuente
+                'attribute' => 'fecha',
+                'format' => 'raw',
+                'headerOptions' => ['class' => 'col-md-2']
+            ],
+            [
+                'attribute' => 'etapa',
                 'format' => 'raw',
                 'headerOptions' => ['class' => 'col-md-2']
             ],
 
             [
-                'attribute' => 'url_archivo',
-                'filter'=> false,             // Url del Archivo
+                'attribute' => 'url_archivo',             'filter'=> false,        // Url del Archivo
                 'format' => 'raw',
                 'headerOptions' => ['class' => 'col-md-3'],
                 'value' => function ($model) {
@@ -187,14 +188,14 @@ if ( !Yii::$app->user->can('gestionar-investigacion'))
                                 ['alt' => $model->url_archivo, 'height' => 100]);
                         } else if ($model->tipo_archivo == 3) {
                             return '<video  controls autoplay style="height: 100px">
-                       <source src="../../frontend/web/' . $model->url_archivo . '" type="video/mp4">
-                       Your browser does not support the video tag.
-                   </video>';
+                    <source src="../../frontend/web/' . $model->url_archivo . '" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>';
                         } else if ($model->tipo_archivo == 2) {
                             return '<audio  controls style="width: 250px ">
-                       <source src="../../frontend/web/' . $model->url_archivo . '" >
-                       Your browser does not support the video tag.
-                       </audio>';
+                    <source src="../../frontend/web/' . $model->url_archivo . '" >
+                    Your browser does not support the video tag.
+                    </audio>';
                         } else {
                             return Html::label('_');
                             // si no tiene asignada una portada, solo muestra un guion bajo
@@ -203,6 +204,7 @@ if ( !Yii::$app->user->can('gestionar-investigacion'))
 
                 },
             ],
+
             [
                 'class' => 'kartik\grid\ActionColumn',
                 'template' => '{view}',
@@ -216,10 +218,7 @@ if ( !Yii::$app->user->can('gestionar-investigacion'))
 
 
             ],
-
         ],
     ]); ?>
-
-
 
 </div>

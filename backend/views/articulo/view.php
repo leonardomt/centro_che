@@ -56,13 +56,13 @@ if ( !Yii::$app->user->can('gestionar-articulo'))
             [
                 'attribute' => 'revisado',
                 'value' => function ($model) {
-                    return $model->revisado ? 'Si' : 'No';
+                    return $model->revisado ? 'Sí' : 'No';
                 },
             ],
             [
                 'attribute' => 'publico',
                 'value' => function ($model) {
-                    return $model->publico ? 'Si' : 'No';
+                    return $model->publico ? 'Sí' : 'No';
                 },
             ],
             'titulo',
@@ -102,113 +102,124 @@ if ( !Yii::$app->user->can('gestionar-articulo'))
        ?>
 
 
-       <?php yii\widgets\Pjax::begin();?>
+    <?= kartik\grid\GridView::widget([
+        'dataProvider' => $dataProvider,
+        'id'=> 'archivo-index-update',
 
-       <?= kartik\grid\GridView::widget([
-           'dataProvider' => $dataProvider,
-           'filterModel' => $searchModel,
-           'id'=> 'archivo-index-update',
+        'pjax' => true,
+        'pjaxSettings' =>[
+            'neverTimeout' => true,
 
-           'pjax' => true,
-           'pjaxSettings' =>[
-               'neverTimeout' => true,
-
-           ],
-           'toolbar'=>[
-               'options' => ['class' => 'pull-left'],
-               ['content'=>
-                   Html::a('<span class="glyphicon glyphicon-plus"></span>', ['create'], [
-                       'data-pjax' => 0,
-                       'class' => 'btn btn-success',
-                       "title"=>"Agregar"]). ' '.
-                   Html::a('<i class="glyphicon glyphicon-repeat"></i>', 'index.php?r=archivo%2Findex', [ 'class'=>'btn btn-default', 'title'=>'Reiniciar']),
-               ],
-               '{toggleData}',
-               '{export}',
-           ],
-           'columns' => [
+        ],
+        'toolbar'=>[
+            'options' => ['class' => 'pull-left'],
+            ['content'=>
+                Html::a('<span class="glyphicon glyphicon-plus"></span>', ['create'], [
+                    'data-pjax' => 0,
+                    'class' => 'btn btn-success',
+                    "title"=>"Agregar"]). ' '.
+                Html::a('<i class="glyphicon glyphicon-repeat"></i>', 'index.php?r=archivo%2Findex', [ 'class'=>'btn btn-default', 'title'=>'Reiniciar']),
+            ],
+            '{toggleData}',
+            '{export}',
+        ],
+        'columns' => [
 
 
-               //'id_archivo',
-               [
-                   'attribute' => 'revisado',                     // Revisado
-                   'format' => 'raw',
-                   'value' => function ($model) {
-                       if($model->revisado != '0'){
-                           return 'Si';
-                       }else{
-                           return 'No';
-                       }
-                   },
-                   'headerOptions' => ['class' => 'col-md-1'],
+            //'id_archivo',
+            [
+                'attribute' => 'revisado',                     // Revisado
+                'format' => 'raw',
+                'value' => function ($model) {
+                    if($model->revisado != '0'){
+                        return 'Sí';
+                    }else{
+                        return 'No';
+                    }
+                },
+                'headerOptions' => ['class' => 'col-md-1'],
 
-                   'filter'=>array("1"=>"Si","0"=>"No"),
-                   'filterInputOptions' => array('class' => 'form-control', 'id' => null, 'prompt' => 'Todos'),
-               ],
+                'filter'=>array("1"=>"Sí","0"=>"No"),
+                'filterInputOptions' => array('class' => 'form-control', 'id' => null, 'prompt' => 'Todos'),
+            ],
 
-               [
-                   'attribute' => 'titulo_archivo',                     // Titulo
-                   'format' => 'raw',
-                   'headerOptions' => ['class' => 'col-md-2']
-               ],
-               [
-                   'attribute'=>'tipo_archivo',
-                   'value'=>'tipoArchivo.tipo_archivo',
-                   'format' => 'raw',
-                   'headerOptions' => ['class' => 'col-md-2'],
-                   'filter'=>\yii\helpers\ArrayHelper::map(\backend\models\Archivo\TipoArchivo::find()->asArray()->all(), 'id_tipo_archivo', 'tipo_archivo'),
-               ],
-               [
-                   'attribute' => 'autor_archivo',                     // autor
-                   'format' => 'raw',
-                   'headerOptions' => ['class' => 'col-md-2']
-               ],
+            [
+                'attribute' => 'titulo_archivo',                     // Titulo
+                'format' => 'raw',
+                'headerOptions' => ['class' => 'col-md-2']
+            ],
+            [
+                'attribute'=>'tipo_archivo',
+                'value'=>'tipoArchivo.tipo_archivo',
+                'format' => 'raw',
+                'headerOptions' => ['class' => 'col-md-2'],
+                'filter'=>\yii\helpers\ArrayHelper::map(\backend\models\Archivo\TipoArchivo::find()->asArray()->all(), 'id_tipo_archivo', 'tipo_archivo'),
+                'filterInputOptions' => array('class' => 'form-control', 'id' => null, 'prompt' => 'Todos'),    ],
+            [
+                'attribute' => 'autor_archivo',                     // autor
+                'format' => 'raw',
+                'headerOptions' => ['class' => 'col-md-2']
+            ],
 
-               [
-                   'attribute' => 'etiqueta',                     // etiqueta
-                   'format' => 'raw',
-                   'headerOptions' => ['class' => 'col-md-2']
-               ],
-               [
-                   'attribute' => 'fuente',                     // fuente
-                   'format' => 'raw',
-                   'headerOptions' => ['class' => 'col-md-2']
-               ],
+            [
+                'attribute' => 'etiqueta',                     // etiqueta
+                'format' => 'raw',
+                'headerOptions' => ['class' => 'col-md-2']
+            ],
+            [
+                'attribute' => 'fecha',
+                'format' => 'raw',
+                'headerOptions' => ['class' => 'col-md-2']
+            ],
+            [
+                'attribute' => 'etapa',
+                'format' => 'raw',
+                'headerOptions' => ['class' => 'col-md-2']
+            ],
 
-               [
-                   'attribute' => 'url_archivo',
-                   'filter' => false,
-                   'format' => 'raw',
-                   'headerOptions' => ['class' => 'col-md-3'],
-                   'value' => function ($model) {
-                       if($model->url_archivo != ' ' && $model->url_archivo != NULL) { // verifica si fue importada o no
-                           if ($model->tipo_archivo == 1) {
-                               return Html::img('../../frontend/web/' . $model->url_archivo,
-                                   ['alt' => $model->url_archivo, 'height' => 100]);
-                           } else if ($model->tipo_archivo == 3) {
-                               return '<video  controls autoplay style="height: 100px">
-                       <source src="../../frontend/web/' . $model->url_archivo . '" type="video/mp4">
-                       Your browser does not support the video tag.
-                   </video>';
-                           } else if ($model->tipo_archivo == 2) {
-                               return '<audio  controls style="width: 250px ">
-                       <source src="../../frontend/web/' . $model->url_archivo . '" >
-                       Your browser does not support the video tag.
-                       </audio>';
-                           } else {
-                               return Html::label('_');
-                               // si no tiene asignada una portada, solo muestra un guion bajo
-                           }
-                       }
+            [
+                'attribute' => 'url_archivo',             'filter'=> false,        // Url del Archivo
+                'format' => 'raw',
+                'headerOptions' => ['class' => 'col-md-3'],
+                'value' => function ($model) {
+                    if($model->url_archivo != ' ' && $model->url_archivo != NULL) { // verifica si fue importada o no
+                        if ($model->tipo_archivo == 1) {
+                            return Html::img('../../frontend/web/' . $model->url_archivo,
+                                ['alt' => $model->url_archivo, 'height' => 100]);
+                        } else if ($model->tipo_archivo == 3) {
+                            return '<video  controls autoplay style="height: 100px">
+                    <source src="../../frontend/web/' . $model->url_archivo . '" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>';
+                        } else if ($model->tipo_archivo == 2) {
+                            return '<audio  controls style="width: 250px ">
+                    <source src="../../frontend/web/' . $model->url_archivo . '" >
+                    Your browser does not support the video tag.
+                    </audio>';
+                        } else {
+                            return Html::label('_');
+                            // si no tiene asignada una portada, solo muestra un guion bajo
+                        }
+                    }
 
-                   },
-               ],
+                },
+            ],
+
+            [
+                'class' => 'kartik\grid\ActionColumn',
+                'template' => '{view}',
+                'buttons' => [
+                    'view' => function ($url, $model) {
+                        return Html::a('<button title="Ver" class="btn btn-success" style="width: 40px ; margin-top: 2px;  margin-left: 2px"><i class="fa fa-eye"></i></button>', ['archivo/view', 'id' => $model->id_archivo], ['title' => 'view']);
+                    },
 
 
+                ],
 
 
-           ],
-       ]); ?>
+            ],
+        ],
+    ]); ?>
 
 
 

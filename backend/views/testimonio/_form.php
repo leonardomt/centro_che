@@ -43,14 +43,14 @@ use yii\widgets\ActiveForm;
                             <div class="row">
                                 <div class="col-lg-6 text-lg-left">
                                     <?php if(Yii::$app->user->can('revisar')):?>
-                                        <?=$form->field($model, 'revisado')->dropDownList(['1' => 'Si', '0' => 'No'],['prompt'=>'-']) ?>
+                                        <?=$form->field($model, 'revisado')->dropDownList(['1' => 'Sí', '0' => 'No'],['prompt'=>'-']) ?>
                                     <?php else: $x=0;?>
                                         <?=$form->field($model, 'revisado')->hiddenInput(['value' => $x])->label(false) ?>
                                     <?php endif;?>
                                 </div>
                                 <div class="col-lg-6 text-lg-left">
                                     <?php if(Yii::$app->user->can('publicar')):?>
-                                        <?=$form->field($model, 'publico')->dropDownList(['1' => 'Si', '0' => 'No'],['prompt'=>'-']) ?>
+                                        <?=$form->field($model, 'publico')->dropDownList(['1' => 'Sí', '0' => 'No'],['prompt'=>'-']) ?>
                                     <?php else: $x=0;?>
                                         <?=$form->field($model, 'publico')->hiddenInput(['value' => $x])->label(false) ?>
                                     <?php endif;?>

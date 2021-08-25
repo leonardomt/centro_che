@@ -39,7 +39,7 @@ class Proyecto extends \yii\db\ActiveRecord
     {
         return [
             'id_proyecto' => 'Id Proyecto',
-            'descripcion' => 'Descripcion',
+            'descripcion' => 'Descripción',
             'enlace' => 'Enlace',
         ];
     }

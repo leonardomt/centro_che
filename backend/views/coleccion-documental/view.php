@@ -50,13 +50,13 @@ if ( !Yii::$app->user->can('gestionar-coleccion-documental'))
             [
                 'attribute' => 'revisado',
                 'value' => function ($model) {
-                    return $model->revisado ? 'Si' : 'No';
+                    return $model->revisado ? 'Sí' : 'No';
                 },
             ],
             [
                 'attribute' => 'publico',
                 'value' => function ($model) {
-                    return $model->publico ? 'Si' : 'No';
+                    return $model->publico ? 'Sí' : 'No';
                 },
             ],
             'fecha:ntext',
@@ -93,10 +93,8 @@ if ( !Yii::$app->user->can('gestionar-coleccion-documental'))
     ?>
 
 
-    <?php yii\widgets\Pjax::begin();?>
     <?= kartik\grid\GridView::widget([
         'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
         'id'=> 'archivo-index-update',
 
         'pjax' => true,
@@ -125,14 +123,14 @@ if ( !Yii::$app->user->can('gestionar-coleccion-documental'))
                 'format' => 'raw',
                 'value' => function ($model) {
                     if($model->revisado != '0'){
-                        return 'Si';
+                        return 'Sí';
                     }else{
                         return 'No';
                     }
                 },
                 'headerOptions' => ['class' => 'col-md-1'],
 
-                'filter'=>array("1"=>"Si","0"=>"No"),
+                'filter'=>array("1"=>"Sí","0"=>"No"),
                 'filterInputOptions' => array('class' => 'form-control', 'id' => null, 'prompt' => 'Todos'),
             ],
 
@@ -147,7 +145,7 @@ if ( !Yii::$app->user->can('gestionar-coleccion-documental'))
                 'format' => 'raw',
                 'headerOptions' => ['class' => 'col-md-2'],
                 'filter'=>\yii\helpers\ArrayHelper::map(\backend\models\Archivo\TipoArchivo::find()->asArray()->all(), 'id_tipo_archivo', 'tipo_archivo'),
-                'filterInputOptions' => array('class' => 'form-control', 'id' => null, 'prompt' => 'Todos'), ],
+                'filterInputOptions' => array('class' => 'form-control', 'id' => null, 'prompt' => 'Todos'),    ],
             [
                 'attribute' => 'autor_archivo',                     // autor
                 'format' => 'raw',
@@ -160,13 +158,18 @@ if ( !Yii::$app->user->can('gestionar-coleccion-documental'))
                 'headerOptions' => ['class' => 'col-md-2']
             ],
             [
-                'attribute' => 'fuente',                     // fuente
+                'attribute' => 'fecha',
+                'format' => 'raw',
+                'headerOptions' => ['class' => 'col-md-2']
+            ],
+            [
+                'attribute' => 'etapa',
                 'format' => 'raw',
                 'headerOptions' => ['class' => 'col-md-2']
             ],
 
             [
-                'attribute' => 'url_archivo',       'filter'=> false,              // Url del Archivo
+                'attribute' => 'url_archivo',             'filter'=> false,        // Url del Archivo
                 'format' => 'raw',
                 'headerOptions' => ['class' => 'col-md-3'],
                 'value' => function ($model) {
@@ -206,9 +209,6 @@ if ( !Yii::$app->user->can('gestionar-coleccion-documental'))
 
 
             ],
-
-
-
         ],
     ]); ?>
 

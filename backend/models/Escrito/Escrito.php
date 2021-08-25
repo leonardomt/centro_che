@@ -46,11 +46,11 @@ class Escrito extends \yii\db\ActiveRecord
         return [
             'id_escrito' => 'Id Escrito',
             'tipo' => 'Tipo',
-            'titulo' => 'Titulo',
-            'descripcion' => 'Descripcion',
+            'titulo' => 'Título',
+            'descripcion' => 'Descripción',
             'cuerpo' => 'Contenido',
             'revisado' => 'Revisado',
-            'publico' => 'Publico',
+            'publico' => 'Público',
         ];
     }
 }

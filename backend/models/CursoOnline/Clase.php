@@ -46,12 +46,12 @@ class Clase extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'titulo' => 'Titulo',
+            'titulo' => 'Título',
             'profesor' => 'Profesor',
-            'descripcion' => 'Descripcion',
+            'descripcion' => 'Descripción',
             'enlace' => 'Enlace',
             'revisado' => 'Revisado',
-            'publico' => 'Publico',
+            'publico' => 'Público',
             'id_curso' => 'Curso Online'
         ];
     }
