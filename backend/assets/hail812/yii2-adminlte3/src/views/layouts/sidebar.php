@@ -171,7 +171,6 @@
             echo \hail812\adminlte\widgets\Menu::widget([
                 'items' => [
 
-
                     ['label' => 'Archivos', 'url' => ['/archivo/index'], 'icon' => 'fas fa-file-upload' , 'visible' => Yii::$app->user->can('gestionar-archivo'), 'badge' => $archivo],
                     [
                         'label' => 'Inicio',
@@ -179,7 +178,7 @@
                         'badge' => $inicio,
                         'items' => [
                             ['label' => 'Actualidad', 'iconStyle' => 'far' , 'url' => ['/noticia/index'], 'visible' => Yii::$app->user->can('gestionar-noticia'), 'badge' => $actualidad],
-                            ['label' => 'Carrusel', 'iconStyle' => 'far' , 'url' => ['/carrusel/index'], 'visible' => Yii::$app->user->can('gestionar-noticia')],
+                            //['label' => 'Carrusel', 'iconStyle' => 'far' , 'url' => ['/carrusel/index'], 'visible' => Yii::$app->user->can('gestionar-noticia')],
                             ['label' => 'Mapa', 'iconStyle' => 'far' , 'url' => "https://www.google.com/maps/d/edit?hl=es&mid=1UQQMw-m_DPTKOJPfYTs3ZkFBobP39SBE&ll=22.21037405686551%2C-80.85830277278139&z=8", 'visible' => Yii::$app->user->can('gestionar-noticia')],
                             ['label' => 'Paradigma', 'iconStyle' => 'far' , 'url' => ['/paradigma/view', 'id'=>1], 'visible' => Yii::$app->user->can('gestionar-noticia'), 'badge' => $revista],
                             ['label' => 'Quienes Somos', 'iconStyle' => 'far' , 'url' => ['/quienes/view', 'id'=>1], 'visible' => Yii::$app->user->can('gestionar-noticia')],
@@ -206,7 +205,7 @@
 
 
                     [
-                        'label' => 'Proyectos Alternativos',
+                        'label' => 'P. Alternativos',
                         'icon' => 'far fa-lightbulb',
                         'badge' => $palternativos,
                         'items' => [
