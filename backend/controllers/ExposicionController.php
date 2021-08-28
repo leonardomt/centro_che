@@ -115,7 +115,7 @@ class ExposicionController extends Controller
                     }
                     if ($flag) {
                         $transaction->commit();
-                        return $this->redirect(['view', 'id' => $model->id_exposicion]);
+                        return $this->redirect(['index']);
                     }
                 } catch (Exception $e) {
                     $transaction->rollBack();
@@ -191,7 +191,7 @@ class ExposicionController extends Controller
                     }
                     if ($flag) {
                         $transaction->commit();
-                        return $this->redirect(['view', 'id' => $model->id_exposicion]);
+                        return $this->redirect(['index']);
                     }
                 } catch (Exception $e) {
                     $transaction->rollBack();

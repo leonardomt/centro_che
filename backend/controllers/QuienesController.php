@@ -2,12 +2,14 @@
 
 namespace backend\controllers;
 
+use backend\models\Quienes\QuienesArchivo;
 use Yii;
 use backend\models\Quienes\Quienes;
 use backend\models\Quienes\QuienesSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 
 /**
  * QuienesController implements the CRUD actions for Quienes model.
@@ -67,7 +69,7 @@ class QuienesController extends Controller
         $model = new Quienes();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['index']);
         }
 
         return $this->render('create', [
@@ -84,14 +86,41 @@ class QuienesController extends Controller
      */
     public function actionUpdate($id)
     {
+        $modelArchivos = new QuienesArchivo();
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        Yii::$app->request->enableCsrfValidation = false;
+        $this->enableCsrfValidation = false;
+
+        if ($model->load(Yii::$app->request->post())) {
+            $model->save();
+            $modelArchivos->file = UploadedFile::getInstances($modelArchivos, 'file');
+            foreach ($modelArchivos->file as $file) {
+                $upload = new QuienesArchivo();
+                $imageName = date('Y-m-d') . rand(0, 99999);
+                $upload->url = 'quienes_somos/' . $imageName . '.' . $file->extension;
+                $upload->file = $file;
+                $upload->save();
+
+
+                for ($x = 0; $x <= 7; $x++) {
+                    $images = QuienesArchivo::find()->all();
+                    if (count($images) >= 6) {
+                        $images[0]->delete();
+                    }
+                }
+
+                $file->saveAs('../../frontend/web/quienes_somos/' . $imageName . '.' . $file->extension);
+
+
+            }
+            return $this->redirect(['view', 'id' => 1]);
         }
+
 
         return $this->render('update', [
             'model' => $model,
+            'modelArchivos' => $modelArchivos,
         ]);
     }
 

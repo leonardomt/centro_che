@@ -69,18 +69,11 @@ if ( !Yii::$app->user->can('gestionar-revista'))
             ],
 
             [
-                'attribute' => 'fecha',
-                'value'=> 'fecha',
+                'attribute' => 'anno',
+                'value'=> 'anno',
                 'format' => 'raw',
                 'headerOptions' => ['class' => 'col-md-2'],
-                'filter'=>\dosamigos\datepicker\DatePicker::widget([
-                    'model'=>$searchModel,'language' => 'es',
-                    'attribute'=>'fecha',
-                    'clientOptions'=>[
-                        'autoclose'=>true,
-                        'format'=>'yyyy-mm-dd', 'endDate' => date('Y-m-d')
-                    ],
-                ]),
+
             ],
 
             [
@@ -92,7 +85,7 @@ if ( !Yii::$app->user->can('gestionar-revista'))
             [
                 'attribute' => 'numero',                     // Titulo
                 'format' => 'raw',
-                'headerOptions' => ['class' => 'col-md-1']
+                'headerOptions' => ['class' => 'col-md-2']
             ],
 
 
@@ -101,17 +94,11 @@ if ( !Yii::$app->user->can('gestionar-revista'))
                 'format' => 'raw',
                 'headerOptions' => ['class' => 'col-md-3']
             ],
-            [
-                'attribute' => 'enlace',                     // Titulo
-                'format' => 'raw',
-                'headerOptions' => ['class' => 'col-md-2']
-            ],
-
 
             [
                 'class' => 'kartik\grid\ActionColumn',
                 'template' => '{view}{update}{delete}',
-                'headerOptions' => ['class' => 'col-md-1'],
+                'headerOptions' => ['class' => 'col-md-2'],
                 'buttons' => [
                     'view' => function ($url, $model)
                     {

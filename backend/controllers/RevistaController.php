@@ -117,7 +117,7 @@ class RevistaController extends Controller
                     }
                     if ($flag) {
                         $transaction->commit();
-                        return $this->redirect(['view', 'id' => $model->id_revista]);
+                        return $this->redirect(['index']);
                     }
                 } catch (Exception $e) {
                     $transaction->rollBack();
@@ -188,7 +188,7 @@ class RevistaController extends Controller
                     }
                     if ($flag) {
                         $transaction->commit();
-                        return $this->redirect(['view', 'id' => $model->id_revista]);
+                        return $this->redirect(['index']);
                     }
                 } catch (Exception $e) {
                     $transaction->rollBack();

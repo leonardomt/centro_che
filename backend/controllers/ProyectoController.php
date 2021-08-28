@@ -67,7 +67,7 @@ class ProyectoController extends Controller
         $model = new Proyecto();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id_proyecto]);
+            return $this->redirect(['index']);
         }
 
         return $this->render('create', [
@@ -87,7 +87,7 @@ class ProyectoController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id_proyecto]);
+            return $this->redirect(['index']);
         }
 
         return $this->render('update', [

@@ -8,6 +8,9 @@ use backend\models\Revista\ParadigmaSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
+use backend\models\Revista\ParadigmaArchivo;
+use backend\models\Revista\ParadigmaArchivoSearch;
 
 /**
  * ParadigmaController implements the CRUD actions for Paradigma model.
@@ -67,7 +70,7 @@ class ParadigmaController extends Controller
         $model = new Paradigma();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['index']);
         }
 
         return $this->render('create', [
@@ -84,14 +87,42 @@ class ParadigmaController extends Controller
      */
     public function actionUpdate($id)
     {
+
+        $modelArchivos = new ParadigmaArchivo();
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        Yii::$app->request->enableCsrfValidation = false;
+        $this->enableCsrfValidation = false;
+
+        if ($model->load(Yii::$app->request->post())) {
+            $model->save();
+            $modelArchivos->file = UploadedFile::getInstances($modelArchivos, 'file');
+            foreach ($modelArchivos->file as $file) {
+                $upload = new ParadigmaArchivo();
+                $imageName = date('Y-m-d') . rand(0, 99999);
+                $upload->url = 'paradigma/' . $imageName . '.' . $file->extension;
+                $upload->file = $file;
+                $upload->save();
+
+
+                for ($x = 0; $x <= 7; $x++) {
+                    $images = ParadigmaArchivo::find()->all();
+                    if (count($images) >= 6) {
+                        $images[0]->delete();
+                    }
+                }
+
+                $file->saveAs('../../frontend/web/paradigma/' . $imageName . '.' . $file->extension);
+
+
+            }
+            return $this->redirect(['view', 'id' => 1]);
         }
+
 
         return $this->render('update', [
             'model' => $model,
+            'modelArchivos' => $modelArchivos,
         ]);
     }
 

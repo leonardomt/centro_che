@@ -154,7 +154,7 @@ class NoticiaController extends Controller
                     }
                     if ($flag) {
                         $transaction->commit();
-                        return $this->redirect(['view', 'id' => $model->id_noticia]);
+                        return $this->redirect(['index']);
                     }
                 } catch (Exception $e) {
                     $transaction->rollBack();
@@ -228,7 +228,7 @@ class NoticiaController extends Controller
                     }
                     if ($flag) {
                         $transaction->commit();
-                        return $this->redirect(['view', 'id' => $model->id_noticia]);
+                        return $this->redirect(['index']);
                     }
                 } catch (Exception $e) {
                     $transaction->rollBack();

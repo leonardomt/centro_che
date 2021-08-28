@@ -118,7 +118,7 @@ class DiscursoController extends Controller
                     }
                     if ($flag) {
                         $transaction->commit();
-                        return $this->redirect(['view', 'id' => $model->id_discurso]);
+                        return $this->redirect(['index']);
                     }
                 } catch (Exception $e) {
                     $transaction->rollBack();
@@ -192,7 +192,7 @@ class DiscursoController extends Controller
                     }
                     if ($flag) {
                         $transaction->commit();
-                        return $this->redirect(['view', 'id' => $model->id_discurso]);
+                        return $this->redirect(['index']);
                     }
                 } catch (Exception $e) {
                     $transaction->rollBack();

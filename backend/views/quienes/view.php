@@ -13,7 +13,7 @@ use yii\bootstrap4\Breadcrumbs;
 $this->title = "Quiénes Somos";
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
-if ( Yii::$app->user->isGuest )
+if (Yii::$app->user->isGuest)
     return Yii::$app->getResponse()->redirect(\yii\helpers\Url::to(['site/login']));
 
 ?>
@@ -28,88 +28,78 @@ if ( Yii::$app->user->isGuest )
     </div>
     <p>
 
-        <?= Html::a('<svg aria-hidden="true" style="display:inline-block;font-size:inherit;height:1em;overflow:visible;vertical-align:-.125em;width:1em" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M498 142l-46 46c-5 5-13 5-17 0L324 77c-5-5-5-12 0-17l46-46c19-19 49-19 68 0l60 60c19 19 19 49 0 68zm-214-42L22 362 0 484c-3 16 12 30 28 28l122-22 262-262c5-5 5-13 0-17L301 100c-4-5-12-5-17 0zM124 340c-5-6-5-14 0-20l154-154c6-5 14-5 20 0s5 14 0 20L144 340c-6 5-14 5-20 0zm-36 84h48v36l-64 12-32-31 12-65h36v48z"></path></svg>', ['update', 'id' => $model->id], ['class' => 'btn btn-primary', 'title'=>"Modificar", 'style'=>"width: 40px; height: 40px",]) ?>
-        <?= Html::a('<span class="fa fa-plus "></span>', ['/quienes-archivo/create'], [
-            'class' => 'btn btn-success',
-            'style'=>"width: 40px; height: 40px",
-            "title"=>"Agregar"])
-        ?>
+        <?= Html::a('<svg aria-hidden="true" style="display:inline-block;font-size:inherit;height:1em;overflow:visible;vertical-align:-.125em;width:1em" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M498 142l-46 46c-5 5-13 5-17 0L324 77c-5-5-5-12 0-17l46-46c19-19 49-19 68 0l60 60c19 19 19 49 0 68zm-214-42L22 362 0 484c-3 16 12 30 28 28l122-22 262-262c5-5 5-13 0-17L301 100c-4-5-12-5-17 0zM124 340c-5-6-5-14 0-20l154-154c6-5 14-5 20 0s5 14 0 20L144 340c-6 5-14 5-20 0zm-36 84h48v36l-64 12-32-31 12-65h36v48z"></path></svg>', ['update', 'id' => $model->id], ['class' => 'btn btn-primary', 'title' => "Modificar", 'style' => "width: 40px; height: 40px",]) ?>
+
     </p>
 
-    <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            'descripcion:ntext',
-        ],
-    ]) ?>
 
+    <div class="row">
+        <div class="col-md-6">
 
-    <?php
-    $searchModel = new backend\models\Quienes\QuienesArchivoSearch();
-    $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-    ?>
-
-    <?php Pjax::begin(); ?>
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'id' => 'archivo-index-update',
-        'pjax' => true,
-        'pjaxSettings' => [
-            'neverTimeout' => true,
-
-        ],
-        'toolbar' => [
-            'options' => ['class' => 'pull-left'],
-            [
-                'content' =>
-                Html::a('<span class="glyphicon glyphicon-plus"></span>', ['create'], [
-                    'data-pjax' => 0,
-                    'class' => 'btn btn-success',
-                    "title" => "Agregar"
-                ]) . ' ' .
-                    Html::a('<i class="glyphicon glyphicon-repeat"></i>', 'index.php?r=archivo%2Findex', ['class' => 'btn btn-default', 'title' => 'Reiniciar']),
-            ],
-            '{toggleData}',
-            '{export}',
-        ],
-        'columns' => [
-
-            [
-                'attribute' => 'url',                     // Url del Archivo
-                'format' => 'raw',
-                'headerOptions' => ['class' => 'col-md-10'],
-                'value' => function ($model) {
-                    if ($model->url != ' ' && $model->url != NULL) { // verifica si fue importada o no
-
-                        return Html::img(
-                            '../../frontend/web/' . $model->url,
-                            ['alt' => $model->url, 'height' => 250]
-                        );
-                    } else {
-                        return Html::label('_');
-                        // si no tiene asignada una portada, solo muestra un guion bajo
-                    }
-                }
-
-            ],
-
-            [
-                'class' => 'kartik\grid\ActionColumn',
-                'template' => '{delete}',
-                'headerOptions' => ['class' => 'col-md-1'],
-                'buttons' => [
-                    'delete' => function ($url, $model)
-                    {
-                        return Html::a('<button title="Eliminar" style="width: 40px; height: 40px", class="btn btn-danger"><i class="fa fa-trash"></i></button>',['quienes-archivo/delete', 'id' => $model->id], ['data-confirm' => '¿Está seguro que desea eliminar este elemento?', 'data-method' =>'POST']);
-                    }
+            <?= DetailView::widget([
+                'model' => $model,
+                'attributes' => [
+                    'descripcion:ntext',
                 ],
-            ],
+            ]) ?>
+
+        </div>
+        <div class="col-md-6">
+            <?php
+            $searchModel = new backend\models\Quienes\QuienesArchivoSearch();
+            $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+            ?>
 
 
-        ],
-    ]); ?>
+            <?= GridView::widget([
+                'dataProvider' => $dataProvider,
+                'id' => 'archivo-index-update',
+                'layout' => '{items}{pager}',
+                'pjax' => true,
+                'pjaxSettings' => [
+                    'neverTimeout' => true,
 
-    <?php Pjax::end(); ?>
+                ],
+
+                'columns' => [
+
+                    [
+                        'attribute' => 'url',                     // Url del Archivo
+                        'format' => 'raw',
+                        'enableSorting' => false,
+                        'headerOptions' => ['class' => 'col-md-10'],
+                        'value' => function ($model) {
+                            if ($model->url != ' ' && $model->url != NULL) { // verifica si fue importada o no
+
+                                return Html::img(
+                                    '../../frontend/web/' . $model->url,
+                                    ['alt' => $model->url, 'width' => 300]
+                                );
+                            } else {
+                                return Html::label('_');
+                                // si no tiene asignada una portada, solo muestra un guion bajo
+                            }
+                        }
+
+                    ],
+
+                    [
+                        'class' => 'kartik\grid\ActionColumn',
+                        'template' => '{delete}',
+                        'headerOptions' => ['class' => 'col-md-1'],
+                        'buttons' => [
+                            'delete' => function ($url, $model) {
+                                return Html::a('<button title="Eliminar" style="width: 40px; height: 40px", class="btn btn-danger"><i class="fa fa-trash"></i></button>', ['quienes-archivo/delete', 'id' => $model->id], ['data-confirm' => '¿Está seguro que desea eliminar este elemento?', 'data-method' => 'POST']);
+                            }
+                        ],
+                    ],
+
+
+                ],
+            ]); ?>
+
+        </div>
+    </div>
 
 
 </div>

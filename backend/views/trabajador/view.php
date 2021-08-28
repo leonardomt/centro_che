@@ -8,7 +8,7 @@ use yii\widgets\DetailView;
 /* @var $model backend\models\Quienes\Trabajador */
 
 $this->title = $model->nombre;
-$this->params['breadcrumbs'][] = ['label' => 'Equipo de Trabajo', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Quiénes Somos Detallado', 'url' => ['/quienes-detalle/view', 'id' => 1]];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>

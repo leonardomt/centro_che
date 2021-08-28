@@ -180,8 +180,22 @@
                             ['label' => 'Actualidad', 'iconStyle' => 'far' , 'url' => ['/noticia/index'], 'visible' => Yii::$app->user->can('gestionar-noticia'), 'badge' => $actualidad],
                             //['label' => 'Carrusel', 'iconStyle' => 'far' , 'url' => ['/carrusel/index'], 'visible' => Yii::$app->user->can('gestionar-noticia')],
                             ['label' => 'Mapa', 'iconStyle' => 'far' , 'url' => "https://www.google.com/maps/d/edit?hl=es&mid=1UQQMw-m_DPTKOJPfYTs3ZkFBobP39SBE&ll=22.21037405686551%2C-80.85830277278139&z=8", 'visible' => Yii::$app->user->can('gestionar-noticia')],
-                            ['label' => 'Paradigma', 'iconStyle' => 'far' , 'url' => ['/paradigma/view', 'id'=>1], 'visible' => Yii::$app->user->can('gestionar-noticia'), 'badge' => $revista],
-                            ['label' => 'Quienes Somos', 'iconStyle' => 'far' , 'url' => ['/quienes/view', 'id'=>1], 'visible' => Yii::$app->user->can('gestionar-noticia')],
+                            [
+                                'label' => 'Paradigma',
+                                'iconStyle' => 'far',
+                                'items' => [
+                                    ['label' => 'Paradigma Inicio', 'icon' => 'dot-circle', 'iconStyle' => 'far' , 'url' => ['/paradigma/view', 'id'=>1], 'visible' => Yii::$app->user->can('gestionar-noticia')],
+                                    ['label' => 'Catálogo', 'icon' => 'dot-circle', 'iconStyle' => 'far' , 'url' => ['/revista/index'], 'visible' => Yii::$app->user->can('gestionar-noticia'), 'badge' => $revista],
+                                ]
+                            ],
+                            [
+                                'label' => 'Quiénes Somos',
+                                'iconStyle' => 'far',
+                                'items' => [
+                                    ['label' => 'Quiénes Inicio', 'icon' => 'dot-circle', 'iconStyle' => 'far' , 'url' => ['/quienes/view', 'id'=>1], 'visible' => Yii::$app->user->can('gestionar-noticia')],
+                                    ['label' => 'Detalles', 'icon' => 'dot-circle', 'iconStyle' => 'far' , 'url' => ['/quienes-detalle/view', 'id'=>1], 'visible' => Yii::$app->user->can('gestionar-noticia')],
+                                ]
+                            ],
                             ['label' => 'Contacto', 'iconStyle' => 'far' , 'url' => ['/contacto/view', 'id'=>1], 'visible' => Yii::$app->user->can('gestionar-noticia')],
                             ['label' => 'Equipo de Trabajo', 'iconStyle' => 'far' , 'url' => ['/trabajador/index'], 'visible' => Yii::$app->user->can('gestionar-noticia')],
 

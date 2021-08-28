@@ -70,7 +70,7 @@ class ArticuloArchivoController extends Controller
         $model = new ArticuloArchivo();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id_articulo_archivo]);
+            return $this->redirect(['index']);
         }
 
         $query = new \yii\db\Query;

@@ -156,136 +156,123 @@ if (!Yii::$app->user->can('gestionar-noticia'))
     </div>
 
     <?php \kartik\form\ActiveForm::end(); ?>
+</div>
 
 
-    <?php
-    $searchModel = new backend\models\Archivo\ArchivoSearch();
-    $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-    ?>
+<?php
+$searchModel = new backend\models\Archivo\ArchivoSearch();
+$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+$dataProvider->pagination = ['pageSize' => 4];
+?>
 
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'id' => 'archivo-index-update',
-        'pjax' => true,
-        'pjaxSettings' => [
-            'neverTimeout' => true,
+<?= GridView::widget([
+    'dataProvider' => $dataProvider,
+    'filterModel' => $searchModel,
+
+    'id' => 'archivo-index-update',
+    'pjax' => true,
+    'pjaxSettings' => [
+        'neverTimeout' => true,
+
+    ],
+
+    'columns' => [
+
+
+        //'id_archivo',
+        [
+            'attribute' => 'revisado',                     // Revisado
+            'format' => 'raw',
+            'value' => function ($model) {
+                if ($model->revisado != '0') {
+                    return 'Sí';
+                } else {
+                    return 'No';
+                }
+            },
+            'headerOptions' => ['class' => 'col-md-1'],
+
+            'filter' => array("1" => "Sí", "0" => "No"),
+            'filterInputOptions' => array('class' => 'form-control', 'id' => null, 'prompt' => 'Todos'),
 
         ],
-        'toolbar' => [
-            'options' => ['class' => 'pull-left'],
-            [
-                'content' =>
-                    Html::a('<span class="glyphicon glyphicon-plus"></span>', ['create'], [
-                        'data-pjax' => 0,
-                        'class' => 'btn btn-success',
-                        "title" => "Agregar"
-                    ]) . ' ' .
-                    Html::a('<i class="glyphicon glyphicon-repeat"></i>', 'index.php?r=archivo%2Findex', ['class' => 'btn btn-default', 'title' => 'Reiniciar']),
-            ],
-            '{toggleData}',
-            '{export}',
+
+        [
+            'attribute' => 'titulo_archivo',                     // Titulo
+            'format' => 'raw',
+            'headerOptions' => ['class' => 'col-md-2']
         ],
-        'columns' => [
+        [
+            'attribute' => 'tipo_archivo',
+            'value' => 'tipoArchivo.tipo_archivo',
+            'format' => 'raw',
+            'headerOptions' => ['class' => 'col-md-2'],
+            'filter' => \yii\helpers\ArrayHelper::map(\backend\models\Archivo\TipoArchivo::find()->asArray()->all(), 'id_tipo_archivo', 'tipo_archivo'),
+            'filterInputOptions' => array('class' => 'form-control', 'id' => null, 'prompt' => 'Todos'),
+        ],
+        [
+            'attribute' => 'autor_archivo',                     // autor
+            'format' => 'raw',
+            'headerOptions' => ['class' => 'col-md-2']
+        ],
 
-
-            //'id_archivo',
-            [
-                'attribute' => 'revisado',                     // Revisado
-                'format' => 'raw',
-                'value' => function ($model) {
-                    if ($model->revisado != '0') {
-                        return 'Sí';
-                    } else {
-                        return 'No';
-                    }
-                },
-                'headerOptions' => ['class' => 'col-md-1'],
-
-                'filter' => array( "1" => "Sí", "0" => "No"),
-                'filterInputOptions' => array('class' => 'form-control', 'id' => null, 'prompt' => 'Todos'),
-
-            ],
-
-            [
-                'attribute' => 'titulo_archivo',                     // Titulo
-                'format' => 'raw',
-                'headerOptions' => ['class' => 'col-md-2']
-            ],
-            [
-                'attribute' => 'tipo_archivo',
-                'value' => 'tipoArchivo.tipo_archivo',
-                'format' => 'raw',
-                'headerOptions' => ['class' => 'col-md-2'],
-                'filter' => \yii\helpers\ArrayHelper::map(\backend\models\Archivo\TipoArchivo::find()->asArray()->all(), 'id_tipo_archivo', 'tipo_archivo'),
-                'filterInputOptions' => array('class' => 'form-control', 'id' => null, 'prompt' => 'Todos'),
+        [
+            'attribute' => 'etiqueta',                     // etiqueta
+            'format' => 'raw',
+            'headerOptions' => ['class' => 'col-md-2']
+        ],
+        [
+            'attribute' => 'fecha',
+            'value' => 'fecha',
+            'format' => 'raw',
+            'headerOptions' => ['class' => 'col-md-1'],
+            'filter' => \dosamigos\datepicker\DatePicker::widget([
+                'model' => $searchModel,
+                'attribute' => 'fecha', 'language' => 'es',
+                'clientOptions' => [
+                    'autoclose' => true,
+                    'format' => 'yyyy-mm-dd', 'endDate' => date('Y-m-d')
                 ],
-            [
-                'attribute' => 'autor_archivo',                     // autor
-                'format' => 'raw',
-                'headerOptions' => ['class' => 'col-md-2']
-            ],
+            ]),
 
-            [
-                'attribute' => 'etiqueta',                     // etiqueta
-                'format' => 'raw',
-                'headerOptions' => ['class' => 'col-md-2']
-            ],
-            [
-                'attribute' => 'fecha',
-                'value' => 'fecha',
-                'format' => 'raw',
-                'headerOptions' => ['class' => 'col-md-1'],
-                'filter' => \dosamigos\datepicker\DatePicker::widget([
-                    'model' => $searchModel,
-                    'attribute' => 'fecha','language' => 'es',
-                    'clientOptions' => [
-                        'autoclose' => true,
-                        'format' => 'yyyy-mm-dd', 'endDate' => date('Y-m-d')
-                    ],
-                ]),
+        ],
+        [
+            'attribute' => 'etapa',                     // etapa
+            'format' => 'raw',
+            'headerOptions' => array('class' => 'col-md-2'),
+            'filter' => array("Infancia" => "Infancia", "Adolescencia" => "Adolescencia", "Adulto Joven" => "Adulto Joven", "Adulto" => "Adulto", "Posterior a 1967" => "Posterior a 1967", "No definida" => "No definida"),
+            'filterInputOptions' => array('class' => 'form-control', 'id' => null, 'prompt' => 'Todos'),
+        ],
 
-            ],
-            [
-                'attribute' => 'etapa',                     // etapa
-                'format' => 'raw',
-                'headerOptions' => array('class' => 'col-md-2'),
-                'filter' => array("Infancia" => "Infancia", "Adolescencia" => "Adolescencia", "Adulto Joven" => "Adulto Joven", "Adulto" => "Adulto", "Posterior a 1967" => "Posterior a 1967", "No definida" => "No definida"),
-                'filterInputOptions' => array('class' => 'form-control', 'id' => null, 'prompt' => 'Todos'),
-            ],
-
-            [
-                'attribute' => 'url_archivo', 'filter' => false,             // Url del Archivo
-                'format' => 'raw',
-                'headerOptions' => ['class' => 'col-md-2'],
-                'value' => function ($model) {
-                    if ($model->url_archivo != ' ' && $model->url_archivo != NULL) { // verifica si fue importada o no
-                        if ($model->tipo_archivo == 1) {
-                            return Html::img(
-                                '../../frontend/web/' . $model->url_archivo,
-                                ['alt' => $model->url_archivo, 'height' => 100]
-                            );
-                        } else if ($model->tipo_archivo == 3) {
-                            return '<video  controls autoplay style="height: 100px">
+        [
+            'attribute' => 'url_archivo', 'filter' => false,             // Url del Archivo
+            'format' => 'raw',
+            'headerOptions' => ['class' => 'col-md-2'],
+            'value' => function ($model) {
+                if ($model->url_archivo != ' ' && $model->url_archivo != NULL) { // verifica si fue importada o no
+                    if ($model->tipo_archivo == 1) {
+                        return Html::img(
+                            '../../frontend/web/' . $model->url_archivo,
+                            ['alt' => $model->url_archivo, 'height' => 100]
+                        );
+                    } else if ($model->tipo_archivo == 3) {
+                        return '<video  controls autoplay style="height: 100px">
                     <source src="../../frontend/web/' . $model->url_archivo . '" type="video/mp4">
                     Your browser does not support the video tag.
                 </video>';
-                        } else if ($model->tipo_archivo == 2) {
-                            return '<audio  controls style="width: 250px ">
+                    } else if ($model->tipo_archivo == 2) {
+                        return '<audio  controls style="width: 250px ">
                     <source src="../../frontend/web/' . $model->url_archivo . '" >
                     Your browser does not support the video tag.
                     </audio>';
-                        } else {
-                            return Html::label('_');
-                            // si no tiene asignada una portada, solo muestra un guion bajo
-                        }
+                    } else {
+                        return Html::label('_');
+                        // si no tiene asignada una portada, solo muestra un guion bajo
                     }
-                },
-            ],
-
-
+                }
+            },
         ],
-    ]); ?>
 
 
-</div>
+    ],
+]); ?>

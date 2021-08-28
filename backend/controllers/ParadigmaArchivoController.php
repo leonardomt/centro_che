@@ -73,7 +73,7 @@ class ParadigmaArchivoController extends Controller
 
         if ($model->load(Yii::$app->request->post()) ) {
 
-            $imageName = rand(0, 99999);;
+            $imageName = rand(0, 99999);
             $model->file = UploadedFile::getInstance($model, 'file');
             $model->file->saveAs('../../frontend/web/paradigma/' . $imageName . '.' . $model->file->extension);
 
@@ -101,7 +101,7 @@ class ParadigmaArchivoController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['index']);
         }
 
         return $this->render('update', [

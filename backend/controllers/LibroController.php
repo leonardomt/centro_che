@@ -117,7 +117,7 @@ class LibroController extends Controller
                     }
                     if ($flag) {
                         $transaction->commit();
-                        return $this->redirect(['view', 'id' => $model->id]);
+                        return $this->redirect(['index']);
                     }
                 } catch (Exception $e) {
                     $transaction->rollBack();
@@ -190,7 +190,7 @@ class LibroController extends Controller
                     }
                     if ($flag) {
                         $transaction->commit();
-                        return $this->redirect(['view', 'id' => $model->id]);
+                        return $this->redirect(['index']);
                     }
                 } catch (Exception $e) {
                     $transaction->rollBack();

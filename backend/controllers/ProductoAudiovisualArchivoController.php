@@ -67,7 +67,7 @@ class ProductoAudiovisualArchivoController extends Controller
         $model = new ProductoAudiovisualArchivo();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id_producto_audiovisual_archivo]);
+            return $this->redirect(['index']);
         }
 
         return $this->render('create', [
@@ -87,7 +87,7 @@ class ProductoAudiovisualArchivoController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id_producto_audiovisual_archivo]);
+            return $this->redirect(['index']);
         }
 
         return $this->render('update', [

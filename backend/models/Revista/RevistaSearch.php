@@ -17,8 +17,8 @@ class RevistaSearch extends Revista
     public function rules()
     {
         return [
-            [['id_revista', 'revisado', 'publico', 'numero'], 'integer'],
-            [['titulo', 'descripcion', 'enlace', 'fecha', 'volumen'], 'safe'],
+            [['id_revista', 'revisado', 'publico', 'numero', 'mes', 'anno'], 'integer'],
+            [['titulo', 'descripcion', 'enlace', 'volumen'], 'safe'],
         ];
     }
 
@@ -61,8 +61,9 @@ class RevistaSearch extends Revista
             'id_revista' => $this->id_revista,
             'revisado' => $this->revisado,
             'publico' => $this->publico,
-            'fecha' => $this->fecha,
             'numero' => $this->numero,
+            'anno' => $this->anno,
+            'mes' => $this->mes,
         ]);
 
         $query->andFilterWhere(['like', 'titulo', $this->titulo])

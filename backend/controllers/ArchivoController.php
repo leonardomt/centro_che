@@ -138,7 +138,7 @@ class ArchivoController extends Controller
                 };
                 $model->save();
 
-                return $this->redirect(['view', 'id' => $model->id_archivo]);
+                return $this->redirect(['index']);
             };
         }
 
@@ -182,7 +182,7 @@ class ArchivoController extends Controller
                 $model->etapa = "No definida";
             }
             if ($model->save()) {
-                return $this->redirect(['view', 'id' => $model->id_archivo]);
+                return $this->redirect(['index']);
             }
         }
 

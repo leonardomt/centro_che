@@ -33,20 +33,20 @@ if (!Yii::$app->user->can('gestionar-revista'))
     <?php $form = \kartik\form\ActiveForm::begin(['id' => 'dynamic-form']); ?>
     <div class="row">
 
-        <div class="col-lg-4 text-lg-left">
-            <?= $form->field($model, 'fecha')->widget(\dosamigos\datepicker\DatePicker::className(), [
-                'inline' => false, 'language' => 'es',
-                'clientOptions' => [
-                    'autoclose' => true,
-                    'format' => 'yyyy-m-d',
-                    'endDate' => date('Y-m-d'),
-                ]
-            ]) ?>
+        <div class="col-lg-6 text-lg-left">
+            <div class="row">
+                <div class="col-md-6">
+                    <?= $form->field($model, 'anno')->dropDownList($model->getYearsList()); ?>
+                </div>
+                <div class="col-md-6">
+                    <?= $form->field($model, 'mes')->dropDownList(['1' => 'Enero', '2' => 'Febrero', '3' => 'Marzo', '4' => 'Abril', '5' => 'Mayo', '6' => 'Junio', '7' => 'Julio', '8' => 'Agosto', '9' => 'Septiembre', '10' => 'Octubre', '11' => 'Noviembre', '12' => 'Diciembre']) ?>
+                </div>
+            </div>
         </div>
-        <div class="col-lg-4 text-lg-left">
+        <div class="col-lg-3 text-lg-left">
             <?= $form->field($model, 'volumen')->textInput(['maxlength' => true]) ?>
         </div>
-        <div class="col-lg-4 text-lg-left">
+        <div class="col-lg-3 text-lg-left">
             <?= $form->field($model, 'numero')->textInput(['maxlength' => true]) ?>
         </div>
     </div>
@@ -54,14 +54,11 @@ if (!Yii::$app->user->can('gestionar-revista'))
 
     <?= $form->field($model, 'titulo')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'descripcion')->textarea(['rows' => 2,'style' => 'resize:none']) ?>
+    <?= $form->field($model, 'descripcion')->textarea(['rows' => 2, 'style' => 'resize:none']) ?>
 
     <?= $form->field($model, 'enlace')->textInput(['maxlength' => true]) ?>
 
 
-
-
-    
     <div class="panel panel-default">
         <div class="panel-heading">
             <h4><i class="glyphicon glyphicon-envelope"></i> Archivos</h4>
@@ -97,7 +94,7 @@ if (!Yii::$app->user->can('gestionar-revista'))
 
                             <h3 class="panel-title pull-left"><?= $titulo ?></h3>
                             <div class="pull-right">
-        
+
                             </div>
                             <div class="clearfix"></div>
                         </div>
@@ -118,10 +115,9 @@ if (!Yii::$app->user->can('gestionar-revista'))
                             ) ?>
 
 
-
                         </div>
                     </div>
-                <?php $x++;
+                    <?php $x++;
                 endforeach; ?>
             </div>
 
@@ -148,7 +144,7 @@ if (!Yii::$app->user->can('gestionar-revista'))
         </div>
         <div class="col-lg-1">
             <div class="form-group">
-                <?= Html::submitButton($modelArchivo->isNewRecord ? '<i class="fa fa-floppy-o" aria-hidden="true"></i>' : '<i class="fa fa-floppy-o" aria-hidden="true"></i>', ['class' => 'btn btn-success', 'style'=>"width: 40px; height: 40px", 'title' => 'Guardar']) ?>
+                <?= Html::submitButton($modelArchivo->isNewRecord ? '<i class="fa fa-floppy-o" aria-hidden="true"></i>' : '<i class="fa fa-floppy-o" aria-hidden="true"></i>', ['class' => 'btn btn-success', 'style' => "width: 40px; height: 40px", 'title' => 'Guardar']) ?>
             </div>
         </div>
 
@@ -201,7 +197,7 @@ if (!Yii::$app->user->can('gestionar-revista'))
                 },
                 'headerOptions' => ['class' => 'col-md-1'],
 
-                'filter' => array( "1" => "Sí", "0" => "No"),
+                'filter' => array("1" => "Sí", "0" => "No"),
                 'filterInputOptions' => array('class' => 'form-control', 'id' => null, 'prompt' => 'Todos'),
 
             ],
@@ -237,7 +233,7 @@ if (!Yii::$app->user->can('gestionar-revista'))
                 'headerOptions' => ['class' => 'col-md-1'],
                 'filter' => \dosamigos\datepicker\DatePicker::widget([
                     'model' => $searchModel,
-                    'attribute' => 'fecha','language' => 'es',
+                    'attribute' => 'fecha', 'language' => 'es',
                     'clientOptions' => [
                         'autoclose' => true,
                         'format' => 'yyyy-mm-dd', 'endDate' => date('Y-m-d')

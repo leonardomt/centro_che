@@ -68,7 +68,7 @@ class HomenajeController extends Controller
         $model = new Homenaje();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id_homenaje]);
+            return $this->redirect(['index']);
         }
 
         return $this->render('create', [
@@ -88,7 +88,7 @@ class HomenajeController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id_homenaje]);
+            return $this->redirect(['index']);
         }
 
         return $this->render('update', [

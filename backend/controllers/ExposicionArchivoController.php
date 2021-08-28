@@ -67,7 +67,7 @@ class ExposicionArchivoController extends Controller
         $model = new ExposicionArchivo();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id_exposicion_archivo]);
+            return $this->redirect(['index']);
         }
 
         return $this->render('create', [
@@ -87,7 +87,7 @@ class ExposicionArchivoController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id_exposicion_archivo]);
+            return $this->redirect(['index']);
         }
 
         return $this->render('update', [

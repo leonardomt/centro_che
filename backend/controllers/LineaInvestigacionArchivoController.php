@@ -67,7 +67,7 @@ class LineaInvestigacionArchivoController extends Controller
         $model = new LineaInvestigacionArchivo();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id_linea_investigacion_archivo]);
+            return $this->redirect(['index']);
         }
 
         return $this->render('create', [
@@ -87,7 +87,7 @@ class LineaInvestigacionArchivoController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id_linea_investigacion_archivo]);
+            return $this->redirect(['index']);
         }
 
         return $this->render('update', [

@@ -74,7 +74,7 @@ class GestionDocumentalController extends Controller
         $modelArchivo = new GestionDocumentalArchivo();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id_gestion_documental]);
+            return $this->redirect(['index']);
         }
 
         return $this->render('create', [
@@ -95,7 +95,7 @@ class GestionDocumentalController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id_gestion_documental]);
+            return $this->redirect(['index']);
         }
 
         return $this->render('update', [

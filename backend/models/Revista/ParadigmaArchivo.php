@@ -27,7 +27,6 @@ class ParadigmaArchivo extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['file'], 'required'],
             [['url'], 'string'],
             [
                 ['file'], 'file',
@@ -46,7 +45,7 @@ class ParadigmaArchivo extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'url' => '',
+            'url' => 'Imagen',
             'file' => 'Archivo',
         ];
     }

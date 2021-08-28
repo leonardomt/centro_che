@@ -35,62 +35,62 @@ if ( !Yii::$app->user->can('gestionar-noticia'))
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'pjax' => true,
-        'pjaxSettings' => [
-            'neverTimeout' => true,
+        <?= GridView::widget([
+            'dataProvider' => $dataProvider,
+            'filterModel' => $searchModel,
+            'pjax' => true,
+            'pjaxSettings' => [
+                'neverTimeout' => true,
 
-        ],
-        'id'=> 'trabajador-index-update',
-        'columns' => [
+            ],
+            'id'=> 'trabajador-index-update',
+            'columns' => [
 
-            [
-                'attribute' => 'nombre',                     // area
-                'format' => 'raw',
-                'headerOptions' => ['class' => 'col-md-3'],
-            ],
-            [
-                'attribute' => 'cargo',                     // area
-                'format' => 'raw',
-                'headerOptions' => ['class' => 'col-md-2'],
-            ],
-            [
-                'attribute' => 'correo',                     // area
-                'format' => 'raw',
-                'headerOptions' => ['class' => 'col-md-3'],
-            ],
+                [
+                    'attribute' => 'nombre',                     // area
+                    'format' => 'raw',
+                    'headerOptions' => ['class' => 'col-md-3'],
+                ],
+                [
+                    'attribute' => 'cargo',                     // area
+                    'format' => 'raw',
+                    'headerOptions' => ['class' => 'col-md-2'],
+                ],
+                [
+                    'attribute' => 'correo',                     // area
+                    'format' => 'raw',
+                    'headerOptions' => ['class' => 'col-md-3'],
+                ],
 
-            [
-                'attribute' => 'area',                     // area
-                'format' => 'raw',
-                'headerOptions' => ['class' => 'col-md-2'],
-                'filter'=>array('Dirección' => 'Dirección', 'Coordinación Académica' => 'Coordinación Académica', 'Coordinación de Proyectos Alternativos' => 'Coordinación de Proyectos Alternativos'),
-                'filterInputOptions' => array('class' => 'form-control', 'id' => null, 'prompt' => 'Todos'),
-            ],
+                [
+                    'attribute' => 'area',                     // area
+                    'format' => 'raw',
+                    'headerOptions' => ['class' => 'col-md-2'],
+                    'filter'=>array('Dirección' => 'Dirección', 'Coordinación Académica' => 'Coordinación Académica', 'Coordinación de Proyectos Alternativos' => 'Coordinación de Proyectos Alternativos'),
+                    'filterInputOptions' => array('class' => 'form-control', 'id' => null, 'prompt' => 'Todos'),
+                ],
 
-            [
-                'class' => 'kartik\grid\ActionColumn',
-                'template' => '{view}{update}{delete}',
-                'headerOptions' => ['class' => 'col-md-2'],
-                'buttons' => [
-                    'view' => function ($url, $model)
-                    {
-                        return Html::a('<button title="Ver" class="btn btn-success" style="width: 40px ; margin-top: 2px;  margin-left: 2px"><i class="fa fa-eye"></i></button>',$url);
-                    },
-                    'update' => function ($url, $model)
-                    {
-                        return Html::a('<button title="Modificar" class="btn btn-primary" style="width: 40px ; margin-top: 2px;  margin-left: 2px"><i class="fa fa-pencil"></i></button>',$url);
-                    },
-                    'delete' => function ($url, $model)
-                    {
-                        return Html::a('<button title="Eliminar" class="btn btn-danger" style="width: 40px ; margin-top: 2px;  margin-left: 2px"><i class="fa fa-trash"></i></button>',$url, ['data-confirm' => '¿Está seguro que desea eliminar este elemento?', 'data-method' =>'POST']);
-                    }
+                [
+                    'class' => 'kartik\grid\ActionColumn',
+                    'template' => '{view}{update}{delete}',
+                    'headerOptions' => ['class' => 'col-md-2'],
+                    'buttons' => [
+                        'view' => function ($url, $model)
+                        {
+                            return Html::a('<button title="Ver" class="btn btn-success" style="width: 40px ; margin-top: 2px;  margin-left: 2px"><i class="fa fa-eye"></i></button>',$url);
+                        },
+                        'update' => function ($url, $model)
+                        {
+                            return Html::a('<button title="Modificar" class="btn btn-primary" style="width: 40px ; margin-top: 2px;  margin-left: 2px"><i class="fa fa-pencil"></i></button>',$url);
+                        },
+                        'delete' => function ($url, $model)
+                        {
+                            return Html::a('<button title="Eliminar" class="btn btn-danger" style="width: 40px ; margin-top: 2px;  margin-left: 2px"><i class="fa fa-trash"></i></button>',$url, ['data-confirm' => '¿Está seguro que desea eliminar este elemento?', 'data-method' =>'POST']);
+                        }
+                    ],
                 ],
             ],
-        ],
-    ]); ?>
+        ]); ?>
 
 
 </div>

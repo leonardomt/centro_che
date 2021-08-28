@@ -115,7 +115,7 @@ class GaleriaVOController extends Controller
                     }
                     if ($flag) {
                         $transaction->commit();
-                        return $this->redirect(['view', 'id' => $model->id_galeria_vo, 'tipo'=>$tipo]);
+                        return $this->redirect(['index', 'tipo'=>$tipo]);
                     }
                 } catch (Exception $e) {
                     $transaction->rollBack();
@@ -179,7 +179,7 @@ class GaleriaVOController extends Controller
                     }
                     if ($flag) {
                         $transaction->commit();
-                        return $this->redirect(['view', 'id' => $model->id_galeria_vo, 'tipo'=> $tipo]);
+                        return $this->redirect(['index', 'tipo'=> $tipo]);
                     }
                 } catch (Exception $e) {
                     $transaction->rollBack();

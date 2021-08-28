@@ -8,7 +8,7 @@ use yii\bootstrap4\Breadcrumbs;
 /* @var $model backend\models\Quienes\Trabajador */
 
 $this->title = 'Insertar Trabajador';
-$this->params['breadcrumbs'][] = ['label' => 'Equipo de Trabajo', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Quiénes Somos Detallado', 'url' => ['/quienes-detalle/view', 'id' => 1]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="trabajador-create">

@@ -13,7 +13,8 @@ use Yii;
  * @property string $titulo
  * @property string $descripcion
  * @property string $enlace
- * @property string $fecha
+ * @property int $mes
+ * @property int $anno
  * @property string $volumen
  * @property string $numero
  */
@@ -33,9 +34,8 @@ class Revista extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['revisado', 'publico', 'titulo', 'descripcion', 'enlace', 'fecha', 'volumen', 'numero'], 'required'],
-            [['revisado', 'publico'], 'integer'],
-            [['fecha'], 'safe'],
+            [['revisado', 'publico', 'titulo', 'descripcion', 'anno', 'volumen', 'numero'], 'required'],
+            [['revisado', 'publico', 'mes', 'anno'], 'integer'],
             [['descripcion', 'enlace', 'volumen', 'numero'], 'string'],
             [['titulo'], 'string', 'max' => 256],
         ];
@@ -53,9 +53,17 @@ class Revista extends \yii\db\ActiveRecord
             'titulo' => 'Título',
             'descripcion' => 'Descripción',
             'enlace' => 'Enlace',
-            'fecha' => 'Fecha',
-            'numero' => 'Año',
+            'mes' => 'Mes',
+            'anno' => 'Año',
+            'numero' => 'Número',
             'volumen' => 'Volumen',
         ];
+    }
+
+    public function getYearsList() {
+        $currentYear = date('Y');
+        $yearFrom = 2000;
+        $yearsRange = range($yearFrom, $currentYear);
+        return array_combine($yearsRange, $yearsRange);
     }
 }

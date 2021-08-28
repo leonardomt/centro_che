@@ -7,7 +7,7 @@ use yii\widgets\Pjax;
 /* @var $searchModel backend\models\Quienes\QuienesArchivoSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Quienes Archivos';
+$this->title = 'Quiénes Archivos';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="quienes-archivo-index">

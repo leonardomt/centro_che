@@ -32,20 +32,20 @@ $x = 0; ?>
 
     <div class="row">
 
-        <div class="col-lg-4 text-lg-left">
-            <?= $form->field($model, 'fecha')->widget(\dosamigos\datepicker\DatePicker::className(), [
-                'inline' => false, 'language' => 'es',
-                'clientOptions' => [
-                    'autoclose' => true,
-                    'format' => 'yyyy-m-d',
-                    'endDate' => date('Y-m-d'),
-                ]
-            ]) ?>
+        <div class="col-lg-6 text-lg-left">
+            <div class="row">
+                <div class="col-md-6">
+                    <?= $form->field($model, 'anno')->dropDownList($model->getYearsList()); ?>
+                </div>
+                <div class="col-md-6">
+                    <?= $form->field($model, 'mes')->dropDownList(['1' => 'Enero', '2' => 'Febrero', '3' => 'Marzo', '4' => 'Abril', '5' => 'Mayo', '6' => 'Junio', '7' => 'Julio', '8' => 'Agosto', '9' => 'Septiembre', '10' => 'Octubre', '11' => 'Noviembre', '12' => 'Diciembre']) ?>
+                </div>
+            </div>
         </div>
-        <div class="col-lg-4 text-lg-left">
+        <div class="col-lg-3 text-lg-left">
             <?= $form->field($model, 'volumen')->textInput(['maxlength' => true]) ?>
         </div>
-        <div class="col-lg-4 text-lg-left">
+        <div class="col-lg-3 text-lg-left">
             <?= $form->field($model, 'numero')->textInput(['maxlength' => true]) ?>
         </div>
     </div>

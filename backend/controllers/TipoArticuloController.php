@@ -67,7 +67,7 @@ class TipoArticuloController extends Controller
         $model = new TipoArticulo();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id_tipo_articulo]);
+            return $this->redirect(['index']);
         }
 
         return $this->render('create', [
@@ -87,7 +87,7 @@ class TipoArticuloController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id_tipo_articulo]);
+            return $this->redirect(['index']);
         }
 
         return $this->render('update', [

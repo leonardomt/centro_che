@@ -67,7 +67,7 @@ class TrabajadorController extends Controller
         $model = new Trabajador();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['index']);
+            return $this->redirect(['/quienes-detalle/view', 'id'=>1]);
         }
 
         return $this->render('create', [
@@ -87,7 +87,7 @@ class TrabajadorController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['index']);
+            return $this->redirect(['/quienes-detalle/view', 'id'=>1]);
         }
 
         return $this->render('update', [
@@ -106,7 +106,7 @@ class TrabajadorController extends Controller
     {
         $this->findModel($id)->delete();
 
-        return $this->redirect(['index']);
+        return $this->redirect(['/quienes-detalle/view', 'id'=>1]);
     }
 
     /**

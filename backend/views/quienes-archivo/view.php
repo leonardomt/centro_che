@@ -7,7 +7,7 @@ use yii\widgets\DetailView;
 /* @var $model backend\models\Quienes\QuienesArchivo */
 
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Quienes Archivos', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Quiénes Archivos', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>

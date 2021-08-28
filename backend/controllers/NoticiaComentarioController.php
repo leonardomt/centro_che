@@ -67,7 +67,7 @@ class NoticiaComentarioController extends Controller
         $model = new NoticiaComentario();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id_noticia_comentario]);
+            return $this->redirect(['index']);
         }
 
         return $this->render('create', [
@@ -87,7 +87,7 @@ class NoticiaComentarioController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id_noticia_comentario]);
+            return $this->redirect(['index']);
         }
 
         return $this->render('update', [
