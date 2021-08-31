@@ -28,7 +28,7 @@ if ( Yii::$app->user->isGuest )
         <?= Html::a('Create CorrespondenciaArchivo', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
-    <?php Pjax::begin(); ?>
+
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <?= GridView::widget([
@@ -59,6 +59,5 @@ if ( Yii::$app->user->isGuest )
         ],
     ]); ?>
 
-    <?php Pjax::end(); ?>
 
 </div>

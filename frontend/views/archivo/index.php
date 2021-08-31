@@ -14,71 +14,430 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
 $archivos = new Archivo();
-$archivos= Archivo::find()->all();
+$archivos = Archivo::find()->all();
 ?>
-<link rel="stylesheet" href="css/templatemo-video-catalog.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<style>
 
+    img {
+        max-width: 100%;
+        height: auto;
+    }
+
+    ul li {
+        list-style: none
+    }
+
+    a, a:hover {
+        text-decoration: none;
+        box-shadow: none;
+        outline: none;
+
+    }
+
+    h1 {
+        text-align: center;
+        margin: 0px 0;
+        color: #fff;
+    }
+
+    .nav-tabs .nav-link.active,
+    .nav-tabs .nav-item.show .nav-link {
+        color: #828735;
+        background-color: #828735;
+        border-color: #828735 #828735 #828735;
+    }
+
+</style>
 <h1>Galería</h1>
 <!-- Grid row -->
 <br>
-<div class="gallery" id="gallery">
-    <div id="mdb-lightbox-ui"></div>
 
-    <div class="mdb-lightbox no-margin">
-    <!-- Grid column -->
-    <?php
-        $i=0;
-        $j=1;
-    ?>
-
-    <?php foreach($archivos as $arc): ?>
-        <?php
-        if ($i%2){
-            $j=2;}
-        else {$j=1;};
-        ?>
-        <figure class="">
-        <div class="mb-3 pics animation all <?=$j;?>">
-            <a href="<?php echo Yii::$app->homeUrl?>?r=archivo%2Fview&id=<?=$arc->id_archivo?>"  data-size="1600x1067">
-
-                <?php if($arc->tipo_archivo  == 3):?>
-                    <video  controls autoplay>
-                        <source src="<?=$arc->url_archivo?>" type="video/mp4">
-                        Your browser does not support the video tag.
-                    </video>
-                <?php endif; if ($arc->tipo_archivo  == 1 ):?>
-                <img alt="picture" class="img-fluid img-fluid" src="<?=$arc->url_archivo?>">
-                <?php endif;  if ($arc->tipo_archivo  == 2 ):?>
-
-                <audio controls>
-                    <source src="../../frontend/web/<?=$arc->url_archivo?>">
-                    Your browser does not support the <code>audio</code> element.
-                </audio>
-                <?php endif; ?>
-            </a>
-        </div>
-        </figure>
-    <?php $i++;?>
-    <?php endforeach; ?>
-
-    </div>
-</div>
-<br><br><br><br><br>
-<hr class="page_separator"/>
 <br><br>
 
 
+<!------ Include the above in your HEAD tag ---------->
+<!-- Nav tabs -->
+
+<div class=" col-md-10 offset-md-1">
+    <ul class="nav nav-tabs "  style="border-bottom: 3px solid #828735;">
+        <li class="nav-item" style="width: 20%">
+            <a class="nav-link active" style="color: black;" data-toggle="tab" href="#home">Infancia</a>
+        </li>
+        <li class="nav-item" style="width: 20%">
+            <a class="nav-link" data-toggle="tab" style="color: black;" href="#menu1">Adolescencia</a>
+        </li>
+        <li class="nav-item" style="width: 20%">
+            <a class="nav-link" data-toggle="tab" style="color: black;" href="#menu2">Adulto Joven</a>
+        </li>
+        <li class="nav-item" style="width: 20%">
+            <a class="nav-link" data-toggle="tab" style="color: black;" href="#menu3">Adulto</a>
+        </li>
+        <li class="nav-item" style="width: 20%">
+            <a class="nav-link" data-toggle="tab" style="color: black;" href="#menu4">Posterior a 1967</a>
+        </li>
+    </ul>
+
+    <!-- Tab panes -->
+
+    <div class="tab-content">
+        <div class="tab-pane container active" style="padding: 0px" id="home">
+            <div class="hls_sol">
+                <ul>
+                    <li>
+                        <div class="img-gallery">
+                            <img style="" src="../web/img/2.jpg"
+                                 alt="">
+                        </div>
+                        <div class="hls_sol_data">
+                            <div class="hls_data">
+                                <a href="../web/img/6.jpg" target="_blank" class="hls_title">Some quick example text
+                                    to build on the card title and make up the bulk of the
+                                    card's content. </a>
+                                <a href="..." target="_blank"> Ver más</a>
+                            </div>
+                        </div>
+
+                    </li>
+                    <li>
+                        <div class="img-gallery">
+                            <img src="../web/img/4.jpg"
+                                 alt="">
+                        </div>
+                        <div class="hls_sol_data">
+                            <h3>Street</h3>
+                            <div class="hls_data">
+                                <a href="../web/img/2.jpg" target="_blank" class="hls_title">Ravi On 500PX</a>
+                                <a href="..." class="btn btn-pro" target="_blank"> Facebook</a>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="img-gallery">
+                            <img src="../web/img/6.jpg"
+                                 alt="">
+                        </div>
+                        <div class="hls_sol_data">
+
+                            <div class="hls_data">
+                                <a href="https://500px.com/ravi7284007" target="_blank" class="hls_title">Descripción de
+                                    Ejemplo para probar como se vería la descripción</a>
+                                <a href="..." target="_blank"> Ver más</a>
+                            </div>
+                        </div>
+                    </li>
+
+
+                    <li>
+                        <div class="img-gallery">
+                            <img src="../web/img/1.jpg"
+                                 alt="">
+                        </div>
+                        <div class="hls_sol_data">
+                            <h3>Casual</h3>
+                            <div class="hls_data">
+                                <a href="../web/img/quienessomos/3.jpg" target="_blank" class="hls_title">Ravi On
+                                    500PX</a>
+                                <a href="..." class="btn btn-pro" target="_blank"> Facebook</a>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="img-gallery">
+                            <img src="../web/img/3.jpg"
+                                 alt="">
+                        </div>
+                        <div class="hls_sol_data">
+                            <h3>Street</h3>
+                            <div class="hls_data">
+                                <a href="../web/img/quienessomos/3333.jpg" target="_blank" class="hls_title">Ravi On
+                                    500PX</a>
+                                <a href="..." class="btn btn-pro" target="_blank"> Facebook</a>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="img-gallery">
+                            <img src="../web/img/5.jpg"
+                                 alt="">
+                        </div>
+                        <div class="hls_sol_data">
+                            <h3>Dapper</h3>
+                            <div class="hls_data">
+                                <a href="https://500px.com/ravi7284007" target="_blank" class="hls_title">Ravi On
+                                    500PX</a>
+                                <a href="https://www.facebook.com/ravi7284007" class="btn btn-pro" target="_blank">
+                                    Facebook</a>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="img-gallery">
+                            <img src="../web/img/2.jpg"
+                                 alt="">
+                        </div>
+                        <div class="hls_sol_data">
+                            <h3>Casual</h3>
+                            <div class="hls_data">
+                                <a href="../web/img/quienessomos/3333.jpg" target="_blank" class="hls_title">Ravi On
+                                    500PX</a>
+                                <a href="..." class="btn btn-pro" target="_blank"> Facebook</a>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="img-gallery">
+                            <img src="../web/img/3.jpg"
+                                 alt="">
+                        </div>
+                        <div class="hls_sol_data">
+                            <h3>Street</h3>
+                            <div class="hls_data">
+                                <a href="../web/img/quienessomos/3333.jpg" target="_blank" class="hls_title">Ravi On
+                                    500PX</a>
+                                <a href="..." class="btn btn-pro" target="_blank"> Facebook</a>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="img-gallery">
+                            <img src="../web/img/4.jpg"
+                                 alt="">
+                        </div>
+                        <div class="hls_sol_data">
+                            <h3>Dapper</h3>
+                            <div class="hls_data">
+                                <a href="https://500px.com/ravi7284007" target="_blank" class="hls_title">Ravi On
+                                    500PX</a>
+                                <a href="https://www.facebook.com/ravi7284007" class="btn btn-pro" target="_blank">
+                                    Facebook</a>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="img-gallery">
+                            <img src="../web/img/6.jpg"
+                                 alt="">
+                        </div>
+                        <div class="hls_sol_data">
+                            <h3>Casual</h3>
+                            <div class="hls_data">
+                                <a href="../web/img/quienessomos/3333.jpg" target="_blank" class="hls_title">Ravi On
+                                    500PX</a>
+                                <a href="..." class="btn btn-pro" target="_blank"> Facebook</a>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="img-gallery">
+                            <img src="../web/img/2.jpg"
+                                 alt="">
+                        </div>
+                        <div class="hls_sol_data">
+                            <h3>Street</h3>
+                            <div class="hls_data">
+                                <a href="../web/img/quienessomos/3333.jpg" target="_blank" class="hls_title">Ravi On
+                                    500PX</a>
+                                <a href="..." class="btn btn-pro" target="_blank"> Facebook</a>
+                            </div>
+                        </div>
+                    </li>
+
+
+                </ul>
+
+            </div>
+        </div>
+        <div class="tab-pane container fade" id="menu1">
+            <div class="hls_sol">
+                <ul>
+                    <li>
+                        <div class="img-gallery">
+                            <img style="" src="../web/img/4.jpg"
+                                 alt="">
+                        </div>
+                        <div class="hls_sol_data">
+                            <div class="hls_data">
+                                <a href="../web/img/1.jpg" target="_blank" class="hls_title">Some quick example text
+                                    to build on the card title and make up the bulk of the
+                                    card's content. </a>
+                                <a href="..." target="_blank"> Ver más</a>
+                            </div>
+                        </div>
+
+                    </li>
+                    <li>
+                        <div class="img-gallery">
+                            <img src="../web/img/1.jpg"
+                                 alt="">
+                        </div>
+                        <div class="hls_sol_data">
+                            <h3>Street</h3>
+                            <div class="hls_data">
+                                <a href="../web/img/2.jpg" target="_blank" class="hls_title">Ravi On 500PX</a>
+                                <a href="..." class="btn btn-pro" target="_blank"> Facebook</a>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="img-gallery">
+                            <img src="../web/img/3.jpg"
+                                 alt="">
+                        </div>
+                        <div class="hls_sol_data">
+
+                            <div class="hls_data">
+                                <a href="https://500px.com/ravi7284007" target="_blank" class="hls_title">Descripción de
+                                    Ejemplo para probar como se vería la descripción</a>
+                                <a href="..." target="_blank"> Ver más</a>
+                            </div>
+                        </div>
+                    </li>
+
+
+                    <li>
+                        <div class="img-gallery">
+                            <img src="../web/img/5.jpg"
+                                 alt="">
+                        </div>
+                        <div class="hls_sol_data">
+                            <h3>Casual</h3>
+                            <div class="hls_data">
+                                <a href="../web/img/quienessomos/3333.jpg" target="_blank" class="hls_title">Ravi On
+                                    500PX</a>
+                                <a href="..." class="btn btn-pro" target="_blank"> Facebook</a>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="img-gallery">
+                            <img src="../web/img/1.jpg"
+                                 alt="">
+                        </div>
+                        <div class="hls_sol_data">
+                            <h3>Street</h3>
+                            <div class="hls_data">
+                                <a href="../web/img/quienessomos/3333.jpg" target="_blank" class="hls_title">Ravi On
+                                    500PX</a>
+                                <a href="..." class="btn btn-pro" target="_blank"> Facebook</a>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="img-gallery">
+                            <img src="../web/img/6.jpg"
+                                 alt="">
+                        </div>
+                        <div class="hls_sol_data">
+                            <h3>Dapper</h3>
+                            <div class="hls_data">
+                                <a href="https://500px.com/ravi7284007" target="_blank" class="hls_title">Ravi On
+                                    500PX</a>
+                                <a href="https://www.facebook.com/ravi7284007" class="btn btn-pro" target="_blank">
+                                    Facebook</a>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="img-gallery">
+                            <img src="../web/img/2.jpg"
+                                 alt="">
+                        </div>
+                        <div class="hls_sol_data">
+                            <h3>Casual</h3>
+                            <div class="hls_data">
+                                <a href="../web/img/quienessomos/3333.jpg" target="_blank" class="hls_title">Ravi On
+                                    500PX</a>
+                                <a href="..." class="btn btn-pro" target="_blank"> Facebook</a>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="img-gallery">
+                            <img src="../web/img/3.jpg"
+                                 alt="">
+                        </div>
+                        <div class="hls_sol_data">
+                            <h3>Street</h3>
+                            <div class="hls_data">
+                                <a href="../web/img/quienessomos/3333.jpg" target="_blank" class="hls_title">Ravi On
+                                    500PX</a>
+                                <a href="..." class="btn btn-pro" target="_blank"> Facebook</a>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="img-gallery">
+                            <img src="../web/img/4.jpg"
+                                 alt="">
+                        </div>
+                        <div class="hls_sol_data">
+                            <h3>Dapper</h3>
+                            <div class="hls_data">
+                                <a href="https://500px.com/ravi7284007" target="_blank" class="hls_title">Ravi On
+                                    500PX</a>
+                                <a href="https://www.facebook.com/ravi7284007" class="btn btn-pro" target="_blank">
+                                    Facebook</a>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="img-gallery">
+                            <img src="../web/img/6.jpg"
+                                 alt="">
+                        </div>
+                        <div class="hls_sol_data">
+                            <h3>Casual</h3>
+                            <div class="hls_data">
+                                <a href="../web/img/quienessomos/3333.jpg" target="_blank" class="hls_title">Ravi On
+                                    500PX</a>
+                                <a href="..." class="btn btn-pro" target="_blank"> Facebook</a>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="img-gallery">
+                            <img src="../web/img/2.jpg"
+                                 alt="">
+                        </div>
+                        <div class="hls_sol_data">
+                            <h3>Street</h3>
+                            <div class="hls_data">
+                                <a href="../web/img/quienessomos/3333.jpg" target="_blank" class="hls_title">Ravi On
+                                    500PX</a>
+                                <a href="..." class="btn btn-pro" target="_blank"> Facebook</a>
+                            </div>
+                        </div>
+                    </li>
+
+
+                </ul>
+
+            </div>
+        </div>
+        <div class="tab-pane container fade" id="menu2">...</div>
+    </div>
+</div>
 
 
 
 
-
-
+<br><br><br><br><br>
 
 
 <script src="js/jquery-3.4.1.min.js"></script>
 
 <script>
+    $(document).on("click", '[data-toggle="lightbox"]', function (event) {
+        event.preventDefault();
+        $(this).ekkoLightbox();
+    });
+
     function setVideoSize() {
         const vidWidth = 1920;
         const vidHeight = 1080;
@@ -93,11 +452,11 @@ $archivos= Archivo::find()->all();
             newVidWidth = newVidHeight * vidWidth / vidHeight;
         }
 
-        if(newVidWidth > windowWidth) {
+        if (newVidWidth > windowWidth) {
             marginLeft = -((newVidWidth - windowWidth) / 2);
         }
 
-        if(newVidHeight > 720) {
+        if (newVidHeight > 720) {
             marginTop = -((newVidHeight - $('#tm-video-container').height()) / 2);
         }
 

@@ -29,7 +29,7 @@ $this->params['breadcrumbs'][] = $this->title;
         ?>
     </p>
 
-    <?php Pjax::begin(); ?>
+
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'id' => 'archivo-index-update',
@@ -91,6 +91,6 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]); ?>
 
-    <?php Pjax::end(); ?>
+
 
 </div>

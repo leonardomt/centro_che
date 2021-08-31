@@ -156,6 +156,7 @@ if (!Yii::$app->user->can('gestionar-revista'))
     <?php
     $searchModel = new backend\models\Archivo\ArchivoSearch();
     $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+    $dataProvider->pagination = ['pageSize' => 4];
     ?>
 
     <?= GridView::widget([

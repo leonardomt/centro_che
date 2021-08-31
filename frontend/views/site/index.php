@@ -1,5 +1,7 @@
 <?php
+
 use yii\helpers\Html;
+
 /* @var $this yii\web\View */
 
 $this->title = 'Index';
@@ -10,30 +12,39 @@ $this->title = 'Centro Che';
 $noticias = new \frontend\models\Noticia\NoticiaArchivo();
 $noticias = \frontend\models\Noticia\Noticia::find()->where(['publico' => 1])->all();
 ?>
-<nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark" style="background-color: (0,100,0,0.3)" >
-    <a class="navbar-brand " href="<?= Yii::$app->homeUrl; ?>"><img class="che_nav_logo" src="img/logo/che_positivo-01.png"></a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+<nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark" style="background-color: (0,100,0,0.3)">
+    <a class="navbar-brand justify-content-start" style="margin-left: 3%" href="<?= Yii::$app->homeUrl; ?>"><img
+                class="che_nav_logo" src="img/logo/che_positivo-01.png"></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
-            <li class="nav-item active">
-                <a class="nav-link" href="#about">Home <span class="sr-only">(current)</span></a>
+    <div class="collapse navbar-collapse justify-content-md-end" id="navbarNav">
+        <ul class="navbar-nav ">
+
+            <li class="nav-item ">
+                <a class="nav-link" style="color: #fff" href="#about">CENTRO DE ESTUDIOS <span
+                            class="sr-only">(current)</span></a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#projects">Features</a>
+            <li class="nav-item ">
+                <div class="" style="width: 60px"></div>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Pricing</a>
+            <li class="nav-item ">
+                <a class="nav-link"><i style="color: #fff" class="fas fa-star"></i></a>
             </li>
-            <li class="nav-item">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="<?= Yii::$app->homeUrl; ?>">Inicio</a></li>
-                    <li class="breadcrumb-item"><a href="#">Library</a></li>
-                    <li class="breadcrumb-item active" aria-current="page"><?= Html::encode($this->title) ?></li>
-                </ol>
+            <li class="nav-item ">
+                <div class="" style="width: 60px"></div>
             </li>
+            <li class="nav-item ">
+                <a class="nav-link" style="color: #fff" href="#">VIDA Y OBRA</a>
+            </li>
+            <li class="nav-item ">
+                <div class="" style="width: 80px"></div>
+            </li>
+
+
         </ul>
+
     </div>
 </nav>
 
@@ -111,10 +122,112 @@ $noticias = \frontend\models\Noticia\Noticia::find()->where(['publico' => 1])->a
 
 
 <hr class="page_separator"/>
+<section class="about-section text-center" id="actualidad">
 
+    <h1 class="underline-small" style="text-decoration: ">Actualidad</h1>
+
+    <br><br>
+    <div class="row col-md-12">
+
+        <div class="col-md-4">
+            <div class="card" style="">
+                <div style="height: 200px; background-color: rgba(0 , 0 , 0 , 0.05);">
+                    <img src="../web/img/quienessomos/3333.jpg"
+                         style="max-width:100%; max-height:100%; object-fit: contain"
+                         class="card-img-top" alt="...">
+                </div>
+                <br>
+                <div class="card-body card-body-side">
+                    <h5 class="card-title card-color ">Che Guevara: fases integradoras en su proyecto de cambio
+                        social</h5>
+                    <h6 class="card-black">por Katerina Morales | 4 de agosto de 2015</h6>
+                    <br>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
+                        card's content.</p>
+                    <a href="#" style="color:#828735;">Seguir leyendo...</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div style="height: 200px; background-color: rgba(0 , 0 , 0 , 0.05);">
+                    <img src="../web/img/quienessomos/3333.jpg"
+                         style="max-width:100%; max-height:100%; object-fit: contain"
+                         class="card-img-top" alt="...">
+                </div>
+                <br>
+                <div class="card-body card-body-side">
+                    <h5 class="card-title card-color ">Che Guevara: fases integradoras en su proyecto de cambio
+                        social</h5>
+                    <h6 class="card-black">por Katerina Morales | 4 de agosto de 2015</h6>
+                    <br>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
+                        card's content.</p>
+                    <a href="#" style="color:#828735;">Seguir leyendo...</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card ">
+                <div style="height: 200px; background-color: rgba(0 , 0 , 0 , 0.05);">
+                    <img src="../web/img/quienessomos/3333.jpg"
+                         style="max-width:100%; max-height:100%; text-align: justify"
+                         alt="...">
+                </div>
+                <br>
+                <div class="card-body card-body-side">
+                    <h5 class="card-title card-color ">Che Guevara: fases integradoras en su proyecto de cambio
+                        social</h5>
+                    <h6 class="card-black">por Katerina Morales | 4 de agosto de 2015</h6>
+                    <br>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
+                        card's content.</p>
+                    <a href="#" style="color:#828735;">Seguir leyendo...</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</section>
+
+
+<hr class="page_separator"/>
+<br>
+<section class="about-section text-center" id="Mapa">
+
+    <h1 class="underline-small" style="text-decoration: ">Mapa</h1>
+
+    <br><br>
+    <!--------Mapa------------------------------------------------------------------------------------------------->
+    <!--<iframe src="https://www.google.com/maps/d/embed?mid=1UQQMw-m_DPTKOJPfYTs3ZkFBobP39SBE&hl=es" width="100%" height="480"></iframe>---->
+
+
+</section>
+
+
+<hr class="page_separator"/>
+<br>
+<section class="about-section text-center" id="Paradigma">
+
+    <h1 class="underline-small" style="text-decoration: ">Paradigma</h1>
+
+    <br><br>
+
+
+</section>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+<hr class="page_separator"/>
 <section class="about-section text-center" id="about">
 
-    <h1 class="display-4">Quiénes Somos</h1>
+    <h1 class="underline-small" style="text-decoration: ">Quiénes Somos</h1>
 
     <br>
     <div class="row">
@@ -158,21 +271,6 @@ $noticias = \frontend\models\Noticia\Noticia::find()->where(['publico' => 1])->a
 
     </div>
 </section>
-
-
-<hr class="page_separator"/>
-
-<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
-    <h1 class="display-4">Proyectos</h1>
-</div>
-<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
-    <h3 class="display-5" style="  font-size: 2rem; font-weight: 300; line-height: 1.2;">
-        Se desarrollan disímiles proyectos con el objetivo de promover no sólo la vida y obra del Che sino tambien el
-        quehacer institucional.</h3>
-</div>
-
-<!--------Mapa------------------------------------------------------------------------------------------------->
-<!--<iframe src="https://www.google.com/maps/d/embed?mid=1UQQMw-m_DPTKOJPfYTs3ZkFBobP39SBE&hl=es" width="100%" height="480"></iframe>---->
 <br>
 <br>
 <br>

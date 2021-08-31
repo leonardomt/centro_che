@@ -205,6 +205,7 @@
                     [
                         'label' => 'C. Académica',
                         'icon' => 'fa fa-brain',
+                        'title' => 'Coordinación Académica',
                         'badge' => $cademica,
                         'items' => [
                             ['label' => 'Líneas de Investigación', 'iconStyle' => 'far' , 'url' => ['/linea-investigacion/index'], 'visible' => Yii::$app->user->can('gestionar-linea-investigacion'), 'badge' => $lineas],

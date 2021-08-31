@@ -63,10 +63,7 @@ if (!Yii::$app->user->can('gestionar-producto-audiovisual'))
 
     <?= $form->field($model, 'productora')->textInput() ?>
 
-    <?= $form->field($model, 'descripcion')->textarea(['rows' => 2,'style' => 'resize:none']) ?>
-
-
-
+    <?= $form->field($model, 'descripcion')->textarea(['rows' => 2, 'style' => 'resize:none']) ?>
 
 
     <div class="panel panel-default">
@@ -115,11 +112,11 @@ if (!Yii::$app->user->can('gestionar-producto-audiovisual'))
                                     'size' => 'xs',]
                             ) ?>
 
-                            <?= $form->field($modelArchivo, "[{$i}]nota")->textarea(['rows' => 3,'style' => 'resize:none']) ?>
+                            <?= $form->field($modelArchivo, "[{$i}]nota")->textarea(['rows' => 3, 'style' => 'resize:none']) ?>
 
                         </div>
                     </div>
-                <?php $x++;
+                    <?php $x++;
                 endforeach; ?>
             </div>
 
@@ -146,7 +143,7 @@ if (!Yii::$app->user->can('gestionar-producto-audiovisual'))
         </div>
         <div class="col-lg-1">
             <div class="form-group">
-                <?= Html::submitButton($modelArchivo->isNewRecord ? '<i class="fa fa-floppy-o" aria-hidden="true"></i>' : '<i class="fa fa-floppy-o" aria-hidden="true"></i>', ['class' => 'btn btn-success', 'style'=>"width: 40px; height: 40px", 'title' => 'Guardar']) ?>
+                <?= Html::submitButton($modelArchivo->isNewRecord ? '<i class="fa fa-floppy-o" aria-hidden="true"></i>' : '<i class="fa fa-floppy-o" aria-hidden="true"></i>', ['class' => 'btn btn-success', 'style' => "width: 40px; height: 40px", 'title' => 'Guardar']) ?>
             </div>
         </div>
 
@@ -158,6 +155,7 @@ if (!Yii::$app->user->can('gestionar-producto-audiovisual'))
     <?php
     $searchModel = new backend\models\Archivo\ArchivoSearch();
     $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+    $dataProvider->pagination = ['pageSize' => 4];
     ?>
 
 
@@ -200,7 +198,7 @@ if (!Yii::$app->user->can('gestionar-producto-audiovisual'))
                 },
                 'headerOptions' => ['class' => 'col-md-1'],
 
-                'filter' => array( "1" => "Sí", "0" => "No"),
+                'filter' => array("1" => "Sí", "0" => "No"),
                 'filterInputOptions' => array('class' => 'form-control', 'id' => null, 'prompt' => 'Todos'),
 
             ],
@@ -236,7 +234,7 @@ if (!Yii::$app->user->can('gestionar-producto-audiovisual'))
                 'headerOptions' => ['class' => 'col-md-1'],
                 'filter' => \dosamigos\datepicker\DatePicker::widget([
                     'model' => $searchModel,
-                    'attribute' => 'fecha','language' => 'es',
+                    'attribute' => 'fecha', 'language' => 'es',
                     'clientOptions' => [
                         'autoclose' => true,
                         'format' => 'yyyy-mm-dd', 'endDate' => date('Y-m-d')

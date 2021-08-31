@@ -51,13 +51,11 @@ $x = 0; ?>
     </div>
 
 
-
     <?= $form->field($model, 'titulo')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'descripcion')->textarea(['rows' => 2,'style' => 'resize:none']) ?>
+    <?= $form->field($model, 'descripcion')->textarea(['rows' => 2, 'style' => 'resize:none']) ?>
 
     <?= $form->field($model, 'enlace')->textInput(['maxlength' => true]) ?>
-
 
 
     <div class="panel panel-default">
@@ -114,7 +112,7 @@ $x = 0; ?>
 
                         </div>
                     </div>
-                <?php $x++;
+                    <?php $x++;
                 endforeach; ?>
             </div>
 
@@ -141,12 +139,11 @@ $x = 0; ?>
         </div>
         <div class="col-lg-1">
             <div class="form-group">
-                <?= Html::submitButton($modelArchivo->isNewRecord ? '<i class="fa fa-floppy-o" aria-hidden="true"></i>' : '<i class="fa fa-floppy-o" aria-hidden="true"></i>', ['class' => 'btn btn-success', 'style'=>"width: 40px; height: 40px", 'title' => 'Guardar']) ?>
+                <?= Html::submitButton($modelArchivo->isNewRecord ? '<i class="fa fa-floppy-o" aria-hidden="true"></i>' : '<i class="fa fa-floppy-o" aria-hidden="true"></i>', ['class' => 'btn btn-success', 'style' => "width: 40px; height: 40px", 'title' => 'Guardar']) ?>
             </div>
         </div>
 
     </div>
-
 
 
     <?php \kartik\form\ActiveForm::end(); ?>
@@ -155,6 +152,7 @@ $x = 0; ?>
     <?php
     $searchModel = new backend\models\Archivo\ArchivoSearch();
     $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+    $dataProvider->pagination = ['pageSize' => 4];
     ?>
 
 
@@ -197,7 +195,7 @@ $x = 0; ?>
                 },
                 'headerOptions' => ['class' => 'col-md-1'],
 
-                'filter' => array( "1" => "Sí", "0" => "No"),
+                'filter' => array("1" => "Sí", "0" => "No"),
                 'filterInputOptions' => array('class' => 'form-control', 'id' => null, 'prompt' => 'Todos'),
 
             ],
@@ -233,7 +231,7 @@ $x = 0; ?>
                 'headerOptions' => ['class' => 'col-md-1'],
                 'filter' => \dosamigos\datepicker\DatePicker::widget([
                     'model' => $searchModel,
-                    'attribute' => 'fecha','language' => 'es',
+                    'attribute' => 'fecha', 'language' => 'es',
                     'clientOptions' => [
                         'autoclose' => true,
                         'format' => 'yyyy-mm-dd', 'endDate' => date('Y-m-d')

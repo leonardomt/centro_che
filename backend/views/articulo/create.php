@@ -178,8 +178,8 @@ if (Yii::$app->user->isGuest)
 
     <?php
     $searchModel = new backend\models\Archivo\ArchivoSearch();
-    $searchModel->id_archivo = $model->id_articulo;
     $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+    $dataProvider->pagination = ['pageSize' => 4];
     ?>
 
 

@@ -125,11 +125,12 @@ $this->params['breadcrumbs'][] = 'Modificar';
     <?php
     $searchModel = new backend\models\Archivo\ArchivoSearch();
     $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+    $dataProvider->pagination = ['pageSize' => 4];
     ?>
 
 
 
-    <?php \yii\widgets\Pjax::begin(); ?>
+
     <?= \kartik\grid\GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
@@ -235,9 +236,6 @@ $this->params['breadcrumbs'][] = 'Modificar';
 
         ],
     ]); ?>
-
-    <?php \yii\widgets\Pjax::end(); ?>
-
 
 
 

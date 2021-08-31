@@ -23,32 +23,27 @@ $archivos = new Archivo();
 ?>
 
 <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark" style="background-color: (0,100,0,0.3)" >
-    <a class="navbar-brand " href="<?= Yii::$app->homeUrl; ?>"><img class="che_nav_logo" src="img/logo/che_positivo-01.png"></a>
+    <a class="navbar-brand " style="margin-left: 3%" href="<?= Yii::$app->homeUrl; ?>"><img class="che_nav_logo" src="img/logo/che_positivo-01.png"></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
+    <div class="collapse navbar-collapse justify-content-md-end" id="navbarNav">
         <ul class="navbar-nav">
-            <li class="nav-item active">
-                <a class="nav-link" href="#about">Home <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#projects">Features</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Pricing</a>
-            </li>
+
             <li class="nav-item">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="<?= Yii::$app->homeUrl; ?>">Inicio</a></li>
                     <li class="breadcrumb-item"><a href="#">Library</a></li>
-                    <li class="breadcrumb-item active" aria-current="page"><?= Html::encode($this->title) ?></li>
+                    <li class="breadcrumb-item active" aria-current="page"><a href="#"> <?= Html::encode($this->title) ?></a></li>
                 </ol>
+            </li>
+            <li class="nav-item ">
+                <div class="" style="width: 80px"></div>
             </li>
         </ul>
     </div>
 </nav>
-
+<br><br><br><br>
 <div class="articulo-view">
 
 

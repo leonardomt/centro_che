@@ -153,14 +153,14 @@ sup {
 }
 
 a {
-  color: #828735;
+  color: #fff;
   text-decoration: none;
   background-color: transparent;
 }
 
 a:hover {
   color: #5A5825;
-  text-decoration: underline;
+
 }
 
 a:not([href]) {
@@ -4733,8 +4733,7 @@ input[type="button"].btn-block {
   min-width: 0;
   word-wrap: break-word;
   background-color: #fff;
-  background-clip: border-box;
-  border: 1px solid rgba(0, 0, 0, 0.125);
+  border: #fff;
   border-radius: 0.25rem;
 }
 

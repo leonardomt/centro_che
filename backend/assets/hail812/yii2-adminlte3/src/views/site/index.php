@@ -290,40 +290,7 @@ $bundle->js[] = 'chart/Chart.js';
                         $comTallerRev = count(\backend\models\Comentario\Comentario::find()->where(['seccion' => 'Proyectos Alternativos', 'revisado' => 0, 'publico' => 0])->all());
 
                         ?>
-                        <?= ChartJs::widget([
-                            'type' => 'bar',
-                            'options' => [
-                                'height' => 407,
-                                'width' => 400
-                            ],
-                            'data' => [
-                                'labels' => ["Actualidad", "Artículos", "Proyectos Comunitarios"],
-                                'datasets' => [
-                                    [
-                                        'label' => "Total de Comentarios",
-                                        'backgroundColor' => "#007bff",
-                                        'borderColor' => "#007bff",
-                                        'pointBackgroundColor' => "#007bff",
-                                        'pointBorderColor' => "#fff",
-                                        'pointHoverBackgroundColor' => "#fff",
-                                        'pointHoverBorderColor' => "#007bff",
-                                        'data' => [$comInicio, $comCoordinacion, $comTaller]
-                                    ],
-                                    [
-                                        'label' => "Pendientes de Revisión",
-                                        'backgroundColor' => "#68A7DC",
-                                        'borderColor' => "#68A7DC",
-                                        'pointBackgroundColor' => "#68A7DC",
-                                        'pointBorderColor' => "#fff",
-                                        'pointHoverBackgroundColor' => "#fff",
-                                        'pointHoverBorderColor' => "#68A7DC",
-                                        'data' => [$comInicioRev, $comCoordinacionRev, $comTallerRev]
-                                    ],
-
-                                ]
-                            ]
-                        ]);
-                        ?>
+                        <canvas id="comentario-chart" height="308"></canvas>
                     </div>
 
 
@@ -411,19 +378,28 @@ $bundle->js[] = 'chart/Chart.js';
         </div>
         <div style="height: 6px"></div>
     </div>
-<br>
+    <br>
 
     <script>
 
         new Chart(document.getElementById("bar-chart"), {
             type: 'bar',
             data: {
-                labels: ['<?php if (isset($keys[0])) echo $keys[0]; ?>', '<?php if (isset($keys[1])) echo $keys[1]; ?>', '<?php if (isset($keys[2])) echo $keys[2]; ?>', '<?php if (isset($keys[3])) echo $keys[3]; ?>', '<?php if (isset($keys[4])) echo $keys[4]; ?>'],
+                labels:
+                    [
+                        <?php foreach ($keys as $key):?>
+                        '<?php echo $key;?>',
+                        <?php endforeach; ?>
+                    ],
                 datasets: [
                     {
                         label: "Publicaciones",
-                        backgroundColor: "#3e95cd",
-                        data: ['<?php if (isset($values[0])) echo $values[0]; ?>', '<?php if (isset($values[1])) echo $values[1]; ?>', '<?php if (isset($values[2])) echo $values[2]; ?>', '<?php if (isset($values[3])) echo $values[3]; ?>', '<?php if (isset($values[4])) echo $values[4]; ?>']
+                        backgroundColor: "#2A507F",
+                        data: [
+                            <?php foreach ($values as $val):?>
+                            '<?php echo $val;?>',
+                            <?php endforeach; ?>
+                        ]
                     },
                 ]
             },
@@ -585,6 +561,47 @@ $bundle->js[] = 'chart/Chart.js';
                 }
             }
         });
+
+        new Chart(document.getElementById("comentario-chart"), {
+            type: 'bar',
+            data: {
+                labels: ['Inicio', ['Coordinación', 'Académica'], ['Proyectos', 'Alternativos']],
+                datasets: [
+                    {
+                        label: "Total",
+                        backgroundColor: "#164A7D",
+                        data: ['<?= $comInicio ?>', '<?= $comCoordinacion ?>', '<?= $comTaller ?>']
+                    },
+                    {
+                        label: "Sin Revisar",
+                        backgroundColor: "#697589",
+                        data: ['<?= $comInicioRev ?>', '<?= $comCoordinacionRev ?>', '<?= $comTallerRev ?>']
+                    },
+                ]
+            },
+            options: {
+                scales: {
+                    x: {
+                        ticks: {
+                            stepSize: 1
+                        }
+                    }
+                },
+                indexAxis: 'y',
+                title: {
+                    display: true,
+                    text: 'Autores'
+                },
+                plugins: {
+                    legend: {
+                        display: true
+                    }
+                }
+
+            }
+        });
+
+
     </script>
 
 

@@ -6,6 +6,7 @@ use common\widgets\Alert;
 use kartik\grid\GridView;
 use kartik\select2\Select2;
 use yii\widgets\Pjax;
+
 /* @var $id */
 /* @var $this yii\web\View */
 /* @var $model backend\models\Testimonio\TestimonioArchivo */
@@ -13,17 +14,17 @@ use yii\widgets\Pjax;
 $this->title = 'Asignar Archivo';
 $this->params['breadcrumbs'][] = ['label' => 'Testimonio Archivos', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
-if ( Yii::$app->user->isGuest )
+if (Yii::$app->user->isGuest)
     return Yii::$app->getResponse()->redirect(\yii\helpers\Url::to(['site/login']));
 ?>
 <div class="testimonio-archivo-create">
 
-   <?php
+    <?php
     $titulo = new \backend\models\Testimonio\Testimonio();
     $titulo = \backend\models\Testimonio\Testimonio::find()->where(['id_testimonio' => $id])->one();
     $nombre = $titulo->titulo;
     ?>
-    <h1><?= Html::encode($this->title).' a "'.$nombre.'"'?></h1>
+    <h1><?= Html::encode($this->title) . ' a "' . $nombre . '"' ?></h1>
     <div class="">
         <?= Breadcrumbs::widget([
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
@@ -35,35 +36,25 @@ if ( Yii::$app->user->isGuest )
         'id' => $id,
     ]) ?>
 
-   <?php
-   $searchModel = new backend\models\Archivo\ArchivoSearch();
-   $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-   ?>
+    <?php
+    $searchModel = new backend\models\Archivo\ArchivoSearch();
+    $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+    $dataProvider->pagination = ['pageSize' => 4];
+    ?>
 
 
 
-    <?php Pjax::begin(); ?>
+
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
-        'id'=> 'archivo-index-update',
+        'id' => 'archivo-index-update',
         'pjax' => true,
-        'pjaxSettings' =>[
+        'pjaxSettings' => [
             'neverTimeout' => true,
 
         ],
-        'toolbar'=>[
-            'options' => ['class' => 'pull-left'],
-            ['content'=>
-                Html::a('<span class="glyphicon glyphicon-plus"></span>', ['create'], [
-                    'data-pjax' => 0,
-                    'class' => 'btn btn-success',
-                    "title"=>"Agregar"]). ' '.
-                Html::a('<i class="glyphicon glyphicon-repeat"></i>', 'index.php?r=archivo%2Findex', [ 'class'=>'btn btn-default', 'title'=>'Reiniciar']),
-            ],
-            '{toggleData}',
-            '{export}',
-        ],
+
         'columns' => [
 
 
@@ -72,15 +63,15 @@ if ( Yii::$app->user->isGuest )
                 'attribute' => 'revisado',                     // Revisado
                 'format' => 'raw',
                 'value' => function ($model) {
-                    if($model->revisado != '0'){
+                    if ($model->revisado != '0') {
                         return 'Sí';
-                    }else{
+                    } else {
                         return 'No';
                     }
                 },
                 'headerOptions' => ['class' => 'col-md-1'],
 
-                'filter'=>array(""=>"Todos","1"=>"Sí","0"=>"No"),
+                'filter' => array("" => "Todos", "1" => "Sí", "0" => "No"),
 
             ],
 
@@ -90,11 +81,11 @@ if ( Yii::$app->user->isGuest )
                 'headerOptions' => ['class' => 'col-md-2']
             ],
             [
-                'attribute'=>'tipo_archivo',
-                'value'=>'tipoArchivo.tipo_archivo',
+                'attribute' => 'tipo_archivo',
+                'value' => 'tipoArchivo.tipo_archivo',
                 'format' => 'raw',
                 'headerOptions' => ['class' => 'col-md-2'],
-                'filter'=>\yii\helpers\ArrayHelper::map(\backend\models\Archivo\TipoArchivo::find()->asArray()->all(), 'id_tipo_archivo', 'tipo_archivo'),
+                'filter' => \yii\helpers\ArrayHelper::map(\backend\models\Archivo\TipoArchivo::find()->asArray()->all(), 'id_tipo_archivo', 'tipo_archivo'),
             ],
             [
                 'attribute' => 'autor_archivo',                     // autor
@@ -114,11 +105,11 @@ if ( Yii::$app->user->isGuest )
             ],
 
             [
-                'attribute' => 'url_archivo',    'filter'=> false,                 // Url del Archivo
+                'attribute' => 'url_archivo', 'filter' => false,                 // Url del Archivo
                 'format' => 'raw',
                 'headerOptions' => ['class' => 'col-md-3'],
                 'value' => function ($model) {
-                    if($model->url_archivo != ' ' && $model->url_archivo != NULL) { // verifica si fue importada o no
+                    if ($model->url_archivo != ' ' && $model->url_archivo != NULL) { // verifica si fue importada o no
                         if ($model->tipo_archivo == 1) {
                             return Html::img('../../frontend/web/' . $model->url_archivo,
                                 ['alt' => $model->url_archivo, 'height' => 100]);
@@ -142,11 +133,10 @@ if ( Yii::$app->user->isGuest )
             ],
 
 
-
         ],
     ]); ?>
 
-    <?php Pjax::end(); ?>
+
 
 
 </div>

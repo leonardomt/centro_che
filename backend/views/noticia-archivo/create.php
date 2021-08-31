@@ -43,7 +43,7 @@ if ( Yii::$app->user->isGuest )
 
 
 
-    <?php Pjax::begin(); ?>
+
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
@@ -147,7 +147,7 @@ if ( Yii::$app->user->isGuest )
         ],
     ]); ?>
 
-    <?php Pjax::end(); ?>
+
 
 
 </div>

@@ -42,9 +42,9 @@ use kartik\grid\GridView;
 
     <?= $form->field($model, 'etiqueta')->textInput() ?>
 
-    <?= $form->field($model, 'descripcion')->textarea(['rows' => 2,'style' => 'resize:none']) ?>
+    <?= $form->field($model, 'descripcion')->textarea(['rows' => 2, 'style' => 'resize:none']) ?>
 
-    <?= $form->field($model, 'cuerpo')->textarea(['rows' => 6,'style' => 'resize:none']) ?>
+    <?= $form->field($model, 'cuerpo')->textarea(['rows' => 6, 'style' => 'resize:none']) ?>
 
 
     <div class="panel panel-default">
@@ -82,8 +82,10 @@ use kartik\grid\GridView;
 
                             <h3 class="panel-title pull-left"><?= $titulo ?></h3>
                             <div class="pull-right">
-                                <button type="button" class="add-item btn btn-success"><i class="glyphicon glyphicon-plus"></i></button>
-                                <button type="button" class="remove-item btn btn-danger"><i class="glyphicon glyphicon-minus"></i></button>
+                                <button type="button" class="add-item btn btn-success"><i
+                                            class="glyphicon glyphicon-plus"></i></button>
+                                <button type="button" class="remove-item btn btn-danger"><i
+                                            class="glyphicon glyphicon-minus"></i></button>
                             </div>
                             <div class="clearfix"></div>
                         </div>
@@ -97,17 +99,16 @@ use kartik\grid\GridView;
 
 
 
-                            <?= $form->field($modelArchivo, "[{$i}]nota")->textarea(['rows' => 6,'style' => 'resize:none']) ?>
+                            <?= $form->field($modelArchivo, "[{$i}]nota")->textarea(['rows' => 6, 'style' => 'resize:none']) ?>
 
                             <?= $form->field($modelArchivo, "[{$i}]id_archivo")->dropDownList(
                                 \yii\helpers\ArrayHelper::map(\backend\models\Archivo\Archivo::find()->all(), 'id_archivo', 'titulo_archivo')
                             ) ?>
 
 
-
                         </div>
                     </div>
-                <?php $x++;
+                    <?php $x++;
                 endforeach; ?>
             </div>
 
@@ -134,7 +135,7 @@ use kartik\grid\GridView;
         </div>
         <div class="col-lg-1">
             <div class="form-group">
-                <?= Html::submitButton($modelArchivo->isNewRecord ? '<i class="fa fa-floppy-o" aria-hidden="true"></i>' : '<i class="fa fa-floppy-o" aria-hidden="true"></i>', ['class' => 'btn btn-success', 'style'=>"width: 40px; height: 40px", 'title' => 'Guardar']) ?>
+                <?= Html::submitButton($modelArchivo->isNewRecord ? '<i class="fa fa-floppy-o" aria-hidden="true"></i>' : '<i class="fa fa-floppy-o" aria-hidden="true"></i>', ['class' => 'btn btn-success', 'style' => "width: 40px; height: 40px", 'title' => 'Guardar']) ?>
             </div>
         </div>
 
@@ -146,6 +147,7 @@ use kartik\grid\GridView;
     <?php
     $searchModel = new backend\models\Archivo\ArchivoSearch();
     $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+    $dataProvider->pagination = ['pageSize' => 4];
     ?>
 
 
@@ -164,11 +166,11 @@ use kartik\grid\GridView;
             'options' => ['class' => 'pull-left'],
             [
                 'content' =>
-                Html::a('<span class="glyphicon glyphicon-plus"></span>', ['create'], [
-                    'data-pjax' => 0,
-                    'class' => 'btn btn-success',
-                    "title" => "Agregar"
-                ]) . ' ' .
+                    Html::a('<span class="glyphicon glyphicon-plus"></span>', ['create'], [
+                        'data-pjax' => 0,
+                        'class' => 'btn btn-success',
+                        "title" => "Agregar"
+                    ]) . ' ' .
                     Html::a('<i class="glyphicon glyphicon-repeat"></i>', 'index.php?r=archivo%2Findex', ['class' => 'btn btn-default', 'title' => 'Reiniciar']),
             ],
             '{toggleData}',
@@ -224,7 +226,7 @@ use kartik\grid\GridView;
             ],
 
             [
-                'attribute' => 'url_archivo',        'filter'=> false,             // Url del Archivo
+                'attribute' => 'url_archivo', 'filter' => false,             // Url del Archivo
                 'format' => 'raw',
                 'headerOptions' => ['class' => 'col-md-3'],
                 'value' => function ($model) {
@@ -253,12 +255,10 @@ use kartik\grid\GridView;
             ],
 
 
-
         ],
     ]); ?>
 
     <?php Pjax::end(); ?>
-
 
 
 </div>

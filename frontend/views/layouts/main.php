@@ -10,8 +10,8 @@ use yii\bootstrap4\NavBar;
 use yii\bootstrap4\Breadcrumbs;
 use frontend\assets\AppAsset;
 use common\widgets\Alert;
-
-
+$this->registerCssFile('assets/fontawesome-free-5.15.1-web/css/all.css');
+$this->registerCssFile('assets/fontawesome-free-5.15.1-web/css/fontawesome.css');
 $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/png', 'href' => 'img/logo/che_negativo.png']);
 AppAsset::register($this);
 ?>
@@ -21,6 +21,7 @@ AppAsset::register($this);
 <!DOCTYPE html>
 <html lang="<?= Yii::$app->language ?>">
 <head>
+    <link href="../../web/assets/fontawesome-free-5.15.1-web/css/fontawesome.css" rel="stylesheet">
     <link href="//db.onlinewebfonts.com/c/7f289fbe95c5cc66a4b70f3622249b87?family=Metropolis" rel="stylesheet" type="text/css"/>
     <link rel="stylesheet" media="screen" href="https://fontlibrary.org//face/metropolis" type="text/css"/>
     <meta charset="<?= Yii::$app->charset ?>">

@@ -39,7 +39,8 @@
     column-count: 3;
     -webkit-column-width: 33%;
     -moz-column-width: 33%;
-    column-width: 33%; }
+    column-width: 33%;
+}
 
 .gallery .pics {
     -webkit-transition: all 350ms ease;
@@ -72,6 +73,10 @@
     font-weight: normal;
     font-style: normal;
 }
+
+
+/* ----------------------------------------Index------------------------------------------------------------*/
+
 
 .navbar-custom{
     background-color: rgba(0 , 0 , 0 , 0.8);
@@ -139,3 +144,185 @@ h5{
 #subrayar{
     border-bottom: 2px solid rgba(0,0,0, .5);
 }
+
+.underline-small{
+    color:#828735;
+    display:inline-block;
+    position:relative;
+
+}
+
+.underline-small::after{
+    content:'';
+    height:2px;
+    width:50%;
+    background:#828735;
+    position:absolute;
+    left:calc(30% - 5%);
+    bottom:-5px;
+    /*   another way you can achieve this
+      Check this link:
+      https://goo.gl/GgRdjz
+
+      */
+
+}
+
+.card-color{
+    color:#828735;
+    font-weight: bold;
+}
+
+.card-black{
+    color: black;
+    font-weight: bold;
+}
+
+.card-body-side{
+    background-color: rgba(0 , 0 , 0 , 0.05);
+    text-align: left;
+    min-heigh: 400px; !important;
+    heigh: 400px; !important;
+}
+
+
+
+/* ----------------------------------------Galería------------------------------------------------------------*/
+.hls_sol li {
+    width: 33.33333333%;
+    max-width: 100%;
+    display: inline-block;
+    float: left;
+    text-align: center;
+    overflow: hidden;
+    position: relative;
+    height: 240px
+}
+.hls_sol li img {
+
+}
+.hls_sol ul {
+
+    padding: 0;
+    display: flow-root;
+}
+.hls_sol li:hover img {
+    -moz-transform: scale(1.1);
+    -webkit-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    -o-transform: scale(1.1);
+    transform: scale(1.1);
+}
+.hls_sol li img {
+    -webkit-transition: transform 0.5s ease;
+    -o-transition: transform 0.5s ease;
+    transition: transform 0.5s ease;
+}
+.hls_sol .hls_sol_data {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    background: rgba(0,0,0,0.28);
+    visibility: hidden
+}
+.hls_sol ul li:hover .hls_sol_data {
+    background: rgba(130,135,53,0.60);
+    visibility: visible
+}
+.hls_data {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 60px 20px;
+}
+.hls_data a {
+    display: block;
+}
+.hls_title {
+    text-align: center;
+    font-size: 14px;
+    padding: 10px 0;
+    margin: 10px 0;
+    color: #fff;
+}
+.hls_title:hover {
+    color: #fff;
+}
+.hls_sol_data h3 {
+    color: #fff;
+}
+.hls_sol_data:hover h3 {
+
+    margin-top: 100px;
+}
+.btn-pro {
+    border-radius: 0;
+    color: #222;
+    background: #fff;
+    display: inline-block !important;
+    float: right;
+}
+.btn-pro:hover {
+    color: #fff;
+    background: #222;
+}
+.sec_title {
+    text-align: center;
+    margin: 30px 0 30px;
+}
+.hls_data {
+    left: unset;
+    right: -310px;
+}
+.hls_sol_data:hover .hls_data {
+    left: 0;
+    right: 0;
+}
+
+.extra-image-container {
+    max-width:100%;
+    max-height:100%;
+    object-fit: contain;
+}
+
+.img-gallery {
+    height: 240px;
+    background-color: rgba(0 , 0 , 0 , 0.2);
+}
+
+
+/* ----------------------------------------Galería Tab Panel------------------------------------------------*/
+
+#exTab1 .tab-content {
+    color : white;
+    background-color: #828735;
+    padding : 5px 15px;
+}
+
+#exTab2 h3 {
+    color : white;
+    background-color: #828735;
+    padding : 5px 15px;
+}
+
+/* remove border radius for the tab */
+
+#exTab1 .nav-pills > li > a {
+    border-radius: 0;
+}
+
+/* change border radius for the tab , apply corners on top*/
+
+#exTab3 .nav-pills > li > a {
+    border-radius: 4px 4px 0 0 ;
+}
+
+#exTab3 .tab-content {
+    color : white;
+    background-color: #828735;
+    padding : 5px 15px;
+}
+

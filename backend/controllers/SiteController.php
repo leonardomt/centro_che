@@ -73,7 +73,7 @@ class SiteController extends Controller
 
         $values = array_count_values($autores);
         arsort($values);
-        $escritores = array_slice($values, 0, 5, true);
+        $escritores = array_slice($values, 0, 100, true);
 
 
         return $this->render('index', array("escritores"=>$values));

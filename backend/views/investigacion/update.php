@@ -15,9 +15,9 @@ $this->title = 'Modificar Investigación: ' . $model->titulo_investigacion;
 $this->params['breadcrumbs'][] = ['label' => 'Investigaciones', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->titulo_investigacion, 'url' => ['view', 'id' => $model->id_investigacion]];
 $this->params['breadcrumbs'][] = 'Modificar';
-if ( Yii::$app->user->isGuest )
+if (Yii::$app->user->isGuest)
     return Yii::$app->getResponse()->redirect(\yii\helpers\Url::to(['site/login']));
-if ( !Yii::$app->user->can('gestionar-investigacion'))
+if (!Yii::$app->user->can('gestionar-investigacion'))
     return Yii::$app->getResponse()->redirect(\yii\helpers\Url::to(['site/login']));
 ?>
 <div class="investigacion-update col-md-12">
@@ -29,10 +29,8 @@ if ( !Yii::$app->user->can('gestionar-investigacion'))
         ]) ?>
         <?= Alert::widget() ?>
     </div>
-    
-    
 
-    
+
     <?php $form = \kartik\form\ActiveForm::begin(['id' => 'dynamic-form']); ?>
 
     <div class="row">
@@ -52,9 +50,9 @@ if ( !Yii::$app->user->can('gestionar-investigacion'))
         </div>
     </div>
 
-    <?= $form->field($model, 'descripcion')->textarea(['rows' => 2,'style' => 'resize:none']) ?>
+    <?= $form->field($model, 'descripcion')->textarea(['rows' => 2, 'style' => 'resize:none']) ?>
 
-    <?= $form->field($model, 'cuerpo')->textarea(['rows' => 6,'style' => 'resize:none']) ?>
+    <?= $form->field($model, 'cuerpo')->textarea(['rows' => 6, 'style' => 'resize:none']) ?>
 
 
     <div class="row">
@@ -123,19 +121,20 @@ if ( !Yii::$app->user->can('gestionar-investigacion'))
                             ) ?>
 
 
-                            <?= $form->field($modelArchivo, "[{$i}]nota")->textarea(['rows' => 6,'style' => 'resize:none']) ?>
-
+                            <?= $form->field($modelArchivo, "[{$i}]nota")->textarea(['rows' => 6, 'style' => 'resize:none']) ?>
 
 
                         </div>
                         <div class="pull-right">
-                            <button type="button" title="Agregar" style="width: 40px ; height: 40px" class="add-item btn btn-success"><i class="fa fa-plus"></i></button>
-                            <button type="button" title="Eliminar" style="width: 40px ; height: 40px" class="remove-item btn btn-danger"><i class="fa fa-trash"></i></button>
+                            <button type="button" title="Agregar" style="width: 40px ; height: 40px"
+                                    class="add-item btn btn-success"><i class="fa fa-plus"></i></button>
+                            <button type="button" title="Eliminar" style="width: 40px ; height: 40px"
+                                    class="remove-item btn btn-danger"><i class="fa fa-trash"></i></button>
                         </div>
                         <div class="clearfix"></div>
                         <br>
                     </div>
-                <?php $x++;
+                    <?php $x++;
                 endforeach; ?>
             </div>
 
@@ -162,7 +161,7 @@ if ( !Yii::$app->user->can('gestionar-investigacion'))
         </div>
         <div class="col-lg-1">
             <div class="form-group">
-                <?= Html::submitButton($modelArchivo->isNewRecord ? '<i class="fa fa-floppy-o" aria-hidden="true"></i>' : '<i class="fa fa-floppy-o" aria-hidden="true"></i>', ['class' => 'btn btn-success', 'style'=>"width: 40px; height: 40px", 'title' => 'Guardar']) ?>
+                <?= Html::submitButton($modelArchivo->isNewRecord ? '<i class="fa fa-floppy-o" aria-hidden="true"></i>' : '<i class="fa fa-floppy-o" aria-hidden="true"></i>', ['class' => 'btn btn-success', 'style' => "width: 40px; height: 40px", 'title' => 'Guardar']) ?>
             </div>
         </div>
 
@@ -174,6 +173,7 @@ if ( !Yii::$app->user->can('gestionar-investigacion'))
     <?php
     $searchModel = new backend\models\Archivo\ArchivoSearch();
     $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+    $dataProvider->pagination = ['pageSize' => 4];
     ?>
 
 
@@ -216,7 +216,7 @@ if ( !Yii::$app->user->can('gestionar-investigacion'))
                 },
                 'headerOptions' => ['class' => 'col-md-1'],
 
-                'filter' => array( "1" => "Sí", "0" => "No"),
+                'filter' => array("1" => "Sí", "0" => "No"),
                 'filterInputOptions' => array('class' => 'form-control', 'id' => null, 'prompt' => 'Todos'),
 
             ],
@@ -252,7 +252,7 @@ if ( !Yii::$app->user->can('gestionar-investigacion'))
                 'headerOptions' => ['class' => 'col-md-1'],
                 'filter' => \dosamigos\datepicker\DatePicker::widget([
                     'model' => $searchModel,
-                    'attribute' => 'fecha','language' => 'es',
+                    'attribute' => 'fecha', 'language' => 'es',
                     'clientOptions' => [
                         'autoclose' => true,
                         'format' => 'yyyy-mm-dd', 'endDate' => date('Y-m-d')

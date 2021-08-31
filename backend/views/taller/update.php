@@ -15,9 +15,9 @@ $this->title = 'Modificar Proyecto Comunitario: ' . $model->nombre;
 $this->params['breadcrumbs'][] = ['label' => 'Proyectos Comunitarios', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->nombre, 'url' => ['view', 'id' => $model->id_taller]];
 $this->params['breadcrumbs'][] = 'Modificar';
-if ( Yii::$app->user->isGuest )
+if (Yii::$app->user->isGuest)
     return Yii::$app->getResponse()->redirect(\yii\helpers\Url::to(['site/login']));
-if ( !Yii::$app->user->can('gestionar-taller'))
+if (!Yii::$app->user->can('gestionar-taller'))
     return Yii::$app->getResponse()->redirect(\yii\helpers\Url::to(['site/login']));
 ?>
 <div class="taller-update col-md-12">
@@ -29,30 +29,29 @@ if ( !Yii::$app->user->can('gestionar-taller'))
         ]) ?>
         <?= Alert::widget() ?>
     </div>
-    
-    
+
 
     <?php $form = \kartik\form\ActiveForm::begin(['id' => 'dynamic-form']); ?>
 
-        <div class="row">
-            <div class="col-lg-6 text-lg-left">
-                <?= $form->field($model, 'nombre')->textInput() ?>
-            </div>
-            <div class="col-lg-6 text-lg-left">
-                <?= $form->field($model, 'encargado')->textInput() ?>
-            </div>
+    <div class="row">
+        <div class="col-lg-6 text-lg-left">
+            <?= $form->field($model, 'nombre')->textInput() ?>
         </div>
+        <div class="col-lg-6 text-lg-left">
+            <?= $form->field($model, 'encargado')->textInput() ?>
+        </div>
+    </div>
 
-        <div class="row">
-            <div class="col-lg-6 text-lg-left">
-                <?= $form->field($model, 'tipo')->dropDownList(
-                    ArrayHelper::map(TipoTaller::find()->all(), 'id', 'tipo')
-                ) ?>
-            </div>
-            <div class="col-lg-6 text-lg-left">
-                <?= $form->field($model, 'contacto')->textInput() ?>
-            </div>
+    <div class="row">
+        <div class="col-lg-6 text-lg-left">
+            <?= $form->field($model, 'tipo')->dropDownList(
+                ArrayHelper::map(TipoTaller::find()->all(), 'id', 'tipo')
+            ) ?>
         </div>
+        <div class="col-lg-6 text-lg-left">
+            <?= $form->field($model, 'contacto')->textInput() ?>
+        </div>
+    </div>
 
 
     <div class="panel panel-default">
@@ -77,19 +76,19 @@ if ( !Yii::$app->user->can('gestionar-taller'))
                 <?php foreach ($modelsArchivo as $i => $modelArchivo): ?>
                     <div class="item panel panel-default"><!-- widgetBody -->
                         <div class="panel-heading">
-                        
-                        <?php
-                        $x = 0;
-                        if($x==0)
-                            $titulo = "Archivo";
-                        ?>
+
+                            <?php
+                            $x = 0;
+                            if ($x == 0)
+                                $titulo = "Archivo";
+                            ?>
                             <h3 class="panel-title pull-left"><?= $titulo ?></h3>
                             <div class="clearfix"></div>
                         </div>
                         <div class="panel-body">
                             <?php
                             // necessary for update action.
-                            if (! $modelArchivo->isNewRecord) {
+                            if (!$modelArchivo->isNewRecord) {
                                 echo Html::activeHiddenInput($modelArchivo, "[{$i}]id");
                             }
                             ?>
@@ -101,17 +100,19 @@ if ( !Yii::$app->user->can('gestionar-taller'))
                                     'size' => 'xs',]
                             ) ?>
 
-                            <?= $form->field($modelArchivo, "[{$i}]nota")->textarea(['rows' => 3,'style' => 'resize:none']) ?>
+                            <?= $form->field($modelArchivo, "[{$i}]nota")->textarea(['rows' => 3, 'style' => 'resize:none']) ?>
 
                         </div>
                         <div class="pull-right">
-                            <button type="button" title="Agregar" style="width: 40px ; height: 40px" class="add-item btn btn-success"><i class="fa fa-plus"></i></button>
-                            <button type="button" title="Eliminar" style="width: 40px ; height: 40px" class="remove-item btn btn-danger"><i class="fa fa-trash"></i></button>
+                            <button type="button" title="Agregar" style="width: 40px ; height: 40px"
+                                    class="add-item btn btn-success"><i class="fa fa-plus"></i></button>
+                            <button type="button" title="Eliminar" style="width: 40px ; height: 40px"
+                                    class="remove-item btn btn-danger"><i class="fa fa-trash"></i></button>
                         </div>
                         <div class="clearfix"></div>
                         <br>
                     </div>
-                <?php $x++; endforeach; ?>
+                    <?php $x++; endforeach; ?>
             </div>
 
 
@@ -121,26 +122,25 @@ if ( !Yii::$app->user->can('gestionar-taller'))
 
     <div class="row">
         <div class="col-lg-5 text-lg-left">
-            <?php if(Yii::$app->user->can('revisar')):?>
+            <?php if (Yii::$app->user->can('revisar')): ?>
                 <?= $form->field($model, "revisado")->checkbox(); ?>
-            <?php else: $x=0;?>
-                <?=$form->field($model, 'revisado')->hiddenInput(['value' => $x])->label(false) ?>
-            <?php endif;?>
+            <?php else: $x = 0; ?>
+                <?= $form->field($model, 'revisado')->hiddenInput(['value' => $x])->label(false) ?>
+            <?php endif; ?>
         </div>
         <div class="col-lg-5 text-lg-left">
-            <?php if(Yii::$app->user->can('publicar')):?>
+            <?php if (Yii::$app->user->can('publicar')): ?>
                 <?= $form->field($model, "publico")->checkbox(); ?>
-            <?php else: $x=0;?>
-                <?=$form->field($model, 'publico')->hiddenInput(['value' => $x])->label(false) ?>
-            <?php endif;?>
+            <?php else: $x = 0; ?>
+                <?= $form->field($model, 'publico')->hiddenInput(['value' => $x])->label(false) ?>
+            <?php endif; ?>
         </div>
         <div class="col-lg-1">
             <div class="form-group">
-                <?= Html::submitButton($modelArchivo->isNewRecord ? '<i class="fa fa-floppy-o" aria-hidden="true"></i>' : '<i class="fa fa-floppy-o" aria-hidden="true"></i>', ['class' => 'btn btn-success', 'style'=>"width: 40px; height: 40px", 'title' => 'Guardar']) ?>
+                <?= Html::submitButton($modelArchivo->isNewRecord ? '<i class="fa fa-floppy-o" aria-hidden="true"></i>' : '<i class="fa fa-floppy-o" aria-hidden="true"></i>', ['class' => 'btn btn-success', 'style' => "width: 40px; height: 40px", 'title' => 'Guardar']) ?>
             </div>
         </div>
     </div>
-
 
 
     <?php \kartik\form\ActiveForm::end(); ?>
@@ -149,6 +149,7 @@ if ( !Yii::$app->user->can('gestionar-taller'))
     <?php
     $searchModel = new backend\models\Archivo\ArchivoSearch();
     $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+    $dataProvider->pagination = ['pageSize' => 4];
     ?>
 
 
@@ -191,7 +192,7 @@ if ( !Yii::$app->user->can('gestionar-taller'))
                 },
                 'headerOptions' => ['class' => 'col-md-1'],
 
-                'filter' => array( "1" => "Sí", "0" => "No"),
+                'filter' => array("1" => "Sí", "0" => "No"),
                 'filterInputOptions' => array('class' => 'form-control', 'id' => null, 'prompt' => 'Todos'),
 
             ],
@@ -227,7 +228,7 @@ if ( !Yii::$app->user->can('gestionar-taller'))
                 'headerOptions' => ['class' => 'col-md-1'],
                 'filter' => \dosamigos\datepicker\DatePicker::widget([
                     'model' => $searchModel,
-                    'attribute' => 'fecha','language' => 'es',
+                    'attribute' => 'fecha', 'language' => 'es',
                     'clientOptions' => [
                         'autoclose' => true,
                         'format' => 'yyyy-mm-dd', 'endDate' => date('Y-m-d')

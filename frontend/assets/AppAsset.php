@@ -15,6 +15,7 @@ class AppAsset extends AssetBundle
         'assets/css/site.css',
         'css/style.css',
         'bootstrap/css/bootstrap.css',
+        'assets/AdminLTE/fontawesome-free-5.15.1-web/css/fontawesome.css',
 
     ];
     public $js = [

@@ -28,8 +28,6 @@ if ( Yii::$app->user->isGuest )
         <?= Html::a('Crear Hecho-Archivo', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
-    <?php Pjax::begin(); ?>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -59,6 +57,5 @@ if ( Yii::$app->user->isGuest )
         ],
     ]); ?>
 
-    <?php Pjax::end(); ?>
 
 </div>
