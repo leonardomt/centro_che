@@ -62,6 +62,10 @@ if (Yii::$app->user->isGuest)
                 ],
 
                 'columns' => [
+                    [
+                        'class' => '\kartik\grid\SerialColumn',
+                        'headerOptions' => ['class' => 'col-md-1'],
+                    ],
 
                     [
                         'attribute' => 'url',                     // Url del Archivo
@@ -71,10 +75,8 @@ if (Yii::$app->user->isGuest)
                         'value' => function ($model) {
                             if ($model->url != ' ' && $model->url != NULL) { // verifica si fue importada o no
 
-                                return Html::img(
-                                    '../../frontend/web/' . $model->url,
-                                    ['alt' => $model->url, 'width' => 300]
-                                );
+                                return '<div style="width:200px; height:100px; object-fit: contain;"><img style="height:100%; width: 100%; object-fit: contain" src="../../frontend/web/'.$model->url.'"
+                                 alt="" ></div>';
                             } else {
                                 return Html::label('_');
                                 // si no tiene asignada una portada, solo muestra un guion bajo
