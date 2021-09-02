@@ -91,7 +91,7 @@ if ( !Yii::$app->user->can('gestionar-linea-investigacion'))
                 'buttons' => [
                     'view' => function ($url, $model)
                     {
-                        return Html::a('<button title="Ver" class="btn btn-success" style="width: 40px ; margin-top: 2px;  margin-left: 2px"><i class="fa fa-eye"></i></button>',$url);
+                        return Html::a('<button title="Ver" class="btn btn-secondary" style="width: 40px ; margin-top: 2px;  margin-left: 2px"><i class="fa fa-eye"></i></button>',$url);
                     },
                     'update' => function ($url, $model)
                     {

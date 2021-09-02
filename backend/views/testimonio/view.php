@@ -192,7 +192,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'template' => '{view}','header'=>false,
                 'buttons' => [
                     'view' => function ($url, $model) {
-                        return Html::a('<button title="Ver" class="btn btn-success" style="width: 40px ; margin-top: 2px;  margin-left: 2px"><i class="fa fa-eye"></i></button>', ['archivo/view', 'id' => $model->id_archivo], ['title' => 'view']);
+                        return Html::a('<button title="Ver" class="btn btn-secondary" style="width: 40px ; margin-top: 2px;  margin-left: 2px"><i class="fa fa-eye"></i></button>', ['archivo/view', 'id' => $model->id_archivo], ['title' => 'view']);
                     },
 
 

@@ -143,7 +143,7 @@ if (Yii::$app->user->isGuest)
                         'headerOptions' => ['class' => 'col-md-3'],
                         'buttons' => [
                             'view' => function ($url, $model) {
-                                return Html::a('<button title="Ver" class="btn btn-success" style="width: 40px ; margin-top: 2px;  margin-left: 2px"><i class="fa fa-eye"></i></button>', ['trabajador/view', 'id' => $model->id]);
+                                return Html::a('<button title="Ver" class="btn btn-secondary" style="width: 40px ; margin-top: 2px;  margin-left: 2px"><i class="fa fa-eye"></i></button>', ['trabajador/view', 'id' => $model->id]);
                             },
                             'update' => function ($url, $model) {
                                 return Html::a('<button title="Modificar" class="btn btn-primary" style="width: 40px ; margin-top: 2px;  margin-left: 2px"><i class="fa fa-pencil"></i></button>', ['trabajador/update', 'id' => $model->id]);

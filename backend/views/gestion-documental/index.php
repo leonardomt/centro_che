@@ -41,7 +41,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'buttons' => [
                     'view' => function ($url, $model)
                     {
-                        return Html::a('<button title="Ver" class="btn btn-success"><i class="fa fa-eye"></i></button>',$url);
+                        return Html::a('<button title="Ver" class="btn btn-secondary"><i class="fa fa-eye"></i></button>',$url);
                     },
                     'update' => function ($url, $model)
                     {

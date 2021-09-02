@@ -93,7 +93,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'template' => '{view} {update} {delete}',
                     'buttons'=> [
                         'view' => function($url, $model) use ($tipo) {
-                            return Html::a('<button title="Ver" class="btn btn-success" style="width: 40px ; margin-top: 2px;  margin-left: 2px"><i class="fa fa-eye"></i></button>' , ['galeria-v-o/view', 'id' => $model->id_galeria_vo, 'tipo' => $tipo], ['title' => 'view']);
+                            return Html::a('<button title="Ver" class="btn btn-secondary" style="width: 40px ; margin-top: 2px;  margin-left: 2px"><i class="fa fa-eye"></i></button>' , ['galeria-v-o/view', 'id' => $model->id_galeria_vo, 'tipo' => $tipo], ['title' => 'view']);
                         },
 
                         'update' => function($url, $model) use ($tipo) {
@@ -156,7 +156,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'template' => '{view} {update} {delete}',
                 'buttons'=> [
                     'view' => function($url, $model) use ($tipo) {
-                        return Html::a('<button title="Ver" class="btn btn-success" style="width: 40px ; margin-top: 2px;  margin-left: 2px"><i class="fa fa-eye"></i></button>' , ['galeria-v-o/view', 'id' => $model->id_galeria_vo, 'tipo' => $tipo], ['title' => 'view']);
+                        return Html::a('<button title="Ver" class="btn btn-secondary" style="width: 40px ; margin-top: 2px;  margin-left: 2px"><i class="fa fa-eye"></i></button>' , ['galeria-v-o/view', 'id' => $model->id_galeria_vo, 'tipo' => $tipo], ['title' => 'view']);
                     },
 
                     'update' => function($url, $model) use ($tipo) {

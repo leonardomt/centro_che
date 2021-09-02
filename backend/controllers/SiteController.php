@@ -2,6 +2,12 @@
 namespace backend\controllers;
 
 use backend\models\Articulo\Articulo;
+use backend\models\Correspondencia\Correspondencia;
+use backend\models\Discurso\Discurso;
+use backend\models\Escrito\Escrito;
+use backend\models\Investigacion\Investigacion;
+use backend\models\Noticia\Noticia;
+use backend\models\Testimonio\Testimonio;
 use backend\models\User\SignupForm;
 use Yii;
 use yii\helpers\ArrayHelper;
@@ -64,9 +70,44 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        $articulos = Articulo::find()->all(); $x=0; $autores = [];
+        $x=0; $autores = [];
+        $articulos = Articulo::find()->all(); 
         foreach ($articulos as $articulo){
             $autores[$x]= $articulo->autor;
+            $x++;
+        }
+        $noticias = Noticia::find()->all();
+        foreach ($noticias as $noticia){
+            $autores[$x]= $noticia->autor;
+            $x++;
+        }
+        $investigaciones = Investigacion::find()->all();
+        foreach ($investigaciones as $investigacion){
+            $autores[$x]= $investigacion->autor;
+            $x++;
+        }
+        $correspondencias = Correspondencia::find()->all();
+        foreach ($correspondencias as $correspondencia){
+            $autores[$x]= $correspondencia->remitente;
+            $x++;
+        }
+
+        $escritos = Escrito::find()->all();
+        foreach ($escritos as $escrito){
+            $autores[$x]= "Ernesto Che Guevara";
+            $x++;
+        }
+
+        $discursos = Discurso::find()->all();
+        foreach ($discursos as $discurso){
+            $autores[$x]= "Ernesto Che Guevara";
+            $x++;
+        }
+        
+        $testimonios = Testimonio::find()->all();
+
+        foreach ($testimonios as $testimonio){
+            $autores[$x]= $testimonio->autor;
             $x++;
         }
 

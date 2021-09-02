@@ -25,7 +25,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
         <?php if ($model->publico == 0): ?>
             <?= Html::a('<span class="fa fa-check"></span>', ['aprobar', 'id' => $model->id], [
-                    'class' => 'btn btn-primary',
+                    'class' => 'btn btn-success',
                     'style'=>"width: 40px ; height: 40px",
                     'title'=>"Aprobar",
                     'data' => [
@@ -36,7 +36,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ) ?>
         <?php endif; ?>
         <?php if ($model->publico == 0 && $model->revisado == 0): ?>
-            <?= Html::a('<span class="fa fa-times"></span>', ['delete', 'id' => $model->id], [
+            <?= Html::a('<span class="fa fa-ban"></span>', ['delete', 'id' => $model->id], [
                 'class' => 'btn btn-danger',
                 'style'=>"width: 40px ; height: 40px",
                 'title'=>"Denegar",
@@ -46,7 +46,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
             ]) ?>
         <?php endif; ?>
-        <?= Html::a('<span class="fa fa-pencil"></span>', ['create', 'id' => $model->id ], [
+        <?= Html::a('<span style="color:white" class="far fa-comments"></span>', ['create', 'id' => $model->id ], [
             'class' => 'btn btn-warning',
             'style'=>"width: 40px ; height: 40px",
             'title'=>"Responder",

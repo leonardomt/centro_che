@@ -145,13 +145,13 @@ $this->params['breadcrumbs'][] = $this->title;
                 'headerOptions' => ['class' => 'col-md-2'],
                 'buttons' => [
                     'view' => function ($url, $model) {
-                        return Html::a('<button title="Ver" class="btn btn-success" style="width: 40px ; margin-top: 2px;  margin-left: 2px"><i class="fa fa-eye"></i></button>', $url);
+                        return Html::a('<button title="Ver" class="btn btn-secondary" style="width: 40px ; margin-top: 2px;  margin-left: 2px"><i class="fa fa-eye"></i></button>', $url);
                     },
                     'aprobar' => function ($url, $model) {
-                        return Html::a('<button title="Aprobar" class="btn btn-primary" style="width: 40px ; margin-top: 2px;  margin-left: 2px"><i class="fa fa-check"></i></button>', $url, ['data-confirm' => '¿Está seguro que desea aprobar este comentario?', 'data-method' => 'POST']);
+                        return Html::a('<button title="Aprobar" class="btn btn-success" style="width: 40px ; margin-top: 2px;  margin-left: 2px"><i class="fa fa-check"></i></button>', $url, ['data-confirm' => '¿Está seguro que desea aprobar este comentario?', 'data-method' => 'POST']);
                     },
                     'delete' => function ($url, $model) {
-                        return Html::a('<button title="Denegar" class="btn btn-danger" style="width: 40px ; margin-top: 2px;  margin-left: 2px"><i class="fa fa-times"></i></button>', $url, ['data-confirm' => '¿Está seguro que desea denegar este comentario?', 'data-method' => 'POST']);
+                        return Html::a('<button title="Denegar" class="btn btn-danger" style="width: 40px ; margin-top: 2px;  margin-left: 2px"><i class="fa fa-ban"></i></button>', $url, ['data-confirm' => '¿Está seguro que desea denegar este comentario?', 'data-method' => 'POST']);
                     }
                 ],
             ],
@@ -293,13 +293,13 @@ $this->params['breadcrumbs'][] = $this->title;
                 'headerOptions' => ['class' => 'col-md-2'],
                 'buttons' => [
                     'view' => function ($url, $model) {
-                        return Html::a('<button title="Ver" class="btn btn-success" style="width: 40px ; margin-top: 2px;  margin-left: 2px"><i class="fa fa-eye"></i></button>', $url);
+                        return Html::a('<button title="Ver" class="btn btn-secondary" style="width: 40px ; margin-top: 2px;  margin-left: 2px"><i class="fa fa-eye"></i></button>', $url);
                     },
                     'aprobar' => function ($url, $model) {
-                        return Html::a('<button title="Aprobar" class="btn btn-primary" style="width: 40px ; margin-top: 2px;  margin-left: 2px"><i class="fa fa-check"></i></button>', $url, ['data-confirm' => '¿Está seguro que desea aprobar este comentario?', 'data-method' => 'POST']);
+                        return Html::a('<button title="Aprobar" class="btn btn-success" style="width: 40px ; margin-top: 2px;  margin-left: 2px"><i class="fa fa-check"></i></button>', $url, ['data-confirm' => '¿Está seguro que desea aprobar este comentario?', 'data-method' => 'POST']);
                     },
                     'delete' => function ($url, $model) {
-                        return Html::a('<button title="Denegar" class="btn btn-danger" style="width: 40px ; margin-top: 2px;  margin-left: 2px"><i class="fa fa-times"></i></button>', $url, ['data-confirm' => '¿Está seguro que desea denegar este comentario?', 'data-method' => 'POST']);
+                        return Html::a('<button title="Denegar" class="btn btn-danger" style="width: 40px ; margin-top: 2px;  margin-left: 2px"><i class="fa fa-ban"></i></button>', $url, ['data-confirm' => '¿Está seguro que desea denegar este comentario?', 'data-method' => 'POST']);
                     }
                 ],
             ],
@@ -439,13 +439,13 @@ $this->params['breadcrumbs'][] = $this->title;
                 'headerOptions' => ['class' => 'col-md-2'],
                 'buttons' => [
                     'view' => function ($url, $model) {
-                        return Html::a('<button title="Ver" class="btn btn-success" style="width: 40px ; margin-top: 2px;  margin-left: 2px"><i class="fa fa-eye"></i></button>', $url);
+                        return Html::a('<button title="Ver" class="btn btn-secondary" style="width: 40px ; margin-top: 2px;  margin-left: 2px"><i class="fa fa-eye"></i></button>', $url);
                     },
                     'aprobar' => function ($url, $model) {
-                        return Html::a('<button title="Aprobar" class="btn btn-primary" style="width: 40px ; margin-top: 2px;  margin-left: 2px"><i class="fa fa-check"></i></button>', $url, ['data-confirm' => '¿Está seguro que desea aprobar este comentario?', 'data-method' => 'POST']);
+                        return Html::a('<button title="Aprobar" class="btn btn-success" style="width: 40px ; margin-top: 2px;  margin-left: 2px"><i class="fa fa-check"></i></button>', $url, ['data-confirm' => '¿Está seguro que desea aprobar este comentario?', 'data-method' => 'POST']);
                     },
                     'delete' => function ($url, $model) {
-                        return Html::a('<button title="Denegar" class="btn btn-danger" style="width: 40px ; margin-top: 2px;  margin-left: 2px"><i class="fa fa-times"></i></button>', $url, ['data-confirm' => '¿Está seguro que desea denegar este comentario?', 'data-method' => 'POST']);
+                        return Html::a('<button title="Denegar" class="btn btn-danger" style="width: 40px ; margin-top: 2px;  margin-left: 2px"><i class="fa fa-ban"></i></button>', $url, ['data-confirm' => '¿Está seguro que desea denegar este comentario?', 'data-method' => 'POST']);
                     }
                 ],
             ],
