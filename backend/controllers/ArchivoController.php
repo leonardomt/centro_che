@@ -89,9 +89,16 @@ class ArchivoController extends Controller
         $this->enableCsrfValidation = false;
 
         if ($model->load(Yii::$app->request->post())) {
+
             if ($model->validate()) {
                 $fecha = $model->fecha;
                 if ($fecha != null) {
+                    if ($fecha > date('Y-m-d')) {
+                        Yii::$app->session->setFlash('error', 'La fecha no puede ser posterior a la actual'.+date('Y-m-d'));
+                        return $this->redirect([
+                            'create', 'model' => $model,
+                        ]);
+                    }
                     if ($fecha < "1943-6-15") {
                         $model->etapa = "Infancia";
                     }
@@ -114,7 +121,7 @@ class ArchivoController extends Controller
 
                 $imageName = $model->titulo_archivo;
                 $model->file = UploadedFile::getInstance($model, 'file');
-                if ($model->file == null){
+                if ($model->file == null) {
                     Yii::$app->session->setFlash('error', 'No ha cargado ningún archivo.');
                     return $this->redirect([
                         'create',
@@ -275,8 +282,6 @@ class ArchivoController extends Controller
             Yii::$app->session->setFlash('error', 'No se puede eliminar un archivo que esté asociado a al menos un elemento.');
             return $this->redirect(['index']);
         }
-
-
     }
 
     /**
@@ -309,11 +314,8 @@ class ArchivoController extends Controller
                 $out['results'][$i]['id'] = $list[$i]->id_tipo_archivo;
                 $out['results'][$i]['text'] = $list[$i]->tipo_archivo;
             }
-
         }
 
         return $out;
     }
-
-
 }

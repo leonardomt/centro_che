@@ -198,7 +198,7 @@ $noticias = \frontend\models\Noticia\Noticia::find()->where(['publico' => 1])->a
 
     <br><br>
     <!--------Mapa------------------------------------------------------------------------------------------------->
-    <!--<iframe src="https://www.google.com/maps/d/embed?mid=1UQQMw-m_DPTKOJPfYTs3ZkFBobP39SBE&hl=es" width="100%" height="480"></iframe>---->
+<iframe src="https://www.google.com/maps/d/embed?mid=1UQQMw-m_DPTKOJPfYTs3ZkFBobP39SBE&hl=es" width="100%" height="480"></iframe>
 
 
 </section>

@@ -28,7 +28,7 @@ use common\widgets\Alert;
 
                                     <?= $form->field($model, 'fecha')->widget(\dosamigos\datepicker\DatePicker::className(),[
                                         'inline'=>false, 'language' => 'es', 'options' => [
-                                            'readonly' => 'readonly'
+                                            'autocomplete' => 'off',
                                         ],
                                         'clientOptions' => [
                                             'autoclose'=> true,

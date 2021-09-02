@@ -574,7 +574,7 @@ $bundle->js[] = 'chart/Chart.js';
                     },
                     {
                         label: "Sin Revisar",
-                        backgroundColor: "#353A3F",
+                        backgroundColor: "#8A8C8E",
                         data: ['<?= $comInicioRev ?>', '<?= $comCoordinacionRev ?>', '<?= $comTallerRev ?>']
                     },
                 ]

@@ -12,6 +12,7 @@ use Yii;
  * @property string $comentario
  * @property string $autor
  * @property string $correo
+ * @property int $respuesta
  */
 class Comentario extends \yii\db\ActiveRecord
 {
@@ -46,6 +47,7 @@ class Comentario extends \yii\db\ActiveRecord
             'comentario' => 'Comentario',
             'autor' => 'Autor',
             'correo' => 'Correo',
+            'respuesta' => 'Respuesta',
         ];
     }
 }

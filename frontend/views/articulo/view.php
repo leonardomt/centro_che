@@ -207,7 +207,7 @@ $archivos = new Archivo();
                 $comentarios2 = \backend\models\Comentario\Comentario::find()->where(['tabla' => "comentario", 'id_tabla' => $coment->id,])->all();
                 ?>
                 <?php foreach ($comentarios2 as $coment2): ?>
-                    <div class="row">
+                   <div class="row">
 
                         <div class="col-md-3"></div>
                         <div class="mt-2">
@@ -220,6 +220,7 @@ $archivos = new Archivo();
                                             <span class="mr-2"><?= $coment2->alias ?></span>
                                         </div>
                                         <small><?= $coment2->fecha ?></small>
+                                        
                                         <small> <?= Html::a('<span class= "">Comentar</span>', ['comentario/create', 'tabla' => "comentario", 'id_tabla' => $coment2->id, 'back' => "articulo", 'back_id' => $model->id_articulo], [
                                                 'data' => [
                                                     'method' => 'post',
@@ -230,6 +231,10 @@ $archivos = new Archivo();
                                         </small>
                                     </div>
                                     <p class="text-justify comment-text mb-0"><?= $coment->comentario ?></p>
+                                    <p class="text-justify comment-text mb-0"> <?php if($coment2->respuesta == '1') {
+                                            echo 'Este es respuesta institucional';
+                                            
+                                            };?></p>
                                 </div>
                             </div>
                         </div>
@@ -247,7 +252,10 @@ $archivos = new Archivo();
                                     <img src="../web/img/quienessomos/user.jpg" width="40" height="40"
                                          class="rounded-circle mr-3">
                                     <div class="w-100">
-                                        <div class="d-flex justify-content-between align-items-center">
+                                        <div class="d-flex justify-content-between align-items-center"  <?php if($coment3->respuesta == '1') {
+                                            echo 'style="background-color: red;" ';
+                                            
+                                            };?>>
                                             <div class="d-flex flex-row align-items-center">
                                                 <span class="mr-2"><?= $coment3->alias ?></span>
                                             </div>
@@ -255,6 +263,10 @@ $archivos = new Archivo();
 
                                         </div>
                                         <p class="text-justify comment-text mb-0"><?= $coment->comentario ?></p>
+                                        <p class="text-justify comment-text mb-0"> <?php if($coment3->respuesta == '1') {
+                                            echo 'Este es respuesta institucional';
+                                            
+                                            };?></p>
                                     </div>
                                 </div>
                             </div>

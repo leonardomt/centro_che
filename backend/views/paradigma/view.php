@@ -37,7 +37,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attributes' => [
                     [
                         'attribute' => 'descripcion',
-                        'options' => ['style' => 'height: 300px'],
 
                     ],
                     'enlace:ntext',
@@ -62,18 +61,19 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
                 'columns' => [
                     [
-                        'class' => '\kartik\grid\SerialColumn'
+                        'class' => '\kartik\grid\SerialColumn',
+                        'headerOptions' => ['class' => 'col-md-1'],
                     ],
 
                     [
                         'attribute' => 'url',                     // Url del Archivo
                         'format' => 'raw',
                         'enableSorting' => false,
-                        'headerOptions' => ['class' => 'col-md-10'],
+                        'headerOptions' => ['class' => 'col-md-8'],
                         'value' => function ($model) {
                             if ($model->url != ' ' && $model->url != NULL) { // verifica si fue importada o no
 
-                                return '<div style="width:400px; height:200px; object-fit: contain;"><img style="height:100%; width: 100%; object-fit: contain" src="../../frontend/web/'.$model->url.'"
+                                return '<div style="width:200px; height:100px; object-fit: contain;"><img style="height:100%; width: 100%; object-fit: contain" src="../../frontend/web/'.$model->url.'"
                                  alt="" ></div>';
                             } else {
                                 return Html::label('_');
@@ -86,7 +86,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     [
                         'class' => 'kartik\grid\ActionColumn',
                         'template' => '{delete}','header'=>false,
-                        'headerOptions' => ['class' => 'col-md-1'],
+                        'headerOptions' => ['class' => 'col-md-3'],
                         'buttons' => [
                             'delete' => function ($url, $model) {
                                 return Html::a('<button title="Eliminar"  style="width: 40px; height: 40px" class="btn btn-danger"><i class="fa fa-trash"></i></button>', ['paradigma-archivo/delete', 'id' => $model->id], ['data-confirm' => '¿Está seguro que desea eliminar este elemento?', 'data-method' => 'POST']);

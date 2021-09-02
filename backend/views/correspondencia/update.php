@@ -37,7 +37,7 @@ if (!Yii::$app->user->can('gestionar-correspondencia'))
 
             <?= $form->field($model, 'fecha')->widget(\dosamigos\datepicker\DatePicker::className(), [
                 'inline' => false, 'language' => 'es', 'options' => [
-                    'readonly' => 'readonly'
+                    'autocomplete' => 'off',
                 ],
                 'clientOptions' => [
                     'autoclose' => true,

@@ -16,7 +16,7 @@ $this->title = 'Artículos';
 $this->params['breadcrumbs'][] = $this->title;
 
 $articulos = \frontend\models\Articulo\Articulo::find()->all();
-$articulo = $articulos[1];
+$articulo = $articulos[0];
 ?>
 
 

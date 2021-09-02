@@ -42,16 +42,15 @@ use backend\models\Archivo\TipoArchivo;
 
         <div class="col-md-6 ">
             <?= $form->field($model, 'fecha')->widget(\dosamigos\datepicker\DatePicker::className(), [
-                'inline' => false, 'language' => 'es', 'options' => [
-                    'readonly' => 'readonly'
-                ],
+                'inline' => false, 'language' => 'es',
                 'clientOptions' => [
                     'autoclose' => true,
                     'format' => 'yyyy-mm-dd', 'endDate' => date('Y-m-d')
                 ],
                 'options' => [
-                    'readonly' => 'readonly'
+                    'autocomplete' => 'off',
                 ]
+
             ]) ?>
         </div>
     </div>
@@ -94,7 +93,7 @@ use backend\models\Archivo\TipoArchivo;
         </div>
         <div class="col-md-2 ">
             <div class="form-group">
-                <?= Html::submitButton('  <i class="fa fa-floppy-o" aria-hidden="true"></i>', ['class' => 'btn btn-success', 'style'=>"width: 40px; height: 40px", 'title' => 'Guardar']) ?>
+                <?= Html::submitButton('  <i class="fa fa-floppy-o" aria-hidden="true"></i>', ['class' => 'btn btn-success', 'style' => "width: 40px; height: 40px", 'title' => 'Guardar']) ?>
             </div>
 
         </div>
@@ -104,4 +103,3 @@ use backend\models\Archivo\TipoArchivo;
     <?php ActiveForm::end(); ?>
 
 </div>
-

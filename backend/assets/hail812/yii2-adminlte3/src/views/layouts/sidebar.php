@@ -225,18 +225,14 @@
                         'badge' => $palternativos,
                         'items' => [
                             ['label' => 'Proyectos Comunitarios', 'iconStyle' => 'far' , 'url' => ['/taller/index'], 'visible' => Yii::$app->user->can('gestionar-taller'),'badge' => $taller],
-                            [
-                                'label' => 'Programación Cultural',
-                                'iconStyle' => 'far',
-                                'items' => [
-                                    ['label' => 'Exposiciones', 'icon' => 'dot-circle', 'iconStyle' => 'far' , 'url' => ['/exposicion/index'], 'visible' => Yii::$app->user->can('gestionar-exposicion'),'badge' => $expo],
-                                    ['label' => 'Productos Audiovisuales', 'icon' => 'dot-circle', 'iconStyle' => 'far' , 'url' => ['/producto-audiovisual/index'], 'visible' => Yii::$app->user->can('gestionar-producto-audiovisual'),'badge' => $pa],
-                                    ['label' => 'Otros', 'icon' => 'dot-circle', 'iconStyle' => 'far' , 'url' => ['/otros/index'], 'visible' => Yii::$app->user->can('gestionar-exposicion'),'badge' => $otros],
+                            ['label' => 'Programación Cultural','iconStyle' => 'far'],
+                            ['label' => 'Exposiciones', 'iconStyle' => 'far' , 'url' => ['/exposicion/index'], 'visible' => Yii::$app->user->can('gestionar-exposicion'),'badge' => $expo],
+                            ['label' => 'Productos Audiovisuales', 'iconStyle' => 'far' , 'url' => ['/producto-audiovisual/index'], 'visible' => Yii::$app->user->can('gestionar-producto-audiovisual'),'badge' => $pa],
+                            ['label' => 'Otros', 'iconStyle' => 'far' , 'url' => ['/otros/index'], 'visible' => Yii::$app->user->can('gestionar-exposicion'),'badge' => $otros],
 
-                                ]
                             ],
 
-                        ]
+                        
                     ],
 
 

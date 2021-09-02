@@ -43,7 +43,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             [
                 'attribute' => 'alias',
-                'headerOptions' => ['class' => 'col-md-2'],
+                'headerOptions' => ['class' => 'col-md-1'],
             ],
             //'correo',
             [
@@ -191,7 +191,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             [
                 'attribute' => 'alias',
-                'headerOptions' => ['class' => 'col-md-2'],
+                'headerOptions' => ['class' => 'col-md-1'],
             ],
             //'correo',
             [
@@ -337,7 +337,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             [
                 'attribute' => 'alias',
-                'headerOptions' => ['class' => 'col-md-2'],
+                'headerOptions' => ['class' => 'col-md-1'],
             ],
             //'correo',
             [
