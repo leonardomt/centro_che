@@ -9,6 +9,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\db\Expression;
+
 /**
  * ComentarioController implements the CRUD actions for Comentario model.
  */
@@ -82,17 +83,21 @@ class ComentarioController extends Controller
     public function actionCreate($id)
     {
         $model = new Comentario();
-        $padre = $this->findModel($id);
-        if ($model->load(Yii::$app->request->post())){
+
+        if ($model->load(Yii::$app->request->post())) {
+            $padre = $this->findModel($id);
             $model->fecha = new Expression('NOW()');
             $model->seccion = $padre->seccion;
             $model->tabla = 'comentario';
             $model->respuesta = 1;
             $model->id_tabla = $padre->id;
-            };
+            $padre->revisado = 1;
+            $padre->publico = 1;
+            $padre->save();
+        };
 
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->save()) {
             return $this->redirect(['index']);
         }
 

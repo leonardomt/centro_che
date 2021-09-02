@@ -5,7 +5,6 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 
 $this->title = 'Index';
-$this->params['breadcrumbs'][] = ['label' => 'Escritos', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 
 $this->title = 'Centro Che';
@@ -23,7 +22,7 @@ $noticias = \frontend\models\Noticia\Noticia::find()->where(['publico' => 1])->a
         <ul class="navbar-nav ">
 
             <li class="nav-item ">
-                <a class="nav-link" style="color: #fff" href="#about">CENTRO DE ESTUDIOS <span
+                <a class="nav-link" style="color: #fff" href="<?= Yii::$app->homeUrl; ?>?r=centro-estudios%2Findex">CENTRO DE ESTUDIOS <span
                             class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item ">
@@ -36,8 +35,7 @@ $noticias = \frontend\models\Noticia\Noticia::find()->where(['publico' => 1])->a
                 <div class="" style="width: 60px"></div>
             </li>
             <li class="nav-item ">
-                <a class="nav-link" style="color: #fff" href="#">VIDA Y OBRA</a>
-            </li>
+                <a class="nav-link" style="color: #fff" href="<?= Yii::$app->homeUrl; ?>?r=vida-obra%2Findex">VIDA Y OBRA</a>
             <li class="nav-item ">
                 <div class="" style="width: 80px"></div>
             </li>

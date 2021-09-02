@@ -10,7 +10,7 @@ use kartik\grid\GridView;
 /* @var $model backend\models\Correspondencia\Correspondencia */
 
 $this->title = 'Modificar Correspondencia: ' . $model->titulo;
-$this->params['breadcrumbs'][] = ['label' => 'Correspondencias', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Correspondencia', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->titulo, 'url' => ['view', 'id' => $model->id_correspondencia]];
 $this->params['breadcrumbs'][] = 'Modificar';
 if (Yii::$app->user->isGuest)
@@ -36,7 +36,9 @@ if (!Yii::$app->user->can('gestionar-correspondencia'))
         <div class="col-lg-6 text-lg-left">
 
             <?= $form->field($model, 'fecha')->widget(\dosamigos\datepicker\DatePicker::className(), [
-                'inline' => false, 'language' => 'es',
+                'inline' => false, 'language' => 'es', 'options' => [
+                    'readonly' => 'readonly'
+                ],
                 'clientOptions' => [
                     'autoclose' => true,
                     'format' => 'yyyy-m-d',

@@ -17,7 +17,7 @@ class CorrespondenciaArchivoSearch extends CorrespondenciaArchivo
     public function rules()
     {
         return [
-            [['id_correspondencia_archivo', 'id_correspondencia', 'id_archivo'], 'integer'],
+            [['id', 'id_correspondencia', 'id_archivo'], 'integer'],
         ];
     }
 
@@ -57,11 +57,13 @@ class CorrespondenciaArchivoSearch extends CorrespondenciaArchivo
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'id_correspondencia_archivo' => $this->id_correspondencia_archivo,
+            'id' => $this->id,
             'id_correspondencia' => $this->id_correspondencia,
             'id_archivo' => $this->id_archivo,
+            'portada' => $this->portada,
         ]);
 
+        $query->andFilterWhere(['like', 'nota', $this->nota]);
         return $dataProvider;
     }
 }

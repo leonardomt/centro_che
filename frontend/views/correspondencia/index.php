@@ -12,83 +12,84 @@ use yii\widgets\Pjax;
 
 
 
-
-
-<style type="text/css">
-    .panel-header{
-        height: 42px;
-    }
-    h2{
-        margin-bottom: 20px;
-    }
-
-    .panel-default img{
-        -webkit-transition:-webkit-transform 0.3s ease-in-out 0.1s;
-    }
-
-    .panel-default img:hover {
-        -webkit-transform:scale(1.05);
-        box-shadow: 20px 20px 80px rgba(0,0,0, .5);
-
-    }
-
-    h5{
-        color:rgba(10,34,10 , 0.95);
-
-    }
-
-
-    #subrayar{
-        border-bottom: 2px solid rgba(0,0,0, .5);
-    }
-
-
-</style>
 <div class="container text-center">
-    <div class="correspondencia-index">
-        <div class= "option animated fadeInDown " >
-            <center><h1>Corre<a id="subrayar">spon</a>dencia</h1></center>
-        </div>
-        <br><br>
-        <div class = "row">
+    <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark" style="background-color: (0,100,0,1)">
+        <a class="navbar-brand justify-content-start" style="margin-left: 3%" href="<?= Yii::$app->homeUrl; ?>"><img
+                    class="che_nav_logo" src="img/logo/che_positivo-01.png"></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ">
+                <li class="nav-item ">
+                    <div class="" style="width: 60px"></div>
+                </li>
+                <li class="nav-item ">
+                    <a class="nav-link" style="color: #fff" href="#about">CENTRO DE ESTUDIOS <span
+                                class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item ">
+                    <div class="" style="width: 60px"></div>
+                </li>
+                <li class="nav-item ">
+                    <a class="nav-link"><i style="color: #fff" class="fas fa-star"></i></a>
+                </li>
+                <li class="nav-item ">
+                    <div class="" style="width: 60px"></div>
+                </li>
+                <li class="nav-item ">
+                    <a class="nav-link" style="color: #828735" href="<?= Yii::$app->homeUrl; ?>?=vida_y_obra">VIDA Y OBRA</a>
+                <li class="nav-item ">
+                    <div class="" style="width: 80px"></div>
+                </li>
 
 
-            <?php foreach($model as $row): ?>
-                <div class="col-md-4">
-                    <div class= "option animated fadeInDown">
-                        <div class="panel-default">
-                            <div class="panel-header" style="background-color: transparent;color:  black;">
-                                <h2> <?= $row->titulo?> </h2>
-                            </div>
-                            <div class="panel-body" style="background-color: transparent;color: black;">
-                                <a href="#">
-                                    <img   src="../web/img/quienessomos/main.jpg" class="img-responsive" style="width:100% " alt="Image" >
-                                </a>
-                                <h5>
-                                    <?php
-                                    $text = $row->descripcion;
-                                    $pos=strpos($text, ' ', 100);
-                                    ?>
-                                    <p class="card-text" style="text-align: justify"><?php echo substr($text,0,$pos );?>...</p>
-
-                                </h5>
-                                <address>
-                                    <em>
-                                        por <?= $row->destinatario?> | <?= $row->fecha?>
-                                    </em>
-                                </address>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            <?php endforeach ?>
-
+            </ul>
 
         </div>
+        <div class="collapse navbar-collapse justify-content-md-end" id="navbarNav">
+            <ul class="navbar-nav ">
+                <li class="nav-item ">
+                    <div class="" style="width: 60px"></div>
+                </li>
+                <li class="nav-item ">
+                    <a class="nav-link" style="color: #fff" href="#about">CENTRO DE ESTUDIOS <span
+                                class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item ">
+                    <div class="" style="width: 60px"></div>
+                </li>
+                <li class="nav-item ">
+                    <a class="nav-link"><i style="color: #fff" class="fas fa-star"></i></a>
+                </li>
+                <li class="nav-item ">
+                    <div class="" style="width: 60px"></div>
+                </li>
+                <li class="nav-item ">
+                    <a class="nav-link" style="color: #828735" href="<?= Yii::$app->homeUrl; ?>?=vida_y_obra">VIDA Y OBRA</a>
+                <li class="nav-item ">
+                    <div class="" style="width: 80px"></div>
+                </li>
+
+
+            </ul>
+
+        </div>
+    </nav>
 
 
 
+    <br>
+    <br>
+    <br>
+    <br>
+    <section class="about-section text-center" id="Vida-Obra">
 
-    </div>
+        <h1 class="underline-small" style="text-decoration: ">Correspondencias</h1>
+
+
+    </section>
+
 
 </div>

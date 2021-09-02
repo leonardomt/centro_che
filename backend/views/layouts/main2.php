@@ -144,7 +144,7 @@ AppAssetModern::register($this);
                         <li><a href="<?php echo Yii::$app->homeUrl?>?r=articulo">Artículos</a></li>
                         <li><a href="<?php echo Yii::$app->homeUrl?>?r=tipo-articulo">Tipos de Artículos</a></li>
                         <li><a href="<?php echo Yii::$app->homeUrl?>?r=coleccion-documental">Colecciones Documentales</a></li>
-                        <li><a href="<?php echo Yii::$app->homeUrl?>?r=correspondencia">Correspondencias</a></li>
+                        <li><a href="<?php echo Yii::$app->homeUrl?>?r=correspondencia">Correspondencia</a></li>
                         <li><a href="<?php echo Yii::$app->homeUrl?>?r=curso-online">Cursos Online</a></li>
                         <li><a href="<?php echo Yii::$app->homeUrl?>?r=exposicion">Exposiciones</a></li>
                         <li><a href="<?php echo Yii::$app->homeUrl?>?r=hecho">Hechos</a></li>

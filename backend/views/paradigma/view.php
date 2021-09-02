@@ -73,10 +73,8 @@ $this->params['breadcrumbs'][] = $this->title;
                         'value' => function ($model) {
                             if ($model->url != ' ' && $model->url != NULL) { // verifica si fue importada o no
 
-                                return Html::img(
-                                    '../../frontend/web/' . $model->url,
-                                    ['alt' => $model->url, 'width' => 300]
-                                );
+                                return '<div style="width:400px; height:200px; object-fit: contain;"><img style="height:100%; width: 100%; object-fit: contain" src="../../frontend/web/'.$model->url.'"
+                                 alt="" ></div>';
                             } else {
                                 return Html::label('_');
                                 // si no tiene asignada una portada, solo muestra un guion bajo
@@ -87,7 +85,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                     [
                         'class' => 'kartik\grid\ActionColumn',
-                        'template' => '{delete}',
+                        'template' => '{delete}','header'=>false,
                         'headerOptions' => ['class' => 'col-md-1'],
                         'buttons' => [
                             'delete' => function ($url, $model) {

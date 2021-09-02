@@ -326,3 +326,15 @@ h5{
     padding : 5px 15px;
 }
 
+.button-ref {
+    background-color: rgba(130, 135, 53, 0.5);
+    padding : 5px 15px;
+    text-align: center;
+    font-size: 12px;
+    border-radius: 12px;
+}
+
+.button-ref:hover {
+    color: #828735;
+    background-color: rgba(130, 135, 53, 0.8);
+}

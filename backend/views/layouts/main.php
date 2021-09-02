@@ -498,7 +498,7 @@ AppAsset::register($this);
                                                 <li>
                                                     <a href="<?php echo Yii::$app->homeUrl ?>?r=correspondencia">
                                                         <span class="glyphicon glyphicon-list"></span>
-                                                        <span class="menu-text"> &nbsp; Correspondencias </span>
+                                                        <span class="menu-text"> &nbsp; Correspondencia </span>
                                                     </a>
                                                 </li><?php endif; ?>
 

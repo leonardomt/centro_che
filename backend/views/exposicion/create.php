@@ -44,13 +44,29 @@ if (!Yii::$app->user->can('gestionar-exposicion'))
     <div class="row">
         <div class=" col-lg-2 text-lg-left"></div>
         <div class=" col-lg-2 text-lg-left">
-            <?= $form->field($model, 'tipo_fecha')->radioList([0 => 'Fecha Exacta', 1 => 'Año', 2 => 'Rango de Fecha'], ['separator' => '<br/>']); ?>
+             <?= $form->field($model, 'tipo_fecha')->radioList([0 => 'Fecha Exacta', 1 => 'Año', 2 => 'Rango de Fecha'], [
+                'separator' => '<br/>',
+                    'item' => function ($index, $label, $name, $checked, $value) {
+                    $checked = $checked ? 'checked' : '';
+                    return "<label>
+                <input type='radio' {$checked}
+                       name='{$name}'
+                       value='{$value}'
+                       id='idName_{$value}'
+                       onChange='EnableDisableTB();'>
+                {$label}</label>";
+
+                }
+            ])
+            ?>
         </div>
         <div class=" col-lg-2 text-lg-left"></div>
         <div class="col-lg-6">
             <div class=" text-lg-left">
                 <?= $form->field($model, 'fecha')->widget(\dosamigos\datepicker\DatePicker::className(), [
-                    'inline' => false, 'language' => 'es',
+                    'inline' => false, 'language' => 'es', 'options' => [
+                        'readonly' => 'readonly'
+                    ],
                     'clientOptions' => [
                         'autoclose' => true,
                         'format' => 'yyyy-m-d',
@@ -58,10 +74,10 @@ if (!Yii::$app->user->can('gestionar-exposicion'))
                     ]
                 ]) ?>
             </div>
-            <div class="text-lg-left">
-                <?= $form->field($model, 'fecha_fin')->widget(\dosamigos\datepicker\DatePicker::className(), [
+            <div class="text-lg-left" id="fecha_fin" disabled="disabled">
+                <?= $form->field($model, 'fecha_fin')->widget(\dosamigos\datepicker\DatePicker::className(),
+                    [
                     'inline' => false, 'language' => 'es',
-
                     'clientOptions' => [
                         'autoclose' => true,
                         'format' => 'yyyy-m-d',
@@ -317,4 +333,45 @@ if (!Yii::$app->user->can('gestionar-exposicion'))
 
 
 </div>
+
+
+<div class="col-md-6 border rounded shadow-sm">
+    <form method="get" action="">
+        <div class="form-row">
+            <div class="form-group col-md-2">
+                <input type="radio" id="eng" name="subject" value="english" checked onclick="EnableDisableTB()">
+                English
+            </div>
+            <div class="form-group col-md-2">
+                <input type="radio" id="hin" name="subject" value="hindi" onclick="EnableDisableTB()">
+                Hindi
+            </div>
+            <div class="form-group col-md-5">
+                <input type="radio" id="others" name="subject" value="other" onclick="EnableDisableTB()">
+                Other Language
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-3">
+                <label>Other Language</label>
+            </div>
+            <div class="form-group col-md-6">
+                <input type="text" id="otherlan" name="otherLanguage" disabled="disabled" placeholder="Other Language">
+            </div>
+        </div>
+    </form>
+</div>
+<script type="text/javascript">
+
+    function EnableDisableTB() {
+        var others = document.getElementById("idName_2");
+        var otherlan = document.getElementById("fecha_fin");
+        otherlan.disable = others.checked ? false : true;
+        otherlan.value = "";
+        if (!otherlan.disable) {
+            otherlan.focus();
+        }
+    }
+
+</script>
 

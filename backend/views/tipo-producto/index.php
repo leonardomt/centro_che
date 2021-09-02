@@ -42,7 +42,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
             [
                 'class' => 'kartik\grid\ActionColumn',
-                'template' => '{delete}',
+                'template' => '{delete}','header'=>false,
                 'headerOptions' => ['class' => 'col-md-2'],
                 'buttons' => [
                     'delete' => function ($url, $model)

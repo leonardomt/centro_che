@@ -429,12 +429,12 @@ $bundle->js[] = 'chart/Chart.js';
         new Chart(document.getElementById("inicio-chart"), {
             type: 'bar',
             data: {
-                labels: ["Actualidad", "Catálogo"],
+                labels: ["Actualidad"],
                 datasets: [
                     {
                         label: "Total",
                         backgroundColor: "#164A7D",
-                        data: ['<?php echo $actualidad; ?>', '<?php echo $catalogo; ?>'],
+                        data: ['<?php echo $actualidad; ?>'],
                         barThickness: 50,  // number (pixels) or 'flex'
                         maxBarThickness: 80 // number (pixels)
                     },
@@ -479,12 +479,12 @@ $bundle->js[] = 'chart/Chart.js';
         new Chart(document.getElementById("coordinacion-chart"), {
             type: 'bar',
             data: {
-                labels: ["Líneas", "Investigaciones", "Artículos", "Documentos", "Libros", "Cursos Online", "Clases"],
+                labels: ["Investigaciones", "Artículos", "Documentos", "Cursos Online"],
                 datasets: [
                     {
                         label: "Total",
                         backgroundColor: "#3971A5",
-                        data: ['<?php echo $lineas; ?>', '<?php echo $investigaciones; ?>', '<?php echo $articulos; ?>', '<?php echo $documentos; ?>', '<?php echo $libros; ?>', '<?php echo $cursos; ?>', '<?php echo $clases; ?>']
+                        data: [ '<?php echo $investigaciones; ?>', '<?php echo $articulos; ?>', '<?php echo $documentos; ?>',  '<?php echo $cursos; ?>']
                     },
 
                 ]
@@ -508,7 +508,7 @@ $bundle->js[] = 'chart/Chart.js';
         new Chart(document.getElementById("proyectos-chart"), {
             type: 'bar',
             data: {
-                labels: ["Talleres", "Exposiciones", "Audiovisuales", "Otros"],
+                labels: ["Talleres", "Exposiciones", ["Productos","Audiovisuales"], ["Otros", "Productos"]],
                 datasets: [
                     {
                         label: "Total",
@@ -537,12 +537,12 @@ $bundle->js[] = 'chart/Chart.js';
         new Chart(document.getElementById("vida-chart"), {
             type: 'bar',
             data: {
-                labels: ["Cronología", "Correspondencias", "Escritos", "D. y Entrevistas", "Testimonios", "G. de Fotografías", "G. de Audios", "G.", "G. de Homenajes"],
+                labels: [ "Correspondencias", "Escritos",["D. y Entrevistas"], "Testimonios", "G. de Fotografías", "G. de Audios", "G. de Videos", "G. de Homenajes"],
                 datasets: [
                     {
                         label: "Total",
                         backgroundColor: "#68A7DC",
-                        data: ['<?php echo $crono; ?>', '<?php echo $correspondencia; ?>', '<?php echo $escritos; ?>', '<?php echo $discursos; ?>', '<?php echo $testimonios; ?>', '<?php echo $foto; ?>', '<?php echo $audio; ?>', '<?php echo $video; ?>', '<?php echo $homenajes; ?>']
+                        data: [ '<?php echo $correspondencia; ?>', '<?php echo $escritos; ?>', '<?php echo $discursos; ?>', '<?php echo $testimonios; ?>', '<?php echo $foto; ?>', '<?php echo $audio; ?>', '<?php echo $video; ?>', '<?php echo $homenajes; ?>']
                     },
                 ]
             },
@@ -565,7 +565,7 @@ $bundle->js[] = 'chart/Chart.js';
         new Chart(document.getElementById("comentario-chart"), {
             type: 'bar',
             data: {
-                labels: ['Inicio', ['Coordinación', 'Académica'], ['Proyectos', 'Alternativos']],
+                labels: ['Actualidad', 'Artículo ', ['Proyectos', 'Comunitarios']],
                 datasets: [
                     {
                         label: "Total",
@@ -574,7 +574,7 @@ $bundle->js[] = 'chart/Chart.js';
                     },
                     {
                         label: "Sin Revisar",
-                        backgroundColor: "#697589",
+                        backgroundColor: "#353A3F",
                         data: ['<?= $comInicioRev ?>', '<?= $comCoordinacionRev ?>', '<?= $comTallerRev ?>']
                     },
                 ]
@@ -585,12 +585,16 @@ $bundle->js[] = 'chart/Chart.js';
                         ticks: {
                             stepSize: 1
                         }
+                    },
+                    y: {
+                        ticks: {
+                            stepSize: 1
+                        }
                     }
                 },
-                indexAxis: 'y',
+
                 title: {
                     display: true,
-                    text: 'Autores'
                 },
                 plugins: {
                     legend: {

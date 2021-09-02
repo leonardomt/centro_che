@@ -18,7 +18,7 @@ class CorrespondenciaSearch extends Correspondencia
     {
         return [
             [['id_correspondencia', 'revisado', 'publico'], 'integer'],
-            [['titulo', 'descripcion', 'destinatario', 'remitente', 'fecha'], 'safe'],
+            [['titulo', 'descripcion', 'cuerpo', 'destinatario', 'remitente', 'fecha'], 'safe'],
         ];
     }
 
@@ -66,6 +66,7 @@ class CorrespondenciaSearch extends Correspondencia
 
         $query->andFilterWhere(['like', 'titulo', $this->titulo])
             ->andFilterWhere(['like', 'descripcion', $this->descripcion])
+            ->andFilterWhere(['like', 'cuerpo', $this->cuerpo])
             ->andFilterWhere(['like', 'destinatario', $this->destinatario])
             ->andFilterWhere(['like', 'remitente', $this->remitente]);
 

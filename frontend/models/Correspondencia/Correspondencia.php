@@ -12,6 +12,7 @@ use Yii;
  * @property int $publico
  * @property string $titulo
  * @property string $descripcion
+ * @property string $cuerpo
  * @property string $destinatario
  * @property string $remitente
  * @property string $fecha
@@ -32,9 +33,9 @@ class Correspondencia extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['revisado', 'publico', 'titulo', 'descripcion', 'destinatario', 'remitente', 'fecha'], 'required'],
+            [['revisado', 'publico', 'titulo', 'descripcion', 'cuerpo', 'destinatario', 'remitente', 'fecha'], 'required'],
             [['revisado', 'publico'], 'integer'],
-            [['titulo', 'descripcion', 'destinatario', 'remitente'], 'string'],
+            [['titulo', 'descripcion', 'cuerpo', 'destinatario', 'remitente'], 'string'],
             [['fecha'], 'safe'],
         ];
     }
@@ -45,11 +46,12 @@ class Correspondencia extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id_correspondencia' => 'Id Correspondencia',
+            'id_correspondencia' => 'Correspondencia',
             'revisado' => 'Revisado',
-            'publico' => 'Publico',
-            'titulo' => 'Titulo',
-            'descripcion' => 'Descripcion',
+            'publico' => 'Público',
+            'titulo' => 'Título',
+            'descripcion' => 'Descripción',
+            'cuerpo' => 'Cuerpo',
             'destinatario' => 'Destinatario',
             'remitente' => 'Remitente',
             'fecha' => 'Fecha',

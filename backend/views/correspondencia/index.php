@@ -10,12 +10,12 @@ use common\widgets\Alert;
 /* @var $searchModel backend\models\Correspondencia\CorrespondenciaSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Correspondencias';
+$this->title = 'Correspondencia';
 $this->params['breadcrumbs'][] = $this->title;
 
-if ( Yii::$app->user->isGuest )
+if (Yii::$app->user->isGuest)
     return Yii::$app->getResponse()->redirect(\yii\helpers\Url::to(['site/login']));
-if ( !Yii::$app->user->can('gestionar-correspondencia'))
+if (!Yii::$app->user->can('gestionar-correspondencia'))
     return Yii::$app->getResponse()->redirect(\yii\helpers\Url::to(['site/login']));
 ?>
 <div class="correspondencia-index col-md-12">
@@ -30,8 +30,8 @@ if ( !Yii::$app->user->can('gestionar-correspondencia'))
     <p>
         <?= Html::a('<span class="fa fa-plus "></span>', ['create'], [
             'class' => 'btn btn-success',
-            'style'=>"width: 40px ; height: 40px",
-            "title"=>"Agregar"])
+            'style' => "width: 40px ; height: 40px",
+            "title" => "Agregar"])
         ?>
     </p>
 
@@ -41,7 +41,7 @@ if ( !Yii::$app->user->can('gestionar-correspondencia'))
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
-        'id'=> 'correspondencia-index-update',
+        'id' => 'correspondencia-index-update',
         'pjax' => true,
         'pjaxSettings' => [
             'neverTimeout' => true,
@@ -56,7 +56,7 @@ if ( !Yii::$app->user->can('gestionar-correspondencia'))
                 'value' => function ($model) {
                     return $model->revisado ? 'Sí' : 'No';
                 },
-                'filter'=>array("1"=>"Sí","0"=>"No"),
+                'filter' => array("1" => "Sí", "0" => "No"),
                 'filterInputOptions' => array('class' => 'form-control', 'id' => null, 'prompt' => 'Todos'),
             ],
             [
@@ -66,19 +66,19 @@ if ( !Yii::$app->user->can('gestionar-correspondencia'))
                 'value' => function ($model) {
                     return $model->publico ? 'Sí' : 'No';
                 },
-                'filter'=>array("1"=>"Sí","0"=>"No"),
+                'filter' => array("1" => "Sí", "0" => "No"),
                 'filterInputOptions' => array('class' => 'form-control', 'id' => null, 'prompt' => 'Todos'),
             ],
             [
                 'attribute' => 'fecha',                     // Fecha
                 'format' => 'raw',
                 'headerOptions' => ['class' => 'col-md-1'],
-                'filter'=>\dosamigos\datepicker\DatePicker::widget([
-                    'model'=>$searchModel,
-                    'attribute'=>'fecha',
-                    'clientOptions'=>[
-                        'autoclose'=>true,
-                        'format'=>'yyyy-mm-dd', 'endDate' => date('Y-m-d')
+                'filter' => \dosamigos\datepicker\DatePicker::widget([
+                    'model' => $searchModel,
+                    'attribute' => 'fecha',
+                    'clientOptions' => [
+                        'autoclose' => true,
+                        'format' => 'yyyy-mm-dd', 'endDate' => date('Y-m-d')
                     ],
                 ]),
             ],
@@ -102,33 +102,29 @@ if ( !Yii::$app->user->can('gestionar-correspondencia'))
                 'headerOptions' => ['class' => 'col-md-2'],
                 'format' => 'raw',
                 'value' => function ($model) {
-                    return '<div style="line-height: 1.2em; height: 6em; overflow: hidden;">'.\yii\helpers\HtmlPurifier::process($model->descripcion).'</div>';
+                    return '<div style="line-height: 1.2em; height: 6em; overflow: hidden;">' . \yii\helpers\HtmlPurifier::process($model->descripcion) . '</div>';
                 },
 
             ],
 
             [
                 'class' => 'kartik\grid\ActionColumn',
-                'template' => '{view}{update}{delete}',
+                'template' => '{view}{update}{delete}', 'header' => false,
                 'headerOptions' => ['class' => 'col-md-2'],
                 'buttons' => [
-                    'view' => function ($url, $model)
-                    {
-                        return Html::a('<button title="Ver" class="btn btn-success" style="width: 40px ; margin-top: 2px;  margin-left: 2px"><i class="fa fa-eye"></i></button>',$url);
+                    'view' => function ($url, $model) {
+                        return Html::a('<button title="Ver" class="btn btn-success" style="width: 40px ; margin-top: 2px;  margin-left: 2px"><i class="fa fa-eye"></i></button>', $url);
                     },
-                    'update' => function ($url, $model)
-                    {
-                        return Html::a('<button title="Modificar" class="btn btn-primary" style="width: 40px ; margin-top: 2px;  margin-left: 2px"><i class="fa fa-pencil"></i></button>',$url);
+                    'update' => function ($url, $model) {
+                        return Html::a('<button title="Modificar" class="btn btn-primary" style="width: 40px ; margin-top: 2px;  margin-left: 2px"><i class="fa fa-pencil"></i></button>', $url);
                     },
-                    'delete' => function ($url, $model)
-                    {
-                        return Html::a('<button title="Eliminar" class="btn btn-danger" style="width: 40px ; margin-top: 2px;  margin-left: 2px"><i class="fa fa-trash"></i></button>',$url, ['data-confirm' => '¿Está seguro que desea eliminar este elemento?', 'data-method' =>'POST']);
+                    'delete' => function ($url, $model) {
+                        return Html::a('<button title="Eliminar" class="btn btn-danger" style="width: 40px ; margin-top: 2px;  margin-left: 2px"><i class="fa fa-trash"></i></button>', $url, ['data-confirm' => '¿Está seguro que desea eliminar este elemento?', 'data-method' => 'POST']);
                     }
                 ],
             ],
         ],
     ]); ?>
-
 
 
 </div>

@@ -79,11 +79,11 @@ class SiteController extends Controller
 
     public function actionCentroEstudios()
     {
-        return $this->render('centro_estudios');
+        return $this->render('centro-estudios');
     }
-    public function actionVidaObra()
+    public function actionVidaYObra()
     {
-        return $this->render('vida_y_obra');
+        return $this->render('vida-y-obra');
     }
     /**
      * Logs in a user.

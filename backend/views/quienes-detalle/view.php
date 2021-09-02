@@ -9,7 +9,7 @@ use yii\bootstrap4\Breadcrumbs;
 /* @var $this yii\web\View */
 /* @var $model backend\models\Quienes\QuienesDetalle */
 
-$this->title = "Quiénes Somos Detallado";
+$this->title = "Detalles";
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 if (Yii::$app->user->isGuest)
@@ -78,10 +78,8 @@ if (Yii::$app->user->isGuest)
                         'value' => function ($model) {
                             if ($model->url != ' ' && $model->url != NULL) { // verifica si fue importada o no
 
-                                return Html::img(
-                                    '../../frontend/web/' . $model->url,
-                                    ['alt' => $model->url, 'width' => 300]
-                                );
+                                return '<div style="width:400px; height:200px; object-fit: contain;"><img style="height:100%; width: 100%; object-fit: contain" src="../../frontend/web/'.$model->url.'"
+                                 alt="" ></div>';
                             } else {
                                 return Html::label('_');
                                 // si no tiene asignada una portada, solo muestra un guion bajo
@@ -92,7 +90,7 @@ if (Yii::$app->user->isGuest)
 
                     [
                         'class' => 'kartik\grid\ActionColumn',
-                        'template' => '{delete}',
+                        'template' => '{delete}','header'=>false,
                         'headerOptions' => ['class' => 'col-md-1'],
                         'buttons' => [
                             'delete' => function ($url, $model) {
@@ -141,7 +139,7 @@ if (Yii::$app->user->isGuest)
 
                     [
                         'class' => 'kartik\grid\ActionColumn',
-                        'template' => '{view}{update}{delete}',
+                        'template' => '{view}{update}{delete}','header'=>false,
                         'headerOptions' => ['class' => 'col-md-3'],
                         'buttons' => [
                             'view' => function ($url, $model) {

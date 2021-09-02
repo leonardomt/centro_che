@@ -192,7 +192,7 @@
                                 'label' => 'Quiénes Somos',
                                 'iconStyle' => 'far',
                                 'items' => [
-                                    ['label' => 'Quiénes Inicio', 'icon' => 'dot-circle', 'iconStyle' => 'far' , 'url' => ['/quienes/view', 'id'=>1], 'visible' => Yii::$app->user->can('gestionar-noticia')],
+                                    ['label' => 'Quiénes Somos Inicio', 'icon' => 'dot-circle', 'iconStyle' => 'far' , 'url' => ['/quienes/view', 'id'=>1], 'visible' => Yii::$app->user->can('gestionar-noticia')],
                                     ['label' => 'Detalles', 'icon' => 'dot-circle', 'iconStyle' => 'far' , 'url' => ['/quienes-detalle/view', 'id'=>1], 'visible' => Yii::$app->user->can('gestionar-noticia')],
                                 ]
                             ],

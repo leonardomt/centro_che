@@ -103,7 +103,7 @@ if ( !Yii::$app->user->can('gestionar-taller'))
 
             [
                 'class' => 'kartik\grid\ActionColumn',
-                'template' => '{view}{update}{delete}',
+                'template' => '{view}{update}{delete}','header'=>false,
                 'headerOptions' => ['class' => 'col-md-2'],
                 'buttons' => [
                     'view' => function ($url, $model)

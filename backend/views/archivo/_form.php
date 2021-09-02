@@ -42,10 +42,15 @@ use backend\models\Archivo\TipoArchivo;
 
         <div class="col-md-6 ">
             <?= $form->field($model, 'fecha')->widget(\dosamigos\datepicker\DatePicker::className(), [
-                'inline' => false, 'language' => 'es',
+                'inline' => false, 'language' => 'es', 'options' => [
+                    'readonly' => 'readonly'
+                ],
                 'clientOptions' => [
                     'autoclose' => true,
                     'format' => 'yyyy-mm-dd', 'endDate' => date('Y-m-d')
+                ],
+                'options' => [
+                    'readonly' => 'readonly'
                 ]
             ]) ?>
         </div>
