@@ -56,8 +56,12 @@ if (Yii::$app->user->isGuest)
         </div>
     </div>
 
-    <?= $form->field($model, 'id_investigacion')->dropDownList(
-        ArrayHelper::map(Investigacion::find()->all(), 'id_investigacion', 'titulo_investigacion'), ['prompt' => 'Ninguna']
+    <?=
+    $form->field($model, 'id_investigacion')->widget(\kartik\select2\Select2::classname(), [
+            'data' => \yii\helpers\ArrayHelper::map(Investigacion::find()->all(), 'id_investigacion', 'titulo_investigacion'),
+            'options' => ['placeholder' => 'Seleccionar', 'multiple' => false, 'required' => true],
+            'theme' => \kartik\select2\Select2::THEME_KRAJEE,
+            'size' => 'xs',]
     ) ?>
 
     <?= $form->field($model, 'resumen')->textarea(['rows' => 2, 'style' => 'resize:none']) ?>
