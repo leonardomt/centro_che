@@ -61,7 +61,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <div class="row">
         <div class="col-lg-6 text-lg-left">
-            <?= $form->field($model, 'linea')->dropDownList(['Escritos de Juventud' => 'Escritos de Juventud', 'Antologías' => 'Antologías', 'Memoria Histórica' => 'Memoria Histórica', 'Filosofía y Política' => 'Filosofía y Política', 'Economía Política' => 'Economía Política', 'De Divulgación General' => 'De Divulgación General', 'Lecturas sobre el pensamiento y la obra del Che' => 'Lecturas sobre el pensamiento y la obra del Che'], ['prompt' => '-']) ?>
+            <?= $form->field($model, 'linea')->dropDownList(['Escritos de Juventud' => 'Escritos de Juventud', 'Antologías' => 'Antologías', 'Memoria Histórica' => 'Memoria Histórica', 'Filosofía y Política' => 'Filosofía y Política', 'Economía Política' => 'Economía Política', 'De Divulgación General' => 'De Divulgación General', 'Lecturas sobre el pensamiento y la obra del Che' => 'Lecturas sobre el pensamiento y la obra del Che']) ?>
 
 
         </div>

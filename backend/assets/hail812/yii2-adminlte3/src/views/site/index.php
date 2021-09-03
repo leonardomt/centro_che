@@ -565,7 +565,7 @@ $bundle->js[] = 'chart/Chart.js';
         new Chart(document.getElementById("comentario-chart"), {
             type: 'bar',
             data: {
-                labels: ['Actualidad', 'Artículo ', ['Proyectos', 'Comunitarios']],
+                labels: ['Actualidad', 'Artículos ', ['Proyectos', 'Comunitarios']],
                 datasets: [
                     {
                         label: "Total",

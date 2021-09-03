@@ -33,7 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <?= $form->field($model, 'titulo')->textInput(['maxlength' => true]) ?>
         </div>
         <div class="col-lg-6 text-lg-left">
-            <?= $form->field($model, 'tipo')->dropDownList(['Crónica' => 'Crónica', 'Poesía' => 'Poesía', 'Artículo' => 'Artículo', 'Apuntes de Lectura' => 'Apuntes de Lectura', 'Prólogo' => 'Prólogo', 'Relato' => 'Relato', 'Ensayo' => 'Ensayo', 'Correspondencia' => 'Correspondencia'], ['prompt' => '-']) ?>
+            <?= $form->field($model, 'tipo')->dropDownList(['Crónica' => 'Crónica', 'Poesía' => 'Poesía', 'Artículo' => 'Artículo', 'Apuntes de Lectura' => 'Apuntes de Lectura', 'Prólogo' => 'Prólogo', 'Relato' => 'Relato', 'Ensayo' => 'Ensayo', 'Correspondencia' => 'Correspondencia']) ?>
         </div>
     </div>
 
