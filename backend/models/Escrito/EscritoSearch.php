@@ -18,7 +18,7 @@ class EscritoSearch extends Escrito
     {
         return [
             [['id_escrito', 'revisado', 'publico'], 'integer'],
-            [['tipo', 'titulo', 'descripcion', 'cuerpo'], 'safe'],
+            [['tipo', 'titulo', 'descripcion', 'autor', 'cuerpo'], 'safe'],
         ];
     }
 
@@ -66,7 +66,8 @@ class EscritoSearch extends Escrito
         $query->andFilterWhere(['like', 'tipo', $this->tipo])
             ->andFilterWhere(['like', 'titulo', $this->titulo])
             ->andFilterWhere(['like', 'descripcion', $this->descripcion])
-            ->andFilterWhere(['like', 'cuerpo', $this->cuerpo]);
+            ->andFilterWhere(['like', 'cuerpo', $this->cuerpo])
+            ->andFilterWhere(['like', 'autor', $this->autor]);
 
         return $dataProvider;
     }

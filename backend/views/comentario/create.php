@@ -11,6 +11,8 @@ $this->title = 'Responder como Institución';
 $this->params['breadcrumbs'][] = ['label' => 'Comentarios', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 $comentario = \backend\models\Comentario\Comentario::find()->where(['id'=> $id])->one();
+$nombre = \backend\models\User\User::find()->where(['id' => Yii::$app->getUser()->identity->getId()])->one();
+$este = $nombre->first_name . " " . $nombre->last_name;
 ?>
 <div class="comentario-create">
 
@@ -24,7 +26,7 @@ $comentario = \backend\models\Comentario\Comentario::find()->where(['id'=> $id])
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'alias')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'alias')->dropDownList([ $este => $este, 'Centro Che Cuba' => 'Centro Che Cuba', 'Administrador'=>'Administrador', 'Administradora'=>'Administradora', 'Coordinación Académica'=>'Coordinación Académica', 'Coordinación de Proyectos Alternativos'=>'Coordinación de Proyectos Alternativos', 'Investigador'=>'Investigador', 'Invesigadora'=>'Invesigadora', 'Especialista'=>'Especialista']) ?>
 
     <?= $form->field($model, 'correo')->textInput(['maxlength' => true]) ?>
 

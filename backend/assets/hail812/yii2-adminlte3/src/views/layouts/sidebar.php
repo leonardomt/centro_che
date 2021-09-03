@@ -197,8 +197,7 @@
                                 ]
                             ],
                             ['label' => 'Contacto', 'iconStyle' => 'far' , 'url' => ['/contacto/view', 'id'=>1], 'visible' => Yii::$app->user->can('gestionar-noticia')],
-                            ['label' => 'Equipo de Trabajo', 'iconStyle' => 'far' , 'url' => ['/trabajador/index'], 'visible' => Yii::$app->user->can('gestionar-noticia')],
-
+                        
                         ]
                     ],
 
@@ -242,7 +241,7 @@
                         'badge' => $vidaobra,
                         'items' => [
                             ['label' => 'Cronología', 'iconStyle' => 'far' , 'url' => ['/hecho/index'], 'visible' => Yii::$app->user->can('gestionar-hecho'), 'badge' => $hecho],
-                            ['label' => 'Correspondencias', 'iconStyle' => 'far' , 'url' => ['/correspondencia/index'], 'visible' => Yii::$app->user->can('gestionar-correspondencia'), 'badge' => $correspondencia],
+                            ['label' => 'Correspondencia', 'iconStyle' => 'far' , 'url' => ['/correspondencia/index'], 'visible' => Yii::$app->user->can('gestionar-correspondencia'), 'badge' => $correspondencia],
                             ['label' => 'Escritos', 'iconStyle' => 'far' , 'url' => ['/escrito/index'], 'visible' => Yii::$app->user->can('gestionar-escrito'), 'badge' => $escrito],
                             ['label' => 'Discursos y Entrevistas', 'iconStyle' => 'far' , 'url' => ['/discurso/index'], 'visible' => Yii::$app->user->can('gestionar-discurso'), 'badge' => $discurso],
                             ['label' => 'Testimonios', 'iconStyle' => 'far' , 'url' => ['/testimonio/index'], 'visible' => Yii::$app->user->can('gestionar-testimonio'), 'badge' => $testimonio],

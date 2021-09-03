@@ -537,7 +537,7 @@ $bundle->js[] = 'chart/Chart.js';
         new Chart(document.getElementById("vida-chart"), {
             type: 'bar',
             data: {
-                labels: [ "Correspondencias", "Escritos",["D. y Entrevistas"], "Testimonios", "G. de Fotografías", "G. de Audios", "G. de Videos", "G. de Homenajes"],
+                labels: [ "Correspondencia", "Escritos",["D. y Entrevistas"], "Testimonios", "G. de Fotografías", "G. de Audios", "G. de Videos", "G. de Homenajes"],
                 datasets: [
                     {
                         label: "Total",

@@ -37,6 +37,8 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
     </div>
 
+    <?= $form->field($model, 'autor')->dropDownList(['Ernesto Guevara de la Serna' => 'Ernesto Guevara de la Serna', 'Ernesto Che Guevara' => 'Ernesto Che Guevara'], ['prompt' => '-']) ?>
+        
     <?= $form->field($model, 'descripcion')->textarea(['rows' => 3, 'style' => 'resize:none']) ?>
 
     <?= $form->field($model, 'cuerpo')->textarea(['rows' => 6, 'style' => 'resize:none']) ?>

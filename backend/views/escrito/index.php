@@ -68,14 +68,21 @@ $this->params['breadcrumbs'][] = $this->title;
                 'filter' => array('Crónica'=>'Crónica','Poesía'=>'Poesía', 'Artículo'=>'Artículo', 'Apuntes de Lectura'=>'Apuntes de Lectura', 'Prólogo'=>'Prólogo', 'Ensayo'=>'Ensayo'),
                 'filterInputOptions' => array('class' => 'form-control', 'id' => null, 'prompt' => 'Todos'),
             ],
+            [
+                'attribute' => 'autor',                     // autor
+                'format' => 'raw',
+                'headerOptions' => ['class' => 'col-md-2'],
+                'filter' => array('Ernesto Guevara de la Serna' => 'Ernesto Guevara de la Serna', 'Ernesto Che Guevara' => 'Ernesto Che Guevara'),
+                'filterInputOptions' => array('class' => 'form-control', 'id' => null, 'prompt' => 'Todos'),
+            ],
             [                
                 'attribute' => 'titulo',                     // Titulo
                 'format' => 'raw',
-                'headerOptions' => ['class' => 'col-md-3'],
+                'headerOptions' => ['class' => 'col-md-2'],
             ],
             [
                 'attribute' => 'descripcion',
-                'headerOptions' => ['class' => 'col-md-3'],
+                'headerOptions' => ['class' => 'col-md-2'],
                 'format' => 'raw',
                 'value' => function ($model) {
                     return '<div style="line-height: 1.2em; height: 6em; overflow: hidden;">'.\yii\helpers\HtmlPurifier::process($model->descripcion).'</div>';

@@ -14,6 +14,7 @@ use Yii;
  * @property string $cuerpo
  * @property int $revisado
  * @property int $publico
+ * @property string $autor
  */
 class Escrito extends \yii\db\ActiveRecord
 {
@@ -31,8 +32,8 @@ class Escrito extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['tipo', 'titulo', 'descripcion', 'cuerpo', 'revisado', 'publico'], 'required'],
-            [['titulo', 'descripcion', 'cuerpo'], 'string'],
+            [['tipo', 'titulo', 'descripcion', 'cuerpo', 'revisado', 'autor','publico'], 'required'],
+            [['titulo', 'descripcion', 'autor', 'cuerpo'], 'string'],
             [['revisado', 'publico'], 'integer'],
             [['tipo'], 'string', 'max' => 256],
         ];
@@ -51,6 +52,7 @@ class Escrito extends \yii\db\ActiveRecord
             'cuerpo' => 'Contenido',
             'revisado' => 'Revisado',
             'publico' => 'Público',
+            'autor' => 'Autor',
         ];
     }
 }

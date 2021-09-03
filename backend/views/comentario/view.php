@@ -24,9 +24,9 @@ $this->params['breadcrumbs'][] = $this->title;
     <p>
 
         <?php if ($model->publico == 0): ?>
-            <?= Html::a('<span class="fa fa-check"></span>', ['aprobar', 'id' => $model->id], [
+            <?= Html::a('<span><i style="color:white;" class="fa fa-check"></i></span></span>', ['aprobar', 'id' => $model->id], [
                     'class' => 'btn btn-success',
-                    'style'=>"width: 40px ; height: 40px",
+                    'style'=>"width: 50px ; height: 50px; font-size: 1.5em",
                     'title'=>"Aprobar",
                     'data' => [
                         'confirm' => 'Está seguro de que desea publicar este comentario?',
@@ -36,9 +36,9 @@ $this->params['breadcrumbs'][] = $this->title;
             ) ?>
         <?php endif; ?>
         <?php if ($model->publico == 0 && $model->revisado == 0): ?>
-            <?= Html::a('<span class="fa fa-ban"></span>', ['delete', 'id' => $model->id], [
+            <?= Html::a('<span ><i class="fa fa-ban"></i></span></span>', ['delete', 'id' => $model->id], [
                 'class' => 'btn btn-danger',
-                'style'=>"width: 40px ; height: 40px",
+                'style'=>"width: 50px ; height: 50px; font-size: 1.5em",
                 'title'=>"Denegar",
                 'data' => [
                     'confirm' => 'Está seguro de que desea denegar este comentario?',
@@ -46,14 +46,11 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
             ]) ?>
         <?php endif; ?>
-        <?= Html::a('<span style="color:white" class="far fa-comments"></span>', ['create', 'id' => $model->id ], [
+        <?= Html::a('<span ><i style="color:white; margin-left: -2px" class="far fa-comments"></i></span>', ['create', 'id' => $model->id ], [
             'class' => 'btn btn-warning',
-            'style'=>"width: 40px ; height: 40px",
+            'style'=>"width: 50px ; height: 50px; font-size: 1.5em",
             'title'=>"Responder",
-            'data' => [
-                'confirm' => 'Está seguro de que desea responder como institución este comentario?',
-                'method' => 'post',
-            ],
+        
         ]) ?>
     </p>
 

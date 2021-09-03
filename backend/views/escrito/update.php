@@ -35,7 +35,8 @@ $x = 0;
             <?= $form->field($model, 'tipo')->dropDownList(['Crónica' => 'Crónica', 'Poesía' => 'Poesía', 'Artículo' => 'Artículo', 'Apuntes de Lectura' => 'Apuntes de Lectura', 'Prólogo' => 'Prólogo', 'Relato' => 'Relato', 'Ensayo' => 'Ensayo', 'Correspondencia' => 'Correspondencia'], ['prompt' => '-']) ?>
         </div>
     </div>
-
+    <?= $form->field($model, 'autor')->dropDownList(['Ernesto Guevara de la Serna' => 'Ernesto Guevara de la Serna', 'Ernesto Che Guevara' => 'Ernesto Che Guevara'], ['prompt' => '-']) ?>
+    
     <?= $form->field($model, 'descripcion')->textarea(['rows' => 3, 'style' => 'resize:none']) ?>
 
     <?= $form->field($model, 'cuerpo')->textarea(['rows' => 6, 'style' => 'resize:none']) ?>
