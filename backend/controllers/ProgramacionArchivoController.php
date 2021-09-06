@@ -3,22 +3,16 @@
 namespace backend\controllers;
 
 use Yii;
-use backend\models\GestionDocumental\GestionDocumental;
-use backend\models\GestionDocumental\GestionDocumentalArchivo;
-use backend\models\GestionDocumental\GestionDocumentalSearch;
+use backend\models\Programacion\ProgramacionArchivo;
+use backend\models\Programacion\ProgramacionArchivoSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use yii\web\Response;
-use yii\widgets\ActiveForm;
-use yii\helpers\ArrayHelper;
-use yii\base\Model;
-use yii\web\UploadedFile;
 
 /**
- * GestionDocumentalController implements the CRUD actions for GestionDocumental model.
+ * ProgramacionArchivoController implements the CRUD actions for ProgramacionArchivo model.
  */
-class GestionDocumentalController extends Controller
+class ProgramacionArchivoController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -36,12 +30,12 @@ class GestionDocumentalController extends Controller
     }
 
     /**
-     * Lists all GestionDocumental models.
+     * Lists all ProductoAudiovisualArchivo models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new GestionDocumentalSearch();
+        $searchModel = new ProgramacionArchivoSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -51,8 +45,8 @@ class GestionDocumentalController extends Controller
     }
 
     /**
-     * Displays a single GestionDocumental model.
-     * @param integer $id
+     * Displays a single ProgramacionArchivo model.
+     * @param string $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -64,14 +58,13 @@ class GestionDocumentalController extends Controller
     }
 
     /**
-     * Creates a new GestionDocumental model.
+     * Creates a new ProgramacionArchivo model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new GestionDocumental();
-        $modelArchivo = new GestionDocumentalArchivo();
+        $model = new ProgramacionArchivo();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['index']);
@@ -79,61 +72,33 @@ class GestionDocumentalController extends Controller
 
         return $this->render('create', [
             'model' => $model,
-            'modelArchivo' => $modelArchivo,
         ]);
     }
 
     /**
-     * Updates an existing GestionDocumental model.
+     * Updates an existing ProgramacionArchivo model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
+     * @param string $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionUpdate($id)
     {
-        $modelArchivos = new GestionDocumentalArchivo();
         $model = $this->findModel($id);
 
-        Yii::$app->request->enableCsrfValidation = false;
-        $this->enableCsrfValidation = false;
-
-        if ($model->load(Yii::$app->request->post())) {
-            $model->save();
-            $modelArchivos->file = UploadedFile::getInstances($modelArchivos, 'file');
-            foreach ($modelArchivos->file as $file) {
-                $upload = new GestionDocumentalArchivo();
-                $imageName = date('Y-m-d') . rand(0, 99999);
-                $upload->url = 'paradigma/' . $imageName . '.' . $file->extension;
-                $upload->file = $file;
-                $upload->save();
-
-
-                for ($x = 0; $x <= 7; $x++) {
-                    $images = GestionDocumentalArchivo::find()->all();
-                    if (count($images) >= 6) {
-                        $images[0]->delete();
-                    }
-                }
-
-                $file->saveAs('../../frontend/web/paradigma/' . $imageName . '.' . $file->extension);
-
-
-            }
-            return $this->redirect(['view', 'id' => 1]);
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['index']);
         }
-
 
         return $this->render('update', [
             'model' => $model,
-            'modelArchivos' => $modelArchivos,
         ]);
     }
 
     /**
-     * Deletes an existing GestionDocumental model.
+     * Deletes an existing ProgramacionArchivo model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
+     * @param string $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -145,15 +110,15 @@ class GestionDocumentalController extends Controller
     }
 
     /**
-     * Finds the GestionDocumental model based on its primary key value.
+     * Finds the ProductoAudiovisualArchivo model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param integer $id
-     * @return GestionDocumental the loaded model
+     * @param string $id
+     * @return ProgramacionArchivo the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = GestionDocumental::findOne($id)) !== null) {
+        if (($model = ProgramacionArchivo::findOne($id)) !== null) {
             return $model;
         }
 

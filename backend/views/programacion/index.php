@@ -1,3 +1,4 @@
+
 <?php
 
 use yii\helpers\Html;
@@ -7,17 +8,19 @@ use yii\bootstrap4\Breadcrumbs;
 use common\widgets\Alert;
 
 /* @var $this yii\web\View */
-/* @var $searchModel backend\models\CursoOnline\CursoOnlineSearch */
+/* @var $searchModel backend\models\Programacion\ProgramacionSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Curso Online';
+$this->title = 'Programación Cultural';
 $this->params['breadcrumbs'][] = $this->title;
+
 if ( Yii::$app->user->isGuest )
     return Yii::$app->getResponse()->redirect(\yii\helpers\Url::to(['site/login']));
-if ( !Yii::$app->user->can('gestionar-curso-online'))
+if ( !Yii::$app->user->can('gestionar-producto-audiovisual'))
     return Yii::$app->getResponse()->redirect(\yii\helpers\Url::to(['site/login']));
 ?>
-<div class="curso-online-index col-md-12">
+
+<div class="programacion-index ">
 
     <h1><?= Html::encode($this->title) ?></h1>
     <div class="">
@@ -25,6 +28,7 @@ if ( !Yii::$app->user->can('gestionar-curso-online'))
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
         ]) ?>
         <?= Alert::widget() ?>
+
     </div>
     <p>
         <?= Html::a('<span class="fa fa-plus "></span>', ['create'], [
@@ -35,12 +39,10 @@ if ( !Yii::$app->user->can('gestionar-curso-online'))
     </p>
 
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
-        'filterModel' => (new \backend\models\CursoOnline\CursoOnlineSearch()),
-        'id'=> 'curso-online-index-update',
+        'filterModel' => $searchModel,
+        'id'=> 'producto-index-update',
         'pjax' => true,
         'pjaxSettings' => [
             'neverTimeout' => true,
@@ -71,16 +73,41 @@ if ( !Yii::$app->user->can('gestionar-curso-online'))
             [
                 'attribute' => 'titulo',                     // Titulo
                 'format' => 'raw',
-                'headerOptions' => ['class' => 'col-md-3']
+                'headerOptions' => ['class' => 'col-md-2'],
+
             ],
             [
-                'attribute' => 'coordinador',                     // Titulo
+                'attribute' => 'fecha',
+                'value'=> 'fecha',
                 'format' => 'raw',
-                'headerOptions' => ['class' => 'col-md-2']
+                'headerOptions' => ['class' => 'col-md-1'],
+                'filter'=>\dosamigos\datepicker\DatePicker::widget([
+                    'model'=>$searchModel,
+                    'attribute'=>'fecha',
+                    'clientOptions'=>[
+                        'autoclose'=>true,
+                        'format'=>'yyyy-mm-dd', 'endDate' => date('Y-m-d')
+                    ],
+                ]),
             ],
+            [
+                'attribute' => 'hora',                     // Titulo
+                'format' => 'raw',
+                'headerOptions' => ['class' => 'col-md-1'],
+
+            ],
+            [
+                'attribute' => 'lugar',                     // tipo
+                'format' => 'raw',
+                'headerOptions' => ['class' => 'col-md-2'],
+                'filter' => array('Sala de Exposición Permanente "Ernesto Che Guevara"' => 'Sala de Exposición Permanente "Ernesto Che Guevara"', 'Sala de Exposiciones transitorias "Haydée Santamaría"' => 'Sala de Exposiciones transitorias "Haydée Santamaría"', 'Sala de Proyecciones "Santiago Álvarez"'=>'Sala de Proyecciones "Santiago Álvarez"', 'Sala de Conferencias "Raúl Roa"'=>'Sala de Conferencias "Raúl Roa"', 'Sala de Lectura "José Carlos Mariátegui"'=>'Sala de Lectura "José Carlos Mariátegui"'),
+                'filterInputOptions' => array('class' => 'form-control', 'id' => null, 'prompt' => 'Todos'),
+            ],
+
+
             [
                 'attribute' => 'descripcion',
-                'headerOptions' => ['class' => 'col-md-3'],
+                'headerOptions' => ['class' => 'col-md-1'],
                 'format' => 'raw',
                 'value' => function ($model) {
                     return '<div style="line-height: 1.2em; height: 6em; overflow: hidden;">'.\yii\helpers\HtmlPurifier::process($model->descripcion).'</div>';
@@ -110,6 +137,6 @@ if ( !Yii::$app->user->can('gestionar-curso-online'))
         ],
     ]); ?>
 
-
-
 </div>
+
+

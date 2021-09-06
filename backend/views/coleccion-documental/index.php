@@ -10,8 +10,7 @@ use common\widgets\Alert;
 /* @var $searchModel backend\models\ColeccionDocumental\ColeccionDocumentalSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Documentos';
-$this->params['breadcrumbs'][] = ['label' => 'Colección Documental', 'url' => ['/gestion-documental/view', 'id' => 1]];
+$this->title = 'Catálogo';
 $this->params['breadcrumbs'][] = $this->title;
 if ( Yii::$app->user->isGuest )
     return Yii::$app->getResponse()->redirect(\yii\helpers\Url::to(['site/login']));

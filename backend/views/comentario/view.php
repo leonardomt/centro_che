@@ -24,9 +24,9 @@ $this->params['breadcrumbs'][] = $this->title;
     <p>
 
         <?php if ($model->publico == 0): ?>
-            <?= Html::a('<span><i style="color:white;" class="fa fa-check"></i></span></span>', ['aprobar', 'id' => $model->id], [
+            <?= Html::a('<span><i style="color:white; margin-left: -3px; margin-top: -2px" class="fa fa-check"></i></span></span>', ['aprobar', 'id' => $model->id], [
                     'class' => 'btn btn-success',
-                    'style'=>"width: 50px ; height: 50px; font-size: 1.5em",
+                    'style'=>"width: 40px ; height: 40px; font-size: 1.2em",
                     'title'=>"Aprobar",
                     'data' => [
                         'confirm' => 'Está seguro de que desea publicar este comentario?',
@@ -36,9 +36,9 @@ $this->params['breadcrumbs'][] = $this->title;
             ) ?>
         <?php endif; ?>
         <?php if ($model->publico == 0 && $model->revisado == 0): ?>
-            <?= Html::a('<span ><i class="fa fa-ban"></i></span></span>', ['delete', 'id' => $model->id], [
+            <?= Html::a('<span ><i style="margin-left: -2px; margin-top: -2px" class="fa fa-ban"></i></span></span>', ['delete', 'id' => $model->id], [
                 'class' => 'btn btn-danger',
-                'style'=>"width: 50px ; height: 50px; font-size: 1.5em",
+                'style'=>"width: 40px ; height: 40px; font-size: 1.2em",
                 'title'=>"Denegar",
                 'data' => [
                     'confirm' => 'Está seguro de que desea denegar este comentario?',
@@ -46,9 +46,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
             ]) ?>
         <?php endif; ?>
-        <?= Html::a('<span ><i style="color:white; margin-left: -2px" class="far fa-comments"></i></span>', ['create', 'id' => $model->id ], [
+        <?= Html::a('<span ><i style="color:white; margin-left: -3px; margin-top: -2px" class="far fa-comments"></i></span>', ['create', 'id_c' => $model->id ], [
             'class' => 'btn btn-warning',
-            'style'=>"width: 50px ; height: 50px; font-size: 1.5em",
+            'style'=>"width: 40px ; height: 40px; font-size: 1.2em",
             'title'=>"Responder",
         
         ]) ?>
@@ -64,7 +64,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'tabla',
             'seccion',
             [
-                'attribute' => 'Publico',
+                'attribute' => 'Público',
                 'value' => function ($model) {
                     return $model->revisado ? 'Sí' : 'No';
                 },

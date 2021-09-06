@@ -10,7 +10,7 @@ use common\widgets\Alert;
 $this->title = 'Responder como Institución';
 $this->params['breadcrumbs'][] = ['label' => 'Comentarios', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
-$comentario = \backend\models\Comentario\Comentario::find()->where(['id'=> $id])->one();
+$comentario = \backend\models\Comentario\Comentario::find()->where(['id'=> $id_c])->one();
 $nombre = \backend\models\User\User::find()->where(['id' => Yii::$app->getUser()->identity->getId()])->one();
 $este = $nombre->first_name . " " . $nombre->last_name;
 ?>

@@ -1,21 +1,26 @@
 <?php
 
-
 use yii\helpers\Html;
 use yii\bootstrap4\Breadcrumbs;
 use common\widgets\Alert;
+use backend\models\Programacion\Programacion;
 use yii\widgets\Pjax;
 use kartik\grid\GridView;
+use yii\helpers\ArrayHelper;
+use kartik\time\TimePicker;
 
 /* @var $this yii\web\View */
-/* @var $model backend\models\Escrito\Escrito */
+/* @var $model backend\models\Programacion\Programacion */
 
-$this->title = 'Crear Escrito';
-$this->params['breadcrumbs'][] = ['label' => 'Escritos', 'url' => ['index']];
+$this->title = 'Crear Programación Cultural';
+$this->params['breadcrumbs'][] = ['label' => 'Programación Cultural', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
-
+if (Yii::$app->user->isGuest)
+    return Yii::$app->getResponse()->redirect(\yii\helpers\Url::to(['site/login']));
+if (!Yii::$app->user->can('gestionar-producto-audiovisual'))
+    return Yii::$app->getResponse()->redirect(\yii\helpers\Url::to(['site/login']));
 ?>
-<div class="escrito-create">
+<div class="programacion-create col-md-12">
 
     <h1><?= Html::encode($this->title) ?></h1>
     <div class="">
@@ -25,33 +30,55 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Alert::widget() ?>
     </div>
 
-
     <?php $form = \kartik\form\ActiveForm::begin(['id' => 'dynamic-form']); ?>
+
+
+    <?= $form->field($model, 'titulo')->textInput() ?>
+
+    <?= $form->field($model, 'descripcion')->textarea(['rows' => 3, 'style' => 'resize:none']) ?>
+
+
 
     <div class="row">
         <div class="col-lg-6 text-lg-left">
-            <?= $form->field($model, 'titulo')->textInput(['maxlength' => true]) ?>
+            <?= $form->field($model, 'fecha')->widget(\dosamigos\datepicker\DatePicker::className(), [
+                'inline' => false, 'language' => 'es', 'options' => [
+                    'autocomplete' => 'off',
+                ],
+                'clientOptions' => [
+                    'autoclose' => true,
+                    'format' => 'yyyy-m-d',
+                    'endDate' => date('Y-m-d'),
+                ]
+            ]) ?>
         </div>
+
         <div class="col-lg-6 text-lg-left">
-            <?= $form->field($model, 'tipo')->dropDownList(['Crónica' => 'Crónica', 'Poesía' => 'Poesía', 'Artículo' => 'Artículo', 'Apuntes de Lectura' => 'Apuntes de Lectura', 'Prólogo' => 'Prólogo', 'Relato' => 'Relato', 'Ensayo' => 'Ensayo', 'Correspondencia' => 'Correspondencia']) ?>
+
+            <?php
+            echo $form->field($model, 'hora')->widget(TimePicker::classname(), [
+                'pluginOptions' => [
+
+                    'defaultTime' => false,
+
+                ],
+
+
+            ]);
+            ?>
         </div>
+
     </div>
 
-    <?= $form->field($model, 'autor')->dropDownList(['Ernesto Guevara de la Serna' => 'Ernesto Guevara de la Serna', 'Ernesto Che Guevara' => 'Ernesto Che Guevara']) ?>
-        
-    <?= $form->field($model, 'descripcion')->textarea(['rows' => 3, 'style' => 'resize:none']) ?>
-
-    <?= $form->field($model, 'cuerpo')->textarea(['rows' => 6, 'style' => 'resize:none']) ?>
-
+    <?= $form->field($model, 'lugar')->dropDownList(['Sala de Exposición Permanente "Ernesto Che Guevara"' => 'Sala de Exposición Permanente "Ernesto Che Guevara"', 'Sala de Exposiciones transitorias "Haydée Santamaría"' => 'Sala de Exposiciones transitorias "Haydée Santamaría"', 'Sala de Proyecciones "Santiago Álvarez"'=>'Sala de Proyecciones "Santiago Álvarez"', 'Sala de Conferencias "Raúl Roa"'=>'Sala de Conferencias "Raúl Roa"', 'Sala de Lectura "José Carlos Mariátegui"'=>'Sala de Lectura "José Carlos Mariátegui"']) ?>
 
     <div class="panel panel-default">
-
         <div class="panel-body">
             <?php \wbraganca\dynamicform\DynamicFormWidget::begin([
                 'widgetContainer' => 'dynamicform_wrapper', // required: only alphanumeric characters plus "_" [A-Za-z0-9_]
                 'widgetBody' => '.container-items', // required: css class selector
                 'widgetItem' => '.item', // required: css class
-                'limit' => 3, // the maximum times, an element can be cloned (default 999)
+                'limit' => 1, // the maximum times, an element can be cloned (default 999)
                 'min' => 1, // 0 or 1 (default 1)
                 'insertButton' => '.add-item', // css class
                 'deleteButton' => '.remove-item', // css class
@@ -64,19 +91,16 @@ $this->params['breadcrumbs'][] = $this->title;
 
             <div class="container-items">
                 <!-- widgetContainer -->
-                <?php
-                $x = 0;
-                foreach ($modelsArchivo as $i => $modelArchivo) : ?>
+                <?php foreach ($modelsArchivo as $i => $modelArchivo) : ?>
                     <div class="item panel panel-default">
                         <!-- widgetBody -->
                         <div class="panel-heading">
 
                             <?php
-
+                            $x = 0;
                             if ($x == 0) $titulo = "Archivo";
 
                             ?>
-
                             <h3 class="panel-title pull-left"><?= $titulo ?></h3>
                             <div class="clearfix"></div>
                         </div>
@@ -87,25 +111,15 @@ $this->params['breadcrumbs'][] = $this->title;
                                 echo Html::activeHiddenInput($modelArchivo, "[{$i}]id");
                             }
                             ?>
-
                             <?= $form->field($modelArchivo, "[{$i}]id_archivo")->widget(\kartik\select2\Select2::classname(), [
                                     'data' => \yii\helpers\ArrayHelper::map(\backend\models\Archivo\Archivo::find()->all(), 'id_archivo', 'titulo_archivo'),
                                     'options' => ['placeholder' => 'Seleccionar', 'multiple' => false, 'required' => true],
                                     'theme' => \kartik\select2\Select2::THEME_KRAJEE,
                                     'size' => 'xs',]
                             ) ?>
-                            <?= $form->field($modelArchivo, "[{$i}]nota")->textarea(['rows' => 3, 'style' => 'resize:none']) ?>
 
 
                         </div>
-                        <div class="pull-right">
-                            <button type="button" title="Agregar" style="width: 40px ; height: 40px"
-                                    class="add-item btn btn-success"><i class="fa fa-plus"></i></button>
-                            <button type="button" title="Eliminar" style="width: 40px ; height: 40px"
-                                    class="remove-item btn btn-danger"><i class="fa fa-trash"></i></button>
-                        </div>
-                        <div class="clearfix"></div>
-                        <br>
                     </div>
                     <?php $x++;
                 endforeach; ?>
@@ -140,7 +154,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
     </div>
 
-
     <?php \kartik\form\ActiveForm::end(); ?>
 
 
@@ -149,7 +162,6 @@ $this->params['breadcrumbs'][] = $this->title;
     $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
     $dataProvider->pagination = ['pageSize' => 4];
     ?>
-
 
 
     <?= GridView::widget([

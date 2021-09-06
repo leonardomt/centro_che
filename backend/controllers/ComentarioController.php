@@ -80,19 +80,17 @@ class ComentarioController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate($id)
+    public function actionCreate($id_c)
     {
         $model = new Comentario();
 
         if ($model->load(Yii::$app->request->post())) {
-            $padre = $this->findModel($id);
+            $padre = $this->findModel($id_c);
             $model->fecha = new Expression('NOW()');
             $model->seccion = $padre->seccion;
             $model->tabla = 'comentario';
             $model->respuesta = 1;
             $model->id_tabla = $padre->id;
-            $padre->revisado = 1;
-            $padre->publico = 1;
             $padre->save();
         };
 
@@ -103,7 +101,7 @@ class ComentarioController extends Controller
 
         return $this->render('create', [
             'model' => $model,
-            'id' => $id,
+            'id_c' => $id_c,
         ]);
     }
 
