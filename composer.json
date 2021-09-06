@@ -37,7 +37,8 @@
         "2amigos/yii2-chartjs-widget": "~2.0",
         "kartik-v/yii2-widget-activeform": "@dev",
         "kartik-v/yii2-icons": "@dev",
-        "rmrevin/yii2-fontawesome": "~3.5"
+        "rmrevin/yii2-fontawesome": "~3.5",
+        "kartik-v/yii2-widget-timepicker": "dev-master"
         
     },
     "require-dev": {
