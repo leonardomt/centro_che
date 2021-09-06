@@ -35,7 +35,7 @@ class Comentario extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [[ 'alias', 'correo', 'comentario'], 'required'],
+            [[ 'correo', 'comentario'], 'required'],
             [['fecha'], 'safe'],
             [['comentario', 'tabla'], 'string'],
             [[ 'id_tabla', 'publico', 'revisado', 'respuesta'], 'integer'],

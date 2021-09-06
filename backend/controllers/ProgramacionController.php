@@ -4,9 +4,9 @@ namespace backend\controllers;
 
 use backend\models\Archivo\Archivo;
 use Yii;
-use backend\models\ProductoAudiovisual\ProductoAudiovisual;
-use backend\models\ProductoAudiovisual\ProductoAudiovisualArchivo;
-use backend\models\ProductoAudiovisual\ProductoAudiovisualSearch;
+use backend\models\Programacion\Programacion;
+use backend\models\Programacion\ProgramacionArchivo;
+use backend\models\Programacion\ProgramacionSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -16,9 +16,9 @@ use yii\helpers\ArrayHelper;
 use yii\base\Model;
 
 /**
- * ProductoAudiovisualController implements the CRUD actions for ProductoAudiovisual model.
+ * ProgramacionController implements the CRUD actions for Programacion model.
  */
-class ProductoAudiovisualController extends Controller
+class ProgramacionController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -36,12 +36,12 @@ class ProductoAudiovisualController extends Controller
     }
 
     /**
-     * Lists all ProductoAudiovisual models.
+     * Lists all Programacion models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new ProductoAudiovisualSearch();
+        $searchModel = new ProgramacionSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -51,7 +51,7 @@ class ProductoAudiovisualController extends Controller
     }
 
     /**
-     * Displays a single ProductoAudiovisual model.
+     * Displays a single Programacion model.
      * @param string $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -64,17 +64,17 @@ class ProductoAudiovisualController extends Controller
     }
 
     /**
-     * Creates a new ProductoAudiovisual model.
+     * Creates a new Programacion model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new ProductoAudiovisual();
-        $modelsArchivo = [new ProductoAudiovisualArchivo];
+        $model = new Programacion();
+        $modelsArchivo = [new ProgramacionArchivo];
         $x=0;
         if ($model->load(Yii::$app->request->post())) {
-            $modelsArchivo = Model::createMultiple(ProductoAudiovisualArchivo::classname());
+            $modelsArchivo = Model::createMultiple(ProgramacionArchivo::classname());
             Model::loadMultiple($modelsArchivo, Yii::$app->request->post());
             if (Yii::$app->request->isAjax) {
                 Yii::$app->response->format = Response::FORMAT_JSON;
@@ -92,7 +92,7 @@ class ProductoAudiovisualController extends Controller
                     if ($flag = $model->save(false)) {
                         foreach ($modelsArchivo as $modelArchivo) {
 
-                            $modelArchivo->id_producto_audiovisual = $model->id_producto_audiovisual;
+                            $modelArchivo->id_programacion = $model->id;
                             if (! ($flag = $modelArchivo->save(false))) {
                                 $transaction->rollBack();
                                 break;
@@ -111,14 +111,14 @@ class ProductoAudiovisualController extends Controller
         return $this->render('create', [
             'model' => $model,
 
-            'modelsArchivo' => (empty($modelsArchivo)) ? [new ProductoAudiovisualArchivo] : $modelsArchivo,
+            'modelsArchivo' => (empty($modelsArchivo)) ? [new ProgramacionArchivo] : $modelsArchivo,
         ]);
 
 
     }
 
     /**
-     * Updates an existing ProductoAudiovisual model.
+     * Updates an existing Programacion model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param string $id
      * @return mixed
@@ -127,14 +127,13 @@ class ProductoAudiovisualController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        $modelsArchivo = new ProductoAudiovisualArchivo();
-        $modelsArchivo= ProductoAudiovisualArchivo::find()->where(['id_producto_audiovisual' => $model->id_producto_audiovisual ])->all();    
+        $modelsArchivo= ProgramacionArchivo::find()->where(['id_programacion' => $model->id ])->all();
         $x=0;
 
         if ($model->load(Yii::$app->request->post())) {
 
             $oldIDs = ArrayHelper::map($modelsArchivo, 'id', '');
-            $modelsArchivo = Model::createMultiple(ProductoAudiovisualArchivo::classname(), $modelsArchivo);
+            $modelsArchivo = Model::createMultiple(ProgramacionArchivo::classname(), $modelsArchivo);
             Model::loadMultiple($modelsArchivo, Yii::$app->request->post());
             $deletedIDs = array_diff($oldIDs, array_filter(ArrayHelper::map($modelsArchivo, 'id', 'id')));
 
@@ -147,7 +146,7 @@ class ProductoAudiovisualController extends Controller
                 try {
                     if ($flag = $model->save(false)) {
                         if (!empty($deletedIDs)) {
-                            ProductoAudiovisualArchivo::deleteAll(['id' => $deletedIDs]);
+                            ProgramacionArchivo::deleteAll(['id' => $deletedIDs]);
                         }
                         foreach ($modelsArchivo as $modelArchivo) {
 
@@ -169,12 +168,12 @@ class ProductoAudiovisualController extends Controller
 
         return $this->render('update', [
             'model' => $model,
-            'modelsArchivo' => (empty($modelsArchivo)) ? [new ProductoAudiovisualArchivo] : $modelsArchivo,
+            'modelsArchivo' => (empty($modelsArchivo)) ? [new ProgramacionArchivo] : $modelsArchivo,
         ]);
     }
 
     /**
-     * Deletes an existing ProductoAudiovisual model.
+     * Deletes an existing Programacion model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param string $id
      * @return mixed
@@ -188,15 +187,15 @@ class ProductoAudiovisualController extends Controller
     }
 
     /**
-     * Finds the ProductoAudiovisual model based on its primary key value.
+     * Finds the Programacion model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param string $id
-     * @return ProductoAudiovisual the loaded model
+     * @return Programacion the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = ProductoAudiovisual::findOne($id)) !== null) {
+        if (($model = Programacion::findOne($id)) !== null) {
             return $model;
         }
 

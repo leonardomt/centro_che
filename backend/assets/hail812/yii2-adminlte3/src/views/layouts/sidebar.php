@@ -77,6 +77,11 @@
         $pa = '<span class="badge badge-info right">'.$parev.'</span>';
     } else $pa = '';
 
+    $pcrev = count(\backend\models\Programacion\Programacion::find()->where(["revisado"=> 0])->all());
+    if(Yii::$app->user->can('revisar') && $pcrev!=null){
+        $pc = '<span class="badge badge-info right">'.$pcrev.'</span>';
+    } else $pc = '';
+
     $otrosrev = count(\backend\models\Otros\Otros::find()->where(["revisado"=> 0])->all());
     if(Yii::$app->user->can('revisar') && $otrosrev!=null){
         $otros = '<span class="badge badge-info right">'.$otrosrev.'</span>';
@@ -210,7 +215,14 @@
                             ['label' => 'Líneas de Investigación', 'iconStyle' => 'far' , 'url' => ['/linea-investigacion/index'], 'visible' => Yii::$app->user->can('gestionar-linea-investigacion'), 'badge' => $lineas],
                             ['label' => 'Investigaciones', 'iconStyle' => 'far' , 'url' => ['/investigacion/index'], 'visible' => Yii::$app->user->can('gestionar-investigacion'), 'badge' => $investigacion],
                             ['label' => 'Artículos', 'iconStyle' => 'far' , 'url' => ['/articulo/index'], 'visible' => Yii::$app->user->can('gestionar-articulo'),'badge' => $articulo],
-                            ['label' => 'Colección Documental', 'iconStyle' => 'far' , 'url' => ['/gestion-documental/view', 'id'=>1], 'visible' => Yii::$app->user->can('gestionar-coleccion-documental'),'badge' => $cd],
+                            [
+                                'label' => 'Colección Documental',
+                                'iconStyle' => 'far',
+                                'items' => [
+                                    ['label' => 'Portada', 'icon' => 'dot-circle', 'iconStyle' => 'far' , 'url' => ['/gestion-documental/view', 'id'=>1], 'visible' => Yii::$app->user->can('gestionar-coleccion-documental')],
+                                    ['label' => 'Catálogo', 'icon' => 'dot-circle', 'iconStyle' => 'far' , 'url' => ['/coleccion-documental/index'], 'visible' => Yii::$app->user->can('gestionar-coleccion-documental'),'badge' => $cd],
+                                ]
+                            ],
                             ['label' => 'Proyecto Editorial', 'iconStyle' => 'far' , 'url' => ['/proyecto/view', 'id'=>1], 'visible' => Yii::$app->user->can('gestionar-proyecto'),'badge' => $libro],
                             ['label' => 'Cursos Online', 'iconStyle' => 'far' , 'url' => ['/curso-online/index'], 'visible' => Yii::$app->user->can('gestionar-curso-online'),'badge' => $co],
 
@@ -224,7 +236,7 @@
                         'badge' => $palternativos,
                         'items' => [
                             ['label' => 'Proyectos Comunitarios', 'iconStyle' => 'far' , 'url' => ['/taller/index'], 'visible' => Yii::$app->user->can('gestionar-taller'),'badge' => $taller],
-                            ['label' => 'Programación Cultural','iconStyle' => 'far'],
+                            ['label' => 'Programación Cultural', 'iconStyle' => 'far' , 'url' => ['/programacion/index'], 'visible' => Yii::$app->user->can('gestionar-producto-audiovisual'),'badge' => $pc],
                             ['label' => 'Exposiciones', 'iconStyle' => 'far' , 'url' => ['/exposicion/index'], 'visible' => Yii::$app->user->can('gestionar-exposicion'),'badge' => $expo],
                             ['label' => 'Productos Audiovisuales', 'iconStyle' => 'far' , 'url' => ['/producto-audiovisual/index'], 'visible' => Yii::$app->user->can('gestionar-producto-audiovisual'),'badge' => $pa],
                             ['label' => 'Otros', 'iconStyle' => 'far' , 'url' => ['/otros/index'], 'visible' => Yii::$app->user->can('gestionar-exposicion'),'badge' => $otros],

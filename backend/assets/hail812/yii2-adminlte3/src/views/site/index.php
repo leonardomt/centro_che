@@ -11,6 +11,70 @@ $bundle->css[] = 'chart/Chart.css';
 $bundle->js[] = 'chart/Chart.js';
 
 ?>
+<style>
+    .stretch-card>.card {
+        width: 100%;
+        min-width: 100%
+    }
+
+    body {
+        background-color: #f9f9fa
+    }
+
+    .flex {
+        -webkit-box-flex: 1;
+        -ms-flex: 1 1 auto;
+        flex: 1 1 auto
+    }
+
+    @media (max-width:991.98px) {
+        .padding {
+            padding: 1.5rem
+        }
+    }
+
+    @media (max-width:767.98px) {
+        .padding {
+            padding: 1rem
+        }
+    }
+
+
+    .proj-progress-card .progress {
+        height: 6px;
+        overflow: visible;
+        margin-bottom: 10px
+    }
+
+    .proj-progress-card .progress .progress-bar {
+        position: relative
+    }
+
+    .progress .progress-bar {
+        height: 100%;
+        color: inherit
+    }
+
+
+    .proj-progress-card .progress .progress-bar:after {
+        content: "";
+        background: #fff;
+        position: absolute;
+        right: -6px;
+        top: -4px;
+        border-radius: 50%;
+        width: 15px;
+        height: 15px
+    }
+
+
+
+    .m-b-30 {
+        margin-bottom: 30px
+    }
+
+
+</style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.1/chart.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.1/chart.min.js"
         integrity="sha512-Wt1bJGtlnMtGP0dqNFH1xlkLBNpEodaiQ8ZN5JLA5wpc1sUlk/O5uuOMNgvzddzkpvZ9GLyYNa8w2s7rqiTk5Q=="
@@ -26,7 +90,7 @@ $bundle->js[] = 'chart/Chart.js';
         <div class="col-md-4">
 
             <div class="card card-default ">
-                <div class="card-header">
+                <div class="card-header" data-card-widget="collapse">
                     <h3 class="card-title" data-card-widget="collapse">Publicaciones por Sección</h3>
 
                     <div class="card-tools">
@@ -41,7 +105,8 @@ $bundle->js[] = 'chart/Chart.js';
 
                     <div class="col ">
                         <div class="card collapsed-card ">
-                            <div class="card-header" style="background-color: #164A7D; color: #fff">
+                            <div class="card-header" style="background-color: #164A7D; color: #fff"
+                                 data-card-widget="collapse">
                                 <h3 class="card-title" data-card-widget="collapse">Inicio</h3>
 
                                 <div class="card-tools">
@@ -68,7 +133,8 @@ $bundle->js[] = 'chart/Chart.js';
 
 
                         <div class="card collapsed-card">
-                            <div class="card-header" style="background-color: #3971A5; color: #fff">
+                            <div class="card-header" style="background-color: #3971A5; color: #fff"
+                                 data-card-widget="collapse">
                                 <h3 class="card-title" data-card-widget="collapse">Coordinación Académica</h3>
 
                                 <div class="card-tools">
@@ -103,7 +169,8 @@ $bundle->js[] = 'chart/Chart.js';
                         <!-- BAR CHART -->
 
                         <div class="card collapsed-card">
-                            <div class="card-header" style="background-color: #5593C7; color: #fff">
+                            <div class="card-header" style="background-color: #5593C7; color: #fff"
+                                 data-card-widget="collapse">
                                 <h3 class="card-title" data-card-widget="collapse">Proyectos Alternativos</h3>
 
                                 <div class="card-tools">
@@ -131,7 +198,8 @@ $bundle->js[] = 'chart/Chart.js';
 
 
                         <div class="card collapsed-card">
-                            <div class="card-header" style="background-color: #68A7DC; color: #fff">
+                            <div class="card-header" style="background-color: #68A7DC; color: #fff"
+                                 data-card-widget="collapse">
                                 <h3 class="card-title" data-card-widget="collapse">Vida y Obra</h3>
 
                                 <div class="card-tools">
@@ -171,7 +239,7 @@ $bundle->js[] = 'chart/Chart.js';
 
         <div class="col-md-4">
             <div class="card card-default">
-                <div class="card-header">
+                <div class="card-header" data-card-widget="collapse">
                     <h3 class="card-title" data-card-widget="collapse">Archivos</h3>
 
                     <div class="card-tools">
@@ -200,63 +268,66 @@ $bundle->js[] = 'chart/Chart.js';
                             $Vrev = intVal(($archivoVR / $archivoVT) * 100);
                         } else $Vrev = 0;
                         ?>
-                        <div class="">
-                            <div class="">
-                                <div class="info-box bg-gradient-default "
-                                     style="background-color: #353A3F; color: #fff">
-                                    <span class="info-box-icon"><i class="far fa-image"></i></span>
 
-                                    <div class="info-box-content">
-                                        <span class="info-box-number">Total de Imágenes: <?= $archivoIT ?></span>
-                                        <div class="progress">
-                                            <div class="progress-bar " style="width: <?= $Irev ?>%"></div>
-                                        </div>
-                                        <span class="progress-description"><?= 100 - $Irev ?>
-                                            % pendientes de revisión</span>
+                        <div class="info-box bg-gradient-default col-md-12"
+                             style="background-color: #353A3F; color: #fff">
+                            <span class="info-box-icon" ><i class="far fa-image"></i></span>
+
+                            <div class="info-box-content">
+                                <span class="info-box-number">Total de Imágenes: <?= $archivoIT ?></span>
+
+                                <div class="">
+                                    <div class="progress">
+                                        <div class="progress-bar bg-c-green" style="width:<?=$Irev ?>%"></div>
                                     </div>
-                                    <!-- /.info-box-content -->
+                                    <p class="f-w-700"><?=100- $Irev ?>
+                                        % pendientes de revisión</p>
                                 </div>
-                                <!-- /.info-box -->
                             </div>
+                            <!-- /.info-box-content -->
                         </div>
-                        <div class="">
-                            <div class="">
-                                <div class="info-box bg-gradient" style="background-color: #5F6266; color: #fff">
-                                    <span class="info-box-icon"><i class="fas fa-volume-up"></i></span>
+                        <!-- /.info-box -->
 
-                                    <div class="info-box-content">
-                                        <span class="info-box-number">Total de Audios: <?= $archivoAT ?></span>
 
-                                        <div class="progress">
-                                            <div class="progress-bar" style="width: <?= 100 - $Arev ?>%"></div>
-                                        </div>
-                                        <span class="progress-description"><?= $Arev ?>
-                                            % pendientes de revisión</span>
+                        <div class="info-box bg-gradient" style="background-color: #5F6266; color: #fff">
+                            <span class="info-box-icon"><i class="fas fa-volume-up"></i></span>
+
+                            <div class="info-box-content">
+                                <span class="info-box-number">Total de Audios: <?= $archivoAT ?></span>
+
+                                <div class="">
+                                    <div class="progress">
+                                        <div class="progress-bar bg-c-green" style="width:<?=$Arev ?>%"></div>
                                     </div>
-                                    <!-- /.info-box-content -->
+                                    <p class="f-w-700"><?= 100 -  $Arev ?>
+                                        % pendientes de revisión</p>
                                 </div>
-                                <!-- /.info-box -->
+
                             </div>
+                            <!-- /.info-box-content -->
                         </div>
-                        <div class="">
-                            <div class="">
-                                <div class="info-box bg-gradient" style="background-color: #8A8C8E; color: #fff">
-                                    <span class="info-box-icon"><i class="fas fa-video"></i></span>
+                        <!-- /.info-box -->
 
-                                    <div class="info-box-content">
-                                        <span class="info-box-number">Total de Videos: <?= $archivoVT ?></span>
 
-                                        <div class="progress">
-                                            <div class="progress-bar" style="width: <?= 100 - $Vrev ?>%"></div>
-                                        </div>
-                                        <span class="progress-description"><?= $Vrev ?>
-                                            % pendientes de revisión</span>
+                        <div class="info-box bg-gradient" style="background-color: #8A8C8E; color: #fff">
+                            <span class="info-box-icon"><i class="fas fa-video"></i></span>
+
+                            <div class="info-box-content">
+                                <span class="info-box-number">Total de Videos: <?= $archivoVT ?></span>
+
+                                <div class="">
+                                    <div class="progress">
+                                        <div class="progress-bar bg-c-green" style="width:<?=$Vrev ?>%"></div>
                                     </div>
-                                    <!-- /.info-box-content -->
+                                    <p class="f-w-700"><?= 100 - $Vrev ?>
+                                        % pendientes de revisión</p>
                                 </div>
-                                <!-- /.info-box -->
+
+
                             </div>
+                            <!-- /.info-box-content -->
                         </div>
+                        <!-- /.info-box -->
 
 
                     </div>
@@ -270,7 +341,7 @@ $bundle->js[] = 'chart/Chart.js';
 
         <div class="col-md-4">
             <div class="card card-default">
-                <div class="card-header">
+                <div class="card-header" data-card-widget="collapse">
                     <h3 class="card-title" data-card-widget="collapse">Comentarios</h3>
 
                     <div class="card-tools">
@@ -279,7 +350,7 @@ $bundle->js[] = 'chart/Chart.js';
                         </button>
                     </div>
                 </div>
-                <div class="card-body">
+                <div class="card-body" style="height: ">
                     <div class="chart">
                         <?php
                         $comInicio = count(\backend\models\Comentario\Comentario::find()->where(['seccion' => 'Inicio'])->all());
@@ -303,7 +374,7 @@ $bundle->js[] = 'chart/Chart.js';
     <!-------------------------------------------Comentarios--------------------------------------------------------->
 
     <div class="card card-default">
-        <div class="card-header">
+        <div class="card-header" data-card-widget="collapse">
             <h3 class="card-title" data-card-widget="collapse">Autores</h3>
 
             <div class="card-tools">
@@ -379,6 +450,8 @@ $bundle->js[] = 'chart/Chart.js';
         <div style="height: 6px"></div>
     </div>
     <br>
+
+</div>
 
     <script>
 
@@ -484,7 +557,7 @@ $bundle->js[] = 'chart/Chart.js';
                     {
                         label: "Total",
                         backgroundColor: "#3971A5",
-                        data: [ '<?php echo $investigaciones; ?>', '<?php echo $articulos; ?>', '<?php echo $documentos; ?>',  '<?php echo $cursos; ?>']
+                        data: ['<?php echo $investigaciones; ?>', '<?php echo $articulos; ?>', '<?php echo $documentos; ?>', '<?php echo $cursos; ?>']
                     },
 
                 ]
@@ -508,7 +581,7 @@ $bundle->js[] = 'chart/Chart.js';
         new Chart(document.getElementById("proyectos-chart"), {
             type: 'bar',
             data: {
-                labels: ["Talleres", "Exposiciones", ["Productos","Audiovisuales"], ["Otros", "Productos"]],
+                labels: ["Talleres", "Exposiciones", ["Productos", "Audiovisuales"], ["Otros", "Productos"]],
                 datasets: [
                     {
                         label: "Total",
@@ -537,12 +610,12 @@ $bundle->js[] = 'chart/Chart.js';
         new Chart(document.getElementById("vida-chart"), {
             type: 'bar',
             data: {
-                labels: [ "Correspondencia", "Escritos",["D. y Entrevistas"], "Testimonios", "G. de Fotografías", "G. de Audios", "G. de Videos", "G. de Homenajes"],
+                labels: ["Correspondencia", "Escritos", ["D. y Entrevistas"], "Testimonios", "G. de Fotografías", "G. de Audios", "G. de Videos", "G. de Homenajes"],
                 datasets: [
                     {
                         label: "Total",
                         backgroundColor: "#68A7DC",
-                        data: [ '<?php echo $correspondencia; ?>', '<?php echo $escritos; ?>', '<?php echo $discursos; ?>', '<?php echo $testimonios; ?>', '<?php echo $foto; ?>', '<?php echo $audio; ?>', '<?php echo $video; ?>', '<?php echo $homenajes; ?>']
+                        data: ['<?php echo $correspondencia; ?>', '<?php echo $escritos; ?>', '<?php echo $discursos; ?>', '<?php echo $testimonios; ?>', '<?php echo $foto; ?>', '<?php echo $audio; ?>', '<?php echo $video; ?>', '<?php echo $homenajes; ?>']
                     },
                 ]
             },

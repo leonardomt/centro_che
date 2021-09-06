@@ -12,7 +12,7 @@ use yii\helpers\ArrayHelper;
 /* @var $model backend\models\ColeccionDocumental\ColeccionDocumental */
 
 $this->title = 'Modificar Documento: ' . $model->titulo;
-$this->params['breadcrumbs'][] = ['label' => 'Documentos', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Catálogo', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->titulo, 'url' => ['view', 'id' => $model->id_coleccion_documental]];
 $this->params['breadcrumbs'][] = 'Modificar';
 if (Yii::$app->user->isGuest)
