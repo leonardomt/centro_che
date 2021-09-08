@@ -13,6 +13,9 @@ return [
     'controllerNamespace' => 'backend\controllers',
     'bootstrap' => ['log'],
     'modules' => [
+        'auditlog' => [
+            'class' => 'ruturajmaniyar\mod\audit\AuditEntryModule'
+        ],
         'modules' => [
             'settings' => [
                 'class' => 'backend\modules\settings\Settings',
@@ -24,6 +27,10 @@ return [
     ],
 
     'components' => [
+        'dateTimeConversion' => [
+            'class' => 'ruturajmaniyar\mod\audit\components\DateTimeHelper'
+        ],
+
         'assetManager' => [
             'bundles' => [
                 'kartik\form\ActiveFormAsset' => [
@@ -31,6 +38,7 @@ return [
                 ],
             ],
         ],
+
         'view' => [
             'theme' => [
                 'pathMap' => [
@@ -69,8 +77,8 @@ return [
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
             'targets' => [
-                [
-                    'class' => 'yii\log\FileTarget',
+                'db' => [
+                    'class' => 'yii\log\DbTarget',
                     'levels' => ['error', 'warning'],
                 ],
             ],

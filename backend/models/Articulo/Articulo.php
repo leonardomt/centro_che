@@ -3,6 +3,7 @@
 namespace backend\models\Articulo;
 
 use backend\models\Investigacion\Investigacion;
+use ruturajmaniyar\mod\audit\behaviors\AuditEntryBehaviors;
 use Yii;
 
 /**
@@ -30,6 +31,9 @@ class Articulo extends \yii\db\ActiveRecord
     {
         return 'articulo';
     }
+
+
+
 
     /**
      * {@inheritdoc}

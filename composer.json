@@ -38,7 +38,9 @@
         "kartik-v/yii2-widget-activeform": "@dev",
         "kartik-v/yii2-icons": "@dev",
         "rmrevin/yii2-fontawesome": "~3.5",
-        "kartik-v/yii2-widget-timepicker": "dev-master"
+        "kartik-v/yii2-widget-timepicker": "dev-master",
+        "ruturajmaniyar/yii2-audit-log": "dev-master",
+        "cornernote/yii-audit-module": "^1.1"
         
     },
     "require-dev": {

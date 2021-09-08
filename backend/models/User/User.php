@@ -5,6 +5,7 @@ use Yii;
 use yii\base\NotSupportedException;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
+use ruturajmaniyar\mod\audit\behaviors\AuditEntryBehaviors;
 use yii\web\IdentityInterface;
 
 /**
@@ -41,10 +42,13 @@ class User extends ActiveRecord implements IdentityInterface
     /**
      * {@inheritdoc}
      */
-    public function behaviors()
+   /* public function behaviors()
     {
         return [
             TimestampBehavior::className(),
+            'auditEntryBehaviors' => [
+                'class' => AuditEntryBehaviors::class
+            ],
         ];
     }
 
@@ -55,6 +59,7 @@ class User extends ActiveRecord implements IdentityInterface
     {
         return [
             ['status', 'default', 'value' => self::STATUS_ACTIVE],
+            ['username', 'unique'],
             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_INACTIVE, self::STATUS_DELETED]],
             [['username', 'first_name', 'last_name', 'email',], 'required'],
             ['email', 'email'],

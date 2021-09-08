@@ -27,8 +27,10 @@ if ( !Yii::$app->user->can('gestionar-noticia'))
         <?= Alert::widget() ?>
     </div>
     <p>
+
         <?= Html::a('<span class="fa fa-plus "></span>', ['create'], [
             'class' => 'btn btn-success',
+            'style'=>"width: 40px ; height: 40px",
             "title"=>"Agregar"])
         ?>
     </p>

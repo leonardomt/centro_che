@@ -6,6 +6,8 @@ use backend\models\Archivo\TipoArchivo;
 use backend\models\Exposicion\Exposicion;
 use backend\models\Testimonio\Testimonio;
 use backend\models\Testimonio\TestimonioArchivo;
+use ruturajmaniyar\mod\audit\behaviors\AuditEntryBehaviors;
+use ruturajmaniyar\mod\audit\models\AuditEntry;
 use Yii;
 use backend\models\Archivo\Archivo;
 use backend\models\Archivo\ArchivoSearch;
@@ -22,6 +24,7 @@ use backend\models\Noticia\NoticiaArchivo;
 use backend\models\Proyecto\ProyectoArchivo;
 use backend\models\Revista\RevistaArchivo;
 use backend\models\Taller\TallerArchivo;
+use yii\db\Expression;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -40,6 +43,9 @@ class ArchivoController extends Controller
     public function behaviors()
     {
         return [
+            'auditEntryBehaviors' => [
+                'class' => AuditEntryBehaviors::class
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -94,7 +100,7 @@ class ArchivoController extends Controller
                 $fecha = $model->fecha;
                 if ($fecha != null) {
                     if ($fecha > date('Y-m-d')) {
-                        Yii::$app->session->setFlash('error', 'La fecha no puede ser posterior a la actual'.+date('Y-m-d'));
+                        Yii::$app->session->setFlash('error', 'La fecha no puede ser posterior a la actual' . +date('Y-m-d'));
                         return $this->redirect([
                             'create', 'model' => $model,
                         ]);
@@ -318,4 +324,6 @@ class ArchivoController extends Controller
 
         return $out;
     }
+
+
 }

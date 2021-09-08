@@ -151,7 +151,7 @@ if (Yii::$app->user->isGuest)
                     Your browser does not support the video tag.
                 </video>';
                         } else if ($model->tipo_archivo == 2) {
-                            return '<audio  controls style="width: 250px ">
+                            return '<audio  controls style="width: 230px ">
                     <source src="../../frontend/web/' . $model->url_archivo . '" >
                     Your browser does not support the video tag.
                     </audio>';

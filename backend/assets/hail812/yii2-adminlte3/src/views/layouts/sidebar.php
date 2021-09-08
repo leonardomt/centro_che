@@ -10,86 +10,86 @@
     //-------------------------Inicio-----------------------------------------------------------------------------------
     $actualidadrev = count(\backend\models\Noticia\Noticia::find()->where(["revisado"=> 0])->all());
     if(Yii::$app->user->can('revisar') && $actualidadrev!= null){
-        $actualidad = '<span class="badge badge-info right">'.$actualidadrev.'</span>';
+        $actualidad = '<span class="badge right badge-danger navbar-badge">'.$actualidadrev.'</span>';
     } else $actualidad = '';
 
     $revistarev = count(\backend\models\Revista\Revista::find()->where(["revisado"=> 0])->all());
     if(Yii::$app->user->can('revisar') && $revistarev!=null){
-        $revista = '<span class="badge badge-info right">'.$revistarev.'</span>';
+        $revista = '<span class="badge right badge-danger navbar-badge">'.$revistarev.'</span>';
     } else $revista = '';
 
     $iniciorev = $actualidadrev + $revistarev;
     if(Yii::$app->user->can('revisar') && $iniciorev!=null){
-        $inicio = '<span class="badge badge-info right">'.$iniciorev.'</span>';
+        $inicio = '<span style="right: 11.8rem;" class="badge right badge-danger navbar-badge">'.$iniciorev.'</span>';
     } else $inicio = '';
     //-------------------------Coordinación Académica-------------------------------------------------------------------
 
     $lineasrev = count(\backend\models\LineaInvestigacion\LineaInvestigacion::find()->where(["revisado"=> 0])->all());
     if(Yii::$app->user->can('revisar') && $lineasrev!=null){
-        $lineas = '<span class="badge badge-info right">'.$lineasrev.'</span>';
+        $lineas = '<span class="badge right badge-danger navbar-badge">'.$lineasrev.'</span>';
     } else $lineas = '';
 
     $investigacionrev = count(\backend\models\Investigacion\Investigacion::find()->where(["revisado"=> 0])->all());
     if(Yii::$app->user->can('revisar') && $investigacionrev!=null){
-        $investigacion = '<span class="badge badge-info right">'.$investigacionrev.'</span>';
+        $investigacion = '<span class="badge right badge-danger navbar-badge">'.$investigacionrev.'</span>';
     } else $investigacion = '';
 
     $articulorev = count(\backend\models\Articulo\Articulo::find()->where(["revisado"=> 0])->all());
     if(Yii::$app->user->can('revisar') && $articulorev!=null){
-        $articulo = '<span class="badge badge-info right">'.$articulorev.'</span>';
+        $articulo = '<span class="badge right badge-danger navbar-badge">'.$articulorev.'</span>';
     } else $articulo = '';
 
     $cdrev = count(\backend\models\ColeccionDocumental\ColeccionDocumental::find()->where(["revisado"=> 0])->all());
     if(Yii::$app->user->can('revisar') && $cdrev!=null){
-        $cd = '<span class="badge badge-info right">'.$cdrev.'</span>';
+        $cd = '<span class="badge right badge-danger navbar-badge">'.$cdrev.'</span>';
     } else $cd = '';
 
     $librorev = count(\backend\models\Libro\Libro::find()->where(["revisado"=> 0])->all());
     if(Yii::$app->user->can('revisar') && $librorev!=null){
-        $libro = '<span class="badge badge-info right">'.$librorev.'</span>';
+        $libro = '<span class="badge right badge-danger navbar-badge">'.$librorev.'</span>';
     } else $libro = '';
 
     $corev = count(\backend\models\CursoOnline\CursoOnline::find()->where(["revisado"=> 0])->all());
     if(Yii::$app->user->can('revisar') && $corev!=null){
-        $co = '<span class="badge badge-info right">'.$corev.'</span>';
+        $co = '<span class="badge right badge-danger navbar-badge">'.$corev.'</span>';
     } else $co = '';
 
 
     $cademicarev = $lineasrev + $investigacionrev + $articulorev + $cdrev + $librorev + $corev;
     if(Yii::$app->user->can('revisar') && $cademicarev!=null){
-        $cademica = '<span class="badge badge-info right">'.$cademicarev.'</span>';
+        $cademica = '<span style="right: 11.8rem;" class="badge right badge-danger navbar-badge">'.$cademicarev.'</span>';
     } else $cademica = '';
 
 
     //-------------------------Proyectos Alternativos-------------------------------------------------------------------
     $tallerrev = count(\backend\models\Taller\Taller::find()->where(["revisado"=> 0])->all());
     if(Yii::$app->user->can('revisar') && $tallerrev!=null){
-        $taller = '<span class="badge badge-info right">'.$tallerrev.'</span>';
+        $taller = '<span class="badge right badge-danger navbar-badge">'.$tallerrev.'</span>';
     } else $taller = '';
 
     $exporev = count(\backend\models\Exposicion\Exposicion::find()->where(["revisado"=> 0])->all());
     if(Yii::$app->user->can('revisar') && $exporev!=null){
-        $expo = '<span class="badge badge-info right">'.$exporev.'</span>';
+        $expo = '<span class="badge right badge-danger navbar-badge">'.$exporev.'</span>';
     } else $expo = '';
 
     $parev = count(\backend\models\ProductoAudiovisual\ProductoAudiovisual::find()->where(["revisado"=> 0])->all());
     if(Yii::$app->user->can('revisar') && $parev!=null){
-        $pa = '<span class="badge badge-info right">'.$parev.'</span>';
+        $pa = '<span class="badge right badge-danger navbar-badge">'.$parev.'</span>';
     } else $pa = '';
 
     $pcrev = count(\backend\models\Programacion\Programacion::find()->where(["revisado"=> 0])->all());
     if(Yii::$app->user->can('revisar') && $pcrev!=null){
-        $pc = '<span class="badge badge-info right">'.$pcrev.'</span>';
+        $pc = '<span class="badge right badge-danger navbar-badge">'.$pcrev.'</span>';
     } else $pc = '';
 
     $otrosrev = count(\backend\models\Otros\Otros::find()->where(["revisado"=> 0])->all());
     if(Yii::$app->user->can('revisar') && $otrosrev!=null){
-        $otros = '<span class="badge badge-info right">'.$otrosrev.'</span>';
+        $otros = '<span class="badge right badge-danger navbar-badge">'.$otrosrev.'</span>';
     } else $otros = '';
 
     $palternativosrev = $tallerrev + $exporev + $parev + $otrosrev;
     if(Yii::$app->user->can('revisar') && $palternativosrev!=null){
-        $palternativos = '<span class="badge badge-info right">'.$palternativosrev.'</span>';
+        $palternativos = '<span style="right: 11.8rem;" class="badge right badge-danger navbar-badge">'.$palternativosrev.'</span>';
     } else $palternativos = '';
 
 
@@ -97,47 +97,48 @@
 
     $hechorev = count(\backend\models\Hecho\Hecho::find()->where(["revisado"=> 0])->all());
     if(Yii::$app->user->can('revisar') && $hechorev!=null){
-        $hecho = '<span class="badge badge-info right">'.$hechorev.'</span>';
+        $hecho = '<span class="badge right badge-danger navbar-badge">'.$hechorev.'</span>';
     } else $hecho = '';
 
     $escritorev = count(\backend\models\Escrito\Escrito::find()->where(["revisado"=> 0])->all());
     if(Yii::$app->user->can('revisar') && $escritorev!=null){
-        $escrito = '<span class="badge badge-info right">'.$escritorev.'</span>';
+        $escrito = '<span class="badge right badge-danger navbar-badge">'.$escritorev.'</span>';
     } else $escrito = '';
 
     $testimoniorev = count(\backend\models\Testimonio\Testimonio::find()->where(["revisado"=> 0])->all());
     if(Yii::$app->user->can('revisar') && $testimoniorev!=null){
-        $testimonio = '<span class="badge badge-info right">'.$testimoniorev.'</span>';
+        $testimonio = '<span class="badge right badge-danger navbar-badge">'.$testimoniorev.'</span>';
     } else $testimonio = '';
 
     $discursorev = count(\backend\models\Discurso\Discurso::find()->where(["revisado"=> 0])->all());
     if(Yii::$app->user->can('revisar') && $discursorev!=null){
-        $discurso = '<span class="badge badge-info right">'.$discursorev.'</span>';
+        $discurso = '<span class="badge right badge-danger navbar-badge">'.$discursorev.'</span>';
     } else $discurso = '';
 
     $correspondenciarev = count(\backend\models\Correspondencia\Correspondencia::find()->where(["revisado"=> 0])->all());
     if(Yii::$app->user->can('revisar') && $correspondenciarev!=null){
-        $correspondencia = '<span class="badge badge-info right">'.$correspondenciarev.'</span>';
+        $correspondencia = '<span class="badge right badge-danger navbar-badge">'.$correspondenciarev.'</span>';
     } else $correspondencia = '';
 
 
     $vidaobrarev = $hechorev + $escritorev + $testimoniorev + $discursorev + $correspondenciarev;
     if(Yii::$app->user->can('revisar') && $vidaobrarev!=null){
-        $vidaobra = '<span class="badge badge-info right">'.$vidaobrarev.'</span>';
+        $vidaobra = '<span style="right: 11.8rem;" class="badge right badge-danger navbar-badge">'.$vidaobrarev.'</span>';
     } else $vidaobra = '';
 
 
     //-------------------------Archivo----------------------------------------------------------------------------------
     $archivorev = count(\backend\models\Archivo\Archivo::find()->where(["revisado"=> 0])->all());
     if(Yii::$app->user->can('revisar') && $archivorev!=null){
-        $archivo = '<span class="badge badge-info right">'.$archivorev.'</span>';
+        $archivo = '<span style="right: 11.8rem;" class="badge right badge-danger navbar-badge">'.$archivorev.'</span>';
     } else $archivo = '';
 
     //-------------------------Comentarios------------------------------------------------------------------------------
     $comentariorev = count(\backend\models\Comentario\Comentario::find()->where(["revisado"=> 0 , "publico"=> 0])->all());
     if(Yii::$app->user->can('revisar') && $comentariorev!=null){
-        $comentario = '<span class="badge badge-info right">'.$comentariorev.'</span>';
+        $comentario = '<span style="right: 11.8rem;" class="badge right badge-danger navbar-badge">'.$comentariorev.'</span>';
     } else $comentario = '';
+
 
     //------------------------------------------------------------------------------------------------------------------
 
@@ -281,6 +282,7 @@
                             ['label' => 'Roles', 'iconStyle' => 'far' , 'url' => ['/auth-item/index'], 'visible' => Yii::$app->user->can('gestionar-usuarios')],
                             ['label' => 'Géneros de Productos Audiovisuales', 'iconStyle' => 'far' , 'url' => ['/tipo-producto/index'], 'visible' => Yii::$app->user->can('gestionar-usuarios')],
                             ['label' => 'Tipos de Proyectos Comunitarios', 'iconStyle' => 'far' , 'url' => ['/tipo-taller/index'], 'visible' => Yii::$app->user->can('gestionar-usuarios')],
+                            ['label' => 'Trazas', 'url' => ['/audit-entry/index'], 'iconStyle' => 'far' , 'visible' => Yii::$app->user->can('gestionar-comentario')],
 
                         ]
                     ],

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d90f2057dc4f26bbf36125143ea13369",
+    "content-hash": "d9d70a48b4ac01c06e54a0324a55838d",
     "packages": [
         {
             "name": "2amigos/yii2-chartjs-widget",
@@ -479,6 +479,133 @@
             ],
             "description": "CSS for vector based country flags",
             "time": "2020-06-10T11:53:19+00:00"
+        },
+        {
+            "name": "cornernote/yii-audit-module",
+            "version": "1.1.10",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/cornernote/yii-audit-module.git",
+                "reference": "0c23e258051d97c038c576329e0b57c3d7fd59b8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/cornernote/yii-audit-module/zipball/0c23e258051d97c038c576329e0b57c3d7fd59b8",
+                "reference": "0c23e258051d97c038c576329e0b57c3d7fd59b8",
+                "shasum": ""
+            },
+            "require": {
+                "crisu83/yiistrap": ">=1.0.0"
+            },
+            "require-dev": {
+                "yiisoft/yii": "1.1.15"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "audit/components/",
+                    "audit/models/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Brett O'Donnell",
+                    "email": "cornernote@gmail.com",
+                    "homepage": "http://mrphp.com.au/"
+                },
+                {
+                    "name": "Zain ul abidin",
+                    "email": "zainengineer@gmail.com"
+                }
+            ],
+            "description": "Track and store usage information including page requests, database field changes and system errors.",
+            "keywords": [
+                "Audit",
+                "error handler",
+                "logging",
+                "model logging",
+                "mrphp",
+                "request logging",
+                "yii"
+            ],
+            "support": {
+                "issues": "https://github.com/cornernote/yii-audit-module/issues",
+                "source": "https://github.com/cornernote/yii-audit-module/tree/master"
+            },
+            "time": "2015-02-24T08:32:04+00:00"
+        },
+        {
+            "name": "crisu83/yiistrap",
+            "version": "2.0.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/crisu83/yiistrap.git",
+                "reference": "0375cf186f2af76e4b26bbaa95a7be4996590b86"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/crisu83/yiistrap/zipball/0375cf186f2af76e4b26bbaa95a7be4996590b86",
+                "reference": "0375cf186f2af76e4b26bbaa95a7be4996590b86",
+                "shasum": ""
+            },
+            "require": {
+                "twbs/bootstrap": "^3.3.0"
+            },
+            "require-dev": {
+                "apigen/apigen": "~4.0",
+                "codeception/codeception": "@stable",
+                "crisu83/yii-composer": ">=1.0.0",
+                "yiisoft/yii": ">=1.1.13"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-develop": "2.0.x-dev"
+                },
+                "yii-install-writable": [
+                    "tests/_log"
+                ]
+            },
+            "autoload": {
+                "classmap": [
+                    "behaviors/",
+                    "components/",
+                    "form/",
+                    "helpers/",
+                    "widgets/",
+                    "gii/bootstrap/BootstrapCode.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Christoffer Niska",
+                    "email": "christoffer.niska@gmail.com",
+                    "homepage": "http://www.cniska.net/"
+                },
+                {
+                    "name": "Antonio Ramirez",
+                    "email": "ramirez.cobos@gmail.com",
+                    "homepage": "http://www.ramirezcobos.com/"
+                }
+            ],
+            "description": "Twitter Bootstrap for the Yii PHP framework.",
+            "keywords": [
+                "bootstrap",
+                "yii"
+            ],
+            "support": {
+                "issues": "https://github.com/crisu83/yiistrap/issues",
+                "source": "https://github.com/crisu83/yiistrap/tree/master"
+            },
+            "time": "2018-01-22T22:14:30+00:00"
         },
         {
             "name": "dkhlystov/yii2-imagefile",
@@ -2419,6 +2546,57 @@
             "time": "2021-01-13T13:58:04+00:00"
         },
         {
+            "name": "ruturajmaniyar/yii2-audit-log",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ruturajmaniyar/yii2-audit-log.git",
+                "reference": "8e0087b03226868761c49bc40f519ff536c85143"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ruturajmaniyar/yii2-audit-log/zipball/8e0087b03226868761c49bc40f519ff536c85143",
+                "reference": "8e0087b03226868761c49bc40f519ff536c85143",
+                "shasum": ""
+            },
+            "require": {
+                "yiisoft/yii2": "~2.0.0"
+            },
+            "default-branch": true,
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "ruturajmaniyar\\mod\\audit\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Ruturaj Maniyar",
+                    "email": "ruturaj.maniyar@gmail.com"
+                }
+            ],
+            "description": "Yii2 audit record and database changes details ",
+            "keywords": [
+                "Audit",
+                "auditlog",
+                "extension",
+                "maniyar",
+                "ruturaj",
+                "ruturajmaniyar",
+                "trail",
+                "yii2"
+            ],
+            "support": {
+                "issues": "https://github.com/ruturajmaniyar/yii2-audit-log/issues",
+                "source": "https://github.com/ruturajmaniyar/yii2-audit-log/tree/stable"
+            },
+            "time": "2019-06-15T10:14:41+00:00"
+        },
+        {
             "name": "select2/select2",
             "version": "4.0.13",
             "source": {
@@ -3122,6 +3300,61 @@
                 }
             ],
             "time": "2021-05-27T09:17:38+00:00"
+        },
+        {
+            "name": "twbs/bootstrap",
+            "version": "v3.4.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/twbs/bootstrap.git",
+                "reference": "68b0d231a13201eb14acd3dc84e51543d16e5f7e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/twbs/bootstrap/zipball/68b0d231a13201eb14acd3dc84e51543d16e5f7e",
+                "reference": "68b0d231a13201eb14acd3dc84e51543d16e5f7e",
+                "shasum": ""
+            },
+            "replace": {
+                "twitter/bootstrap": "self.version"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.4.x-dev"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jacob Thornton",
+                    "email": "jacobthornton@gmail.com"
+                },
+                {
+                    "name": "Mark Otto",
+                    "email": "markdotto@gmail.com"
+                }
+            ],
+            "description": "The most popular front-end framework for developing responsive, mobile first projects on the web.",
+            "homepage": "https://getbootstrap.com/",
+            "keywords": [
+                "JS",
+                "css",
+                "framework",
+                "front-end",
+                "less",
+                "mobile-first",
+                "responsive",
+                "web"
+            ],
+            "support": {
+                "issues": "https://github.com/twbs/bootstrap/issues",
+                "source": "https://github.com/twbs/bootstrap/tree/v3.4.1"
+            },
+            "time": "2019-02-13T15:55:38+00:00"
         },
         {
             "name": "unclead/yii2-multiple-input",
@@ -6772,7 +7005,8 @@
         "kartik-v/yii2-date-range": 20,
         "kartik-v/yii2-widget-activeform": 20,
         "kartik-v/yii2-icons": 20,
-        "kartik-v/yii2-widget-timepicker": 20
+        "kartik-v/yii2-widget-timepicker": 20,
+        "ruturajmaniyar/yii2-audit-log": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

@@ -62,7 +62,7 @@ class Revista extends \yii\db\ActiveRecord
 
     public function getYearsList() {
         $currentYear = date('Y');
-        $yearFrom = 2000;
+        $yearFrom = 2013;
         $yearsRange = range($yearFrom, $currentYear);
         return array_combine($yearsRange, $yearsRange);
     }

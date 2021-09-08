@@ -3,7 +3,12 @@
 namespace backend\models\Archivo;
 
 use backend\models\Noticia\NoticiaArchivo;
+use Matrix\Exception;
+use ruturajmaniyar\mod\audit\models\AuditEntry;
 use Yii;
+use ruturajmaniyar\mod\audit\behaviors\AuditEntryBehaviors;
+use yii\behaviors\TimestampBehavior;
+use yii\db\Expression;
 
 /**
  * This is the model class for table "archivo".
@@ -22,6 +27,16 @@ use Yii;
  */
 class Archivo extends \yii\db\ActiveRecord
 {
+
+   /* public function behaviors(){
+        return [
+
+            'auditEntryBehaviors' => [
+            'class' => AuditEntryBehaviors::className()
+        ],
+
+        ];
+    }
     /**
      * {@inheritdoc}
      */
@@ -91,5 +106,30 @@ class Archivo extends \yii\db\ActiveRecord
         return $this->hasOne(NoticiaArchivo::className(), ['id_archivo' => 'id_archivo']);
     }
 
+    public function afterDelete()
+    {
+
+
+        try {
+            $userId = Yii::$app->getUser()->identity->getId();
+            $userIpAddress = Yii::$app->request->getUserIP();
+
+        } catch (Exception $e) { //If we have no user object, this must be a command line program
+            $userId = self::NO_USER_ID;
+        }
+
+        $log = new AuditEntry();
+        $log->audit_entry_old_value = 'NA';
+        $log->audit_entry_new_value = 'NA';
+        $log->audit_entry_operation = 'DELETE';
+        $log->audit_entry_model_name = substr(get_class($this->owner), strrpos(get_class($this->owner), '\\') + 1);
+        $log->audit_entry_field_name = 'N/A';
+        $log->audit_entry_timestamp = new Expression('unix_timestamp(NOW())');
+        $log->audit_entry_user_id = $userId;
+        $log->audit_entry_ip = $userIpAddress;
+
+        $log->save(false);
+
+    }
 
 }
