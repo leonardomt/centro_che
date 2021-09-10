@@ -221,7 +221,7 @@
                                 'iconStyle' => 'far',
                                 'items' => [
                                     ['label' => 'Portada', 'icon' => 'dot-circle', 'iconStyle' => 'far' , 'url' => ['/gestion-documental/view', 'id'=>1], 'visible' => Yii::$app->user->can('gestionar-coleccion-documental')],
-                                    ['label' => 'Catálogo', 'icon' => 'dot-circle', 'iconStyle' => 'far' , 'url' => ['/coleccion-documental/index'], 'visible' => Yii::$app->user->can('gestionar-coleccion-documental'),'badge' => $cd],
+                                    ['label' => 'Documentos', 'icon' => 'dot-circle', 'iconStyle' => 'far' , 'url' => ['/coleccion-documental/index'], 'visible' => Yii::$app->user->can('gestionar-coleccion-documental'),'badge' => $cd],
                                 ]
                             ],
                             ['label' => 'Proyecto Editorial', 'iconStyle' => 'far' , 'url' => ['/proyecto/view', 'id'=>1], 'visible' => Yii::$app->user->can('gestionar-proyecto'),'badge' => $libro],

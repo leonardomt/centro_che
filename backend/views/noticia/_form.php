@@ -22,7 +22,7 @@ use kartik\grid\GridView;
         </div>
         <div class="col-lg-6 text-lg-left">
             <?= $form->field($model, 'fecha')->widget(\dosamigos\datepicker\DatePicker::className(), [
-                'inline' => false, 'language' => 'es', 'options' => [
+                'inline' => false, 'language' => 'es', 'options' =>  [
                     'autocomplete' => 'off',
                 ],
                 'clientOptions' => [

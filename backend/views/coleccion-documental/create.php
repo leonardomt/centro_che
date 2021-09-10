@@ -11,13 +11,15 @@ use yii\helpers\ArrayHelper;
 /* @var $model backend\models\ColeccionDocumental\ColeccionDocumental */
 
 $this->title = 'Crear Documento';
-$this->params['breadcrumbs'][] = ['label' => 'Catálogo', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Documentos', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 if (Yii::$app->user->isGuest)
     return Yii::$app->getResponse()->redirect(\yii\helpers\Url::to(['site/login']));
 if (!Yii::$app->user->can('gestionar-coleccion-documental'))
     return Yii::$app->getResponse()->redirect(\yii\helpers\Url::to(['site/login']));
 ?>
+
+<script type='text/javascript' src='https://code.jquery.com/jquery-1.11.0.js'></script>
 <div class="coleccion-documental-create col-md-12">
 
     <h1><?= Html::encode($this->title) ?></h1>
@@ -33,12 +35,22 @@ if (!Yii::$app->user->can('gestionar-coleccion-documental'))
 
     <div class="row">
         <div class="col-lg-6 text-lg-left">
+            <?php
+            \yii\widgets\MaskedInput::widget([
+                'name' => 'input-32',
+                'clientOptions' => ['alias' =>  'yyyy-mm-dd']
+            ]);
+            ?>
             <?= $form->field($model, 'fecha')->widget(\dosamigos\datepicker\DatePicker::className(), [
-                'inline' => false, 'language' => 'es',
+                'inline' => false, 'language' => 'es', 'options' =>  [
+                    'data-inputmask'=>"'alias': 'yyyy-mm-dd'",
+                    'autocomplete' => 'off',
+                ],
                 'clientOptions' => [
                     'autoclose' => true,
                     'format' => 'yyyy-m-d',
                     'endDate' => date('Y-m-d'),
+                    'alias' =>  'yyyy-mm-dd'
                 ]
             ]) ?>
         </div>
@@ -290,3 +302,27 @@ if (!Yii::$app->user->can('gestionar-coleccion-documental'))
     ]); ?>
 
 </div>
+
+<script>
+    $(document).ready(function(){
+        $(":input").inputmask();
+
+
+
+        $("#date").inputmask({
+            mask: 'aaaa mm dd',
+            placeholder: ' ',
+            showMaskOnHover: false,
+            showMaskOnFocus: false,
+            onBeforePaste: function (pastedValue, opts) {
+                var processedValue = pastedValue;
+
+//do something with it
+
+                return processedValue;
+            }
+        });
+    });
+
+
+</script>

@@ -18,6 +18,9 @@ if (!Yii::$app->user->can('gestionar-exposicion'))
     return Yii::$app->getResponse()->redirect(\yii\helpers\Url::to(['site/login']));
 
 ?>
+
+<script type='text/javascript' src='https://code.jquery.com/jquery-1.11.0.js'></script>
+
 <div class="exposicion-create col-md-12">
 
     <h1><?= Html::encode($this->title) ?></h1>
@@ -44,9 +47,9 @@ if (!Yii::$app->user->can('gestionar-exposicion'))
     <div class="row">
         <div class=" col-lg-2 text-lg-left"></div>
         <div class=" col-lg-2 text-lg-left">
-             <?= $form->field($model, 'tipo_fecha')->radioList([0 => 'Fecha Exacta', 1 => 'Año', 2 => 'Rango de Fecha'], [
+            <?= $form->field($model, 'tipo_fecha')->radioList([0 => 'Fecha Exacta', 1 => 'Año', 2 => 'Rango de Fecha'], [
                 'separator' => '<br/>',
-                    'item' => function ($index, $label, $name, $checked, $value) {
+                'item' => function ($index, $label, $name, $checked, $value) {
                     $checked = $checked ? 'checked' : '';
                     return "<label>
                 <input type='radio' {$checked}
@@ -62,28 +65,48 @@ if (!Yii::$app->user->can('gestionar-exposicion'))
         </div>
         <div class=" col-lg-2 text-lg-left"></div>
         <div class="col-lg-6">
-            <div class=" text-lg-left">
+            <?php
+            \yii\widgets\MaskedInput::widget([
+                'name' => 'input-32',
+                'clientOptions' => ['alias' => 'yyyy-mm-dd']
+            ]);
+            ?>
+            <div class="text-lg-left">
                 <?= $form->field($model, 'fecha')->widget(\dosamigos\datepicker\DatePicker::className(), [
-                    'inline' => false, 'language' => 'es', 'options' => [
+                    'inline' => false, 'language' => 'es', 'options' =>  [
+                        'data-inputmask' => "'alias': 'yyyy-mm-dd'",
                         'autocomplete' => 'off',
                     ],
                     'clientOptions' => [
                         'autoclose' => true,
                         'format' => 'yyyy-m-d',
                         'endDate' => date('Y-m-d'),
+                        'alias' => 'yyyy-mm-dd'
                     ]
                 ]) ?>
             </div>
-            <div class="text-lg-left" id="fecha_fin" disabled="disabled">
-                <?= $form->field($model, 'fecha_fin')->widget(\dosamigos\datepicker\DatePicker::className(),
-                    [
-                    'inline' => false, 'language' => 'es',
+
+
+            <?php
+            \yii\widgets\MaskedInput::widget([
+                'name' => 'input-32',
+                'clientOptions' => ['alias' => 'yyyy-mm-dd']
+            ]);
+            ?>
+            <div class="text-lg-left" id="fecha_fin">
+                <?= $form->field($model, 'fecha_fin')->widget(\dosamigos\datepicker\DatePicker::className(), [
+                    'inline' => false, 'language' => 'es', 'options' =>  [
+                        'data-inputmask' => "'alias': 'yyyy-mm-dd'",
+                        'autocomplete' => 'off',
+                    ],
                     'clientOptions' => [
                         'autoclose' => true,
                         'format' => 'yyyy-m-d',
+                        'alias' => 'yyyy-mm-dd'
                     ]
                 ]) ?>
             </div>
+
         </div>
     </div>
     <div class="row">
@@ -372,6 +395,27 @@ if (!Yii::$app->user->can('gestionar-exposicion'))
             otherlan.focus();
         }
     }
+
+
+    $(document).ready(function () {
+        $(":input").inputmask();
+
+
+        $("#date").inputmask({
+            mask: 'aaaa mm dd',
+            placeholder: ' ',
+            showMaskOnHover: false,
+            showMaskOnFocus: false,
+            onBeforePaste: function (pastedValue, opts) {
+                var processedValue = pastedValue;
+
+//do something with it
+
+                return processedValue;
+            }
+        });
+    });
+
 
 </script>
 

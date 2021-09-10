@@ -19,6 +19,8 @@ $this->params['breadcrumbs'][] = 'Modificar';
 if (Yii::$app->user->isGuest)
     return Yii::$app->getResponse()->redirect(\yii\helpers\Url::to(['site/login']));
 ?>
+
+<script type='text/javascript' src='https://code.jquery.com/jquery-1.11.0.js'></script>
 <div class="articulo-update col-md-12">
 
     <h1><?= Html::encode($this->title) ?></h1>
@@ -42,15 +44,23 @@ if (Yii::$app->user->isGuest)
         <div class="col-lg-6 text-lg-left">
             <?= $form->field($model, 'titulo')->textInput(['maxlength' => true]) ?>
         </div>
+        <?php
+        \yii\widgets\MaskedInput::widget([
+            'name' => 'input-32',
+            'clientOptions' => ['alias' =>  'yyyy-mm-dd']
+        ]);
+        ?>
         <div class="col-lg-6 text-lg-left">
             <?= $form->field($model, 'fecha')->widget(\dosamigos\datepicker\DatePicker::className(), [
-                'inline' => false, 'language' => 'es', 'options' => [
+                'inline' => false, 'language' => 'es', 'options' =>  [
+                    'data-inputmask'=>"'alias': 'yyyy-mm-dd'",
                     'autocomplete' => 'off',
                 ],
                 'clientOptions' => [
                     'autoclose' => true,
                     'format' => 'yyyy-m-d',
                     'endDate' => date('Y-m-d'),
+                    'alias' =>  'yyyy-mm-dd'
                 ]
             ]) ?>
         </div>
@@ -78,7 +88,7 @@ if (Yii::$app->user->isGuest)
     <div class="row">
         <div class="col-lg-6 text-lg-left">
             <?= $form->field($model, 'fecha')->widget(\dosamigos\datepicker\DatePicker::className(), [
-                'inline' => false, 'language' => 'es', 'options' => [
+                'inline' => false, 'language' => 'es', 'options' =>  [
                     'autocomplete' => 'off',
                 ],
                 'clientOptions' => [
@@ -323,3 +333,27 @@ if (Yii::$app->user->isGuest)
     ]); ?>
 
 </div>
+
+<script>
+    $(document).ready(function(){
+        $(":input").inputmask();
+
+
+
+        $("#date").inputmask({
+            mask: 'aaaa mm dd',
+            placeholder: ' ',
+            showMaskOnHover: false,
+            showMaskOnFocus: false,
+            onBeforePaste: function (pastedValue, opts) {
+                var processedValue = pastedValue;
+
+//do something with it
+
+                return processedValue;
+            }
+        });
+    });
+
+
+</script>

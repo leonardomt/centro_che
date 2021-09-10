@@ -14,6 +14,8 @@ $this->params['breadcrumbs'][] = ['label' => 'Discursos y Entrevistas', 'url' =>
 $this->params['breadcrumbs'][] = ['label' => $model->titulo, 'url' => ['view', 'id' => $model->id_discurso]];
 $this->params['breadcrumbs'][] = 'Modificar';
 ?>
+
+<script type='text/javascript' src='https://code.jquery.com/jquery-1.11.0.js'></script>
 <div class="discurso-update">
 
     <h1><?= Html::encode($this->title) ?></h1>
@@ -35,14 +37,22 @@ $this->params['breadcrumbs'][] = 'Modificar';
     </div>
     <div class="row">
         <div class="col-lg-6 text-lg-left">
+            <?php
+            \yii\widgets\MaskedInput::widget([
+                'name' => 'input-32',
+                'clientOptions' => ['alias' =>  'yyyy-mm-dd']
+            ]);
+            ?>
             <?= $form->field($model, 'fecha')->widget(\dosamigos\datepicker\DatePicker::className(), [
-                'inline' => false, 'language' => 'es', 'options' => [
+                'inline' => false, 'language' => 'es', 'options' =>  [
+                    'data-inputmask'=>"'alias': 'yyyy-mm-dd'",
                     'autocomplete' => 'off',
                 ],
                 'clientOptions' => [
                     'autoclose' => true,
                     'format' => 'yyyy-m-d',
                     'endDate' => date('Y-m-d'),
+                    'alias' =>  'yyyy-mm-dd'
                 ]
             ]) ?>
         </div>
@@ -295,3 +305,27 @@ $this->params['breadcrumbs'][] = 'Modificar';
     ]); ?>
 
 </div>
+
+<script>
+    $(document).ready(function(){
+        $(":input").inputmask();
+
+
+
+        $("#date").inputmask({
+            mask: 'aaaa mm dd',
+            placeholder: ' ',
+            showMaskOnHover: false,
+            showMaskOnFocus: false,
+            onBeforePaste: function (pastedValue, opts) {
+                var processedValue = pastedValue;
+
+//do something with it
+
+                return processedValue;
+            }
+        });
+    });
+
+
+</script>

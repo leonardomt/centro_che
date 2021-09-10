@@ -8,6 +8,7 @@ use yii\widgets\Pjax;
 use kartik\grid\GridView;
 use yii\helpers\ArrayHelper;
 use kartik\form\ActiveForm;
+use yii\widgets\MaskedInput;
 
 /* @var $this yii\web\View */
 /* @var $model backend\models\Articulo\Articulo */
@@ -20,94 +21,9 @@ if (Yii::$app->user->isGuest)
 
 
 ?>
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
-<style>
-    .stretch-card>.card {
-        width: 100%;
-        min-width: 100%
-    }
 
-    body {
-        background-color: #f9f9fa
-    }
-
-    .flex {
-        -webkit-box-flex: 1;
-        -ms-flex: 1 1 auto;
-        flex: 1 1 auto
-    }
-
-    @media (max-width:991.98px) {
-        .padding {
-            padding: 1.5rem
-        }
-    }
-
-    @media (max-width:767.98px) {
-        .padding {
-            padding: 1rem
-        }
-    }
-
-    .padding {
-        padding: 3rem
-    }
-
-    .card {
-        box-shadow: none;
-        -webkit-box-shadow: none;
-        -moz-box-shadow: none;
-        -ms-box-shadow: none
-    }
-
-    .card {
-        position: relative;
-        display: flex;
-        flex-direction: column;
-        min-width: 0;
-        word-wrap: break-word;
-        background-color: #fff;
-        background-clip: border-box;
-        border: 1px solid #3da5f;
-        border-radius: 0
-    }
-
-    .card .card-body {
-        padding: 1.25rem 1.75rem
-    }
-
-    .card .card-title {
-        color: #000000;
-        margin-bottom: 0.625rem;
-        text-transform: capitalize;
-        font-size: 0.875rem;
-        font-weight: 500
-    }
-
-    .card .card-description {
-        margin-bottom: .875rem;
-        font-weight: 400;
-        color: #76838f
-    }
-
-    .form-group label {
-        font-size: 0.875rem;
-        line-height: 1.4rem;
-        vertical-align: top;
-        margin-bottom: .5rem
-    }
-
-    .form-control {
-        border: 1px solid #f3f3f3;
-        font-weight: 400;
-        font-size: 0.875rem
-    }
-</style>
-<script type='text/javascript'
-        src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js" xmlns=""></script>
 <script type='text/javascript' src='https://code.jquery.com/jquery-1.11.0.js'></script>
-<script type='text/javascript' src="https://rawgit.com/RobinHerbots/jquery.inputmask/3.x/dist/jquery.inputmask.bundle.js"></script>
-<script type='text/javascript' src="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js"></script>
+
 <div class="articulo-create col-md-12">
 
     <h1><?= Html::encode($this->title) ?></h1>
@@ -116,39 +32,6 @@ if (Yii::$app->user->isGuest)
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
         ]) ?>
         <?= Alert::widget() ?>
-    </div>
-
-    <script type='text/javascript' src='https://code.jquery.com/jquery-1.11.0.js'></script>
-    <script type='text/javascript' src="https://rawgit.com/RobinHerbots/jquery.inputmask/3.x/dist/jquery.inputmask.bundle.js"></script>
-    <div class="page-content page-container" id="page-content">
-        <div class="padding">
-            <div class="row container d-flex justify-content-center">
-                <div class="col-lg-5 grid-margin stretch-card">
-                    <!--form mask starts-->
-                    <div class="card">
-                        <div class="card-body">
-                            <h4 class="card-title">Form input mask example</h4>
-                            <p class="card-description">Take a preview of input mask format</p>
-                            <form class="forms-sample">
-                                <div class="form-group row">
-                                    <div class="col"> <label>Date:</label> <input class="form-control" data-inputmask="'alias': 'date'"> </div>
-                                    <div class="col"> <label>Date time:</label> <input class="form-control" data-inputmask="'alias': 'datetime'"> </div>
-                                </div>
-                                <div class="form-group"> <label>Date with custom placeholder:</label> <input class="form-control" data-inputmask="'alias': 'date','placeholder': '*'"> </div>
-                                <div class="form-group"> <label>Phone:</label> <input class="form-control" id="phone" data-inputmask="'alias': 'phonebe'"> </div>
-                                <div class="form-group"> <label>Currency:</label> <input class="form-control" data-inputmask="'alias': 'currency'" style="text-align: right;"> </div>
-                                <div class="form-group row">
-                                    <div class="col"> <label>Email:</label> <input class="form-control" data-inputmask="'alias': 'email'"> </div>
-                                    <div class="col"> <label>Ip:</label> <input class="form-control" data-inputmask="'alias': 'ip'"> </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                    <!--form mask ends-->
-                </div>
-            </div>
-        </div>
-        <!--form mask ends-->
     </div>
 
 
@@ -166,24 +49,28 @@ if (Yii::$app->user->isGuest)
         <div class="col-lg-6 text-lg-left">
             <?= $form->field($model, 'titulo')->textInput(['maxlength' => true]) ?>
         </div>
+
         <div class="col-lg-6 text-lg-left">
+            <?php
+            \yii\widgets\MaskedInput::widget([
+                'name' => 'input-32',
+                'clientOptions' => ['alias' =>  'yyyy-mm-dd']
+            ]);
+            ?>
             <?= $form->field($model, 'fecha')->widget(\dosamigos\datepicker\DatePicker::className(), [
-                'inline' => false, 'language' => 'es', 'options' => [
-                    'data-inputmask'=>"'alias': 'date'",
+                'inline' => false, 'language' => 'es', 'options' =>  [
+                    'data-inputmask'=>"'alias': 'yyyy-mm-dd'",
                     'autocomplete' => 'off',
                 ],
                 'clientOptions' => [
                     'autoclose' => true,
                     'format' => 'yyyy-m-d',
                     'endDate' => date('Y-m-d'),
+                    'alias' =>  'yyyy-mm-dd'
                 ]
             ]) ?>
         </div>
     </div>
-
-
-
-
 
 
     <?=
@@ -448,8 +335,8 @@ if (Yii::$app->user->isGuest)
 
 
 
-        $("#phone").inputmask({
-            mask: '999 999 9999',
+        $("#date").inputmask({
+            mask: 'aaaa mm dd',
             placeholder: ' ',
             showMaskOnHover: false,
             showMaskOnFocus: false,
@@ -462,4 +349,6 @@ if (Yii::$app->user->isGuest)
             }
         });
     });
+
+
 </script>
