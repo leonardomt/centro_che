@@ -2,6 +2,7 @@
 
 namespace backend\models\Otros;
 
+use ruturajmaniyar\mod\audit\behaviors\AuditEntryBehaviors;
 use Yii;
 
 /**
@@ -26,6 +27,15 @@ class Otros extends \yii\db\ActiveRecord
         return 'otros';
     }
 
+    public function behaviors(){
+        return [
+
+            'auditEntryBehaviors' => [
+                'class' => AuditEntryBehaviors::className()
+            ],
+
+        ];
+    }
     /**
      * {@inheritdoc}
      */

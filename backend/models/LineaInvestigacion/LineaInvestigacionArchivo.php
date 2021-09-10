@@ -3,6 +3,7 @@
 namespace backend\models\LineaInvestigacion;
 
 use backend\models\Archivo\Archivo;
+use ruturajmaniyar\mod\audit\behaviors\AuditEntryBehaviors;
 use Yii;
 
 /**
@@ -24,6 +25,15 @@ class LineaInvestigacionArchivo extends \yii\db\ActiveRecord
         return 'linea_investigacion_archivo';
     }
 
+    public function behaviors(){
+        return [
+
+            'auditEntryBehaviors' => [
+                'class' => AuditEntryBehaviors::className()
+            ],
+
+        ];
+    }
     /**
      * {@inheritdoc}
      */

@@ -2,6 +2,7 @@
 
 namespace backend\models\Programacion;
 
+use ruturajmaniyar\mod\audit\behaviors\AuditEntryBehaviors;
 use Yii;
 
 /**
@@ -26,6 +27,15 @@ class Programacion extends \yii\db\ActiveRecord
     public static function tableName()
     {
         return 'programacion';
+    }
+    public function behaviors(){
+        return [
+
+            'auditEntryBehaviors' => [
+                'class' => AuditEntryBehaviors::className()
+            ],
+
+        ];
     }
 
     /**

@@ -2,6 +2,7 @@
 
 namespace backend\models\Taller;
 
+use ruturajmaniyar\mod\audit\behaviors\AuditEntryBehaviors;
 use Yii;
 
 /**
@@ -25,6 +26,16 @@ class Taller extends \yii\db\ActiveRecord
     public static function tableName()
     {
         return 'taller';
+    }
+
+    public function behaviors(){
+        return [
+
+            'auditEntryBehaviors' => [
+                'class' => AuditEntryBehaviors::className()
+            ],
+
+        ];
     }
 
     /**

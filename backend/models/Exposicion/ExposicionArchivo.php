@@ -3,6 +3,7 @@
 namespace backend\models\Exposicion;
 
 use backend\models\Archivo\Archivo;
+use ruturajmaniyar\mod\audit\behaviors\AuditEntryBehaviors;
 use Yii;
 
 /**
@@ -22,6 +23,16 @@ class ExposicionArchivo extends \yii\db\ActiveRecord
     public static function tableName()
     {
         return 'exposicion_archivo';
+    }
+
+    public function behaviors(){
+        return [
+
+            'auditEntryBehaviors' => [
+                'class' => AuditEntryBehaviors::className()
+            ],
+
+        ];
     }
 
     /**

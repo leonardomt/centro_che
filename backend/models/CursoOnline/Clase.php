@@ -2,6 +2,7 @@
 
 namespace backend\models\CursoOnline;
 
+use ruturajmaniyar\mod\audit\behaviors\AuditEntryBehaviors;
 use Yii;
 
 /**
@@ -26,6 +27,15 @@ class Clase extends \yii\db\ActiveRecord
         return 'clase';
     }
 
+    public function behaviors(){
+        return [
+
+            'auditEntryBehaviors' => [
+                'class' => AuditEntryBehaviors::className()
+            ],
+
+        ];
+    }
     /**
      * {@inheritdoc}
      */

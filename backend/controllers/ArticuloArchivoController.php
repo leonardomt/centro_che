@@ -4,6 +4,8 @@ namespace backend\controllers;
 
 use backend\models\Archivo\ArchivoSearch;
 use backend\models\Archivo\Archivo;
+use backend\models\User\User;
+use ruturajmaniyar\mod\audit\models\AuditEntry;
 use Yii;
 use backend\models\Articulo\ArticuloArchivo;
 use backend\models\Articulo\ArticuloArchivoSearch;
@@ -128,6 +130,7 @@ class ArticuloArchivoController extends Controller
 
         $archivo = ArticuloArchivo::find()->where(['id_articulo' => $id2, 'id_archivo' => $id])->one();
         $archivo->delete();
+        $this->afterDeleted($id);
         return $this->redirect(['libro/view', 'id' => $id2]);
   
     }
@@ -146,5 +149,32 @@ class ArticuloArchivoController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    public function afterDeleted($id)
+    {
+        try {
+            $userId = Yii::$app->getUser()->identity->getId();
+            $userIpAddress = Yii::$app->request->getUserIP();
+
+        } catch (Exception $e) { //If we have no user object, this must be a command line program
+            $userId = self::NO_USER_ID;
+        }
+
+        $log = new \ruturajmaniyar\mod\audit\models\AuditEntry();
+        $log->audit_entry_old_value = 'N/A';
+        $log->audit_entry_new_value = 'N/A';
+        $log->audit_entry_operation = 'DELETE';
+        $log->audit_entry_model_id = $id;
+        $nombre = \backend\models\User\User::find()->where(['id' => Yii::$app->getUser()->identity->getId()])->one();
+        $log->audit_entry_user_name = $nombre->username;
+        $log->audit_entry_model_name = 'ArticuloArchivo';
+        $log->audit_entry_field_name = 'N/A';
+        $log->audit_entry_timestamp = new Expression('unix_timestamp(NOW())');
+        $log->audit_entry_user_id = $userId;
+        $log->audit_entry_ip = $userIpAddress;
+
+        $log->save(false);
+
     }
 }

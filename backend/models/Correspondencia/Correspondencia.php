@@ -2,6 +2,7 @@
 
 namespace backend\models\Correspondencia;
 
+use ruturajmaniyar\mod\audit\behaviors\AuditEntryBehaviors;
 use Yii;
 
 /**
@@ -25,6 +26,16 @@ class Correspondencia extends \yii\db\ActiveRecord
     public static function tableName()
     {
         return 'correspondencia';
+    }
+
+    public function behaviors(){
+        return [
+
+            'auditEntryBehaviors' => [
+                'class' => AuditEntryBehaviors::className()
+            ],
+
+        ];
     }
 
     /**

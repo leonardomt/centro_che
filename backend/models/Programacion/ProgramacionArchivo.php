@@ -2,6 +2,7 @@
 
 namespace backend\models\Programacion;
 
+use ruturajmaniyar\mod\audit\behaviors\AuditEntryBehaviors;
 use Yii;
 
 /**
@@ -22,6 +23,15 @@ class ProgramacionArchivo extends \yii\db\ActiveRecord
         return 'programacion_archivo';
     }
 
+    public function behaviors(){
+        return [
+
+            'auditEntryBehaviors' => [
+                'class' => AuditEntryBehaviors::className()
+            ],
+
+        ];
+    }
     /**
      * {@inheritdoc}
      */

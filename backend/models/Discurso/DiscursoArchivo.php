@@ -2,6 +2,7 @@
 
 namespace backend\models\Discurso;
 
+use ruturajmaniyar\mod\audit\behaviors\AuditEntryBehaviors;
 use Yii;
 
 /**
@@ -23,6 +24,15 @@ class DiscursoArchivo extends \yii\db\ActiveRecord
         return 'discurso_archivo';
     }
 
+    public function behaviors(){
+        return [
+
+            'auditEntryBehaviors' => [
+                'class' => AuditEntryBehaviors::className()
+            ],
+
+        ];
+    }
     /**
      * {@inheritdoc}
      */

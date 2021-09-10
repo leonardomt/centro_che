@@ -2,6 +2,7 @@
 
 namespace backend\models\Libro;
 
+use ruturajmaniyar\mod\audit\behaviors\AuditEntryBehaviors;
 use Yii;
 
 /**
@@ -28,6 +29,15 @@ class Libro extends \yii\db\ActiveRecord
         return 'libro';
     }
 
+    public function behaviors(){
+        return [
+
+            'auditEntryBehaviors' => [
+                'class' => AuditEntryBehaviors::className()
+            ],
+
+        ];
+    }
     /**
      * {@inheritdoc}
      */

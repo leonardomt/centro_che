@@ -2,6 +2,7 @@
 
 namespace backend\models\Homenaje;
 
+use ruturajmaniyar\mod\audit\behaviors\AuditEntryBehaviors;
 use Yii;
 
 /**
@@ -25,6 +26,15 @@ class Homenaje extends \yii\db\ActiveRecord
         return 'homenaje';
     }
 
+    public function behaviors(){
+        return [
+
+            'auditEntryBehaviors' => [
+                'class' => AuditEntryBehaviors::className()
+            ],
+
+        ];
+    }
     /**
      * {@inheritdoc}
      */

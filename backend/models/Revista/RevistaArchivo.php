@@ -3,6 +3,7 @@
 namespace backend\models\Revista;
 
 use backend\models\Archivo\Archivo;
+use ruturajmaniyar\mod\audit\behaviors\AuditEntryBehaviors;
 use Yii;
 
 /**
@@ -30,6 +31,16 @@ class RevistaArchivo extends \yii\db\ActiveRecord
         return [
             [['id_archivo'], 'required'],
             [['id_revista', 'id_archivo'], 'integer'],
+        ];
+    }
+
+    public function behaviors(){
+        return [
+
+            'auditEntryBehaviors' => [
+                'class' => AuditEntryBehaviors::className()
+            ],
+
         ];
     }
 

@@ -2,6 +2,7 @@
 
 namespace backend\models\ProductoAudiovisual;
 
+use ruturajmaniyar\mod\audit\behaviors\AuditEntryBehaviors;
 use Yii;
 
 /**
@@ -28,6 +29,15 @@ class ProductoAudiovisual extends \yii\db\ActiveRecord
         return 'producto_audiovisual';
     }
 
+    public function behaviors(){
+        return [
+
+            'auditEntryBehaviors' => [
+                'class' => AuditEntryBehaviors::className()
+            ],
+
+        ];
+    }
     /**
      * {@inheritdoc}
      */

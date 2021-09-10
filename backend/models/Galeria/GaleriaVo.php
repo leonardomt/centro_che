@@ -2,6 +2,7 @@
 
 namespace backend\models\Galeria;
 
+use ruturajmaniyar\mod\audit\behaviors\AuditEntryBehaviors;
 use Yii;
 
 /**
@@ -25,6 +26,16 @@ class GaleriaVo extends \yii\db\ActiveRecord
         return 'galeria_vo';
     }
 
+
+    public function behaviors(){
+        return [
+
+            'auditEntryBehaviors' => [
+                'class' => AuditEntryBehaviors::className()
+            ],
+
+        ];
+    }
     /**
      * {@inheritdoc}
      */

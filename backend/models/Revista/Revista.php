@@ -2,6 +2,7 @@
 
 namespace backend\models\Revista;
 
+use ruturajmaniyar\mod\audit\behaviors\AuditEntryBehaviors;
 use Yii;
 
 /**
@@ -28,6 +29,15 @@ class Revista extends \yii\db\ActiveRecord
         return 'revista';
     }
 
+    public function behaviors(){
+        return [
+
+            'auditEntryBehaviors' => [
+                'class' => AuditEntryBehaviors::className()
+            ],
+
+        ];
+    }
     /**
      * {@inheritdoc}
      */

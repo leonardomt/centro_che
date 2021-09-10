@@ -1,13 +1,13 @@
 <?php
 
 use yii\helpers\Html;
-use yii\grid\GridView;
+use kartik\grid\GridView;
 
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\AuditEntrySearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Audit Entries';
+$this->title = 'Registro de Trazas';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="audit-entry-index">
@@ -23,14 +23,29 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             'audit_entry_id',
-            'audit_entry_timestamp',
+            [
+                'attribute' => 'audit_entry_timestamp',
+                'format' => ['date', 'php:Y-m-d H:i:s'],
+
+            ],
             'audit_entry_model_name',
             'audit_entry_operation',
-            'audit_entry_field_name',
-            'audit_entry_old_value:ntext',
-            'audit_entry_new_value:ntext',
-            'audit_entry_user_id',
+            [
+                'attribute' => 'audit_entry_field_name',
+                'contentOptions' => ['style' => 'max-width:100px; min-height:100px; overflow: auto; word-wrap: break-word;'],
+
+            ],
+            [
+                'attribute' => 'audit_entry_old_value',
+                'contentOptions' => ['style' => 'max-width:100px; min-height:100px; overflow: auto; word-wrap: break-word;'],
+            ],
+            [
+                'attribute' => 'audit_entry_new_value',
+                'contentOptions' => ['style' => 'max-width:100px; min-height:100px; overflow: auto; word-wrap: break-word;'],
+            ],
+            'audit_entry_user_name',
             'audit_entry_ip',
+            'audit_entry_model_id',
 
         ],
     ]); ?>

@@ -3,6 +3,7 @@
 namespace backend\models\Taller;
 
 use backend\models\Archivo\Archivo;
+use ruturajmaniyar\mod\audit\behaviors\AuditEntryBehaviors;
 use Yii;
 
 /**
@@ -22,6 +23,16 @@ class TallerArchivo extends \yii\db\ActiveRecord
     public static function tableName()
     {
         return 'taller_archivo';
+    }
+
+    public function behaviors(){
+        return [
+
+            'auditEntryBehaviors' => [
+                'class' => AuditEntryBehaviors::className()
+            ],
+
+        ];
     }
 
     /**

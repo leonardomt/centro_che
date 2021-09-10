@@ -5,7 +5,7 @@ namespace backend\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use ruturajmaniyar\mod\audit\models\AuditEntry;
+use backend\models\AuditEntry;
 
 /**
  * AuditEntrySearch represents the model behind the search form of `ruturajmaniyar\mod\audit\models\AuditEntry`.
@@ -19,7 +19,7 @@ class AuditEntrySearch extends AuditEntry
     {
         return [
             [['audit_entry_id'], 'integer'],
-            [['audit_entry_timestamp', 'audit_entry_model_name', 'audit_entry_operation', 'audit_entry_field_name', 'audit_entry_old_value', 'audit_entry_new_value', 'audit_entry_user_id', 'audit_entry_ip'], 'safe'],
+            [['audit_entry_timestamp', 'audit_entry_model_name','audit_entry_model_id', 'audit_entry_user_name', 'audit_entry_operation', 'audit_entry_field_name', 'audit_entry_old_value', 'audit_entry_new_value', 'audit_entry_user_id', 'audit_entry_ip'], 'safe'],
         ];
     }
 
@@ -68,12 +68,14 @@ class AuditEntrySearch extends AuditEntry
 
         $query->andFilterWhere(['like', 'audit_entry_timestamp', $this->audit_entry_timestamp])
             ->andFilterWhere(['like', 'audit_entry_model_name', $this->audit_entry_model_name])
+            ->andFilterWhere(['like', 'audit_entry_model_id', $this->audit_entry_model_id])
             ->andFilterWhere(['like', 'audit_entry_operation', $this->audit_entry_operation])
             ->andFilterWhere(['like', 'audit_entry_field_name', $this->audit_entry_field_name])
             ->andFilterWhere(['like', 'audit_entry_old_value', $this->audit_entry_old_value])
             ->andFilterWhere(['like', 'audit_entry_new_value', $this->audit_entry_new_value])
             ->andFilterWhere(['like', 'audit_entry_user_name', $this->audit_entry_user_name])
             ->andFilterWhere(['like', 'audit_entry_user_id', $this->audit_entry_user_id])
+            ->andFilterWhere(['like', 'audit_entry_user_name', $this->audit_entry_user_name])
             ->andFilterWhere(['like', 'audit_entry_ip', $this->audit_entry_ip]);
 
         return $dataProvider;

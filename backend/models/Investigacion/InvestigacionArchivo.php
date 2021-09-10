@@ -3,6 +3,7 @@
 namespace backend\models\Investigacion;
 
 use backend\models\Archivo\Archivo;
+use ruturajmaniyar\mod\audit\behaviors\AuditEntryBehaviors;
 use Yii;
 
 /**
@@ -22,6 +23,16 @@ class InvestigacionArchivo extends \yii\db\ActiveRecord
     public static function tableName()
     {
         return 'investigacion_archivo';
+    }
+
+    public function behaviors(){
+        return [
+
+            'auditEntryBehaviors' => [
+                'class' => AuditEntryBehaviors::className()
+            ],
+
+        ];
     }
 
     /**

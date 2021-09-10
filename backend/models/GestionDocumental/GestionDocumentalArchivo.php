@@ -2,6 +2,7 @@
 
 namespace backend\models\GestionDocumental;
 
+use ruturajmaniyar\mod\audit\behaviors\AuditEntryBehaviors;
 use Yii;
 
 /**
@@ -21,6 +22,15 @@ class GestionDocumentalArchivo extends \yii\db\ActiveRecord
         return 'gestion_documental_archivo';
     }
 
+    public function behaviors(){
+        return [
+
+            'auditEntryBehaviors' => [
+                'class' => AuditEntryBehaviors::className()
+            ],
+
+        ];
+    }
     /**
      * {@inheritdoc}
      */

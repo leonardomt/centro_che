@@ -2,6 +2,7 @@
 
 namespace backend\models\Hecho;
 
+use ruturajmaniyar\mod\audit\behaviors\AuditEntryBehaviors;
 use Yii;
 
 /**
@@ -24,6 +25,16 @@ class Hecho extends \yii\db\ActiveRecord
     public static function tableName()
     {
         return 'hecho';
+    }
+
+    public function behaviors(){
+        return [
+
+            'auditEntryBehaviors' => [
+                'class' => AuditEntryBehaviors::className()
+            ],
+
+        ];
     }
 
     /**

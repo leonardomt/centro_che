@@ -2,6 +2,7 @@
 
 namespace backend\models\Exposicion;
 
+use ruturajmaniyar\mod\audit\behaviors\AuditEntryBehaviors;
 use Yii;
 
 /**
@@ -30,6 +31,15 @@ class Exposicion extends \yii\db\ActiveRecord
         return 'exposicion';
     }
 
+    public function behaviors(){
+        return [
+
+            'auditEntryBehaviors' => [
+                'class' => AuditEntryBehaviors::className()
+            ],
+
+        ];
+    }
     /**
      * {@inheritdoc}
      */

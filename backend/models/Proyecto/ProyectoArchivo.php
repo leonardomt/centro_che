@@ -2,6 +2,7 @@
 
 namespace backend\models\Proyecto;
 
+use ruturajmaniyar\mod\audit\behaviors\AuditEntryBehaviors;
 use Yii;
 
 /**
@@ -21,6 +22,15 @@ class ProyectoArchivo extends \yii\db\ActiveRecord
         return 'proyecto_archivo';
     }
 
+    public function behaviors(){
+        return [
+
+            'auditEntryBehaviors' => [
+                'class' => AuditEntryBehaviors::className()
+            ],
+
+        ];
+    }
     /**
      * {@inheritdoc}
      */

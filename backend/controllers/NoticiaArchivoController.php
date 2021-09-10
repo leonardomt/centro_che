@@ -156,4 +156,31 @@ class NoticiaArchivoController extends Controller
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
+
+    public function afterDeleted($id)
+    {
+        try {
+            $userId = Yii::$app->getUser()->identity->getId();
+            $userIpAddress = Yii::$app->request->getUserIP();
+
+        } catch (Exception $e) { //If we have no user object, this must be a command line program
+            $userId = self::NO_USER_ID;
+        }
+
+        $log = new \ruturajmaniyar\mod\audit\models\AuditEntry();
+        $log->audit_entry_old_value = 'N/A';
+        $log->audit_entry_new_value = 'N/A';
+        $log->audit_entry_operation = 'DELETE';
+        $log->audit_entry_model_id = $id;
+        $nombre = \backend\models\User\User::find()->where(['id' => Yii::$app->getUser()->identity->getId()])->one();
+        $log->audit_entry_user_name = $nombre->username;
+        $log->audit_entry_model_name = 'NoticiaArchivo';
+        $log->audit_entry_field_name = 'N/A';
+        $log->audit_entry_timestamp = new Expression('unix_timestamp(NOW())');
+        $log->audit_entry_user_id = $userId;
+        $log->audit_entry_ip = $userIpAddress;
+
+        $log->save(false);
+
+    }
 }

@@ -2,6 +2,7 @@
 
 namespace backend\models\Testimonio;
 
+use ruturajmaniyar\mod\audit\behaviors\AuditEntryBehaviors;
 use Yii;
 
 /**
@@ -26,6 +27,15 @@ class Testimonio extends \yii\db\ActiveRecord
         return 'testimonio';
     }
 
+    public function behaviors(){
+        return [
+
+            'auditEntryBehaviors' => [
+                'class' => AuditEntryBehaviors::className()
+            ],
+
+        ];
+    }
     /**
      * {@inheritdoc}
      */

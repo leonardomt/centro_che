@@ -6,6 +6,7 @@ use backend\models\Archivo\TipoArchivo;
 use backend\models\Exposicion\Exposicion;
 use backend\models\Testimonio\Testimonio;
 use backend\models\Testimonio\TestimonioArchivo;
+use backend\models\User\User;
 use ruturajmaniyar\mod\audit\behaviors\AuditEntryBehaviors;
 use ruturajmaniyar\mod\audit\models\AuditEntry;
 use Yii;
@@ -44,7 +45,7 @@ class ArchivoController extends Controller
     {
         return [
             'auditEntryBehaviors' => [
-                'class' => AuditEntryBehaviors::class
+                'class' => AuditEntryBehaviors::className()
             ],
             'verbs' => [
                 'class' => VerbFilter::className(),
@@ -194,6 +195,8 @@ class ArchivoController extends Controller
             if ($fecha == null) {
                 $model->etapa = "No definida";
             }
+            $id_insert = $model->id_archivo;
+            $model->id_archivo = $id_insert;
             if ($model->save()) {
                 return $this->redirect(['index']);
             }
@@ -282,7 +285,10 @@ class ArchivoController extends Controller
         }
 
         if ($deleted == true) {
+
+
             $this->findModel($id)->delete();
+            $this->afterDeleted($id);
             return $this->redirect(['index']);
         } else {
             Yii::$app->session->setFlash('error', 'No se puede eliminar un archivo que esté asociado a al menos un elemento.');
@@ -323,6 +329,35 @@ class ArchivoController extends Controller
         }
 
         return $out;
+    }
+
+
+
+    public function afterDeleted($id)
+    {
+        try {
+            $userId = Yii::$app->getUser()->identity->getId();
+            $userIpAddress = Yii::$app->request->getUserIP();
+
+        } catch (Exception $e) { //If we have no user object, this must be a command line program
+            $userId = self::NO_USER_ID;
+        }
+
+        $log = new AuditEntry();
+        $log->audit_entry_old_value = 'N/A';
+        $log->audit_entry_new_value = 'N/A';
+        $log->audit_entry_operation = 'DELETE';
+        $log->audit_entry_model_id = $id;
+        $nombre = User::find()->where(['id' => Yii::$app->getUser()->identity->getId()])->one();
+        $log->audit_entry_user_name = $nombre->username;
+        $log->audit_entry_model_name = 'Archivo';
+        $log->audit_entry_field_name = 'N/A';
+        $log->audit_entry_timestamp = new Expression('unix_timestamp(NOW())');
+        $log->audit_entry_user_id = $userId;
+        $log->audit_entry_ip = $userIpAddress;
+
+        $log->save(false);
+
     }
 
 

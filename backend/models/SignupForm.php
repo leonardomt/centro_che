@@ -1,6 +1,7 @@
 <?php
 namespace backend\models;
 
+use ruturajmaniyar\mod\audit\behaviors\AuditEntryBehaviors;
 use Yii;
 use yii\base\Model;
 use common\models\User;
@@ -18,7 +19,15 @@ class SignupForm extends Model
     public $password;
     public $rol;
 
+    public function behaviors(){
+        return [
 
+            'auditEntryBehaviors' => [
+                'class' => AuditEntryBehaviors::className()
+            ],
+
+        ];
+    }
     /**
      * {@inheritdoc}
      */

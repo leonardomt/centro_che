@@ -2,6 +2,7 @@
 
 namespace backend\models\Escrito;
 
+use ruturajmaniyar\mod\audit\behaviors\AuditEntryBehaviors;
 use Yii;
 
 /**
@@ -26,6 +27,15 @@ class Escrito extends \yii\db\ActiveRecord
         return 'escrito';
     }
 
+    public function behaviors(){
+        return [
+
+            'auditEntryBehaviors' => [
+                'class' => AuditEntryBehaviors::className()
+            ],
+
+        ];
+    }
     /**
      * {@inheritdoc}
      */

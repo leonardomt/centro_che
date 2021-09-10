@@ -2,6 +2,7 @@
 
 namespace backend\models\User;
 
+use ruturajmaniyar\mod\audit\behaviors\AuditEntryBehaviors;
 use Yii;
 
 /**
@@ -24,6 +25,15 @@ class AuthRule extends \yii\db\ActiveRecord
         return 'auth_rule';
     }
 
+    public function behaviors(){
+        return [
+
+            'auditEntryBehaviors' => [
+                'class' => AuditEntryBehaviors::className()
+            ],
+
+        ];
+    }
     /**
      * {@inheritdoc}
      */

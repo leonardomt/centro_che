@@ -2,6 +2,7 @@
 
 namespace backend\models\Quienes;
 
+use ruturajmaniyar\mod\audit\behaviors\AuditEntryBehaviors;
 use Yii;
 
 /**
@@ -21,6 +22,15 @@ class Quienes extends \yii\db\ActiveRecord
         return 'quienes';
     }
 
+    public function behaviors(){
+        return [
+
+            'auditEntryBehaviors' => [
+                'class' => AuditEntryBehaviors::className()
+            ],
+
+        ];
+    }
     /**
      * {@inheritdoc}
      */

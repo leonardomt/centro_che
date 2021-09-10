@@ -2,6 +2,7 @@
 
 namespace backend\models\Comentario;
 
+use ruturajmaniyar\mod\audit\behaviors\AuditEntryBehaviors;
 use Yii;
 
 /**
@@ -27,6 +28,16 @@ class Comentario extends \yii\db\ActiveRecord
     public static function tableName()
     {
         return 'comentario';
+    }
+
+    public function behaviors(){
+        return [
+
+            'auditEntryBehaviors' => [
+                'class' => AuditEntryBehaviors::className()
+            ],
+
+        ];
     }
 
     /**

@@ -28,7 +28,7 @@ use yii\db\Expression;
 class Archivo extends \yii\db\ActiveRecord
 {
 
-   /* public function behaviors(){
+    public function behaviors(){
         return [
 
             'auditEntryBehaviors' => [
@@ -106,7 +106,7 @@ class Archivo extends \yii\db\ActiveRecord
         return $this->hasOne(NoticiaArchivo::className(), ['id_archivo' => 'id_archivo']);
     }
 
-    public function afterDelete()
+    public function afterDeleted($id)
     {
 
 
@@ -122,8 +122,13 @@ class Archivo extends \yii\db\ActiveRecord
         $log->audit_entry_old_value = 'NA';
         $log->audit_entry_new_value = 'NA';
         $log->audit_entry_operation = 'DELETE';
-        $log->audit_entry_model_name = substr(get_class($this->owner), strrpos(get_class($this->owner), '\\') + 1);
+        $log->audit_entry_record = $id;
+        $log->audit_entry_model_id = $id;
+        $nombre = User::find()->where(['id' => Yii::$app->getUser()->identity->getId()])->one();
+        $log->audit_entry_user_name = $nombre->username;
+        $log->audit_entry_model_name = 'Archivo';
         $log->audit_entry_field_name = 'N/A';
+
         $log->audit_entry_timestamp = new Expression('unix_timestamp(NOW())');
         $log->audit_entry_user_id = $userId;
         $log->audit_entry_ip = $userIpAddress;

@@ -2,6 +2,7 @@
 
 namespace backend\models\Revista;
 
+use ruturajmaniyar\mod\audit\behaviors\AuditEntryBehaviors;
 use Yii;
 
 /**
@@ -19,6 +20,16 @@ class Paradigma extends \yii\db\ActiveRecord
     public static function tableName()
     {
         return 'paradigma';
+    }
+
+    public function behaviors(){
+        return [
+
+            'auditEntryBehaviors' => [
+                'class' => AuditEntryBehaviors::className()
+            ],
+
+        ];
     }
 
     /**

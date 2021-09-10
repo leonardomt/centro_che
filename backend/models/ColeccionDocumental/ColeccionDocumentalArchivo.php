@@ -2,6 +2,7 @@
 
 namespace backend\models\ColeccionDocumental;
 
+use ruturajmaniyar\mod\audit\behaviors\AuditEntryBehaviors;
 use Yii;
 
 /**
@@ -21,6 +22,16 @@ class ColeccionDocumentalArchivo extends \yii\db\ActiveRecord
     public static function tableName()
     {
         return 'coleccion_documental_archivo';
+    }
+
+    public function behaviors(){
+        return [
+
+            'auditEntryBehaviors' => [
+                'class' => AuditEntryBehaviors::className()
+            ],
+
+        ];
     }
 
     /**

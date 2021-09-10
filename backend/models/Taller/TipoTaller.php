@@ -2,6 +2,7 @@
 
 namespace backend\models\taller;
 
+use ruturajmaniyar\mod\audit\behaviors\AuditEntryBehaviors;
 use Yii;
 
 /**
@@ -18,6 +19,16 @@ class TipoTaller extends \yii\db\ActiveRecord
     public static function tableName()
     {
         return 'tipo_taller';
+    }
+
+    public function behaviors(){
+        return [
+
+            'auditEntryBehaviors' => [
+                'class' => AuditEntryBehaviors::className()
+            ],
+
+        ];
     }
 
     /**

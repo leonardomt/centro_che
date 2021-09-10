@@ -2,6 +2,7 @@
 
 namespace backend\models\User;
 
+use ruturajmaniyar\mod\audit\behaviors\AuditEntryBehaviors;
 use Yii;
 
 /**
@@ -31,6 +32,16 @@ class AuthItem extends \yii\db\ActiveRecord
     public static function tableName()
     {
         return 'auth_item';
+    }
+
+    public function behaviors(){
+        return [
+
+            'auditEntryBehaviors' => [
+                'class' => AuditEntryBehaviors::className()
+            ],
+
+        ];
     }
 
     /**
