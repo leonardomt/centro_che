@@ -57,6 +57,7 @@ if (!Yii::$app->user->can('gestionar-escrito'))
             'tipo:ntext',
             'titulo:ntext',
             'autor:ntext',
+            'fecha',
             'descripcion:ntext',
             'cuerpo:ntext',
             [

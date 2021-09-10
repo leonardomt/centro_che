@@ -2,10 +2,12 @@
 
 namespace backend\controllers;
 
+use backend\models\Archivo\Archivo;
 use Yii;
 use backend\models\Escrito\Escrito;
 use backend\models\Escrito\EscritoArchivo;
 use backend\models\Escrito\EscritoSearch;
+use Exception;
 use yii\base\Model;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -71,38 +73,43 @@ class EscritoController extends Controller
      */
     public function actionCreate()
     {
-
-
-
-        $modelEscrito = new Escrito;
+        $model = new Escrito();
         $modelsArchivo = [new EscritoArchivo];
         $x=0;
-        if ($modelEscrito->load(Yii::$app->request->post())) {
+        if ($model->load(Yii::$app->request->post())) {
             $modelsArchivo = Model::createMultiple(EscritoArchivo::classname());
             Model::loadMultiple($modelsArchivo, Yii::$app->request->post());
             if (Yii::$app->request->isAjax) {
                 Yii::$app->response->format = Response::FORMAT_JSON;
                 return ArrayHelper::merge(
                     ActiveForm::validateMultiple($modelsArchivo),
-                    ActiveForm::validate($modelEscrito)
+                    ActiveForm::validate($model)
                 );
             }
 // validate all models
-            $valid = $modelEscrito->validate();
+            $valid = $model->validate();
             $valid = Model::validateMultiple($modelsArchivo) && $valid;
             if ($valid) {
                 $transaction = \Yii::$app->db->beginTransaction();
                 try {
-                    if ($flag = $modelEscrito->save(false)) {
+                    if ($flag = $model->save(false)) {
                         foreach ($modelsArchivo as $modelArchivo) {
-                            if($x=0){
+                            if ($x == 0) {
                                 $modelArchivo->portada = 1;
                                 $x++;
-                            }
-                            else{
+                                $archivo = new Archivo();
+                                $archivo = Archivo::find()->where(['id_archivo' => $modelArchivo->id_archivo])->one();
+                                if (!($archivo->tipo_archivo == 1)) {
+                                    Yii::$app->session->setFlash('error', 'Un Escrito solo puede tener una imagen como portada.');
+                                    return $this->redirect([
+                                        'create', 'model' => $model,
+                                        'modelsArchivo' => (empty($modelsArchivo)) ? [new EscritoArchivo] : $modelsArchivo,
+                                    ]);
+                                };
+                            } else {
                                 $modelArchivo->portada = 0;
                             }
-                            $modelArchivo->id_escrito = $modelEscrito->id_escrito;
+                            $modelArchivo->id_escrito = $model->id_escrito;
                             if (! ($flag = $modelArchivo->save(false))) {
                                 $transaction->rollBack();
                                 break;
@@ -119,19 +126,12 @@ class EscritoController extends Controller
             }
         }
         return $this->render('create', [
-            'model' => $modelEscrito,
+            'model' => $model,
 
             'modelsArchivo' => (empty($modelsArchivo)) ? [new EscritoArchivo] : $modelsArchivo,
         ]);
-
-
-
-
-
-
-
-
     }
+
 
     /**
      * Updates an existing Escrito model.
@@ -205,7 +205,7 @@ class EscritoController extends Controller
             $t9->delete();
         }
         $this->findModel($id)->delete();
-
+        $this->afterDeleted($id);
         return $this->redirect(['index']);
 
 
@@ -241,13 +241,13 @@ class EscritoController extends Controller
         $log = new \ruturajmaniyar\mod\audit\models\AuditEntry();
         $log->audit_entry_old_value = 'N/A';
         $log->audit_entry_new_value = 'N/A';
-        $log->audit_entry_operation = 'DELETE';
+        $log->audit_entry_operation = 'ELIMINAR';
         $log->audit_entry_model_id = $id;
         $nombre = \backend\models\User\User::find()->where(['id' => Yii::$app->getUser()->identity->getId()])->one();
         $log->audit_entry_user_name = $nombre->username;
         $log->audit_entry_model_name = 'Escrito';
         $log->audit_entry_field_name = 'N/A';
-        $log->audit_entry_timestamp = new Expression('unix_timestamp(NOW())');
+        $log->audit_entry_timestamp = new \yii\db\Expression('unix_timestamp(NOW())');
         $log->audit_entry_user_id = $userId;
         $log->audit_entry_ip = $userIpAddress;
 

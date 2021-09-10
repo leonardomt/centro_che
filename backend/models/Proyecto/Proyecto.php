@@ -1,5 +1,4 @@
 <?php
-
 namespace backend\models\Proyecto;
 
 use ruturajmaniyar\mod\audit\behaviors\AuditEntryBehaviors;

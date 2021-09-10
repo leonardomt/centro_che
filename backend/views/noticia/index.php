@@ -111,7 +111,7 @@ if ( !Yii::$app->user->can('gestionar-noticia'))
             ],
             [
                 'attribute' => 'descripcion',
-                'headerOptions' => ['class' => 'col-md-3'],
+                'headerOptions' => ['class' => 'col-md-2'],
                 'format' => 'raw',
                 'value' => function ($model) {
                     return '<div style="line-height: 1.2em; height: 6em; overflow: hidden;">'.\yii\helpers\HtmlPurifier::process($model->descripcion).'</div>';

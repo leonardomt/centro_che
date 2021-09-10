@@ -48,16 +48,16 @@ class AuditEntry extends \yii\db\ActiveRecord
     {
         return [
             'audit_entry_id' => Yii::t('app', 'ID'),
-            'audit_entry_timestamp' => Yii::t('app','Fecha'),
-            'audit_entry_model_name' => Yii::t('app', 'Tabla'),
+            'audit_entry_timestamp' => Yii::t('app','Fecha y Hora'),
+            'audit_entry_model_name' => Yii::t('app', 'Ubicación'),
             'audit_entry_operation' => Yii::t('app', 'Acción'),
             'audit_entry_field_name' => Yii::t('app', 'Campo Modificado'),
             'audit_entry_old_value' => Yii::t('app', 'Valor Anterior'),
-            'audit_entry_new_value' => Yii::t('app', 'Nuevo Valor'),
+            'audit_entry_new_value' => Yii::t('app', 'Valor Nuevo'),
             'audit_entry_user_id' => Yii::t('app', 'Id Usuario'),
             'audit_entry_user_name' => Yii::t('app', 'Usuario'),
-            'audit_entry_ip' => Yii::t('app', 'Dirección IP'),
-            'audit_entry_model_id' => Yii::t('app', 'Deleted ID'),
+            'audit_entry_ip' => Yii::t('app', 'IP'),
+            'audit_entry_model_id' => Yii::t('app', 'Valor Eliminado'),
         ];
     }
 }

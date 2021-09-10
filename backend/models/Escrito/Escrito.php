@@ -8,7 +8,7 @@ use Yii;
 /**
  * This is the model class for table "escrito".
  *
- * @property int $id_escrito
+ * @property string $id_escrito
  * @property string $tipo
  * @property string $titulo
  * @property string $descripcion
@@ -16,6 +16,7 @@ use Yii;
  * @property int $revisado
  * @property int $publico
  * @property string $autor
+ * @property string $fecha
  */
 class Escrito extends \yii\db\ActiveRecord
 {
@@ -42,9 +43,10 @@ class Escrito extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['tipo', 'titulo', 'descripcion', 'cuerpo', 'revisado', 'autor','publico'], 'required'],
+            [['tipo', 'titulo', 'descripcion', 'cuerpo', 'fecha', 'revisado', 'autor','publico'], 'required'],
             [['titulo', 'descripcion', 'autor', 'cuerpo'], 'string'],
             [['revisado', 'publico'], 'integer'],
+            [['fecha'], 'safe'],
             [['tipo'], 'string', 'max' => 256],
         ];
     }
@@ -63,6 +65,8 @@ class Escrito extends \yii\db\ActiveRecord
             'revisado' => 'Revisado',
             'publico' => 'Público',
             'autor' => 'Autor',
+            'fecha' => 'Fecha',
+            
         ];
     }
 }

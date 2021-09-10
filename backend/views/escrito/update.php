@@ -35,8 +35,32 @@ $x = 0;
             <?= $form->field($model, 'tipo')->dropDownList(['Crónica' => 'Crónica', 'Poesía' => 'Poesía', 'Artículo' => 'Artículo', 'Apuntes de Lectura' => 'Apuntes de Lectura', 'Prólogo' => 'Prólogo', 'Relato' => 'Relato', 'Ensayo' => 'Ensayo', 'Correspondencia' => 'Correspondencia']) ?>
         </div>
     </div>
-    <?= $form->field($model, 'autor')->dropDownList(['Ernesto Guevara de la Serna' => 'Ernesto Guevara de la Serna', 'Ernesto Che Guevara' => 'Ernesto Che Guevara']) ?>
-    
+    <div class="row">
+        <div class="col-lg-6 text-lg-left">
+            <?= $form->field($model, 'autor')->dropDownList(['Ernesto Guevara de la Serna' => 'Ernesto Guevara de la Serna', 'Ernesto Che Guevara' => 'Ernesto Che Guevara']) ?>
+
+        </div>
+        <div class="col-lg-6 text-lg-left">
+            <?php
+            \yii\widgets\MaskedInput::widget([
+                'name' => 'input-32',
+                'clientOptions' => ['alias' =>  'yyyy-mm-dd']
+            ]);
+            ?>
+            <?= $form->field($model, 'fecha')->widget(\dosamigos\datepicker\DatePicker::className(), [
+                'inline' => false, 'language' => 'es', 'options' =>  [
+                    'data-inputmask' => "'alias': 'yyyy-mm-dd'",
+                    'autocomplete' => 'off',
+                ],
+                'clientOptions' => [
+                    'autoclose' => true,
+                    'format' => 'yyyy-m-d',
+                    'endDate' => date('Y-m-d'),
+                    'alias' =>  'yyyy-mm-dd'
+                ]
+            ]) ?>
+        </div>
+    </div>
     <?= $form->field($model, 'descripcion')->textarea(['rows' => 3, 'style' => 'resize:none']) ?>
 
     <?= $form->field($model, 'cuerpo')->textarea(['rows' => 6, 'style' => 'resize:none']) ?>
@@ -84,26 +108,27 @@ $x = 0;
                             }
                             ?>
 
-                            <?= $form->field($modelArchivo, "[{$i}]id_archivo")->widget(\kartik\select2\Select2::classname(), [
+                            <?= $form->field($modelArchivo, "[{$i}]id_archivo")->widget(
+                                \kartik\select2\Select2::classname(),
+                                [
                                     'data' => \yii\helpers\ArrayHelper::map(\backend\models\Archivo\Archivo::find()->all(), 'id_archivo', 'titulo_archivo'),
                                     'options' => ['placeholder' => 'Seleccionar', 'multiple' => false, 'required' => true],
                                     'theme' => \kartik\select2\Select2::THEME_KRAJEE,
-                                    'size' => 'xs',]
+                                    'size' => 'xs',
+                                ]
                             ) ?>
 
                             <?= $form->field($modelArchivo, "[{$i}]nota")->textarea(['rows' => 3, 'maxlength' => 300, 'style' => 'resize:none']) ?>
 
                         </div>
                         <div class="pull-right">
-                            <button type="button" title="Agregar" style="width: 40px ; height: 40px"
-                                    class="add-item btn btn-success"><i class="fa fa-plus"></i></button>
-                            <button type="button" title="Eliminar" style="width: 40px ; height: 40px"
-                                    class="remove-item btn btn-danger"><i class="fa fa-trash"></i></button>
+                            <button type="button" title="Agregar" style="width: 40px ; height: 40px" class="add-item btn btn-success"><i class="fa fa-plus"></i></button>
+                            <button type="button" title="Eliminar" style="width: 40px ; height: 40px" class="remove-item btn btn-danger"><i class="fa fa-trash"></i></button>
                         </div>
                         <div class="clearfix"></div>
                         <br>
                     </div>
-                    <?php $x++;
+                <?php $x++;
                 endforeach; ?>
             </div>
 
@@ -158,11 +183,11 @@ $x = 0;
             'options' => ['class' => 'pull-left'],
             [
                 'content' =>
-                    Html::a('<span class="glyphicon glyphicon-plus"></span>', ['create'], [
-                        'data-pjax' => 0,
-                        'class' => 'btn btn-success',
-                        "title" => "Agregar"
-                    ]) . ' ' .
+                Html::a('<span class="glyphicon glyphicon-plus"></span>', ['create'], [
+                    'data-pjax' => 0,
+                    'class' => 'btn btn-success',
+                    "title" => "Agregar"
+                ]) . ' ' .
                     Html::a('<i class="glyphicon glyphicon-repeat"></i>', 'index.php?r=archivo%2Findex', ['class' => 'btn btn-default', 'title' => 'Reiniciar']),
             ],
             '{toggleData}',
@@ -270,3 +295,24 @@ $x = 0;
     ]); ?>
 
 </div>
+<script>
+    $(document).ready(function() {
+        $(":input").inputmask();
+
+
+
+        $("#date").inputmask({
+            mask: 'aaaa mm dd',
+            placeholder: ' ',
+            showMaskOnHover: false,
+            showMaskOnFocus: false,
+            onBeforePaste: function(pastedValue, opts) {
+                var processedValue = pastedValue;
+
+                //do something with it
+
+                return processedValue;
+            }
+        });
+    });
+</script>

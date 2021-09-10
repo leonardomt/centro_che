@@ -220,7 +220,7 @@ class ColeccionDocumentalController extends Controller
         }
 
         $this->findModel($id)->delete();
-
+        $this->afterDeleted($id);
         return $this->redirect(['index']);
     }
 
@@ -253,13 +253,13 @@ class ColeccionDocumentalController extends Controller
         $log = new \ruturajmaniyar\mod\audit\models\AuditEntry();
         $log->audit_entry_old_value = 'N/A';
         $log->audit_entry_new_value = 'N/A';
-        $log->audit_entry_operation = 'DELETE';
+        $log->audit_entry_operation = 'ELIMINAR';
         $log->audit_entry_model_id = $id;
         $nombre = \backend\models\User\User::find()->where(['id' => Yii::$app->getUser()->identity->getId()])->one();
         $log->audit_entry_user_name = $nombre->username;
         $log->audit_entry_model_name = 'ColeccionDocumental';
         $log->audit_entry_field_name = 'N/A';
-        $log->audit_entry_timestamp = new Expression('unix_timestamp(NOW())');
+        $log->audit_entry_timestamp = new \yii\db\Expression('unix_timestamp(NOW())');
         $log->audit_entry_user_id = $userId;
         $log->audit_entry_ip = $userIpAddress;
 

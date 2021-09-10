@@ -17,6 +17,7 @@ use yii\widgets\ActiveForm;
 use yii\helpers\ArrayHelper;
 use yii\base\Model;
 use Exception;
+use yii\db\Expression;
 
 /**
  * NoticiaController implements the CRUD actions for Noticia model.
@@ -113,6 +114,9 @@ class NoticiaController extends Controller
         $modelsArchivo = [new NoticiaArchivo];
         $x = 0;
         if ($model->load(Yii::$app->request->post())) {
+            if ($model->publico == 1) {
+                $model->fecha = new Expression('NOW()');
+            }
             $modelsArchivo = Model::createMultiple(NoticiaArchivo::classname());
             Model::loadMultiple($modelsArchivo, Yii::$app->request->post());
             if (Yii::$app->request->isAjax) {
@@ -154,7 +158,7 @@ class NoticiaController extends Controller
                     }
                     if ($flag) {
                         $transaction->commit();
-                        return $this->redirect(['index']);
+                       // return $this->redirect(['index']);
                     }
                 } catch (Exception $e) {
                     $transaction->rollBack();
@@ -181,9 +185,11 @@ class NoticiaController extends Controller
         $model = $this->findModel($id);
         $modelsArchivo = new NoticiaArchivo();
         $modelsArchivo = NoticiaArchivo::find()->where(['id_noticia' => $model->id_noticia])->all();
-
+        $anterior = $model->publico;
         if ($model->load(Yii::$app->request->post())) {
-
+            if (($model->publico == 1) && ($anterior == 0)) {
+                $model->fecha = new Expression('NOW()');
+            }
             $oldIDs = ArrayHelper::map($modelsArchivo, 'id', 'id');
             $modelsArchivo = Model::createMultiple(NoticiaArchivo::classname(), $modelsArchivo);
             Model::loadMultiple($modelsArchivo, Yii::$app->request->post());
@@ -257,13 +263,13 @@ class NoticiaController extends Controller
             for ($x = 0; $x <= 7; $x++) {
                 $padres = Comentario::find()->where(['tabla' => 'comentario', 'id_tabla' => $comentario->id])->all();
                 $eliminar = array_merge($eliminar, $padres);
-                foreach ($padres as $padre){
+                foreach ($padres as $padre) {
                     $abuelos = Comentario::find()->where(['tabla' => 'comentario', 'id_tabla' => $padre->id])->all();
                     $eliminar = array_merge($eliminar, $abuelos);
                 }
             }
         }
-        foreach ($eliminar as $e){
+        foreach ($eliminar as $e) {
             $e->delete();
         }
 
@@ -274,7 +280,7 @@ class NoticiaController extends Controller
         }
 
         $this->findModel($id)->delete();
-
+        $this->afterDeleted($id);
         return $this->redirect(['index']);
     }
 
@@ -300,7 +306,6 @@ class NoticiaController extends Controller
         try {
             $userId = Yii::$app->getUser()->identity->getId();
             $userIpAddress = Yii::$app->request->getUserIP();
-
         } catch (Exception $e) { //If we have no user object, this must be a command line program
             $userId = self::NO_USER_ID;
         }
@@ -308,17 +313,16 @@ class NoticiaController extends Controller
         $log = new \ruturajmaniyar\mod\audit\models\AuditEntry();
         $log->audit_entry_old_value = 'N/A';
         $log->audit_entry_new_value = 'N/A';
-        $log->audit_entry_operation = 'DELETE';
+        $log->audit_entry_operation = 'ELIMINAR';
         $log->audit_entry_model_id = $id;
         $nombre = \backend\models\User\User::find()->where(['id' => Yii::$app->getUser()->identity->getId()])->one();
         $log->audit_entry_user_name = $nombre->username;
         $log->audit_entry_model_name = 'Noticia';
         $log->audit_entry_field_name = 'N/A';
-        $log->audit_entry_timestamp = new Expression('unix_timestamp(NOW())');
+        $log->audit_entry_timestamp = new \yii\db\Expression('unix_timestamp(NOW())');
         $log->audit_entry_user_id = $userId;
         $log->audit_entry_ip = $userIpAddress;
 
         $log->save(false);
-
     }
 }

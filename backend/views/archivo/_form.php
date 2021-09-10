@@ -9,6 +9,9 @@ use backend\models\Archivo\TipoArchivo;
 /* @var $model backend\models\Archivo\Archivo */
 /* @var $form yii\widgets\ActiveForm */
 ?>
+
+
+<script type='text/javascript' src='https://code.jquery.com/jquery-1.11.0.js'></script>
 <div class="archivo-form">
 
     <?php $form = ActiveForm::begin(); ?>
@@ -41,16 +44,23 @@ use backend\models\Archivo\TipoArchivo;
         </div>
 
         <div class="col-md-6 ">
+        <?php
+            \yii\widgets\MaskedInput::widget([
+                'name' => 'input-32',
+                'clientOptions' => ['alias' =>  'yyyy-mm-dd']
+            ]);
+            ?>
             <?= $form->field($model, 'fecha')->widget(\dosamigos\datepicker\DatePicker::className(), [
-                'inline' => false, 'language' => 'es',
+                'inline' => false, 'language' => 'es', 'options' =>  [
+                    'data-inputmask'=>"'alias': 'yyyy-mm-dd'",
+                    'autocomplete' => 'off',
+                ],
                 'clientOptions' => [
                     'autoclose' => true,
-                    'format' => 'yyyy-mm-dd', 'endDate' => date('Y-m-d')
-                ],
-                'options' => [
-                    'autocomplete' => 'off',
+                    'format' => 'yyyy-m-d',
+                    'endDate' => date('Y-m-d'),
+                    'alias' =>  'yyyy-mm-dd'
                 ]
-
             ]) ?>
         </div>
     </div>
@@ -103,3 +113,27 @@ use backend\models\Archivo\TipoArchivo;
     <?php ActiveForm::end(); ?>
 
 </div>
+
+<script>
+    $(document).ready(function(){
+        $(":input").inputmask();
+
+
+
+        $("#date").inputmask({
+            mask: 'aaaa mm dd',
+            placeholder: ' ',
+            showMaskOnHover: false,
+            showMaskOnFocus: false,
+            onBeforePaste: function (pastedValue, opts) {
+                var processedValue = pastedValue;
+
+//do something with it
+
+                return processedValue;
+            }
+        });
+    });
+
+
+</script>
