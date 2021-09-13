@@ -41,7 +41,7 @@
         "kartik-v/yii2-widget-timepicker": "dev-master",
         "ruturajmaniyar/yii2-audit-log": "dev-master",
         "cornernote/yii-audit-module": "^1.1",
-        "kartik-v/yii2-export": "dev-master"
+        "kartik-v/yii2-export": "@dev"
         
     },
     "require-dev": {

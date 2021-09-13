@@ -18,6 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); 
     ?>
     <?php
+
     $gridColumns = [
         ['class' => 'yii\grid\SerialColumn'],
 
@@ -27,14 +28,52 @@ $this->params['breadcrumbs'][] = $this->title;
             'format' => ['date', 'php:Y-m-d H:i:s'],
 
         ],
-        'audit_entry_user_name', 
+        [
+            'attribute' => 'audit_entry_user_name',                     // etapa
+            'format' => 'raw',
+            'headerOptions' => array('class' => 'col-md-2'),
+            'filterInputOptions' => array('class' => 'form-control', 'id' => null, 'prompt' => 'Todos'),
+            'filter' => \yii\helpers\ArrayHelper::map(\backend\models\User\User::find()->all(), 'username', 'username'),
+
+            'filterType' => GridView::FILTER_SELECT2,
+            'filterWidgetOptions' => [
+                'options' => ['prompt' => ''],
+                'pluginOptions' => ['allowClear' => true],
+            ],
+        ],
+
         [
             'attribute' => 'audit_entry_model_name',                     // etapa
             'format' => 'raw',
             'headerOptions' => array('class' => 'col-md-2'),
             'filterInputOptions' => array('class' => 'form-control', 'id' => null, 'prompt' => 'Todos'),
 
-            'filter' => array("Archivo" => "Archivo", "Articulo" => "Articulo", "ArticuloArchivo" => "ArticuloArchivo", "AuthAssignment" => "AuthAssignment", "AuthItem" => "AuthItem", "AuthItemChild" => "AuthItemChild", "AuthItemChild" => "AuthItemChild", "AuthItem" => "AuthItem", "AuthRule" => "AuthRule", "Clase" => "Clase", "ColeccionDocumental" => "ColeccionDocumental", "ColeccionDocumentalArchivo" => "ColeccionDocumentalArchivo", "Comentario" => "Comentario", "Contacto" => "Contacto", "Correspondencia" => "Correspondencia", "CorrespondenciaArchivo" => "CorrespondenciaArchivo"),
+            'filter' => array("Archivo" => "Archivo", "Articulo" => "Articulo", "ArticuloArchivo" => "ArticuloArchivo",
+                "AuthAssignment" => "AuthAssignment", "AuthItem" => "AuthItem", "AuthItemChild" => "AuthItemChild",
+                "AuthRule" => "AuthRule", "Clase" => "Clase", "ColeccionDocumental" => "ColeccionDocumental",
+                "ColeccionDocumentalArchivo" => "ColeccionDocumentalArchivo", "Comentario" => "Comentario",
+                "Contacto" => "Contacto", "Correspondencia" => "Correspondencia",
+                "CorrespondenciaArchivo" => "CorrespondenciaArchivo", "CursoOnlineArchivo" => "CursoOnlineArchivo",
+                "CursoOnline" => "CursoOnline", "DiscursoArchivo" => "DiscursoArchivo", "Discurso" => "Discurso",
+                "EscritoArchivo" => "EscritoArchivo", "Escrito" => "Escrito", "ExposicionArchivo" => "ExposicionArchivo",
+                "Exposicion" => "Exposicion", "GaleriaVoArchivo" => "GaleriaVoArchivo", "GaleriaVo" => "GaleriaVo",
+                "GestionDocumentalArchivo" => "GestionDocumentalArchivo", "GestionDocumental" => "GestionDocumental",
+                "HechoArchivo" => "HechoArchivo", "Hecho" => "Hecho", "HomenajeArchivo" => "HomenajeArchivo",
+                "Homenaje" => "Homenaje", "InvestigacionArchivo" => "InvestigacionArchivo",
+                "Investigacion" => "Investigacion", "LibroArchivo" => "LibroArchivo", "Libro" => "Libro",
+                "LineaInvestigacionArchivo" => "LineaInvestigacionArchivo", "LineaInvestigacion" => "LineaInvestigacion",
+                "NoticiaArchivo" => "NoticiaArchivo", "Noticia" => "Noticia", "OtrosArchivo" => "OtrosArchivo",
+                "Otros" => "Otros", "ParadigmaArchivo" => "ParadigmaArchivo", "Paradigma" => "Paradigma",
+                "ProductoAudiovisualArchivo" => "ProductoAudiovisualArchivo", "ProductoAudiovisual" => "ProductoAudiovisual",
+                "ProgramacionArchivo" => "ProgramacionArchivo", "Programacion" => "Programacion",
+                "ProyectoArchivo" => "ProyectoArchivo", "Proyecto" => "Proyecto", "QuienesArchivo" => "QuienesArchivo",
+                "Quienes" => "Quienes", "RevistaArchivo" => "RevistaArchivo", "Revista" => "Revista",
+                "TallerArchivo" => "TallerArchivo", "Taller" => "Taller", "TestimonioArchivo" => "TestimonioArchivo",
+                "Testimonio" => "Testimonio", "TipoArchivo" => "TipoArchivo", "TipoArticulo" => "TipoArticulo",
+                "TipoHomenaje" => "TipoHomenaje", "TipoProducto" => "TipoProducto", "TipoTaller" => "TipoTaller",
+                "Trabajador" => "Trabajador", "User" => "User"),
+
+
             'filterType' => GridView::FILTER_SELECT2,
             'filterWidgetOptions' => [
                 'options' => ['prompt' => ''],
@@ -77,6 +116,13 @@ $this->params['breadcrumbs'][] = $this->title;
         GridView::widget([
             'dataProvider' => $dataProvider,
             'filterModel' => $searchModel,
+            'id' => 'audit-entry-index',
+            'pjax' => true,
+            'pjaxSettings' => [
+                'neverTimeout' => true,
+
+            ],
+
             'columns' => $gridColumns,
         ]); ?>
 

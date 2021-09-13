@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a0b2125924837c669bdd397a47285874",
+    "content-hash": "6819b92ae3ab120e706d3801ee662249",
     "packages": [
         {
             "name": "2amigos/yii2-chartjs-widget",
@@ -1398,6 +1398,7 @@
                 "kartik-v/yii2-mpdf": ">=1.0",
                 "phpoffice/phpspreadsheet": ">=1.0"
             },
+            "default-branch": true,
             "type": "yii2-extension",
             "extra": {
                 "branch-alias": {
@@ -1437,6 +1438,10 @@
                 "xlsx",
                 "yii2"
             ],
+            "support": {
+                "issues": "https://github.com/kartik-v/yii2-export/issues",
+                "source": "https://github.com/kartik-v/yii2-export/tree/master"
+            },
             "funding": [
                 {
                     "url": "https://opencollective.com/yii2-export",
@@ -7471,5 +7476,5 @@
         "php": ">=5.4.0"
     },
     "platform-dev": [],
-    "plugin-api-version": "1.1.0"
+    "plugin-api-version": "2.1.0"
 }
