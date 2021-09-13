@@ -213,7 +213,6 @@ class ColeccionDocumentalController extends Controller
     public function actionDelete($id)
     {
 
-        $temporal = new ColeccionDocumentalArchivo();
         $temporal = ColeccionDocumentalArchivo::find()->where(['id_coleccion_documental' => $this->findModel($id)->id_coleccion_documental])->all();
         foreach ($temporal as $t){
             $t->delete();

@@ -2,13 +2,15 @@
 
 namespace backend\controllers;
 
+use backend\models\Proyecto\ProyectoArchivo;
 use Yii;
 use backend\models\Proyecto\Proyecto;
 use backend\models\Proyecto\ProyectoSearch;
+use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-
+use yii\web\UploadedFile;
 
 /**
  * ProyectoController implements the CRUD actions for Proyecto model.
@@ -85,14 +87,42 @@ class ProyectoController extends Controller
      */
     public function actionUpdate($id)
     {
+        $modelArchivos = new ProyectoArchivo();
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['index']);
+        Yii::$app->request->enableCsrfValidation = false;
+        $this->enableCsrfValidation = false;
+
+        if ($model->load(Yii::$app->request->post())) {
+            $model->save();
+            $modelArchivos->file = UploadedFile::getInstances($modelArchivos, 'file');
+            foreach ($modelArchivos->file as $file) {
+                $upload = new ProyectoArchivo();
+                $imageName = date('Y-m-d') . rand(0, 99999);
+                $upload->url = 'proyecto/' . $imageName . '.' . $file->extension;
+                $upload->file = $file;
+                $upload->save();
+
+
+                for ($x = 0; $x <= 10; $x++) {
+                    $images = ProyectoArchivo::find()->all();
+                    ArrayHelper::multisort($images, ['id'], [SORT_ASC]);
+                    if (count($images) >= 6) {
+                        $images[0]->delete();
+                    }
+                }
+
+                $file->saveAs('../../frontend/web/proyecto/' . $imageName . '.' . $file->extension);
+
+
+            }
+            return $this->redirect(['view', 'id' => 1]);
         }
+
 
         return $this->render('update', [
             'model' => $model,
+            'modelArchivos' => $modelArchivos,
         ]);
     }
 

@@ -213,7 +213,6 @@ class CorrespondenciaController extends Controller
     public function actionDelete($id)
     {
 
-        $temporal3 = new CorrespondenciaArchivo();
         $temporal3 = CorrespondenciaArchivo::find()->where(['id_correspondencia' => $this->findModel($id)->id_correspondencia])->all();
         foreach ($temporal3 as $t3){
             $t3->delete();

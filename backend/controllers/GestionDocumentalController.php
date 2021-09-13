@@ -109,8 +109,9 @@ class GestionDocumentalController extends Controller
                 $upload->save();
 
 
-                for ($x = 0; $x <= 7; $x++) {
+                for ($x = 0; $x <= 10; $x++) {
                     $images = GestionDocumentalArchivo::find()->all();
+                    ArrayHelper::multisort($images, ['id'], [SORT_ASC]);
                     if (count($images) >= 6) {
                         $images[0]->delete();
                     }

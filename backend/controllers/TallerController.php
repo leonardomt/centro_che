@@ -190,26 +190,27 @@ class TallerController extends Controller
     public function actionDelete($id)
     {
 
-        $temporal12 = new TallerArchivo();
-        $temporal12 = TallerArchivo::find()->where(['id_taller' => $this->findModel($id)->id_taller])->all();
-        foreach ($temporal12 as $t12){
-            $t12->delete();
-        }
         $comentarios = Comentario::find()->where(['tabla' => 'taller', 'id_tabla' => $id])->all();
         $eliminar = Comentario::find()->where(['tabla' => 'taller', 'id_tabla' => $id])->all();
         foreach ($comentarios as $comentario) {
             for ($x = 0; $x <= 7; $x++) {
-                $padres = Comentario::find()->where(['tabla' => 'comentario', 'id_tabla' => $comentario->id])->all();
-                $eliminar = array_merge($eliminar, $padres);
-                foreach ($padres as $padre){
-                    $abuelos = Comentario::find()->where(['tabla' => 'comentario', 'id_tabla' => $padre->id])->all();
-                    $eliminar = array_merge($eliminar, $abuelos);
+                $primeros = Comentario::find()->where(['tabla' => 'comentario', 'id_tabla' => $comentario->id])->all();
+                $eliminar = array_merge($eliminar, $primeros);
+                foreach ($primeros as $primero) {
+                    $segundos = Comentario::find()->where(['tabla' => 'comentario', 'id_tabla' => $primero->id])->all();
+                    $eliminar = array_merge($eliminar, $segundos);
+                    foreach ($segundos as $segundo){
+                        $terceros = Comentario::find()->where(['tabla' => 'comentario', 'id_tabla' => $segundo->id])->all();
+                        $eliminar = array_merge($eliminar, $terceros);
+                    }
                 }
             }
         }
-        foreach ($eliminar as $e){
+        foreach ($eliminar as $e) {
             $e->delete();
         }
+
+
         $this->findModel($id)->delete();
         $this->afterDeleted($id);
         return $this->redirect(['index']);

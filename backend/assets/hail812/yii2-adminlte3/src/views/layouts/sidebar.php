@@ -224,7 +224,14 @@
                                     ['label' => 'Documentos', 'icon' => 'dot-circle', 'iconStyle' => 'far' , 'url' => ['/coleccion-documental/index'], 'visible' => Yii::$app->user->can('gestionar-coleccion-documental'),'badge' => $cd],
                                 ]
                             ],
-                            ['label' => 'Proyecto Editorial', 'iconStyle' => 'far' , 'url' => ['/proyecto/view', 'id'=>1], 'visible' => Yii::$app->user->can('gestionar-proyecto'),'badge' => $libro],
+                            [
+                                'label' => 'Proyecto Editorial',
+                                'iconStyle' => 'far',
+                                'items' => [
+                                    ['label' => 'Portada', 'icon' => 'dot-circle', 'iconStyle' => 'far' , 'url' => ['/proyecto/view', 'id'=>1], 'visible' => Yii::$app->user->can('gestionar-proyecto')],
+                                    ['label' => 'Catálogo de Libros', 'icon' => 'dot-circle', 'iconStyle' => 'far' , 'url' => ['/libro/index'], 'visible' => Yii::$app->user->can('gestionar-proyecto'),'badge' => $libro],
+                                ]
+                            ],
                             ['label' => 'Cursos Online', 'iconStyle' => 'far' , 'url' => ['/curso-online/index'], 'visible' => Yii::$app->user->can('gestionar-curso-online'),'badge' => $co],
 
                         ]

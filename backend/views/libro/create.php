@@ -11,7 +11,7 @@ use yii\bootstrap4\Breadcrumbs;
 /* @var $model backend\models\Libro\Libro */
 
 $this->title = 'Insertar Libro';
-$this->params['breadcrumbs'][] = ['label' => 'Libros', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Catálogo de Libros', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 

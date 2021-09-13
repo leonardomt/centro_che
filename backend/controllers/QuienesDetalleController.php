@@ -6,6 +6,7 @@ use backend\models\Quienes\QuienesDetalleArchivo;
 use backend\models\Quienes\TrabajadorSearch;
 use Yii;
 use backend\models\Quienes\QuienesDetalle;
+use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -96,8 +97,9 @@ class QuienesDetalleController extends Controller
                 $upload->save();
 
 
-                for ($x = 0; $x <= 7; $x++) {
+                for ($x = 0; $x <= 10; $x++) {
                     $images = QuienesDetalleArchivo::find()->all();
+                    ArrayHelper::multisort($images, ['id'], [SORT_ASC]);
                     if (count($images) >= 6) {
                         $images[0]->delete();
                     }

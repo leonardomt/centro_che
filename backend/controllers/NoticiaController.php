@@ -261,11 +261,15 @@ class NoticiaController extends Controller
         $eliminar = Comentario::find()->where(['tabla' => 'noticia', 'id_tabla' => $id])->all();
         foreach ($comentarios as $comentario) {
             for ($x = 0; $x <= 7; $x++) {
-                $padres = Comentario::find()->where(['tabla' => 'comentario', 'id_tabla' => $comentario->id])->all();
-                $eliminar = array_merge($eliminar, $padres);
-                foreach ($padres as $padre) {
-                    $abuelos = Comentario::find()->where(['tabla' => 'comentario', 'id_tabla' => $padre->id])->all();
-                    $eliminar = array_merge($eliminar, $abuelos);
+                $primeros = Comentario::find()->where(['tabla' => 'comentario', 'id_tabla' => $comentario->id])->all();
+                $eliminar = array_merge($eliminar, $primeros);
+                foreach ($primeros as $primero) {
+                    $segundos = Comentario::find()->where(['tabla' => 'comentario', 'id_tabla' => $primero->id])->all();
+                    $eliminar = array_merge($eliminar, $segundos);
+                    foreach ($segundos as $segundo){
+                        $terceros = Comentario::find()->where(['tabla' => 'comentario', 'id_tabla' => $segundo->id])->all();
+                        $eliminar = array_merge($eliminar, $terceros);
+                    }
                 }
             }
         }
@@ -273,7 +277,8 @@ class NoticiaController extends Controller
             $e->delete();
         }
 
-        $temporal = new NoticiaArchivo();
+
+
         $temporal = NoticiaArchivo::find()->where(['id_noticia' => $this->findModel($id)->id_noticia])->all();
         foreach ($temporal as $t) {
             $t->delete();

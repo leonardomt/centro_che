@@ -215,7 +215,7 @@ class ExposicionController extends Controller
     public function actionDelete($id)
     {
 
-        $temporal4 = new ExposicionArchivo();
+
         $temporal4 = ExposicionArchivo::find()->where(['id_exposicion' => $this->findModel($id)->id_exposicion])->all();
         foreach ($temporal4 as $t4){
             $t4->delete();

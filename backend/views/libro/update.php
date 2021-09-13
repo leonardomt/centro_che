@@ -11,7 +11,7 @@ use kartik\grid\GridView;
 /* @var $model backend\models\Libro\Libro */
 
 $this->title = 'Modificar Libro: ' . $model->titulo;
-$this->params['breadcrumbs'][] = ['label' => 'Libros', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Catálogo de Libros', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->titulo, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Modificar';
 ?>

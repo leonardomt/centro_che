@@ -24,7 +24,7 @@ $this->params['breadcrumbs'][] =$this->title;
 
 
 
-    <div class="paradigma-form">
+    <div class="gestion-documental-form">
 
         <?php $form = ActiveForm::begin(); ?>
 

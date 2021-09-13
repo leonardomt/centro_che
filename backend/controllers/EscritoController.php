@@ -199,7 +199,6 @@ class EscritoController extends Controller
      */
     public function actionDelete($id)
     {
-        $temporal9 = new EscritoArchivo();
         $temporal9 = EscritoArchivo::find()->where(['id_escrito' => $this->findModel($id)->id_escrito])->all();
         foreach ($temporal9 as $t9){
             $t9->delete();

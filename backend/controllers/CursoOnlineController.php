@@ -190,12 +190,15 @@ class CursoOnlineController extends Controller
     public function actionDelete($id)
     {
 
-        $temporal14 = new CursoOnlineArchivo();
         $temporal14 = CursoOnlineArchivo::find()->where(['id_curso_online' => $this->findModel($id)->id_curso])->all();
         foreach ($temporal14 as $t14) {
             $t14->delete();
         }
 
+        $temporal = Clase::find()->where(['id_curso' => $this->findModel($id)->id_curso])->all();
+        foreach ($temporal as $t) {
+            $t->delete();
+        }
 
         $this->findModel($id)->delete();
         $this->afterDeleted($id);

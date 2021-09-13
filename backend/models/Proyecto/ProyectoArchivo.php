@@ -37,7 +37,7 @@ class ProyectoArchivo extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['file'], 'required'],
+
             [['url'], 'string'],
         ];
     }

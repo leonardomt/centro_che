@@ -215,6 +215,11 @@ class DiscursoController extends Controller
      */
     public function actionDelete($id)
     {
+        $temporal14 = DiscursoArchivo::find()->where(['id_discurso' => $this->findModel($id)->id_discurso])->all();
+        foreach ($temporal14 as $t14) {
+            $t14->delete();
+        }
+
         $this->findModel($id)->delete();
         $this->afterDeleted($id);
         return $this->redirect(['index']);

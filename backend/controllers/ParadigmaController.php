@@ -5,6 +5,7 @@ namespace backend\controllers;
 use Yii;
 use backend\models\Revista\Paradigma;
 use backend\models\Revista\ParadigmaSearch;
+use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -105,8 +106,9 @@ class ParadigmaController extends Controller
                 $upload->save();
 
 
-                for ($x = 0; $x <= 7; $x++) {
+                for ($x = 0; $x <= 10; $x++) {
                     $images = ParadigmaArchivo::find()->all();
+                    ArrayHelper::multisort($images, ['id'], [SORT_ASC]);
                     if (count($images) >= 6) {
                         $images[0]->delete();
                     }
