@@ -10,12 +10,12 @@
     //-------------------------Inicio-----------------------------------------------------------------------------------
     $actualidadrev = count(\backend\models\Noticia\Noticia::find()->where(["revisado"=> 0])->all());
     if(Yii::$app->user->can('revisar') && $actualidadrev!= null){
-        $actualidad = '<span class="badge right badge-danger navbar-badge">'.$actualidadrev.'</span>';
+        $actualidad = '<span class="badge right badge navbar-badge" style="font-size: 0.9rem; color: #dc3545; font-weight: bold; right: 0.1rem;">'.$actualidadrev.'</span>';
     } else $actualidad = '';
 
     $revistarev = count(\backend\models\Revista\Revista::find()->where(["revisado"=> 0])->all());
     if(Yii::$app->user->can('revisar') && $revistarev!=null){
-        $revista = '<span class="badge right badge-danger navbar-badge">'.$revistarev.'</span>';
+        $revista = '<span class="badge right badge navbar-badge" style="font-size: 0.9rem; color: #dc3545; font-weight: bold; right: 0.1rem;">'.$revistarev.'</span>';
     } else $revista = '';
 
     $iniciorev = $actualidadrev + $revistarev;
@@ -26,32 +26,32 @@
 
     $lineasrev = count(\backend\models\LineaInvestigacion\LineaInvestigacion::find()->where(["revisado"=> 0])->all());
     if(Yii::$app->user->can('revisar') && $lineasrev!=null){
-        $lineas = '<span class="badge right badge-danger navbar-badge">'.$lineasrev.'</span>';
+        $lineas = '<span class="badge right badge navbar-badge" style="font-size: 0.9rem; color: #dc3545; font-weight: bold; right: 0.1rem;">'.$lineasrev.'</span>';
     } else $lineas = '';
 
     $investigacionrev = count(\backend\models\Investigacion\Investigacion::find()->where(["revisado"=> 0])->all());
     if(Yii::$app->user->can('revisar') && $investigacionrev!=null){
-        $investigacion = '<span class="badge right badge-danger navbar-badge">'.$investigacionrev.'</span>';
+        $investigacion = '<span class="badge right badge navbar-badge" style="font-size: 0.9rem; color: #dc3545; font-weight: bold; right: 0.1rem;">'.$investigacionrev.'</span>';
     } else $investigacion = '';
 
     $articulorev = count(\backend\models\Articulo\Articulo::find()->where(["revisado"=> 0])->all());
     if(Yii::$app->user->can('revisar') && $articulorev!=null){
-        $articulo = '<span class="badge right badge-danger navbar-badge">'.$articulorev.'</span>';
+        $articulo = '<span class="badge right badge navbar-badge" style="font-size: 0.9rem; color: #dc3545; font-weight: bold; right: 0.1rem;">'.$articulorev.'</span>';
     } else $articulo = '';
 
     $cdrev = count(\backend\models\ColeccionDocumental\ColeccionDocumental::find()->where(["revisado"=> 0])->all());
     if(Yii::$app->user->can('revisar') && $cdrev!=null){
-        $cd = '<span class="badge right badge-danger navbar-badge">'.$cdrev.'</span>';
+        $cd = '<span class="badge right badge navbar-badge" style="font-size: 0.9rem; color: #dc3545; font-weight: bold; right: 0.1rem;">'.$cdrev.'</span>';
     } else $cd = '';
 
     $librorev = count(\backend\models\Libro\Libro::find()->where(["revisado"=> 0])->all());
     if(Yii::$app->user->can('revisar') && $librorev!=null){
-        $libro = '<span class="badge right badge-danger navbar-badge">'.$librorev.'</span>';
+        $libro = '<span class="badge right badge navbar-badge" style="font-size: 0.9rem; color: #dc3545; font-weight: bold; right: 0.1rem;">'.$librorev.'</span>';
     } else $libro = '';
 
     $corev = count(\backend\models\CursoOnline\CursoOnline::find()->where(["revisado"=> 0])->all());
     if(Yii::$app->user->can('revisar') && $corev!=null){
-        $co = '<span class="badge right badge-danger navbar-badge">'.$corev.'</span>';
+        $co = '<span class="badge right badge navbar-badge" style="font-size: 0.9rem; color: #dc3545; font-weight: bold; right: 0.1rem;">'.$corev.'</span>';
     } else $co = '';
 
 
@@ -64,27 +64,27 @@
     //-------------------------Proyectos Alternativos-------------------------------------------------------------------
     $tallerrev = count(\backend\models\Taller\Taller::find()->where(["revisado"=> 0])->all());
     if(Yii::$app->user->can('revisar') && $tallerrev!=null){
-        $taller = '<span class="badge right badge-danger navbar-badge">'.$tallerrev.'</span>';
+        $taller = '<span class="badge right badge navbar-badge" style="font-size: 0.9rem; color: #dc3545; font-weight: bold; right: 0.1rem;">'.$tallerrev.'</span>';
     } else $taller = '';
 
     $exporev = count(\backend\models\Exposicion\Exposicion::find()->where(["revisado"=> 0])->all());
     if(Yii::$app->user->can('revisar') && $exporev!=null){
-        $expo = '<span class="badge right badge-danger navbar-badge">'.$exporev.'</span>';
+        $expo = '<span class="badge right badge navbar-badge" style="font-size: 0.9rem; color: #dc3545; font-weight: bold; right: 0.1rem;">'.$exporev.'</span>';
     } else $expo = '';
 
     $parev = count(\backend\models\ProductoAudiovisual\ProductoAudiovisual::find()->where(["revisado"=> 0])->all());
     if(Yii::$app->user->can('revisar') && $parev!=null){
-        $pa = '<span class="badge right badge-danger navbar-badge">'.$parev.'</span>';
+        $pa = '<span class="badge right badge navbar-badge" style="font-size: 0.9rem; color: #dc3545; font-weight: bold; right: 0.1rem;">'.$parev.'</span>';
     } else $pa = '';
 
     $pcrev = count(\backend\models\Programacion\Programacion::find()->where(["revisado"=> 0])->all());
     if(Yii::$app->user->can('revisar') && $pcrev!=null){
-        $pc = '<span class="badge right badge-danger navbar-badge">'.$pcrev.'</span>';
+        $pc = '<span class="badge right badge navbar-badge" style="font-size: 0.9rem; color: #dc3545; font-weight: bold; right: 0.1rem;">'.$pcrev.'</span>';
     } else $pc = '';
 
     $otrosrev = count(\backend\models\Otros\Otros::find()->where(["revisado"=> 0])->all());
     if(Yii::$app->user->can('revisar') && $otrosrev!=null){
-        $otros = '<span class="badge right badge-danger navbar-badge">'.$otrosrev.'</span>';
+        $otros = '<span class="badge right badge navbar-badge" style="font-size: 0.9rem; color: #dc3545; font-weight: bold; right: 0.1rem;">'.$otrosrev.'</span>';
     } else $otros = '';
 
     $palternativosrev = $tallerrev + $exporev + $parev + $otrosrev;
@@ -97,27 +97,27 @@
 
     $hechorev = count(\backend\models\Hecho\Hecho::find()->where(["revisado"=> 0])->all());
     if(Yii::$app->user->can('revisar') && $hechorev!=null){
-        $hecho = '<span class="badge right badge-danger navbar-badge">'.$hechorev.'</span>';
+        $hecho = '<span class="badge right badge navbar-badge" style="font-size: 0.9rem; color: #dc3545; font-weight: bold; right: 0.1rem;">'.$hechorev.'</span>';
     } else $hecho = '';
 
     $escritorev = count(\backend\models\Escrito\Escrito::find()->where(["revisado"=> 0])->all());
     if(Yii::$app->user->can('revisar') && $escritorev!=null){
-        $escrito = '<span class="badge right badge-danger navbar-badge">'.$escritorev.'</span>';
+        $escrito = '<span class="badge right badge navbar-badge" style="font-size: 0.9rem; color: #dc3545; font-weight: bold; right: 0.1rem;">'.$escritorev.'</span>';
     } else $escrito = '';
 
     $testimoniorev = count(\backend\models\Testimonio\Testimonio::find()->where(["revisado"=> 0])->all());
     if(Yii::$app->user->can('revisar') && $testimoniorev!=null){
-        $testimonio = '<span class="badge right badge-danger navbar-badge">'.$testimoniorev.'</span>';
+        $testimonio = '<span class="badge right badge navbar-badge" style="font-size: 0.9rem; color: #dc3545; font-weight: bold; right: 0.1rem;">'.$testimoniorev.'</span>';
     } else $testimonio = '';
 
     $discursorev = count(\backend\models\Discurso\Discurso::find()->where(["revisado"=> 0])->all());
     if(Yii::$app->user->can('revisar') && $discursorev!=null){
-        $discurso = '<span class="badge right badge-danger navbar-badge">'.$discursorev.'</span>';
+        $discurso = '<span class="badge right badge navbar-badge" style="font-size: 0.9rem; color: #dc3545; font-weight: bold; right: 0.1rem;">'.$discursorev.'</span>';
     } else $discurso = '';
 
     $correspondenciarev = count(\backend\models\Correspondencia\Correspondencia::find()->where(["revisado"=> 0])->all());
     if(Yii::$app->user->can('revisar') && $correspondenciarev!=null){
-        $correspondencia = '<span class="badge right badge-danger navbar-badge">'.$correspondenciarev.'</span>';
+        $correspondencia = '<span class="badge right badge navbar-badge" style="font-size: 0.9rem; color: #dc3545; font-weight: bold; right: 0.1rem;">'.$correspondenciarev.'</span>';
     } else $correspondencia = '';
 
 
