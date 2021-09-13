@@ -20,6 +20,7 @@ $articuloarchivos = new ArticuloArchivo();
 $articuloarchivos = ArticuloArchivo::find()->where(['id_articulo' => $model->id_articulo])->all();
 $archivos = new Archivo();
 
+
 ?>
 
 <div class="container text-center">
@@ -104,11 +105,13 @@ $archivos = new Archivo();
                 <img style="width: 100%;" src="../web/img/quienessomos/3333.jpg">
                 <div  style="">
                     <div class="card-body" style="  text-align: left;">
-                        <p class="card-text">El trabajo del Centro de Estudios Che Guevara se divide, en la práctica,
-                            en dos áreas principales, una científica, dedicada a la investigación y
-                            todo aquello que concierne al mundo académico, y otra divulgativa,
-                            que obtiene primordialmente de la primera los contenidos para llevar a
-                            cabo todos los proyectos que le atañen.</p>
+                        <?php
+                        $descrip = $model->cuerpo;
+                        $descrip=str_replace('<file>','<img alt="picture" class="img-fluid img-fluid" style="width: 500px"
+                     src="https://localhost/centro_che/frontend/web/uploads/n.jpg"><br>',$descrip);
+                        ?>
+                        <p class="card-text"><?=$descrip?></p>
+
                         <a class="card-text"><a class="button-ref" href="..." style="color: black;">Seguir
                                 leyendo</a></a>
                     </div>
@@ -126,12 +129,7 @@ $archivos = new Archivo();
     <br>
 </section>
 
-<?php
 
-$articuloarchivos = new ArticuloArchivo();
-$articuloarchivos = ArticuloArchivo::find()->where(['id_articulo' => $model->id_articulo])->all();
-$archivos = new Archivo();
-?>
 
 <?php foreach ($articuloarchivos as $artas): ?>
     <?php $archivos = Archivo::find()->where(['id_archivo' => $artas->id_archivo])->all(); ?>
