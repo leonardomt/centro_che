@@ -21,7 +21,7 @@ $this->params['breadcrumbs'][] = $this->title;
     ]) ?>
     <?= Alert::widget() ?>
     <p>
-        <?= Html::a('<span><i style="color:white; margin-left: 2px; margin-top: +2px" class="fa fa-plus"></i></span></span>', ['create'], [
+        <?= Html::a('<span><i style="color:white; margin-left: 2px; margin-top: 5px;" class="fa fa-plus"></i></span></span>', ['create'], [
             'class' => 'btn btn-success',
             'style'=>"width: 40px ; height: 40px",
             "title"=>"Agregar"])
