@@ -62,6 +62,7 @@ class Archivo extends \yii\db\ActiveRecord
             [['autor_archivo'], 'string', 'max' => 64],
             [['url_archivo'], 'string', 'max' => 256],
             [['fecha'], 'safe' ],
+            [['titulo_archivo'], 'unique'],
             [
                 ['file'], 'file',
                 'skipOnEmpty' => false,
