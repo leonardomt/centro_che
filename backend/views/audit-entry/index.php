@@ -107,6 +107,7 @@ $this->params['breadcrumbs'][] = $this->title;
     echo ExportMenu::widget([
         'dataProvider' => $dataProvider,
         'columns' => $gridColumns,
+        'showConfirmAlert'=> false, 
         'dropdownOptions' => [
             'label' => 'Exportar',
             'class' => 'btn btn-outline-secondary btn-default'
