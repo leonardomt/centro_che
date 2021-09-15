@@ -13,7 +13,7 @@ use common\widgets\Alert;
 $this->title = 'Escritos';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="escrito-index">
+<div class="escrito-index col-md-12">
 
     <h1><?= Html::encode($this->title) ?></h1>
     <?= Breadcrumbs::widget([

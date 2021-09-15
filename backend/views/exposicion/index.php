@@ -17,7 +17,7 @@ if ( Yii::$app->user->isGuest )
 if ( !Yii::$app->user->can('gestionar-exposicion'))
     return Yii::$app->getResponse()->redirect(\yii\helpers\Url::to(['site/login']));
 ?>
-<div class="exposicion-index">
+<div class="exposicion-index col-md-12">
 
     <h1><?= Html::encode($this->title) ?></h1>
     <div class="">

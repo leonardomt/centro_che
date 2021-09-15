@@ -23,8 +23,9 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Alert::widget() ?>
     </div>
     <p>
-        <?= Html::a('<span class="glyphicon glyphicon-plus"></span>', ['create'], [
+    <?= Html::a('<span><i style="color:white; margin-left: 2px; margin-top: +2px" class="fa fa-plus"></i></span></span>', ['create'], [
             'class' => 'btn btn-success',
+            'style'=>"width: 40px ; height: 40px",
             "title"=>"Agregar"])
         ?>
     </p>

@@ -11,7 +11,7 @@ use kartik\export\ExportMenu;
 $this->title = 'Registro de Trazas';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="audit-entry-index">
+<div class="audit-entry-index  col-md-12">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
