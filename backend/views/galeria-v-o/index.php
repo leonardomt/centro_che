@@ -26,7 +26,7 @@ if($tipo == 4){
 
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="galeria-vo-index">
+<div class="galeria-vo-index col-md-12">
 
     <h1><?= Html::encode($this->title) ?></h1>
     <div class="">
@@ -36,8 +36,9 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Alert::widget() ?>
     </div>
     <p>
-        <?= Html::a('<span class="fa fa-plus"></span>', ['create', 'tipo' => $tipo,], [
+    <?= Html::a('<span><i style="color:white; margin-left: 2px; margin-top: +2px" class="fa fa-plus"></i></span></span>', ['create'], [
             'class' => 'btn btn-success',
+            'style'=>"width: 40px ; height: 40px",
             "title"=>"Agregar"])
         ?>
 

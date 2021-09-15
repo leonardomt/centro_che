@@ -13,7 +13,7 @@ use common\widgets\Alert;
 $this->title = 'Catálogo de libros';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="libro-index">
+<div class="libro-index col-md-12">
 
     <h1><?= Html::encode($this->title) ?></h1>
     <div class="">
@@ -23,8 +23,9 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Alert::widget() ?>
     </div>
     <p>
-        <?= Html::a('<span><i style="color:white; margin-left: 2px; margin-top: +2px" class="fa fa-plus"></i></span></span>', ['create'], [
+    <?= Html::a('<span><i style="color:white; margin-left: 2px; margin-top: +2px" class="fa fa-plus"></i></span></span>', ['create'], [
             'class' => 'btn btn-success',
+            'style'=>"width: 40px ; height: 40px",
             "title"=>"Agregar"])
         ?>
     </p>

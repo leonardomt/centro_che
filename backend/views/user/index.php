@@ -14,7 +14,7 @@ $this->title = 'Usuarios';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
-<div class="user-index">
+<div class="user-index col-md-12">
 
 
     <div class="">

@@ -13,7 +13,7 @@ use common\widgets\Alert;
 $this->title = 'Otros Productos';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="otros-index">
+<div class="otros-index col-md-12">
 
     <h1><?= Html::encode($this->title) ?></h1>
 

@@ -20,7 +20,7 @@ if ( !Yii::$app->user->can('gestionar-producto-audiovisual'))
     return Yii::$app->getResponse()->redirect(\yii\helpers\Url::to(['site/login']));
 ?>
 
-<div class="programacion-index ">
+<div class="programacion-index col-md-12">
 
     <h1><?= Html::encode($this->title) ?></h1>
     <div class="">

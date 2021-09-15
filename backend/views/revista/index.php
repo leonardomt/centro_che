@@ -27,8 +27,9 @@ if ( !Yii::$app->user->can('gestionar-revista'))
         <?= Alert::widget() ?>
     </div>
     <p>
-        <?= Html::a('<span><i style="color:white; margin-left: 2px; margin-top: +2px" class="fa fa-plus"></i></span></span>', ['create'], [
+    <?= Html::a('<span><i style="color:white; margin-left: 2px; margin-top: +2px" class="fa fa-plus"></i></span></span>', ['create'], [
             'class' => 'btn btn-success',
+            'style'=>"width: 40px ; height: 40px",
             "title"=>"Agregar"])
         ?>
     </p>
@@ -72,10 +73,15 @@ if ( !Yii::$app->user->can('gestionar-revista'))
                 'attribute' => 'anno',
                 'value'=> 'anno',
                 'format' => 'raw',
-                'headerOptions' => ['class' => 'col-md-2'],
+                'headerOptions' => ['class' => 'col-md-1'],
 
             ],
 
+            [
+                'attribute' => 'mes',                     // Titulo
+                'format' => 'raw',
+                'headerOptions' => ['class' => 'col-md-1']
+            ],
             [
                 'attribute' => 'volumen',                     // Titulo
                 'format' => 'raw',
@@ -85,14 +91,19 @@ if ( !Yii::$app->user->can('gestionar-revista'))
             [
                 'attribute' => 'numero',                     // Titulo
                 'format' => 'raw',
-                'headerOptions' => ['class' => 'col-md-2']
+                'headerOptions' => ['class' => 'col-md-1']
             ],
 
 
             [
                 'attribute' => 'titulo',                     // Titulo
                 'format' => 'raw',
-                'headerOptions' => ['class' => 'col-md-3']
+                'headerOptions' => ['class' => 'col-md-2']
+            ],
+            [
+                'attribute' => 'descripcion',                     // Titulo
+                'format' => 'raw',
+                'headerOptions' => ['class' => 'col-md-2']
             ],
 
             [
