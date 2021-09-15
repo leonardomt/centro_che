@@ -158,7 +158,7 @@ class NoticiaController extends Controller
                     }
                     if ($flag) {
                         $transaction->commit();
-                       // return $this->redirect(['index']);
+                        return $this->redirect(['index']);
                     }
                 } catch (Exception $e) {
                     $transaction->rollBack();

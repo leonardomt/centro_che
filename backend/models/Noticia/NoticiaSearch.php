@@ -5,6 +5,7 @@ namespace backend\models\Noticia;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use backend\models\Noticia\Noticia;
+use yii\db\Expression;
 
 /**
  * NoticiaSearch represents the model behind the search form of `backend\models\Noticia`.

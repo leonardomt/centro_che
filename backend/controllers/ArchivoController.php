@@ -100,12 +100,7 @@ class ArchivoController extends Controller
             if ($model->validate()) {
                 $fecha = $model->fecha;
                 if ($fecha != null) {
-                    if ($fecha > date('Y-m-d')) {
-                        Yii::$app->session->setFlash('error', 'La fecha no puede ser posterior a la actual' . +date('Y-m-d'));
-                        return $this->redirect([
-                            'create', 'model' => $model,
-                        ]);
-                    }
+                    
                     if ($fecha < "1943-6-15") {
                         $model->etapa = "Infancia";
                     }
@@ -126,7 +121,7 @@ class ArchivoController extends Controller
                     $model->etapa = "No definida";
                 }
 
-                $imageName = $model->titulo_archivo;
+                $imageName = date('Y-m-d') . rand(0, 99999);
                 $model->file = UploadedFile::getInstance($model, 'file');
                 if ($model->file == null) {
                     Yii::$app->session->setFlash('error', 'No ha cargado ningún archivo.');
