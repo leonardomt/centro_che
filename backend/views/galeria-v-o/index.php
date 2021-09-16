@@ -36,11 +36,11 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Alert::widget() ?>
     </div>
     <p>
-    <?= Html::a('<span><i style="color:white; margin-left: 2px; margin-top: 5px;" class="fa fa-plus"></i></span></span>', ['create'], [
+        <?= Html::a('<span ><i style="color:white; " class="fa fa-plus"></i></span>', ['create', 'tipo' => $tipo], [
             'class' => 'btn btn-success',
-            'style'=>"width: 40px ; height: 40px",
-            "title"=>"Agregar"])
-        ?>
+            'style'=>"width: 40px ; height: 40px; font-size: 1.1em",
+            'title'=>"Agregar",
+        ]) ?>
 
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>

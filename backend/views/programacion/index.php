@@ -31,11 +31,11 @@ if ( !Yii::$app->user->can('gestionar-producto-audiovisual'))
 
     </div>
     <p>
-        <?= Html::a('<span><i style="color:white; margin-left: 2px; margin-top: 5px;" class="fa fa-plus"></i></span></span>', ['create'], [
+        <?= Html::a('<span ><i style="color:white; " class="fa fa-plus"></i></span>', ['create'], [
             'class' => 'btn btn-success',
-            'style'=>"width: 40px ; height: 40px",
-            "title"=>"Agregar"])
-        ?>
+            'style'=>"width: 40px ; height: 40px; font-size: 1.1em",
+            'title'=>"Agregar",
+        ]) ?>
     </p>
 
 
