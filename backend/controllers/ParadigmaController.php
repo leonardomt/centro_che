@@ -5,6 +5,7 @@ namespace backend\controllers;
 use Yii;
 use backend\models\Revista\Paradigma;
 use backend\models\Revista\ParadigmaSearch;
+use yii\data\ActiveDataProvider;
 use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;

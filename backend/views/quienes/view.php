@@ -48,6 +48,9 @@ if (Yii::$app->user->isGuest)
             <?php
             $searchModel = new backend\models\Quienes\QuienesArchivoSearch();
             $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+            $dataProvider->setSort([
+                'defaultOrder' => ['id'=>SORT_DESC],
+            ]);
             ?>
 
 

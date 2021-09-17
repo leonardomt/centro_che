@@ -47,6 +47,9 @@ $this->params['breadcrumbs'][] = $this->title;
             <?php
             $searchModel = new backend\models\GestionDocumental\GestionDocumentalArchivoSearch();
             $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+            $dataProvider->setSort([
+                'defaultOrder' => ['id'=>SORT_DESC],
+            ]);
             ?>
 
             <?= GridView::widget([
