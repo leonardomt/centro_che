@@ -9,7 +9,7 @@ use kartik\form\ActiveForm;
 /* @var $model backend\models\Quienes\Quienes */
 
 $this->title = 'Modificar Descripción ';
-$this->params['breadcrumbs'][] = ['label' => 'Quiénes Somos', 'url' => ['/quienes/view', 'id' => 1]];
+$this->params['breadcrumbs'][] = ['label' => 'Quiénes Somos Inicio', 'url' => ['/quienes/view', 'id' => 1]];
 $this->params['breadcrumbs'][] =$this->title;
 ?>
 <div class="quienes-update">

@@ -46,10 +46,11 @@ class Investigacion extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['revisado', 'publico', 'titulo_investigacion', 'descripcion', 'cuerpo', 'autor', 'id_linea_investigacion', 'fecha', 'entidad'], 'required'],
+            [['revisado', 'publico', 'titulo_investigacion', 'descripcion', 'cuerpo', 'autor', 'id_linea_investigacion', 'entidad'], 'required'],
             [['revisado', 'publico', 'id_linea_investigacion'], 'integer'],
             [['titulo_investigacion', 'descripcion', 'cuerpo', 'autor', 'entidad'], 'string'],
             [['fecha'], 'safe'],
+            [['fecha'], 'required', 'message' => 'Fecha no puede estar vacío o ser posterior al día de hoy.'],
         ];
     }
 

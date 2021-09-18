@@ -43,10 +43,11 @@ class Hecho extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['revisado', 'publico', 'titulo', 'descripcion', 'cuerpo', 'fecha'], 'required'],
+            [['revisado', 'publico', 'titulo', 'descripcion', 'cuerpo'], 'required'],
             [['revisado', 'publico'], 'integer'],
             [['titulo', 'descripcion', 'cuerpo', 'etapa'], 'string'],
             [['fecha'], 'safe'],
+            [['fecha'], 'required', 'message' => 'Fecha no puede estar vacío o ser posterior al día de hoy.'],
         ];
     }
 

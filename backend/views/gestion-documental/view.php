@@ -11,7 +11,7 @@ use common\widgets\Alert;
 /* @var $this yii\web\View */
 /* @var $model backend\models\GestionDocumental\GestionDocumental */
 
-$this->title = "Portada";
+$this->title = "Colección Documental Portada";
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>

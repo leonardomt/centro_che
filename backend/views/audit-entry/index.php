@@ -85,7 +85,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'attribute' => 'audit_entry_operation',                     // etapa
             'format' => 'raw',
             'headerOptions' => array('class' => 'col-md-1'),
-            'filter' => array("INSERTAR" => "INSERTAR", "MODIFICAR" => "MODIFICAR", "ELIMINAR" => "ELIMINAR"),
+            'filter' => array("Insertar" => "Insertar", "Modificar" => "Modificar", "Eliminar" => "Eliminar"),
             'filterInputOptions' => array('class' => 'form-control', 'id' => null, 'prompt' => 'Todos'),
         ],
         [

@@ -46,10 +46,11 @@ class Noticia extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['revisado', 'publico', 'titulo_noticia', 'fecha', 'descripcion', 'cuerpo', 'autor', 'etiqueta'], 'required'],
+            [['revisado', 'publico', 'titulo_noticia', 'descripcion', 'cuerpo', 'autor', 'etiqueta'], 'required'],
             [['revisado', 'publico'], 'integer'],
             [['titulo_noticia', 'referencia', 'descripcion', 'cuerpo', 'autor', 'contacto', 'fuente', 'etiqueta'], 'string'],
             [['fecha'], 'safe'],
+            [['fecha'], 'required', 'message' => 'Fecha no puede estar vacío o ser posterior al día de hoy.'],
         ];
     }
 

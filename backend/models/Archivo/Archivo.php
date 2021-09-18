@@ -122,7 +122,7 @@ class Archivo extends \yii\db\ActiveRecord
         $log = new AuditEntry();
         $log->audit_entry_old_value = 'NA';
         $log->audit_entry_new_value = 'NA';
-        $log->audit_entry_operation = 'ELIMINAR';
+        $log->audit_entry_operation = 'Eliminar';
         $log->audit_entry_record = $id;
         $log->audit_entry_model_id = $id;
         $nombre = User::find()->where(['id' => Yii::$app->getUser()->identity->getId()])->one();

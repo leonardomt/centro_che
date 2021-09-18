@@ -10,8 +10,7 @@ use yii\bootstrap4\Breadcrumbs;
 /* @var $this yii\web\View */
 /* @var $model backend\models\Revista\Paradigma */
 
-$this->title = 'Paradigma';
-$this->params['breadcrumbs'][] = ['label' => 'Paradigma', 'url' => ['index']];
+$this->title = 'Paradigma Inicio';
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
@@ -31,7 +30,7 @@ $this->params['breadcrumbs'][] = $this->title;
     </p>
 
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-6" style="max-width:612px;">
             <?= DetailView::widget([
                 'model' => $model,
                 'attributes' => [
@@ -39,7 +38,11 @@ $this->params['breadcrumbs'][] = $this->title;
                         'attribute' => 'descripcion',
 
                     ],
-                    'enlace:ntext',
+                    [
+                        'attribute' =>'enlace',
+                        'contentOptions' => ['style' => 'max-width:350px; min-height:50px; overflow: auto; word-wrap: break-word;'],
+
+                    ],
                 ],
             ]) ?>
         </div>
@@ -49,7 +52,7 @@ $this->params['breadcrumbs'][] = $this->title;
             $searchModel = new backend\models\Revista\ParadigmaArchivoSearch();
             $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
             $dataProvider->setSort([
-                'defaultOrder' => ['id'=>SORT_DESC],
+                'defaultOrder' => ['id' => SORT_DESC],
             ]);
             ?>
 
@@ -76,7 +79,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         'value' => function ($model) {
                             if ($model->url != ' ' && $model->url != NULL) { // verifica si fue importada o no
 
-                                return '<div style="width:200px; height:100px; object-fit: contain;"><img style="height:100%; width: 100%; object-fit: contain" src="../../frontend/web/'.$model->url.'"
+                                return '<div style="width:200px; height:100px; object-fit: contain;"><img style="height:100%; width: 100%; object-fit: contain" src="../../frontend/web/' . $model->url . '"
                                  alt="" ></div>';
                             } else {
                                 return Html::label('_');
@@ -88,7 +91,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                     [
                         'class' => 'kartik\grid\ActionColumn',
-                        'template' => '{delete}','header'=>false,
+                        'template' => '{delete}', 'header' => false,
                         'headerOptions' => ['class' => 'col-md-3'],
                         'buttons' => [
                             'delete' => function ($url, $model) {

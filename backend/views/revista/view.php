@@ -10,7 +10,8 @@ use backend\models\Archivo\Archivo;
 /* @var $model backend\models\Revista\Revista */
 
 $this->title = $model->titulo;
-$this->params['breadcrumbs'][] = ['label' => 'Revistas', 'url' => ['index']];
+$this->params['breadcrumbs'][] = 'Paradigma';
+$this->params['breadcrumbs'][] = ['label' => 'Catálogo', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 
 $articuloarchivos = new RevistaArchivo();

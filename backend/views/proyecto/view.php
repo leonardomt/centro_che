@@ -28,14 +28,18 @@ $this->params['breadcrumbs'][] = $this->title;
     </p>
 
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-6" style="max-width:612px;">
             <?= DetailView::widget([
                 'model' => $model,
                 'attributes' => [
                     [
                         'attribute' => 'descripcion',
                     ],
-                    'enlace' => 'enlace',
+                    [
+                        'attribute' =>'enlace',
+                        'contentOptions' => ['style' => 'max-width:350px; min-height:50px; overflow: auto; word-wrap: break-word;'],
+
+                    ],
                 ],
             ]) ?>
         </div>

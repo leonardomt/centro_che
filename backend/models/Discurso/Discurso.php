@@ -45,11 +45,12 @@ class Discurso extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['titulo', 'fecha', 'descripcion', 'cuerpo', 'revisado', 'publico', 'identificador'], 'required'],
+            [['titulo', 'descripcion', 'cuerpo', 'revisado', 'publico', 'identificador'], 'required'],
             [['titulo', 'descripcion', 'lugar', 'entrevistador', 'cuerpo'], 'string'],
             [['fecha'], 'safe'],
             [['revisado', 'publico', 'identificador'], 'integer'],
             [['medio'], 'string', 'max' => 1024],
+            [['fecha'], 'required', 'message' => 'Fecha no puede estar vacío o ser posterior al día de hoy.'],
         ];
     }
 

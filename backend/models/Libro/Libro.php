@@ -44,12 +44,13 @@ class Libro extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['revisado', 'publico', 'fecha', 'titulo', 'autor', 'compilador', 'linea', 'palabras_clave', 'descripcion'], 'required'],
+            [['revisado', 'publico','titulo', 'autor', 'compilador', 'linea', 'palabras_clave', 'descripcion'], 'required'],
             [['revisado', 'publico'], 'integer'],
             [['fecha'], 'safe'],
             [['descripcion'], 'string'],
             [['titulo', 'autor', 'compilador', 'palabras_clave'], 'string', 'max' => 512],
             [['linea'], 'string', 'max' => 256],
+            [['fecha'], 'required', 'message' => 'Fecha no puede estar vacío o ser posterior al día de hoy.'],
         ];
     }
 

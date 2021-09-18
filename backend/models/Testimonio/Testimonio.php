@@ -42,11 +42,12 @@ class Testimonio extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['titulo', 'autor', 'fecha', 'descripcion', 'cuerpo', 'revisado', 'publico'], 'required'],
+            [['titulo', 'autor','descripcion', 'cuerpo', 'revisado', 'publico'], 'required'],
             [['titulo', 'descripcion', 'cuerpo'], 'string'],
             [['fecha'], 'safe'],
             [['revisado', 'publico'], 'integer'],
             [['autor'], 'string'],
+            [['fecha'], 'required', 'message' => 'Fecha no puede estar vacío o ser posterior al día de hoy.'],
         ];
     }
 

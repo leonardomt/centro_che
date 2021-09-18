@@ -9,7 +9,7 @@ use kartik\form\ActiveForm;
 /* @var $model backend\models\GestionDocumental\GestionDocumental */
 
 $this->title = 'Modificar Portada' ;
-$this->params['breadcrumbs'][] = ['label' => 'Portada', 'url' => ['/gestion-documental/view', 'id' => 1]];
+$this->params['breadcrumbs'][] = ['label' => 'Colección Documental Portada', 'url' => ['/gestion-documental/view', 'id' => 1]];
 $this->params['breadcrumbs'][] =$this->title;
 ?>
 <div class="gestion-documental-update">

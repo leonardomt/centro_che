@@ -10,7 +10,8 @@ use kartik\grid\GridView;
 /* @var $model backend\models\Revista\Revista */
 
 $this->title = 'Insertar Revista';
-$this->params['breadcrumbs'][] = ['label' => 'Revistas', 'url' => ['index']];
+$this->params['breadcrumbs'][] = 'Paradigma';
+$this->params['breadcrumbs'][] = ['label' => 'Catálogo', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 if (Yii::$app->user->isGuest)
     return Yii::$app->getResponse()->redirect(\yii\helpers\Url::to(['site/login']));

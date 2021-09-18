@@ -37,7 +37,7 @@ class GestionDocumental extends \yii\db\ActiveRecord
     {
         return [
             [['descripcion'], 'required'],
-            [['descripcion'], 'string', 'max' => 255],
+            [['descripcion'], 'string'],
         ];
     }
 

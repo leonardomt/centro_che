@@ -11,7 +11,8 @@ use kartik\grid\GridView;
 /* @var $model backend\models\Revista\Revista */
 
 $this->title = 'Modificar Revista: ' . $model->titulo;
-$this->params['breadcrumbs'][] = ['label' => 'Revistas', 'url' => ['index']];
+$this->params['breadcrumbs'][] = 'Paradigma';
+$this->params['breadcrumbs'][] = ['label' => 'Catálogo', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->titulo, 'url' => ['view', 'id' => $model->id_revista]];
 $this->params['breadcrumbs'][] = 'Modificar';
 if (Yii::$app->user->isGuest)

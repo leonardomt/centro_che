@@ -10,7 +10,8 @@ use common\widgets\Alert;
 /* @var $searchModel backend\models\Revista\RevistaSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Revistas';
+$this->title = 'Catálogo';
+$this->params['breadcrumbs'][] = 'Paradigma';
 $this->params['breadcrumbs'][] = $this->title;
 if ( Yii::$app->user->isGuest )
     return Yii::$app->getResponse()->redirect(\yii\helpers\Url::to(['site/login']));

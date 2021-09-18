@@ -43,11 +43,12 @@ class Escrito extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['tipo', 'titulo', 'descripcion', 'cuerpo', 'fecha', 'revisado', 'autor','publico'], 'required'],
+            [['tipo', 'titulo', 'descripcion', 'cuerpo', 'revisado', 'autor','publico'], 'required'],
             [['titulo', 'descripcion', 'autor', 'cuerpo'], 'string'],
             [['revisado', 'publico'], 'integer'],
             [['fecha'], 'safe'],
             [['tipo'], 'string', 'max' => 256],
+            [['fecha'], 'required', 'message' => 'Fecha no puede estar vacío o ser posterior al día de hoy.'],
         ];
     }
 

@@ -44,10 +44,11 @@ class Correspondencia extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['revisado', 'publico', 'titulo', 'descripcion', 'cuerpo', 'destinatario', 'remitente', 'fecha'], 'required'],
+            [['revisado', 'publico', 'titulo', 'descripcion', 'cuerpo', 'destinatario', 'remitente'], 'required'],
             [['revisado', 'publico'], 'integer'],
             [['titulo', 'descripcion', 'cuerpo', 'destinatario', 'remitente'], 'string'],
             [['fecha'], 'safe'],
+            [['fecha'], 'required', 'message' => 'Fecha no puede estar vacío o ser posterior al día de hoy.'],
         ];
     }
 

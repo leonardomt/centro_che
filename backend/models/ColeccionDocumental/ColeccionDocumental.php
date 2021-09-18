@@ -49,6 +49,7 @@ class ColeccionDocumental extends \yii\db\ActiveRecord
             [['revisado', 'publico'], 'integer'],
             [['titulo', 'descripcion', 'autor', 'tipologia', 'etiquetas'], 'string'],
             [['fecha'], 'safe'],
+            [['fecha'], 'required', 'message' => 'Fecha no puede estar vacío o ser posterior al día de hoy.'],
         ];
     }
 
