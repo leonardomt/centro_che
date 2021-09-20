@@ -172,7 +172,7 @@ class RevistaController extends Controller
                                 if (!($archivo->tipo_archivo == 1)) {
                                     Yii::$app->session->setFlash('error', 'Una Revista solo puede tener una imagen como portada.');
                                     return $this->redirect([
-                                        'update', 'model' => $model,
+                                        'update', 'model' => $model, 'id'=>$model->id_revista,
                                         'modelsArchivo' => (empty($modelsArchivo)) ? [new RevistaArchivo] : $modelsArchivo,
                                     ]);
                                 };

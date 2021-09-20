@@ -23,6 +23,10 @@ use Yii;
  */
 class Exposicion extends \yii\db\ActiveRecord
 {
+    public $fecha_inicio;
+    public $fecha_anno;
+    public $fecha_anno_fin;
+    public $fecha_anno_inicio;
     /**
      * {@inheritdoc}
      */
@@ -46,8 +50,8 @@ class Exposicion extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['revisado', 'publico', 'titulo', 'descripcion', 'cuerpo', 'enlace', 'tipo_fecha', 'fecha', 'entidad', 'autor'], 'required'],
-            [['revisado', 'publico', 'tipo_fecha'], 'integer'],
+            [['revisado', 'publico', 'titulo', 'descripcion', 'cuerpo', 'enlace', 'tipo_fecha', 'entidad', 'autor'], 'required'],
+            [['revisado', 'publico', 'tipo_fecha', 'fecha_anno', 'fecha_anno_inicio', 'fecha_anno_fin'], 'integer'],
             [['titulo', 'descripcion', 'cuerpo', 'entidad', 'autor'], 'string'],
             [['enlace'], 'string', 'max' => 512],
             [['fecha', 'fecha_fin'], 'safe'],
@@ -72,6 +76,13 @@ class Exposicion extends \yii\db\ActiveRecord
             'fecha_fin' => 'Fecha final',
             'entidad'=> 'Entidad Colaboradora',
             'autor'=> 'Autor',
+            'anno' => 'anno',
+            'fecha_inicio' => 'Fecha de inicio',
+            'fecha_anno' => 'Año',
+            'fecha_anno_fin' => 'Año final',
+            'fecha_anno_inicio' => 'Año de inicio',
+
+
         ];
     }
 }

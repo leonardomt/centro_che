@@ -4,6 +4,8 @@ namespace backend\controllers;
 
 use backend\models\Archivo\Archivo;
 use backend\models\ColeccionDocumental\ColeccionDocumentalArchivo;
+use backend\models\Etiqueta\Etiqueta;
+use backend\models\Etiqueta\EtiquetaColeccionDocumental;
 use Yii;
 use backend\models\ColeccionDocumental\ColeccionDocumental;
 use backend\models\ColeccionDocumental\ColeccionDocumentalSearch;
@@ -73,8 +75,28 @@ class ColeccionDocumentalController extends Controller
     {
         $model = new ColeccionDocumental();
         $modelsArchivo = [new ColeccionDocumentalArchivo];
-        $x = 0;
+
+        $x = 0; $labelfinal= "";
         if ($model->load(Yii::$app->request->post())) {
+
+           /* if (is_array($model->etiquetasarray)) {
+                Yii::$app->session->setFlash('error', 'Un Documento solo puede tener una imagen como portada.');
+
+                foreach ($model->etiquetasarray as $label) {
+                    $etiqueta = Etiqueta::find()->where(['id' => $label])->one();
+                    $etiquetaTemp = new EtiquetaColeccionDocumental();
+                    $etiquetaTemp->id_coleccion_documental = $model->id_coleccion_documental;
+                    $etiquetaTemp->id_etiqueta = $etiqueta->id_etiqueta;
+                    $etiquetaTemp->save();
+                    $labelfinal = $labelfinal.+" ,".+$etiqueta->etiqueta.+" ,";
+                }
+                $model->etiquetas= $labelfinal;
+            }
+            else {
+                Yii::$app->session->setFlash('error', 'No es un array');
+
+            }
+           */
             $modelsArchivo = Model::createMultiple(ColeccionDocumentalArchivo::classname());
             Model::loadMultiple($modelsArchivo, Yii::$app->request->post());
             if (Yii::$app->request->isAjax) {
@@ -116,7 +138,7 @@ class ColeccionDocumentalController extends Controller
                     }
                     if ($flag) {
                         $transaction->commit();
-                        return $this->redirect(['index']);
+                       return $this->redirect(['index']);
                     }
                 } catch (Exception $e) {
                     $transaction->rollBack();
@@ -171,7 +193,7 @@ class ColeccionDocumentalController extends Controller
                                 if (!($archivo->tipo_archivo == 1)) {
                                     Yii::$app->session->setFlash('error', 'Un Documento solo puede tener una imagen como portada.');
                                     return $this->redirect([
-                                        'update', 'model' => $model,
+                                        'update', 'model' => $model,'id'=>$model->id_coleccion_documental,
                                         'modelsArchivo' => (empty($modelsArchivo)) ? [new ColeccionDocumentalArchivo] : $modelsArchivo,
                                     ]);
                                 };

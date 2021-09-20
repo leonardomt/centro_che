@@ -172,7 +172,7 @@ class LineaInvestigacionController extends Controller
                                 if (!($archivo->tipo_archivo == 1)) {
                                     Yii::$app->session->setFlash('error', 'Una Línea de Investigación solo puede tener una imagen como portada.');
                                     return $this->redirect([
-                                        'update', 'model' => $model,
+                                        'update', 'model' => $model, 'id'=>$model->id_linea_investigacion,
                                         'modelsArchivo' => (empty($modelsArchivo)) ? [new LineaInvestigacionArchivo] : $modelsArchivo,
                                     ]);
                                 };

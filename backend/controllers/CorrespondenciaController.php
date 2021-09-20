@@ -171,7 +171,7 @@ class CorrespondenciaController extends Controller
                                 if (!($archivo->tipo_archivo == 1)) {
                                     Yii::$app->session->setFlash('error', 'Una Correspondencia solo puede tener una imagen como portada.');
                                     return $this->redirect([
-                                        'update', 'model' => $model,
+                                        'update', 'model' => $model,'id'=>$model->id_correspondencia,
                                         'modelsArchivo' => (empty($modelsArchivo)) ? [new CorrespondenciaArchivo] : $modelsArchivo,
                                     ]);
                                 };

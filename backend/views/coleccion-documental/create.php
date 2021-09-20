@@ -70,7 +70,6 @@ if (!Yii::$app->user->can('gestionar-coleccion-documental'))
 
     <?= $form->field($model, 'etiquetas')->textInput(['maxlength' => true]) ?>
 
-
     <?= $form->field($model, 'descripcion')->textarea(['rows' => 2, 'style' => 'resize:none']) ?>
 
 

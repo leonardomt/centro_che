@@ -171,7 +171,7 @@ class OtrosController extends Controller
                                 if (!($archivo->tipo_archivo == 1)) {
                                     Yii::$app->session->setFlash('error', 'Una Investigación solo puede tener una imagen como portada.');
                                     return $this->redirect([
-                                        'update', 'model' => $model,
+                                        'update', 'model' => $model, 'id'=>$model->id,
                                         'modelsArchivo' => (empty($modelsArchivo)) ? [new OtrosArchivo] : $modelsArchivo,
                                     ]);
                                 };

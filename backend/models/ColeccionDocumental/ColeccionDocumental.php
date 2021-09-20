@@ -21,6 +21,7 @@ use Yii;
  */
 class ColeccionDocumental extends \yii\db\ActiveRecord
 {
+    public $etiquetasarray;
     /**
      * {@inheritdoc}
      */
@@ -45,7 +46,7 @@ class ColeccionDocumental extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['revisado', 'publico', 'titulo', 'descripcion', 'fecha', 'autor', 'tipologia'], 'required'],
+            [['revisado', 'publico', 'titulo',  'descripcion', 'fecha', 'autor', 'tipologia'], 'required'],
             [['revisado', 'publico'], 'integer'],
             [['titulo', 'descripcion', 'autor', 'tipologia', 'etiquetas'], 'string'],
             [['fecha'], 'safe'],
@@ -68,6 +69,7 @@ class ColeccionDocumental extends \yii\db\ActiveRecord
             'tipologia' => 'Tipología Documental',
             'autor' => 'Autor',
             'fecha' => 'Fecha',
+            'etiquetasarray' => 'Etiquetas',
         ];
     }
 }

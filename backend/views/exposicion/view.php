@@ -60,10 +60,13 @@ if (!Yii::$app->user->can('gestionar-exposicion'))
                         return "Fecha Exacta";
                     };
                     if ($model->tipo_fecha == 1) {
-                        return "Año";
+                        return "Rango de Fecha";
                     };
                     if ($model->tipo_fecha == 2) {
-                        return "Rango de Fecha";
+                        return "Año";
+                    };
+                    if ($model->tipo_fecha == 3) {
+                        return "Rango de Años";
                     };
 
                 },

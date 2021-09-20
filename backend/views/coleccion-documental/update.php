@@ -71,8 +71,12 @@ if (!Yii::$app->user->can('gestionar-coleccion-documental'))
         </div>
     </div>
 
-    <?= $form->field($model, 'etiquetas')->textInput(['maxlength' => true]) ?>
-
+    <?= $form->field($model, "etiquetas")->widget(\kartik\select2\Select2::classname(), [
+            'data' => \yii\helpers\ArrayHelper::map(\backend\models\Etiqueta\Etiqueta::find()->all(), 'etiqueta', 'etiqueta'),
+            'options' => ['placeholder' => 'Seleccionar', 'multiple' => true, 'required' => true],
+            'theme' => \kartik\select2\Select2::THEME_KRAJEE,
+            'size' => 'xs',]
+    ) ?>
     <?= $form->field($model, 'descripcion')->textarea(['rows' => 2, 'style' => 'resize:none']) ?>
 
 

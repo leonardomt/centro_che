@@ -44,27 +44,22 @@ if (!Yii::$app->user->can('gestionar-exposicion'))
     </div>
 
 
-    <div class="row">
-        <div class=" col-lg-2 text-lg-left"></div>
-        <div class=" col-lg-2 text-lg-left">
-            <?= $form->field($model, 'tipo_fecha')->radioList([0 => 'Fecha Exacta', 1 => 'Año', 2 => 'Rango de Fecha'], [
-                'separator' => '<br/>',
-                'item' => function ($index, $label, $name, $checked, $value) {
-                    $checked = $checked ? 'checked' : '';
-                    return "<label>
-                <input type='radio' {$checked}
-                       name='{$name}'
-                       value='{$value}'
-                       id='idName_{$value}'
-                       onChange='EnableDisableTB();'>
-                {$label}</label>";
 
-                }
-            ])
-            ?>
+
+
+
+
+
+    <div class="row">
+
+        <div class="col-md-4">
+            <?= $form->field($model, 'tipo_fecha')->dropDownList(['0' => 'Fecha Exacta', '1' => 'Rango de Fecha', '2' => 'Año', '3' => 'Rango de años'], ['prompt' => '-Seleccionar-']) ?>
         </div>
-        <div class=" col-lg-2 text-lg-left"></div>
-        <div class="col-lg-6">
+        <div class="col-md-8" id="solo_fecha" <?php if ($model->tipo_fecha == 0) {
+            echo 'style="display: block"';
+        } else {
+            echo 'style="display: none"';
+        } ?>>
             <?php
             \yii\widgets\MaskedInput::widget([
                 'name' => 'input-32',
@@ -73,7 +68,7 @@ if (!Yii::$app->user->can('gestionar-exposicion'))
             ?>
             <div class="text-lg-left">
                 <?= $form->field($model, 'fecha')->widget(\dosamigos\datepicker\DatePicker::className(), [
-                    'inline' => false, 'language' => 'es', 'options' =>  [
+                    'inline' => false, 'language' => 'es', 'options' => [
                         'data-inputmask' => "'alias': 'yyyy-mm-dd'",
                         'autocomplete' => 'off',
                     ],
@@ -85,30 +80,104 @@ if (!Yii::$app->user->can('gestionar-exposicion'))
                     ]
                 ]) ?>
             </div>
-
-
+        </div>
+        <div class="col-md-4" id="fecha" <?php if ($model->tipo_fecha == 1) {
+            echo 'style="display: block"';
+        } else {
+            echo 'style="display: none"';
+        } ?>>
             <?php
             \yii\widgets\MaskedInput::widget([
                 'name' => 'input-32',
                 'clientOptions' => ['alias' => 'yyyy-mm-dd']
             ]);
             ?>
-            <div class="text-lg-left" id="fecha_fin">
-                <?= $form->field($model, 'fecha_fin')->widget(\dosamigos\datepicker\DatePicker::className(), [
-                    'inline' => false, 'language' => 'es', 'options' =>  [
+            <div class="text-lg-left">
+                <?= $form->field($model, 'fecha_inicio')->widget(\dosamigos\datepicker\DatePicker::className(), [
+                    'inline' => false, 'language' => 'es', 'options' => [
                         'data-inputmask' => "'alias': 'yyyy-mm-dd'",
                         'autocomplete' => 'off',
                     ],
                     'clientOptions' => [
                         'autoclose' => true,
                         'format' => 'yyyy-m-d',
+                        'endDate' => date('Y-m-d'),
                         'alias' => 'yyyy-mm-dd'
                     ]
                 ]) ?>
             </div>
-
         </div>
+        <div class="col-md-4" id="fecha_fin" <?php if ($model->tipo_fecha == 1) {
+            echo 'style="display: block"';
+        } else {
+            echo 'style="display: none"';
+        } ?>>
+            <?php
+            \yii\widgets\MaskedInput::widget([
+                'name' => 'input-32',
+                'clientOptions' => ['alias' => 'yyyy-mm-dd']
+            ]);
+            ?>
+            <div class="text-lg-left">
+                <?= $form->field($model, 'fecha_fin')->widget(\dosamigos\datepicker\DatePicker::className(), [
+                    'inline' => false, 'language' => 'es', 'options' => [
+                        'data-inputmask' => "'alias': 'yyyy-mm-dd'",
+                        'autocomplete' => 'off',
+                    ],
+                    'clientOptions' => [
+                        'autoclose' => true,
+                        'format' => 'yyyy-m-d',
+                        'endDate' => date('Y-m-d'),
+                        'alias' => 'yyyy-mm-dd'
+                    ]
+                ]) ?>
+            </div>
+        </div>
+        <div class="col-md-8" id="anno" <?php if ($model->tipo_fecha == 2) {
+            echo 'style="display: block"';
+        } else {
+            echo 'style="display: none"';
+        } ?>">
+
+        <?php
+        echo $form->field($model, 'fecha_anno')->widget(\yii\widgets\MaskedInput::className(),
+            ['mask' => '9999', 'options' => ['placeholder' => 'Año']]);
+        ?>
     </div>
+
+    <div class="col-md-4" id="rango_anno" <?php if ($model->tipo_fecha == 3) {
+        echo 'style="display: block"';
+    } else {
+        echo 'style="display: none"';
+    } ?>>
+        <?php
+        echo $form->field($model, 'fecha_anno_inicio')->widget(\yii\widgets\MaskedInput::className(),
+            ['mask' => '9999', 'options' => ['placeholder' => 'Año']]);
+        ?>
+    </div>
+    <div class="col-md-4" id="rango_anno_fin" <?php if ($model->tipo_fecha == 3) {
+        echo 'style="display: block"';
+    } else {
+        echo 'style="display: none"';
+    } ?>>
+        <?php
+        echo $form->field($model, 'fecha_anno_fin')->widget(\yii\widgets\MaskedInput::className(),
+            ['mask' => '9999', 'options' => ['placeholder' => 'Año']]);
+        ?>
+    </div>
+
+
+    </div>
+
+
+
+
+
+
+
+
+
+
     <div class="row">
         <div class="col-lg-6 text-lg-left">
 
@@ -358,44 +427,8 @@ if (!Yii::$app->user->can('gestionar-exposicion'))
 </div>
 
 
-<div class="col-md-6 border rounded shadow-sm">
-    <form method="get" action="">
-        <div class="form-row">
-            <div class="form-group col-md-2">
-                <input type="radio" id="eng" name="subject" value="english" checked onclick="EnableDisableTB()">
-                English
-            </div>
-            <div class="form-group col-md-2">
-                <input type="radio" id="hin" name="subject" value="hindi" onclick="EnableDisableTB()">
-                Hindi
-            </div>
-            <div class="form-group col-md-5">
-                <input type="radio" id="others" name="subject" value="other" onclick="EnableDisableTB()">
-                Other Language
-            </div>
-        </div>
-        <div class="form-row">
-            <div class="form-group col-md-3">
-                <label>Other Language</label>
-            </div>
-            <div class="form-group col-md-6">
-                <input type="text" id="otherlan" name="otherLanguage" disabled="disabled" placeholder="Other Language">
-            </div>
-        </div>
-    </form>
-</div>
-<script type="text/javascript">
 
-    function EnableDisableTB() {
-        var others = document.getElementById("idName_2");
-        var otherlan = document.getElementById("fecha_fin");
-        otherlan.disable = others.checked ? false : true;
-        otherlan.value = "";
-        if (!otherlan.disable) {
-            otherlan.focus();
-        }
-    }
-
+<script>
 
     $(document).ready(function () {
         $(":input").inputmask();
@@ -417,5 +450,57 @@ if (!Yii::$app->user->can('gestionar-exposicion'))
     });
 
 
-</script>
 
+
+        $(document).ready(function () {
+        $(document.body).on('change', '#exposicion-tipo_fecha', function () {
+            var val = $('#exposicion-tipo_fecha').val();
+            if(val > 0 ) {
+                $('.class').hide();
+            } else {
+                $('.class').show();
+            }
+        });
+    });
+
+
+        $(document).ready(function(){
+        $('#exposicion-tipo_fecha').on('change', function() {
+
+            if ($(this).val() == 0){
+                document.getElementById("solo_fecha").style.display = "block";
+                document.getElementById("fecha").style.display = "none";
+                document.getElementById("fecha_fin").style.display = "none";
+                document.getElementById("anno").style.display = "none";
+                document.getElementById("rango_anno").style.display = "none";
+                document.getElementById("rango_anno_fin").style.display = "none";
+            }
+            if ($(this).val() == 1){
+                document.getElementById("solo_fecha").style.display = "none";
+                document.getElementById("fecha").style.display = "block";
+                document.getElementById("fecha_fin").style.display = "block";
+                document.getElementById("anno").style.display = "none";
+                document.getElementById("rango_anno").style.display = "none";
+                document.getElementById("rango_anno_fin").style.display = "none";
+            }
+            if ($(this).val() == 2){
+                document.getElementById("solo_fecha").style.display = "none";
+                document.getElementById("fecha").style.display = "none";
+                document.getElementById("fecha_fin").style.display = "none";
+                document.getElementById("anno").style.display = "block";
+                document.getElementById("rango_anno").style.display = "none";
+                document.getElementById("rango_anno_fin").style.display = "none";
+            }
+            if ($(this).val() == 3){
+                document.getElementById("solo_fecha").style.display = "none";
+                document.getElementById("fecha").style.display = "none";
+                document.getElementById("fecha_fin").style.display = "none";
+                document.getElementById("anno").style.display = "none";
+                document.getElementById("rango_anno").style.display = "block";
+                document.getElementById("rango_anno_fin").style.display = "block";
+            }
+        });
+    });
+
+
+</script>

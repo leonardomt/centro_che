@@ -72,9 +72,82 @@ class ExposicionController extends Controller
     {
         $model = new Exposicion;
         $modelsArchivo = [new ExposicionArchivo];
-        $x=0;
+        $x = 0;
         if ($model->load(Yii::$app->request->post())) {
             $modelsArchivo = Model::createMultiple(ExposicionArchivo::classname());
+            $tipoFecha = $model->tipo_fecha;
+            if ($tipoFecha == 0) {
+                if (($model->fecha == null) ){
+                    Yii::$app->session->setFlash('error', 'La fecha no puede estar vacía');
+                    return $this->redirect([
+                        'create', 'model' => $model,
+                        'modelsArchivo' => (empty($modelsArchivo)) ? [new ExposicionArchivo] : $modelsArchivo,
+                    ]);
+                }
+            }
+            if ($tipoFecha == 1) {
+                if (($model->fecha == null) ){
+                    Yii::$app->session->setFlash('error', 'La fecha de inicio no puede estar vacía');
+                    return $this->redirect([
+                        'create', 'model' => $model,
+                        'modelsArchivo' => (empty($modelsArchivo)) ? [new ExposicionArchivo] : $modelsArchivo,
+                    ]);
+                }
+                if (($model->fecha_fin == null) ){
+                    Yii::$app->session->setFlash('error', 'La fecha final no puede estar vacía');
+                    return $this->redirect([
+                        'create', 'model' => $model,
+                        'modelsArchivo' => (empty($modelsArchivo)) ? [new ExposicionArchivo] : $modelsArchivo,
+                    ]);
+                }
+                if (($model->fecha > $model->fecha_fin) ){
+                    Yii::$app->session->setFlash('error', 'La fecha final no puede ser posterior a la de inicio');
+                    return $this->redirect([
+                        'create', 'model' => $model,
+                        'modelsArchivo' => (empty($modelsArchivo)) ? [new ExposicionArchivo] : $modelsArchivo,
+                    ]);
+                }
+            }
+            if ($tipoFecha == 2) {
+                if (($model->fecha_anno == null) ){
+                    Yii::$app->session->setFlash('error', 'El año no puede estar vacío');
+                    return $this->redirect([
+                        'create', 'model' => $model,
+                        'modelsArchivo' => (empty($modelsArchivo)) ? [new ExposicionArchivo] : $modelsArchivo,
+                    ]);
+                }
+                $model->fecha = $model->fecha_anno.'-01-01';
+
+            }
+            if ($tipoFecha == 3) {
+
+                if (($model->fecha_anno_inicio == null) ){
+                    Yii::$app->session->setFlash('error', 'El año de inicio no puede estar vacío');
+                    return $this->redirect([
+                        'create', 'model' => $model,
+                        'modelsArchivo' => (empty($modelsArchivo)) ? [new ExposicionArchivo] : $modelsArchivo,
+                    ]);
+                }
+
+                if (($model->fecha_anno_fin == null) ){
+                    Yii::$app->session->setFlash('error', 'El año de fin no puede estar vacío');
+                    return $this->redirect([
+                        'create', 'model' => $model,
+                        'modelsArchivo' => (empty($modelsArchivo)) ? [new ExposicionArchivo] : $modelsArchivo,
+                    ]);
+                }
+
+                $model->fecha = $model->fecha_anno_inicio.'-01-01';
+                $model->fecha_fin = $model->fecha_anno_fin.'-01-01';
+                if (($model->fecha > $model->fecha_fin) || ($model->fecha == $model->fecha_fin)){
+                    Yii::$app->session->setFlash('error', 'La fecha final no puede ser anterior o igual a la fecha de inicio');
+                    return $this->redirect([
+                        'create', 'model' => $model,
+                        'modelsArchivo' => (empty($modelsArchivo)) ? [new ExposicionArchivo] : $modelsArchivo,
+                    ]);
+                }
+            }
+
             Model::loadMultiple($modelsArchivo, Yii::$app->request->post());
             if (Yii::$app->request->isAjax) {
                 Yii::$app->response->format = Response::FORMAT_JSON;
@@ -94,7 +167,6 @@ class ExposicionController extends Controller
                             if ($x == 0) {
                                 $modelArchivo->portada = 1;
                                 $x++;
-                                $archivo = new Archivo();
                                 $archivo = Archivo::find()->where(['id_archivo' => $modelArchivo->id_archivo])->one();
                                 if (!($archivo->tipo_archivo == 1)) {
                                     Yii::$app->session->setFlash('error', 'Un Documento solo puede tener una imagen como portada.');
@@ -107,7 +179,7 @@ class ExposicionController extends Controller
                                 $modelArchivo->portada = 0;
                             }
                             $modelArchivo->id_exposicion = $model->id_exposicion;
-                            if (! ($flag = $modelArchivo->save(false))) {
+                            if (!($flag = $modelArchivo->save(false))) {
                                 $transaction->rollBack();
                                 break;
                             }
@@ -140,13 +212,88 @@ class ExposicionController extends Controller
      */
     public function actionUpdate($id)
     {
-        $x=0;
+        $x = 0;
         $model = $this->findModel($id);
         $modelsArchivo = new ExposicionArchivo();
-        $modelsArchivo= ExposicionArchivo::find()->where(['id_exposicion' => $model->id_exposicion ])->all();    
-        
+        $modelsArchivo = ExposicionArchivo::find()->where(['id_exposicion' => $model->id_exposicion])->all();
+
 
         if ($model->load(Yii::$app->request->post())) {
+
+            $tipoFecha = $model->tipo_fecha;
+            if ($tipoFecha == 0) {
+                if (($model->fecha == null) ){
+                    Yii::$app->session->setFlash('error', 'La fecha no puede estar vacía');
+                    return $this->redirect([
+                        'update', 'model' => $model,'id'=>$model->id_exposicion,
+                        'modelsArchivo' => (empty($modelsArchivo)) ? [new ExposicionArchivo] : $modelsArchivo,
+                    ]);
+                }
+            }
+            if ($tipoFecha == 1) {
+                if (($model->fecha == null) ){
+                    Yii::$app->session->setFlash('error', 'La fecha de inicio no puede estar vacía');
+                    return $this->redirect([
+                        'update', 'model' => $model,'id'=>$model->id_exposicion,
+                        'modelsArchivo' => (empty($modelsArchivo)) ? [new ExposicionArchivo] : $modelsArchivo,
+                    ]);
+                }
+                if (($model->fecha_fin == null) ){
+                    Yii::$app->session->setFlash('error', 'La fecha final no puede estar vacía');
+                    return $this->redirect([
+                        'update', 'model' => $model,'id'=>$model->id_exposicion,
+                        'modelsArchivo' => (empty($modelsArchivo)) ? [new ExposicionArchivo] : $modelsArchivo,
+                    ]);
+                }
+                if (($model->fecha > $model->fecha_fin) ){
+                    Yii::$app->session->setFlash('error', 'La fecha final no puede ser posterior a la de inicio');
+                    return $this->redirect([
+                        'update', 'model' => $model,'id'=>$model->id_exposicion,
+                        'modelsArchivo' => (empty($modelsArchivo)) ? [new ExposicionArchivo] : $modelsArchivo,
+                    ]);
+                }
+            }
+            if ($tipoFecha == 2) {
+                if (($model->fecha_anno == null) ){
+                    Yii::$app->session->setFlash('error', 'El año no puede estar vacío');
+                    return $this->redirect([
+                        'update', 'model' => $model,'id'=>$model->id_exposicion,
+                        'modelsArchivo' => (empty($modelsArchivo)) ? [new ExposicionArchivo] : $modelsArchivo,
+                    ]);
+                }
+                $model->fecha = $model->fecha_anno.'-01-01';
+
+            }
+            if ($tipoFecha == 3) {
+
+                if (($model->fecha_anno_inicio == null) ){
+                    Yii::$app->session->setFlash('error', 'El año de inicio no puede estar vacío');
+                    return $this->redirect([
+                        'update', 'model' => $model,'id'=>$model->id_exposicion,
+                        'modelsArchivo' => (empty($modelsArchivo)) ? [new ExposicionArchivo] : $modelsArchivo,
+                    ]);
+                }
+
+                if (($model->fecha_anno_fin == null) ){
+                    Yii::$app->session->setFlash('error', 'El año de fin no puede estar vacío');
+                    return $this->redirect([
+                        'update', 'model' => $model,'id'=>$model->id_exposicion,
+                        'modelsArchivo' => (empty($modelsArchivo)) ? [new ExposicionArchivo] : $modelsArchivo,
+                    ]);
+                }
+
+                $model->fecha = $model->fecha_anno_inicio.'-01-01';
+                $model->fecha_fin = $model->fecha_anno_fin.'-01-01';
+                if (($model->fecha > $model->fecha_fin) || ($model->fecha == $model->fecha_fin)){
+                    Yii::$app->session->setFlash('error', 'La fecha final no puede ser anterior o igual a la fecha de inicio');
+                    return $this->redirect([
+                        'update', 'model' => $model,'id'=>$model->id_exposicion,
+                        'modelsArchivo' => (empty($modelsArchivo)) ? [new ExposicionArchivo] : $modelsArchivo,
+                    ]);
+                }
+            }
+
+
 
             $oldIDs = ArrayHelper::map($modelsArchivo, 'id', 'id');
             $modelsArchivo = Model::createMultiple(ExposicionArchivo::classname(), $modelsArchivo);
@@ -175,7 +322,7 @@ class ExposicionController extends Controller
                                 if (!($archivo->tipo_archivo == 1)) {
                                     Yii::$app->session->setFlash('error', 'Una Expocicion solo puede tener una imagen como portada.');
                                     return $this->redirect([
-                                        'update', 'model' => $model,
+                                        'update', 'model' => $model, 'id'=>$model->id_exposicion,
                                         'modelsArchivo' => (empty($modelsArchivo)) ? [new ExposicionArchivo] : $modelsArchivo,
                                     ]);
                                 };
@@ -217,7 +364,7 @@ class ExposicionController extends Controller
 
 
         $temporal4 = ExposicionArchivo::find()->where(['id_exposicion' => $this->findModel($id)->id_exposicion])->all();
-        foreach ($temporal4 as $t4){
+        foreach ($temporal4 as $t4) {
             $t4->delete();
         }
 

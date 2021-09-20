@@ -78,11 +78,12 @@ if ( !Yii::$app->user->can('gestionar-exposicion'))
                 'headerOptions' => ['class' => 'col-md-1'],
                 'value' => function ($model) {
                     if ($model->tipo_fecha ==0){  return "Fecha Exacta";};
-                    if ($model->tipo_fecha ==1){  return "Año";};
-                    if ($model->tipo_fecha ==2){  return "Rango de Fecha";};
+                    if ($model->tipo_fecha ==1){  return "Rango de Fecha";};
+                    if ($model->tipo_fecha ==2){  return "Año";};
+                    if ($model->tipo_fecha ==3){  return "Rango de Años";};
 
                 },
-                'filter'=>array(0=>"Fecha Exacta",1=>"Año",2=>"Rango de Fecha"),
+                'filter'=>array(0=>"Fecha Exacta",1=>"Rango de Fecha",2=>"Año", 3=> 'Rango de Años'),
                 'filterInputOptions' => array('class' => 'form-control', 'id' => null, 'prompt' => 'Todos'),
 
             ],
