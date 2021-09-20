@@ -14,8 +14,7 @@ $this->params['breadcrumbs'][] = ['label' => 'Línea Investigación', 'url' => [
 $this->params['breadcrumbs'][] = $this->title;
 if ( Yii::$app->user->isGuest )
     return Yii::$app->getResponse()->redirect(\yii\helpers\Url::to(['site/login']));
-if ( !Yii::$app->user->can('gestionar-linea-investigacion'))
-    return Yii::$app->getResponse()->redirect(\yii\helpers\Url::to(['site/login']));
+
 $articuloarchivos = new LineaInvestigacionArchivo();
 $articuloarchivos= LineaInvestigacionArchivo::find()->where(['id_linea_investigacion' => $model->id_linea_investigacion])->all();
 $archivos = new Archivo();

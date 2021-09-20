@@ -15,8 +15,7 @@ $this->params['breadcrumbs'][] = ['label' => $model->titulo, 'url' => ['view', '
 $this->params['breadcrumbs'][] = 'Modificar';
 if (Yii::$app->user->isGuest)
     return Yii::$app->getResponse()->redirect(\yii\helpers\Url::to(['site/login']));
-if (!Yii::$app->user->can('gestionar-correspondencia'))
-    return Yii::$app->getResponse()->redirect(\yii\helpers\Url::to(['site/login']));
+
 ?>
 <script type='text/javascript' src='https://code.jquery.com/jquery-1.11.0.js'></script>
 <div class="correspondencia-update col-md-12">

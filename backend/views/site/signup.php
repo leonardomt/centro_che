@@ -9,7 +9,7 @@ use yii\bootstrap4\ActiveForm;
 
 $this->title = 'Crear Usuario';
 $this->params['breadcrumbs'][] = $this->title;
-if ( !Yii::$app->user->can('gestionar-administrador'))
+if ( !Yii::$app->user->can('gestionar-usuarios'))
     return Yii::$app->getResponse()->redirect(\yii\helpers\Url::to(['site/login']));
 ?>
 <div class="site-signup">

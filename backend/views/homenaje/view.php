@@ -19,8 +19,7 @@ $archivos = new Archivo();
 
 if ( Yii::$app->user->isGuest )
     return Yii::$app->getResponse()->redirect(\yii\helpers\Url::to(['site/login']));
-if ( !Yii::$app->user->can('gestionar-homenaje'))
-    return Yii::$app->getResponse()->redirect(\yii\helpers\Url::to(['site/login']));
+
 
 \yii\web\YiiAsset::register($this);
 ?>

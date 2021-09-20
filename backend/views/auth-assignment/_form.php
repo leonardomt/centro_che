@@ -22,7 +22,7 @@ use common\widgets\Alert;
     <?= $form->field($model, 'user_id')->hiddenInput(['value' => $id])->label(false) ?>
 
     <?= $form->field($model, 'item_name')->dropDownList(
-        ArrayHelper::map(\backend\models\User\AuthItem::find()->where(['type'=>1])->asArray()->all(), 'name', 'name') )?>
+        ArrayHelper::map(\backend\models\User\AuthItem::find()->where(['type'=>1])->asArray()->all(), 'name', 'description') )?>
 
 
 

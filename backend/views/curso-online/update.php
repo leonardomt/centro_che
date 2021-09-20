@@ -17,8 +17,7 @@ $this->params['breadcrumbs'][] = ['label' => $model->titulo, 'url' => ['view', '
 $this->params['breadcrumbs'][] = 'Modificar';
 if ( Yii::$app->user->isGuest )
     return Yii::$app->getResponse()->redirect(\yii\helpers\Url::to(['site/login']));
-if ( !Yii::$app->user->can('gestionar-curso-online'))
-    return Yii::$app->getResponse()->redirect(\yii\helpers\Url::to(['site/login']));
+
 ?>
 <div class="curso-online-update col-md-12">
 

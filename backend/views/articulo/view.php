@@ -18,10 +18,7 @@ $this->params['breadcrumbs'][] = ['label' => 'Articulo', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 if ( Yii::$app->user->isGuest )
     return Yii::$app->getResponse()->redirect(\yii\helpers\Url::to(['site/login']));
-if ( Yii::$app->user->isGuest )
-    return Yii::$app->getResponse()->redirect(\yii\helpers\Url::to(['site/login']));
-if ( !Yii::$app->user->can('gestionar-articulo'))
-    return Yii::$app->getResponse()->redirect(\yii\helpers\Url::to(['site/login']));
+
 \yii\web\YiiAsset::register($this);
 ?>
 <div class="articulo-view col-md-12">

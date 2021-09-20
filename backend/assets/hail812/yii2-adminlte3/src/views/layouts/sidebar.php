@@ -183,26 +183,28 @@
                         'icon' => 'fas fa-home',
                         'badge' => $inicio,
                         'items' => [
-                            ['label' => 'Actualidad', 'iconStyle' => 'far' , 'url' => ['/noticia/index'], 'visible' => Yii::$app->user->can('gestionar-noticia'), 'badge' => $actualidad],
+                            ['label' => 'Actualidad', 'iconStyle' => 'far' , 'url' => ['/noticia/index'], 'visible' => (Yii::$app->user->can('gestionar-noticia') || Yii::$app->user->can('gestionar-inicio')), 'badge' => $actualidad],
                             //['label' => 'Carrusel', 'iconStyle' => 'far' , 'url' => ['/carrusel/index'], 'visible' => Yii::$app->user->can('gestionar-noticia')],
-                            ['label' => 'Mapa', 'iconStyle' => 'far' , 'url' => "https://www.google.com/maps/d/edit?hl=es&mid=1UQQMw-m_DPTKOJPfYTs3ZkFBobP39SBE&ll=22.21037405686551%2C-80.85830277278139&z=8", 'visible' => Yii::$app->user->can('gestionar-noticia')],
+                            ['label' => 'Mapa', 'iconStyle' => 'far' , 'url' => "https://www.google.com/maps/d/edit?hl=es&mid=1UQQMw-m_DPTKOJPfYTs3ZkFBobP39SBE&ll=22.21037405686551%2C-80.85830277278139&z=8", 'visible' => (Yii::$app->user->can('gestionar-mapa') || Yii::$app->user->can('gestionar-inicio'))],
                             [
                                 'label' => 'Paradigma',
                                 'iconStyle' => 'far',
+                                'visible' => Yii::$app->user->can('gestionar-inicio'),
                                 'items' => [
-                                    ['label' => 'Paradigma Inicio', 'icon' => 'dot-circle', 'iconStyle' => 'far' , 'url' => ['/paradigma/view', 'id'=>1], 'visible' => Yii::$app->user->can('gestionar-noticia')],
-                                    ['label' => 'Catálogo', 'icon' => 'dot-circle', 'iconStyle' => 'far' , 'url' => ['/revista/index'], 'visible' => Yii::$app->user->can('gestionar-noticia'), 'badge' => $revista],
+                                    ['label' => 'Paradigma Inicio', 'icon' => 'dot-circle', 'iconStyle' => 'far' , 'url' => ['/paradigma/view', 'id'=>1], 'visible' => Yii::$app->user->can('gestionar-inicio')],
+                                    ['label' => 'Catálogo', 'icon' => 'dot-circle', 'iconStyle' => 'far' , 'url' => ['/revista/index'], 'visible' => Yii::$app->user->can('gestionar-inicio'), 'badge' => $revista],
                                 ]
                             ],
                             [
                                 'label' => 'Quiénes Somos',
                                 'iconStyle' => 'far',
+                                'visible' => Yii::$app->user->can('gestionar-inicio'),
                                 'items' => [
-                                    ['label' => 'Quiénes Somos Inicio', 'icon' => 'dot-circle', 'iconStyle' => 'far' , 'url' => ['/quienes/view', 'id'=>1], 'visible' => Yii::$app->user->can('gestionar-noticia')],
-                                    ['label' => 'Detalles', 'icon' => 'dot-circle', 'iconStyle' => 'far' , 'url' => ['/quienes-detalle/view', 'id'=>1], 'visible' => Yii::$app->user->can('gestionar-noticia')],
+                                    ['label' => 'Quiénes Somos Inicio', 'icon' => 'dot-circle', 'iconStyle' => 'far' , 'url' => ['/quienes/view', 'id'=>1], 'visible' => Yii::$app->user->can('gestionar-inicio')],
+                                    ['label' => 'Detalles', 'icon' => 'dot-circle', 'iconStyle' => 'far' , 'url' => ['/quienes-detalle/view', 'id'=>1], 'visible' => Yii::$app->user->can('gestionar-inicio')],
                                 ]
                             ],
-                            ['label' => 'Contacto', 'iconStyle' => 'far' , 'url' => ['/contacto/view', 'id'=>1], 'visible' => Yii::$app->user->can('gestionar-noticia')],
+                            ['label' => 'Contacto', 'iconStyle' => 'far' , 'url' => ['/contacto/view', 'id'=>1], 'visible' => Yii::$app->user->can('gestionar-inicio')],
                         
                         ]
                     ],
@@ -212,27 +214,30 @@
                         'icon' => 'fa fa-brain',
                         'title' => 'Coordinación Académica',
                         'badge' => $cademica,
+                        'visible' => Yii::$app->user->can('gestionar-coordinacion'),
                         'items' => [
-                            ['label' => 'Líneas de Investigación', 'iconStyle' => 'far' , 'url' => ['/linea-investigacion/index'], 'visible' => Yii::$app->user->can('gestionar-linea-investigacion'), 'badge' => $lineas],
-                            ['label' => 'Investigaciones', 'iconStyle' => 'far' , 'url' => ['/investigacion/index'], 'visible' => Yii::$app->user->can('gestionar-investigacion'), 'badge' => $investigacion],
-                            ['label' => 'Artículos', 'iconStyle' => 'far' , 'url' => ['/articulo/index'], 'visible' => Yii::$app->user->can('gestionar-articulo'),'badge' => $articulo],
+                            ['label' => 'Líneas de Investigación', 'iconStyle' => 'far' , 'url' => ['/linea-investigacion/index'], 'visible' => Yii::$app->user->can('gestionar-coordinacion'), 'badge' => $lineas],
+                            ['label' => 'Investigaciones', 'iconStyle' => 'far' , 'url' => ['/investigacion/index'], 'visible' => Yii::$app->user->can('gestionar-coordinacion'), 'badge' => $investigacion],
+                            ['label' => 'Artículos', 'iconStyle' => 'far' , 'url' => ['/articulo/index'], 'visible' => Yii::$app->user->can('gestionar-coordinacion'),'badge' => $articulo],
                             [
                                 'label' => 'Colección Documental',
                                 'iconStyle' => 'far',
+                                'visible' => Yii::$app->user->can('gestionar-coordinacion'),
                                 'items' => [
-                                    ['label' => 'Portada', 'icon' => 'dot-circle', 'iconStyle' => 'far' , 'url' => ['/gestion-documental/view', 'id'=>1], 'visible' => Yii::$app->user->can('gestionar-coleccion-documental')],
-                                    ['label' => 'Documentos', 'icon' => 'dot-circle', 'iconStyle' => 'far' , 'url' => ['/coleccion-documental/index'], 'visible' => Yii::$app->user->can('gestionar-coleccion-documental'),'badge' => $cd],
+                                    ['label' => 'Portada', 'icon' => 'dot-circle', 'iconStyle' => 'far' , 'url' => ['/gestion-documental/view', 'id'=>1], 'visible' => Yii::$app->user->can('gestionar-coordinacion')],
+                                    ['label' => 'Documentos', 'icon' => 'dot-circle', 'iconStyle' => 'far' , 'url' => ['/coleccion-documental/index'], 'visible' => Yii::$app->user->can('gestionar-coordinacion'),'badge' => $cd],
                                 ]
                             ],
                             [
                                 'label' => 'Proyecto Editorial',
                                 'iconStyle' => 'far',
+                                'visible' => Yii::$app->user->can('gestionar-coordinacion'),
                                 'items' => [
-                                    ['label' => 'Portada', 'icon' => 'dot-circle', 'iconStyle' => 'far' , 'url' => ['/proyecto/view', 'id'=>1], 'visible' => Yii::$app->user->can('gestionar-proyecto')],
-                                    ['label' => 'Catálogo de Libros', 'icon' => 'dot-circle', 'iconStyle' => 'far' , 'url' => ['/libro/index'], 'visible' => Yii::$app->user->can('gestionar-proyecto'),'badge' => $libro],
+                                    ['label' => 'Portada', 'icon' => 'dot-circle', 'iconStyle' => 'far' , 'url' => ['/proyecto/view', 'id'=>1], 'visible' => Yii::$app->user->can('gestionar-coordinacion')],
+                                    ['label' => 'Catálogo de Libros', 'icon' => 'dot-circle', 'iconStyle' => 'far' , 'url' => ['/libro/index'], 'visible' => Yii::$app->user->can('gestionar-coordinacion'),'badge' => $libro],
                                 ]
                             ],
-                            ['label' => 'Cursos Online', 'iconStyle' => 'far' , 'url' => ['/curso-online/index'], 'visible' => Yii::$app->user->can('gestionar-curso-online'),'badge' => $co],
+                            ['label' => 'Cursos Online', 'iconStyle' => 'far' , 'url' => ['/curso-online/index'], 'visible' => Yii::$app->user->can('gestionar-coordinacion'),'badge' => $co],
 
                         ]
                     ],
@@ -242,12 +247,13 @@
                         'label' => 'P. Alternativos',
                         'icon' => 'far fa-lightbulb',
                         'badge' => $palternativos,
+                        'visible' => Yii::$app->user->can('gestionar-proyectos'),
                         'items' => [
-                            ['label' => 'Proyectos Comunitarios', 'iconStyle' => 'far' , 'url' => ['/taller/index'], 'visible' => Yii::$app->user->can('gestionar-taller'),'badge' => $taller],
-                            ['label' => 'Programación Cultural', 'iconStyle' => 'far' , 'url' => ['/programacion/index'], 'visible' => Yii::$app->user->can('gestionar-producto-audiovisual'),'badge' => $pc],
-                            ['label' => 'Exposiciones', 'iconStyle' => 'far' , 'url' => ['/exposicion/index'], 'visible' => Yii::$app->user->can('gestionar-exposicion'),'badge' => $expo],
-                            ['label' => 'Productos Audiovisuales', 'iconStyle' => 'far' , 'url' => ['/producto-audiovisual/index'], 'visible' => Yii::$app->user->can('gestionar-producto-audiovisual'),'badge' => $pa],
-                            ['label' => 'Otros', 'iconStyle' => 'far' , 'url' => ['/otros/index'], 'visible' => Yii::$app->user->can('gestionar-exposicion'),'badge' => $otros],
+                            ['label' => 'Proyectos Comunitarios', 'iconStyle' => 'far' , 'url' => ['/taller/index'], 'visible' => Yii::$app->user->can('gestionar-proyectos'),'badge' => $taller],
+                            ['label' => 'Programación Cultural', 'iconStyle' => 'far' , 'url' => ['/programacion/index'], 'visible' => Yii::$app->user->can('gestionar-proyectos'),'badge' => $pc],
+                            ['label' => 'Exposiciones', 'iconStyle' => 'far' , 'url' => ['/exposicion/index'], 'visible' => Yii::$app->user->can('gestionar-proyectos'),'badge' => $expo],
+                            ['label' => 'Productos Audiovisuales', 'iconStyle' => 'far' , 'url' => ['/producto-audiovisual/index'], 'visible' => Yii::$app->user->can('gestionar-proyectos'),'badge' => $pa],
+                            ['label' => 'Otros', 'iconStyle' => 'far' , 'url' => ['/otros/index'], 'visible' => Yii::$app->user->can('gestionar-proyectos'),'badge' => $otros],
 
                             ],
 
@@ -258,21 +264,23 @@
                     [
                         'label' => 'Vida y Obra',
                         'icon' => 'fas fa-pen-nib',
+                        'visible' => Yii::$app->user->can('gestionar-vida-obra'),
                         'badge' => $vidaobra,
                         'items' => [
-                            ['label' => 'Cronología', 'iconStyle' => 'far' , 'url' => ['/hecho/index'], 'visible' => Yii::$app->user->can('gestionar-hecho'), 'badge' => $hecho],
-                            ['label' => 'Correspondencia', 'iconStyle' => 'far' , 'url' => ['/correspondencia/index'], 'visible' => Yii::$app->user->can('gestionar-correspondencia'), 'badge' => $correspondencia],
-                            ['label' => 'Escritos', 'iconStyle' => 'far' , 'url' => ['/escrito/index'], 'visible' => Yii::$app->user->can('gestionar-escrito'), 'badge' => $escrito],
-                            ['label' => 'Discursos y Entrevistas', 'iconStyle' => 'far' , 'url' => ['/discurso/index'], 'visible' => Yii::$app->user->can('gestionar-discurso'), 'badge' => $discurso],
-                            ['label' => 'Testimonios', 'iconStyle' => 'far' , 'url' => ['/testimonio/index'], 'visible' => Yii::$app->user->can('gestionar-testimonio'), 'badge' => $testimonio],
+                            ['label' => 'Cronología', 'iconStyle' => 'far' , 'url' => ['/hecho/index'], 'visible' => Yii::$app->user->can('gestionar-vida-obra'), 'badge' => $hecho],
+                            ['label' => 'Correspondencia', 'iconStyle' => 'far' , 'url' => ['/correspondencia/index'], 'visible' => Yii::$app->user->can('gestionar-vida-obra'), 'badge' => $correspondencia],
+                            ['label' => 'Escritos', 'iconStyle' => 'far' , 'url' => ['/escrito/index'], 'visible' => Yii::$app->user->can('gestionar-vida-obra'), 'badge' => $escrito],
+                            ['label' => 'Discursos y Entrevistas', 'iconStyle' => 'far' , 'url' => ['/discurso/index'], 'visible' => Yii::$app->user->can('gestionar-vida-obra'), 'badge' => $discurso],
+                            ['label' => 'Testimonios', 'iconStyle' => 'far' , 'url' => ['/testimonio/index'], 'visible' => Yii::$app->user->can('gestionar-vida-obra'), 'badge' => $testimonio],
                             [
                                 'label' => 'Galería',
                                 'iconStyle' => 'far',
+                                'visible' => Yii::$app->user->can('gestionar-vida-obra'),
                                 'items' => [
-                                    ['label' => 'Fotografía', 'icon' => 'dot-circle', 'iconStyle' => 'far' , 'url' => ['/galeria-v-o/index', 'tipo'=>1], 'visible' => Yii::$app->user->can('gestionar-galeriavo')],
-                                    ['label' => 'Audio', 'icon' => 'dot-circle', 'iconStyle' => 'far' , 'url' => ['/galeria-v-o/index', 'tipo'=>2], 'visible' => Yii::$app->user->can('gestionar-galeriavo')],
-                                    ['label' => 'Video', 'icon' => 'dot-circle', 'iconStyle' => 'far' , 'url' => ['/galeria-v-o/index', 'tipo'=>3], 'visible' => Yii::$app->user->can('gestionar-galeriavo')],
-                                    ['label' => 'Homenajes', 'icon' => 'dot-circle', 'iconStyle' => 'far' , 'url' => ['/galeria-v-o/index', 'tipo'=>4], 'visible' => Yii::$app->user->can('gestionar-galeriavo')],
+                                    ['label' => 'Fotografía', 'icon' => 'dot-circle', 'iconStyle' => 'far' , 'url' => ['/galeria-v-o/index', 'tipo'=>1], 'visible' => Yii::$app->user->can('gestionar-vida-obra')],
+                                    ['label' => 'Audio', 'icon' => 'dot-circle', 'iconStyle' => 'far' , 'url' => ['/galeria-v-o/index', 'tipo'=>2], 'visible' => Yii::$app->user->can('gestionar-vida-obra')],
+                                    ['label' => 'Video', 'icon' => 'dot-circle', 'iconStyle' => 'far' , 'url' => ['/galeria-v-o/index', 'tipo'=>3], 'visible' => Yii::$app->user->can('gestionar-vida-obra')],
+                                    ['label' => 'Homenajes', 'icon' => 'dot-circle', 'iconStyle' => 'far' , 'url' => ['/galeria-v-o/index', 'tipo'=>4], 'visible' => Yii::$app->user->can('gestionar-vida-obra')],
                                 ]
                             ],
 
@@ -283,14 +291,15 @@
                     [
                         'label' => 'Administración',
                         'icon' => 'fas fa-cogs',
-                        'visible' => Yii::$app->user->can('gestionar-usuarios'),
+                        'visible' => (Yii::$app->user->can('gestionar-usuarios') || Yii::$app->user->can('gestionar-nomencladores') || Yii::$app->user->can('gestionar-trazas') ||Yii::$app->user->can('gestionar-roles')),
                         'items' => [
                             ['label' => 'Usuarios', 'iconStyle' => 'far' , 'url' => ['/user/index'], 'visible' => Yii::$app->user->can('gestionar-usuarios')],
-                            ['label' => 'Roles', 'iconStyle' => 'far' , 'url' => ['/auth-item/index'], 'visible' => Yii::$app->user->can('gestionar-usuarios')],
-                           // ['label' => 'Etiquetas', 'iconStyle' => 'far' , 'url' => ['/etiqueta/index'], 'visible' => Yii::$app->user->can('gestionar-usuarios')],
-                            ['label' => 'Géneros de Productos Audiovisuales', 'iconStyle' => 'far' , 'url' => ['/tipo-producto/index'], 'visible' => Yii::$app->user->can('gestionar-usuarios')],
-                            ['label' => 'Tipos de Proyectos Comunitarios', 'iconStyle' => 'far' , 'url' => ['/tipo-taller/index'], 'visible' => Yii::$app->user->can('gestionar-usuarios')],
-                            ['label' => 'Trazas', 'url' => ['/audit-entry/index'], 'iconStyle' => 'far' , 'visible' => Yii::$app->user->can('gestionar-comentario')],
+                            ['label' => 'Roles', 'iconStyle' => 'far' , 'url' => ['/auth-item/index'], 'visible' => Yii::$app->user->can('gestionar-roles')],
+                           // ['label' => 'Etiquetas', 'iconStyle' => 'far' , 'url' => ['/etiqueta/index'], 'visible' => Yii::$app->user->can('gestionar-nomencladores')],
+                            ['label' => 'Géneros de Productos Audiovisuales', 'iconStyle' => 'far' , 'url' => ['/tipo-producto/index'], 'visible' => Yii::$app->user->can('gestionar-nomencladores')],
+                            ['label' => 'Tipos de Proyectos Comunitarios', 'iconStyle' => 'far' , 'url' => ['/tipo-taller/index'], 'visible' => Yii::$app->user->can('gestionar-nomencladores')],
+                            ['label' => 'Trazas', 'url' => ['/audit-entry/index'], 'iconStyle' => 'far' , 'visible' => Yii::$app->user->can('gestionar-traza')],
+                            //['label' => 'Modificar Contraseña', 'url' => ['/audit-entry/index'], 'iconStyle' => 'far' ,],
 
                         ]
                     ],

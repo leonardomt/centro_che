@@ -65,9 +65,9 @@ class AuthItem extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'name' => 'Nombre',
+            'name' => 'Identificador',
             'type' => 'Tipo',
-            'description' => 'Descripción',
+            'description' => 'Rol',
             'rule_name' => 'Rule Name',
             'data' => 'Data',
             'created_at' => 'Created At',

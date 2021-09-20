@@ -17,8 +17,7 @@ $this->params['breadcrumbs'][] = ['label' => $model->nombre, 'url' => ['view', '
 $this->params['breadcrumbs'][] = 'Modificar';
 if (Yii::$app->user->isGuest)
     return Yii::$app->getResponse()->redirect(\yii\helpers\Url::to(['site/login']));
-if (!Yii::$app->user->can('gestionar-taller'))
-    return Yii::$app->getResponse()->redirect(\yii\helpers\Url::to(['site/login']));
+
 ?>
 <div class="taller-update col-md-12">
 

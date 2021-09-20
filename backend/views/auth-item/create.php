@@ -47,7 +47,7 @@ if ( Yii::$app->user->isGuest )
                                 </div>
                             </div>
                             <?= $form->field($model, "rol")->widget(\kartik\select2\Select2::classname(), [
-                                    'data' => \yii\helpers\ArrayHelper::map(\backend\models\User\AuthItem::find()->where(['type'=> 2])->all(), 'name', 'name'),
+                                    'data' => \yii\helpers\ArrayHelper::map(\backend\models\User\AuthItem::find()->where(['type'=> 2])->all(), 'name', 'description'),
                                     'options' => ['placeholder' => 'Seleccionar', 'multiple' => true, 'required' => true],
                                     'theme' => \kartik\select2\Select2::THEME_KRAJEE,
                                     'size' => 'xs',]

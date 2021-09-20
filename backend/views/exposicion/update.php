@@ -15,8 +15,7 @@ $this->params['breadcrumbs'][] = ['label' => $model->titulo, 'url' => ['view', '
 $this->params['breadcrumbs'][] = 'Modificar';
 if (Yii::$app->user->isGuest)
     return Yii::$app->getResponse()->redirect(\yii\helpers\Url::to(['site/login']));
-if (!Yii::$app->user->can('gestionar-exposicion'))
-    return Yii::$app->getResponse()->redirect(\yii\helpers\Url::to(['site/login']));
+
 
 if ($model->tipo_fecha == 0) {
 
