@@ -70,10 +70,13 @@ class ProgramacionController extends Controller
      */
     public function actionCreate()
     {
-        $model = new Programacion();
+        $model = new Programacion;
         $modelsArchivo = [new ProgramacionArchivo];
-        $x=0;
+        $x = 0;
         if ($model->load(Yii::$app->request->post())) {
+            if ($model->publico == 1) {
+                $model->fecha = new Expression('NOW()');
+            }
             $modelsArchivo = Model::createMultiple(ProgramacionArchivo::classname());
             Model::loadMultiple($modelsArchivo, Yii::$app->request->post());
             if (Yii::$app->request->isAjax) {
@@ -83,7 +86,7 @@ class ProgramacionController extends Controller
                     ActiveForm::validate($model)
                 );
             }
-// validate all models
+            // validate all models
             $valid = $model->validate();
             $valid = Model::validateMultiple($modelsArchivo) && $valid;
             if ($valid) {
@@ -91,9 +94,23 @@ class ProgramacionController extends Controller
                 try {
                     if ($flag = $model->save(false)) {
                         foreach ($modelsArchivo as $modelArchivo) {
-
+                            if ($x == 0) {
+                                $modelArchivo->portada = 1;
+                                $x++;
+                                $archivo = new Archivo();
+                                $archivo = Archivo::find()->where(['id_archivo' => $modelArchivo->id_archivo])->one();
+                                if (!($archivo->tipo_archivo == 1)) {
+                                    Yii::$app->session->setFlash('error', 'Solo puede tener una imagen como portada.');
+                                    return $this->redirect([
+                                        'create', 'model' => $model,
+                                        'modelsArchivo' => (empty($modelsArchivo)) ? [new ProgramacionArchivo] : $modelsArchivo,
+                                    ]);
+                                };
+                            } else {
+                                $modelArchivo->portada = 0;
+                            }
                             $modelArchivo->id_programacion = $model->id;
-                            if (! ($flag = $modelArchivo->save(false))) {
+                            if (!($flag = $modelArchivo->save(false))) {
                                 $transaction->rollBack();
                                 break;
                             }
@@ -113,8 +130,6 @@ class ProgramacionController extends Controller
 
             'modelsArchivo' => (empty($modelsArchivo)) ? [new ProgramacionArchivo] : $modelsArchivo,
         ]);
-
-
     }
 
     /**
@@ -127,8 +142,8 @@ class ProgramacionController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        $modelsArchivo= ProgramacionArchivo::find()->where(['id_programacion' => $model->id ])->all();
-        $x=0;
+        $modelsArchivo = ProgramacionArchivo::find()->where(['id_programacion' => $model->id])->all();
+        $x = 0;
 
         if ($model->load(Yii::$app->request->post())) {
 
@@ -150,7 +165,7 @@ class ProgramacionController extends Controller
                         }
                         foreach ($modelsArchivo as $modelArchivo) {
 
-                            if (! ($flag = $modelArchivo->save(false))) {
+                            if (!($flag = $modelArchivo->save(false))) {
                                 $transaction->rollBack();
                                 break;
                             }
@@ -207,7 +222,6 @@ class ProgramacionController extends Controller
         try {
             $userId = Yii::$app->getUser()->identity->getId();
             $userIpAddress = Yii::$app->request->getUserIP();
-
         } catch (Exception $e) { //If we have no user object, this must be a command line program
             $userId = self::NO_USER_ID;
         }
@@ -226,6 +240,5 @@ class ProgramacionController extends Controller
         $log->audit_entry_ip = $userIpAddress;
 
         $log->save(false);
-
     }
 }

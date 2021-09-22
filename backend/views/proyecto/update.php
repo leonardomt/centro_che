@@ -9,7 +9,7 @@ use kartik\form\ActiveForm;
 /* @var $model backend\models\Proyecto\Proyecto */
 
 $this->title = 'Modificar';
-$this->params['breadcrumbs'][] = ['label' => 'Portada del Proyecto Editorial', 'url' => ['/proyecto/view', 'id' => 1]];
+$this->params['breadcrumbs'][] = ['label' => 'Proyecto Editorial - Portada', 'url' => ['/proyecto/view', 'id' => 1]];
 $this->params['breadcrumbs'][] =$this->title;
 ?>
 <div class="proyecto-update">

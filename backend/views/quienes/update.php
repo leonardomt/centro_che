@@ -8,8 +8,8 @@ use kartik\form\ActiveForm;
 /* @var $this yii\web\View */
 /* @var $model backend\models\Quienes\Quienes */
 
-$this->title = 'Modificar Descripción ';
-$this->params['breadcrumbs'][] = ['label' => 'Quiénes Somos Inicio', 'url' => ['/quienes/view', 'id' => 1]];
+$this->title = 'Modificar ';
+$this->params['breadcrumbs'][] = ['label' => 'Quiénes Somos - Inicio', 'url' => ['/quienes/view', 'id' => 1]];
 $this->params['breadcrumbs'][] =$this->title;
 ?>
 <div class="quienes-update">

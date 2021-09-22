@@ -6,7 +6,7 @@ use yii\helpers\Html;
 /* @var $model backend\models\GestionDocumental\GestionDocumental */
 
 $this->title = 'Portada Colección Documental';
-$this->params['breadcrumbs'][] = ['label' => 'Gestion Documentals', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Colección Documental - Portada', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="gestion-documental-create">

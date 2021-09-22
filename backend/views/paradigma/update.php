@@ -8,8 +8,8 @@ use kartik\form\ActiveForm;
 /* @var $this yii\web\View */
 /* @var $model backend\models\Revista\Paradigma */
 
-$this->title = 'Modificar Información de la sección Paradigma Inicio: ';
-$this->params['breadcrumbs'][] = ['label' => 'Paradigma Inicio', 'url' => ['view', 'id' => $model->id]];
+$this->title = 'Modificar ';
+$this->params['breadcrumbs'][] = ['label' => 'Paradigma - Inicio', 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Modificar Información';
 ?>
 <div class="paradigma-update">

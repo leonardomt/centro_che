@@ -8,8 +8,8 @@ use kartik\form\ActiveForm;
 /* @var $this yii\web\View */
 /* @var $model backend\models\GestionDocumental\GestionDocumental */
 
-$this->title = 'Modificar Portada' ;
-$this->params['breadcrumbs'][] = ['label' => 'Colección Documental Portada', 'url' => ['/gestion-documental/view', 'id' => 1]];
+$this->title = 'Modificar' ;
+$this->params['breadcrumbs'][] = ['label' => 'Colección Documental - Portada', 'url' => ['/gestion-documental/view', 'id' => 1]];
 $this->params['breadcrumbs'][] =$this->title;
 ?>
 <div class="gestion-documental-update">

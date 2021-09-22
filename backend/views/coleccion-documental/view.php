@@ -10,7 +10,7 @@ use backend\models\Archivo\Archivo;
 /* @var $model backend\models\ColeccionDocumental\ColeccionDocumental */
 
 $this->title = $model->titulo;
-$this->params['breadcrumbs'][] = ['label' => 'Documentos de la Colección Documental', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Colección Documental - Documentos', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 

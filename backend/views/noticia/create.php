@@ -291,7 +291,7 @@ $dataProvider->pagination = ['pageSize' => 4];
 
 <script>
     $(document).ready(function(){
-        $(":input").inputmask();
+        $("input#noticia-fecha").inputmask();
 
 
 

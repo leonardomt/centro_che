@@ -305,7 +305,7 @@ if (Yii::$app->user->isGuest)
 
 <script>
     $(document).ready(function(){
-        $(":input").inputmask();
+        $("input#noticia-fecha").inputmask();
 
 
 

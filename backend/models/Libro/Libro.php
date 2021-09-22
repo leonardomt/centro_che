@@ -44,7 +44,7 @@ class Libro extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['revisado', 'publico','titulo', 'autor', 'compilador', 'linea', 'palabras_clave', 'descripcion'], 'required'],
+            [['revisado', 'publico','titulo', 'autor', 'linea', 'palabras_clave', 'descripcion'], 'required'],
             [['revisado', 'publico'], 'integer'],
             [['fecha'], 'safe'],
             [['descripcion'], 'string'],

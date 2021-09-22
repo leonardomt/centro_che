@@ -10,7 +10,7 @@ use yii\bootstrap4\Breadcrumbs;
 /* @var $this yii\web\View */
 /* @var $model backend\models\Revista\Paradigma */
 
-$this->title = 'Paradigma Inicio';
+$this->title = 'Paradigma - Inicio';
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>

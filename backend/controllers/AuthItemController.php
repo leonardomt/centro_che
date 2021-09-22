@@ -77,6 +77,7 @@ class AuthItemController extends Controller
         $model = new AuthItem();
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            $model->name = $model->description;
             $model->save();
 
             if (is_array($model->rol)) {

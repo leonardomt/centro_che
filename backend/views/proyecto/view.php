@@ -10,7 +10,7 @@ use common\widgets\Alert;
 /* @var $this yii\web\View */
 /* @var $model backend\models\Proyecto\Proyecto */
 
-$this->title = "Portada del Proyecto Editorial";
+$this->title = "Proyecto Editorial - Portada";
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>

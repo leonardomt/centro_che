@@ -9,7 +9,7 @@ use yii\bootstrap4\Breadcrumbs;
 /* @var $this yii\web\View */
 /* @var $model backend\models\Quienes\QuienesDetalle */
 
-$this->title = "Quienes Somos Detalles";
+$this->title = "Quienes Somos - Detalles";
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 if (Yii::$app->user->isGuest)

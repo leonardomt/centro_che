@@ -42,11 +42,7 @@ if ( Yii::$app->user->isGuest )
 
         'columns' => [
 
-            [
-                'attribute' => 'name',                     // Titulo
-                'format' => 'raw',
-                'headerOptions' => ['class' => 'col-md-4']
-            ],
+        
             [
                 'attribute' => 'description',                     // Titulo
                 'format' => 'raw',
