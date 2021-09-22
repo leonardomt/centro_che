@@ -60,4 +60,6 @@ class AuditEntry extends \yii\db\ActiveRecord
             'audit_entry_model_id' => Yii::t('app', 'Valor Eliminado'),
         ];
     }
+
+    public function 
 }

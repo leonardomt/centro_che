@@ -35,10 +35,8 @@ if ( Yii::$app->user->isGuest )
                 <div class="col-md-12">
                     <div class="box box-content">
                         <div class="inbox-editor">
-                            <div class="row">
-                                <div class="col-lg-12 text-lg-left">
-                                    <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
-                                </div>
+                            <div>
+                               
                                 <?= $form->field($model, 'type')->hiddenInput(['value' => 1])->label(false) ?>
                             </div>
                             <div class="row">
