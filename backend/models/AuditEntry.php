@@ -61,5 +61,5 @@ class AuditEntry extends \yii\db\ActiveRecord
         ];
     }
 
-    public function 
+    
 }
