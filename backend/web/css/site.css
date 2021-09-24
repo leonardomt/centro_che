@@ -121,3 +121,7 @@ a.desc:after {
 }
 
 
+.form-control.is-valid, .was-validated .form-control:valid {
+    padding-right: 0.75rem;
+}
+

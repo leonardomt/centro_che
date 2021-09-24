@@ -64,7 +64,9 @@ class ArchivoController extends Controller
     {
         $searchModel = new ArchivoSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
+        $dataProvider->setSort([
+            'defaultOrder' => ['id_archivo' => SORT_DESC],
+        ]);
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
@@ -96,12 +98,12 @@ class ArchivoController extends Controller
         $this->enableCsrfValidation = false;
 
         if ($model->load(Yii::$app->request->post())) {
-
-            if ($model->validate()) {
+            $model->fecha = $model->year.'-'.$model->month.'-'.$model->day;
+            if (true) {
                 $fecha = $model->fecha;
                 if ($fecha != null) {
                     
-                    if ($fecha < "1943-6-15") {
+                    if (($fecha < "1943-6-15") && ($fecha > "1928-06-13")) {
                         $model->etapa = "Infancia";
                     }
                     if (($fecha > "1943-06-14") && ($fecha < "1953-06-15")) {
@@ -117,14 +119,14 @@ class ArchivoController extends Controller
                         $model->etapa = "Posterior a 1967";
                     }
                 }
-                if ($fecha == null) {
+                if ($fecha == null || $fecha < "1928-06-13") {
                     $model->etapa = "No definida";
                 }
 
                 $imageName = date('Y-m-d') . rand(0, 99999);
                 $model->file = UploadedFile::getInstance($model, 'file');
                 if ($model->file == null) {
-                    Yii::$app->session->setFlash('error', 'No ha cargado ningún archivo.');
+                    Yii::$app->session->setFlash('error', 'No ha cargado ningún archivo.   '.$model->file);
                     return $this->redirect([
                         'create',
                         'model' => $model,

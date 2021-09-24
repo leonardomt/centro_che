@@ -96,6 +96,7 @@ class ProgramacionController extends Controller
                         foreach ($modelsArchivo as $modelArchivo) {
                             if ($x == 0) {
                                 $modelArchivo->portada = 1;
+                                $modelArchivo->id_programacion = $model->id;
                                 $x++;
                                 $archivo = new Archivo();
                                 $archivo = Archivo::find()->where(['id_archivo' => $modelArchivo->id_archivo])->one();

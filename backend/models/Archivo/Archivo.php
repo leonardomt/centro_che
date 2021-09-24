@@ -28,6 +28,7 @@ use yii\db\Expression;
 class Archivo extends \yii\db\ActiveRecord
 {
 
+
     public function behaviors(){
         return [
 
@@ -41,6 +42,9 @@ class Archivo extends \yii\db\ActiveRecord
      * {@inheritdoc}
      */
     public $file;
+    public $year;
+    public $month;
+    public $day;
     public static function tableName()
     {
         return 'archivo';
@@ -51,24 +55,29 @@ class Archivo extends \yii\db\ActiveRecord
      */
     public function rules()
     {
+
+        $last = date("Y");
         return [
             [['revisado', 'titulo_archivo', 'etiqueta', 'descripcion_archivo'], 'required'],
             [['revisado'], 'integer'],
             [['descripcion_archivo'], 'string'],
             [['titulo_archivo'], 'string', 'max' => 124],
-            [['autor_archivo', 'etapa'], 'string', 'max' => 64],
+            [[ 'etapa'], 'string', 'max' => 64],
             [['etiqueta'], 'string', 'max' => 124],
             [['fuente'], 'string', 'max' => 256],
             [['autor_archivo'], 'string', 'max' => 64],
             [['url_archivo'], 'string', 'max' => 256],
             [['fecha'], 'safe' ],
             [['titulo_archivo'], 'unique'],
+            [['year'], 'integer', 'max' => $last, 'min' => 1800],
+            [['month'], 'integer', 'max' => 12, 'min' => 00],
+            [['day'], 'integer', 'max' => 31, 'min' => 01],
             [
                 ['file'], 'file',
                 'skipOnEmpty' => false,
                 'on' => 'create',
                 'extensions' => 'mp4 , jpg, jpeg, png, mp3, gif',
-                'maxSize' => 1024 * 1024 * 100,
+                'maxSize' => 1024 * 1024 * 10000,
                 'wrongExtension' => 'El archivo {file} no tiene una extensión permitida ( {extensions} )',
                 'tooBig' => 'El archivo sobrepasa el tamaño máximo permitido ',
             ],
@@ -93,6 +102,10 @@ class Archivo extends \yii\db\ActiveRecord
             'url_archivo' => 'Archivo',
             'fecha' => 'Fecha',
             'etapa' => 'Etapa',
+
+            'year' => 'Año',
+            'month' => 'Mes',
+            'day' => 'Día',
         ];
     }
 

@@ -42,26 +42,47 @@ use backend\models\Archivo\TipoArchivo;
         <div class="col-md-6">
             <?= $form->field($model, 'fuente')->textInput(['maxlength' => true]) ?>
         </div>
+        <?= $form->field($model, 'fecha')->hiddenInput()->label(false) ?>
+        <div class="col-md-2 ">
+            <?= $form->field($model, 'year', [
+                'options' => [
 
-        <div class="col-md-6 ">
-        <?php
-            \yii\widgets\MaskedInput::widget([
-                'name' => 'input-32',
-                'clientOptions' => ['alias' =>  'yyyy-mm-dd']
-            ]);
-            ?>
-            <?= $form->field($model, 'fecha')->widget(\dosamigos\datepicker\DatePicker::className(), [
-                'inline' => false, 'language' => 'es', 'options' =>  [
-                    'data-inputmask'=>"'alias': 'yyyy-mm-dd'",
-                    'autocomplete' => 'off',
+                    'placeholder' => 'Año',
+                    'mask' => '9999',
                 ],
-                'clientOptions' => [
-                    'autoclose' => true,
-                    'format' => 'yyyy-m-d',
-                    'endDate' => date('Y-m-d'),
-                    'alias' =>  'yyyy-mm-dd'
+                'template' => '<span class="col-md-2"><label class="control-label">Año</label>{input}{error}</span>'
+            ])->input(
+                'number',
+                [
+                    'min' => 1800,
+                    'max' => 2035,
+                    'placeholder' => 'Año',
                 ]
-            ]) ?>
+            )->label(true) ?>
+        </div>
+        <div class="col-md-2 ">
+            <?= $form->field($model, "month")->widget(\kartik\select2\Select2::classname(), [
+                    'data' => ['01' => 'Enero', '02' => 'Febrero', '03' => 'Marzo', '04' => 'Abril', '05' => 'Mayo', '06' => 'Junio', '07' => 'Julio', '08' => 'Agosto', '09' => 'Septiembre', '10' => 'Octubre', '11' => 'Noviembre', '12' => 'Diciembre'],
+                    'options' => ['placeholder' => 'Mes', 'multiple' => false],
+
+                ]
+            ) ?>
+
+        </div>
+        <div class="col-md-2 ">
+            <?= $form->field($model, 'day', [
+                'options' => [
+                    'placeholder' => 'Día',
+                ],
+                'template' => '<span class=""><label class="control-label">Día</label>{input}{error}</span>'
+            ])->input(
+                'number',
+                [
+                    'min' => 1,
+                    'max' => 31,
+                    'placeholder' => 'Día',
+                ]
+            )->label(true) ?>
         </div>
     </div>
 
@@ -114,26 +135,11 @@ use backend\models\Archivo\TipoArchivo;
 
 </div>
 
-<script>
-    $(document).ready(function(){
-        $(":input").inputmask();
-
-
-
-        $("#date").inputmask({
-            mask: 'aaaa mm dd',
-            placeholder: ' ',
-            showMaskOnHover: false,
-            showMaskOnFocus: false,
-            onBeforePaste: function (pastedValue, opts) {
-                var processedValue = pastedValue;
-
-//do something with it
-
-                return processedValue;
-            }
-        });
-    });
-
-
-</script>
+<style>
+    .form-control.is-valid, .was-validated .form-control:valid {
+        padding-right: 0.75rem;
+    }
+    .form-control.is-invalid, .was-validated .form-control:invalid {
+        padding-right: 0.75rem;
+    }
+</style>
