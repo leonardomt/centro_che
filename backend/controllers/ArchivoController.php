@@ -98,7 +98,21 @@ class ArchivoController extends Controller
         $this->enableCsrfValidation = false;
 
         if ($model->load(Yii::$app->request->post())) {
-            $model->fecha = $model->year.'-'.$model->month.'-'.$model->day;
+            if (($model->year != null && ($model->month == null || $model->day ==null))  ||  (($model->year == null || $model->day ==null) && $model->month != null ) ||(($model->year == null || $model->month == null) && $model->day !=null)) {
+                Yii::$app->session->setFlash('error', 'La fecha debe estar completa o no ser insertada');
+                return $this->redirect([
+                    'create',
+                    'model' => $model,
+                ]);
+            }
+
+            if ($model->year == null && $model->month == null && $model->day ==null){
+                $model->fecha= null;
+            }
+            else {
+                $model->fecha = $model->year.'-'.$model->month.'-'.$model->day;
+            };
+
             if (true) {
                 $fecha = $model->fecha;
                 if ($fecha != null) {
@@ -171,9 +185,11 @@ class ArchivoController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post())) {
+            $model->fecha = $model->year.'-'.$model->month.'-'.$model->day;
             $fecha = $model->fecha;
             if ($fecha != null) {
-                if ($fecha < "1943-6-15") {
+
+                if (($fecha < "1943-6-15") && ($fecha > "1928-06-13")) {
                     $model->etapa = "Infancia";
                 }
                 if (($fecha > "1943-06-14") && ($fecha < "1953-06-15")) {
@@ -189,9 +205,10 @@ class ArchivoController extends Controller
                     $model->etapa = "Posterior a 1967";
                 }
             }
-            if ($fecha == null) {
+            if ($fecha == null || $fecha < "1928-06-13") {
                 $model->etapa = "No definida";
             }
+
             $id_insert = $model->id_archivo;
             $model->id_archivo = $id_insert;
             if ($model->save()) {
