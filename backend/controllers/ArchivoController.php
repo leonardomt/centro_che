@@ -183,9 +183,27 @@ class ArchivoController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        if($model->fecha != null){
+            $model->year = date('Y', strtotime($model->fecha));
+            $model->month = date('m', strtotime($model->fecha));
+            $model->day = date('d', strtotime($model->fecha));
+        }
 
         if ($model->load(Yii::$app->request->post())) {
-            $model->fecha = $model->year.'-'.$model->month.'-'.$model->day;
+            if (($model->year != null && ($model->month == null || $model->day ==null))  ||  (($model->year == null || $model->day ==null) && $model->month != null ) ||(($model->year == null || $model->month == null) && $model->day !=null)) {
+                Yii::$app->session->setFlash('error', 'La fecha debe estar completa o no ser insertada');
+                return $this->redirect([
+                    'update', 'id'=>$id,
+                    'model' => $model,
+                ]);
+            }
+
+            if ($model->year == null && $model->month == null && $model->day ==null){
+                $model->fecha= null;
+            }
+            else {
+                $model->fecha = $model->year.'-'.$model->month.'-'.$model->day;
+            };
             $fecha = $model->fecha;
             if ($fecha != null) {
 
