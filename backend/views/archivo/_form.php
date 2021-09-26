@@ -11,7 +11,6 @@ use backend\models\Archivo\TipoArchivo;
 ?>
 
 
-<script type='text/javascript' src='https://code.jquery.com/jquery-1.11.0.js'></script>
 <div class="archivo-form">
 
     <?php $form = ActiveForm::begin(); ?>
@@ -42,23 +41,15 @@ use backend\models\Archivo\TipoArchivo;
         <div class="col-md-6">
             <?= $form->field($model, 'fuente')->textInput(['maxlength' => true]) ?>
         </div>
-        <?= $form->field($model, 'fecha')->hiddenInput()->label(false) ?>
         <div class="col-md-2 ">
-            <?= $form->field($model, 'year', [
-                'options' => [
-
-                    'placeholder' => 'Año',
-                    'mask' => '9999',
-                ],
-                'template' => '<span class="col-md-2"><label class="control-label">Año</label>{input}{error}</span>'
-            ])->input(
-                'number',
+            <?= $form->field($model, 'year')->textInput(
                 [
+                    'type' => 'number',
                     'min' => 1800,
-                    'max' => 2035,
+                    'max' => date('Y'),
                     'placeholder' => 'Año',
                 ]
-            )->label(true) ?>
+            ) ?>
         </div>
         <div class="col-md-2 ">
             <?= $form->field($model, "month")->widget(\kartik\select2\Select2::classname(), [
@@ -70,19 +61,14 @@ use backend\models\Archivo\TipoArchivo;
 
         </div>
         <div class="col-md-2 ">
-            <?= $form->field($model, 'day', [
-                'options' => [
-                    'placeholder' => 'Día',
-                ],
-                'template' => '<span class=""><label class="control-label">Día</label>{input}{error}</span>'
-            ])->input(
-                'number',
+            <?= $form->field($model, 'day')->textInput(
                 [
+                    'type' => 'number',
                     'min' => 1,
                     'max' => 31,
                     'placeholder' => 'Día',
                 ]
-            )->label(true) ?>
+            ) ?>
         </div>
     </div>
 

@@ -14,23 +14,40 @@ use kartik\grid\GridView;
 
 <div class="noticia-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = \kartik\form\ActiveForm::begin(['id' => 'dynamic-form']); ?>
 
     <div class="row">
         <div class="col-lg-6 text-lg-left">
             <?= $form->field($model, 'titulo_noticia')->textInput(['maxlength' => true]) ?>
         </div>
-        <div class="col-lg-6 text-lg-left">
-            <?= $form->field($model, 'fecha')->widget(\dosamigos\datepicker\DatePicker::className(), [
-                'inline' => false, 'language' => 'es', 'options' =>  [
-                    'autocomplete' => 'off',
-                ],
-                'clientOptions' => [
-                    'autoclose' => true,
-                    'format' => 'yyyy-m-d',
-                    'endDate' => date('Y-m-d'),
+        <div class="col-md-2 ">
+            <?= $form->field($model, 'year')->textInput(
+                [
+                    'type' => 'number',
+                    'min' => 1800,
+                    'max' => date('Y'),
+                    'placeholder' => 'Año',
                 ]
-            ]) ?>
+            ) ?>
+        </div>
+        <div class="col-md-2 ">
+            <?= $form->field($model, "month")->widget(\kartik\select2\Select2::classname(), [
+                    'data' => ['01' => 'Enero', '02' => 'Febrero', '03' => 'Marzo', '04' => 'Abril', '05' => 'Mayo', '06' => 'Junio', '07' => 'Julio', '08' => 'Agosto', '09' => 'Septiembre', '10' => 'Octubre', '11' => 'Noviembre', '12' => 'Diciembre'],
+                    'options' => ['placeholder' => 'Mes', 'multiple' => false],
+
+                ]
+            ) ?>
+
+        </div>
+        <div class="col-md-2 ">
+            <?= $form->field($model, 'day')->textInput(
+                [
+                    'type' => 'number',
+                    'min' => 1,
+                    'max' => 31,
+                    'placeholder' => 'Día',
+                ]
+            ) ?>
         </div>
     </div>
 
@@ -44,15 +61,13 @@ use kartik\grid\GridView;
 
     <?= $form->field($model, 'etiqueta')->textInput() ?>
 
-    <?= $form->field($model, 'descripcion')->textarea(['rows' => 2, 'style' => 'resize:none']) ?>
+    <?= $form->field($model, 'descripcion')->textarea(['rows' => 3, 'maxlength' => 300, 'style' => 'resize:none']) ?>
 
     <?= $form->field($model, 'cuerpo')->textarea(['rows' => 6, 'style' => 'resize:none']) ?>
 
 
     <div class="panel panel-default">
-        <div class="panel-heading">
-            <h4><i class="glyphicon glyphicon-envelope"></i> Archivos</h4>
-        </div>
+
         <div class="panel-body">
             <?php \wbraganca\dynamicform\DynamicFormWidget::begin([
                 'widgetContainer' => 'dynamicform_wrapper', // required: only alphanumeric characters plus "_" [A-Za-z0-9_]
@@ -65,50 +80,57 @@ use kartik\grid\GridView;
                 'model' => $modelsArchivo[0],
                 'formId' => 'dynamic-form',
                 'formFields' => [
+                    'id',
+                    'id_archivo',
                     'nota',
                 ],
             ]); ?>
 
             <div class="container-items">
                 <!-- widgetContainer -->
-                <?php foreach ($modelsArchivo as $i => $modelArchivo) : ?>
+                <?php $x = 0;
+                foreach ($modelsArchivo as $i => $modelArchivo) : ?>
                     <div class="item panel panel-default">
                         <!-- widgetBody -->
                         <div class="panel-heading">
 
                             <?php
-                            $x = 0;
+
                             if ($x == 0) $titulo = "Archivo";
 
                             ?>
 
                             <h3 class="panel-title pull-left"><?= $titulo ?></h3>
-                            <div class="pull-right">
-                                <button type="button" class="add-item btn btn-success"><i
-                                            class="glyphicon glyphicon-plus"></i></button>
-                                <button type="button" class="remove-item btn btn-danger"><i
-                                            class="glyphicon glyphicon-minus"></i></button>
-                            </div>
                             <div class="clearfix"></div>
                         </div>
                         <div class="panel-body">
                             <?php
+
                             // necessary for update action.
-                            if (!$modelArchivo->isNewRecord) {
-                                echo Html::activeHiddenInput($modelArchivo, "[{$i}]id");
+                            if ($modelArchivo->isNewRecord) {
+                                $c = $i+3;
+                                echo Html::activeHiddenInput($modelArchivo, "[{$c}]id");
                             }
                             ?>
-
-
-
-                            <?= $form->field($modelArchivo, "[{$i}]nota")->textarea(['rows' => 6, 'style' => 'resize:none']) ?>
-
-                            <?= $form->field($modelArchivo, "[{$i}]id_archivo")->dropDownList(
-                                \yii\helpers\ArrayHelper::map(\backend\models\Archivo\Archivo::find()->all(), 'id_archivo', 'titulo_archivo')
+                            <?= $form->field($modelArchivo, "[{$i}]id_archivo")->widget(\kartik\select2\Select2::classname(), [
+                                    'data' => \yii\helpers\ArrayHelper::map(\backend\models\Archivo\Archivo::find()->all(), 'id_archivo', 'titulo_archivo'),
+                                    'options' => ['placeholder' => 'Seleccionar', 'multiple' => false, 'required' => true],
+                                    'theme' => \kartik\select2\Select2::THEME_KRAJEE,
+                                    'size' => 'xs',]
                             ) ?>
+
+                            <?= $form->field($modelArchivo, "[{$i}]nota")->textarea(['rows' => 3, 'maxlength' => 300, 'style' => 'resize:none']) ?>
 
 
                         </div>
+                        <div class="pull-right">
+                            <button type="button" title="Agregar" style="width: 40px ; height: 40px"
+                                    class="add-item btn btn-success"><i class="fa fa-plus"></i></button>
+                            <button type="button" title="Eliminar" style="width: 40px ; height: 40px"
+                                    class="remove-item btn btn-danger"><i class="fa fa-trash"></i></button>
+                        </div>
+                        <div class="clearfix"></div>
+                        <br>
                     </div>
                     <?php $x++;
                 endforeach; ?>
@@ -153,8 +175,6 @@ use kartik\grid\GridView;
     ?>
 
 
-
-    <?php Pjax::begin(); ?>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
@@ -194,7 +214,8 @@ use kartik\grid\GridView;
                 },
                 'headerOptions' => ['class' => 'col-md-1'],
 
-                'filter' => array("" => "Todos", "1" => "Sí", "0" => "No"),
+                'filter' => array("1" => "Sí", "0" => "No"),
+                'filterInputOptions' => array('class' => 'form-control', 'id' => null, 'prompt' => 'Todos'),
 
             ],
 
@@ -209,6 +230,7 @@ use kartik\grid\GridView;
                 'format' => 'raw',
                 'headerOptions' => ['class' => 'col-md-2'],
                 'filter' => \yii\helpers\ArrayHelper::map(\backend\models\Archivo\TipoArchivo::find()->asArray()->all(), 'id_tipo_archivo', 'tipo_archivo'),
+                'filterInputOptions' => array('class' => 'form-control', 'id' => null, 'prompt' => 'Todos'),
             ],
             [
                 'attribute' => 'autor_archivo',                     // autor
@@ -222,15 +244,32 @@ use kartik\grid\GridView;
                 'headerOptions' => ['class' => 'col-md-2']
             ],
             [
-                'attribute' => 'fuente',                     // fuente
+                'attribute' => 'fecha',
+                'value' => 'fecha',
                 'format' => 'raw',
-                'headerOptions' => ['class' => 'col-md-2']
+                'headerOptions' => ['class' => 'col-md-1'],
+                'filter' => \dosamigos\datepicker\DatePicker::widget([
+                    'model' => $searchModel,
+                    'attribute' => 'fecha', 'language' => 'es',
+                    'clientOptions' => [
+                        'autoclose' => true,
+                        'format' => 'yyyy-mm-dd', 'endDate' => date('Y-m-d')
+                    ],
+                ]),
+
+            ],
+            [
+                'attribute' => 'etapa',                     // etapa
+                'format' => 'raw',
+                'headerOptions' => array('class' => 'col-md-2'),
+                'filter' => array("Infancia" => "Infancia", "Adolescencia" => "Adolescencia", "Adulto Joven" => "Adulto Joven", "Adulto" => "Adulto", "Posterior a 1967" => "Posterior a 1967", "No definida" => "No definida"),
+                'filterInputOptions' => array('class' => 'form-control', 'id' => null, 'prompt' => 'Todos'),
             ],
 
             [
                 'attribute' => 'url_archivo', 'filter' => false,             // Url del Archivo
                 'format' => 'raw',
-                'headerOptions' => ['class' => 'col-md-3'],
+                'headerOptions' => ['class' => 'col-md-2'],
                 'value' => function ($model) {
                     if ($model->url_archivo != ' ' && $model->url_archivo != NULL) { // verifica si fue importada o no
                         if ($model->tipo_archivo == 1) {
@@ -260,7 +299,20 @@ use kartik\grid\GridView;
         ],
     ]); ?>
 
-    <?php Pjax::end(); ?>
-
 
 </div>
+
+<script>
+    jQuery(".dynamicform_wrapper").on("afterInsert", function(e, item) {
+        jQuery(".dynamicform_wrapper .panel-title-item").each(function(index) {
+            jQuery(this).html("Archivo: " + (index + 1))
+        });
+    });
+
+    jQuery(".dynamicform_wrapper").on("afterDelete", function(e) {
+        jQuery(".dynamicform_wrapper .panel-title-item").each(function(index) {
+            jQuery(this).html("Archivo: " + (index + 1))
+        });
+    });
+
+</script>

@@ -77,8 +77,9 @@ if (Yii::$app->user->isGuest)
                         <div class="panel-body">
                             <?php
                             // necessary for update action.
-                            if (!$modelArchivo->isNewRecord) {
-                                echo Html::activeHiddenInput($modelArchivo, "[{$i}]id");
+                            if ($modelArchivo->isNewRecord) {
+                                $c = $i+3;
+                                echo Html::activeHiddenInput($modelArchivo, "[{$c}]id");
                             }
                             ?>
                             <?= $form->field($modelArchivo, "[{$i}]id_archivo")->widget(\kartik\select2\Select2::classname(), [

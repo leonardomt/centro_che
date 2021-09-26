@@ -61,7 +61,6 @@ class LineaInvestigacion extends \yii\db\ActiveRecord
             'fecha' => 'Fecha',
             'entidad' => 'Entidad en que se inscribe',
             'autor' => 'Autor',
-            'id_linea_investigacion' => 'Línea de Investigación',
 
         ];
     }

@@ -40,17 +40,22 @@ class Noticia extends \yii\db\ActiveRecord
 
         ];
     }
+    public $year;
+    public $month;
+    public $day;
     /**
      * {@inheritdoc}
      */
     public function rules()
     {
         return [
-            [['revisado', 'publico', 'titulo_noticia', 'descripcion', 'cuerpo', 'autor', 'etiqueta'], 'required'],
+            [['revisado', 'publico', 'titulo_noticia', 'descripcion','year', 'month', 'day', 'cuerpo', 'autor', 'etiqueta'], 'required'],
             [['revisado', 'publico'], 'integer'],
             [['titulo_noticia', 'referencia', 'descripcion', 'cuerpo', 'autor', 'contacto', 'fuente', 'etiqueta'], 'string'],
             [['fecha'], 'safe'],
-            [['fecha'], 'required', 'message' => 'Fecha no puede estar vacío o ser posterior al día de hoy.'],
+            [['year'], 'integer', 'max' => date("Y"), 'min' => 1800],
+            [['month'], 'integer', 'max' => 12, 'min' => 00],
+            [['day'], 'integer', 'max' => 31, 'min' => 01],
         ];
     }
 
@@ -72,6 +77,9 @@ class Noticia extends \yii\db\ActiveRecord
             'contacto' => 'Contacto',
             'fuente' => 'Fuente',
             'etiqueta' => 'Etiqueta',
+            'year' => 'Año',
+            'month' => 'Mes',
+            'day' => 'Día',
         ];
     }
 }

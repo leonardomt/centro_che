@@ -41,7 +41,9 @@ class Articulo extends \yii\db\ActiveRecord
 
         ];
     }
-
+    public $year;
+    public $month;
+    public $day;
 
     /**
      * {@inheritdoc}
@@ -49,12 +51,14 @@ class Articulo extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['revisado', 'publico', 'titulo', 'autor', 'resumen','cuerpo','abstract', 'keywords', 'palabras_clave'], 'required'],
+            [['revisado', 'publico', 'titulo', 'autor', 'year', 'month', 'day', 'resumen','cuerpo','abstract', 'keywords', 'palabras_clave'], 'required'],
             [['revisado', 'publico', 'id_investigacion'], 'integer'],
             [['fecha'], 'safe'],
-            [['fecha'], 'required', 'message' => 'Fecha no puede estar vacío o ser posterior al día de hoy.'],
             [['resumen','cuerpo', 'abstract', 'keywords', 'palabras_clave'], 'string'],
             [['titulo', 'autor'], 'string', 'max' => 200],
+            [['year'], 'integer', 'max' => date("Y"), 'min' => 1800],
+            [['month'], 'integer', 'max' => 12, 'min' => 00],
+            [['day'], 'integer', 'max' => 31, 'min' => 01],
         ];
     }
 
@@ -76,6 +80,9 @@ class Articulo extends \yii\db\ActiveRecord
             'keywords' => 'Keywords',
             'palabraas_clave' => 'Palabras Clave',
             'abstract' => 'Abstract',
+            'year' => 'Año',
+            'month' => 'Mes',
+            'day' => 'Día',
         ];
     }
 

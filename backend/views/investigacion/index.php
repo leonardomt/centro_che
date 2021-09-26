@@ -69,7 +69,7 @@ if ( Yii::$app->user->isGuest )
             [
                 'attribute' => 'titulo_investigacion',
                 'format' => 'raw',
-                'headerOptions' => ['class' => 'col-md-2']
+                'headerOptions' => ['class' => 'col-md-1']
             ],
             [
                 'attribute' => 'autor',
@@ -94,7 +94,19 @@ if ( Yii::$app->user->isGuest )
                 'filter' => \yii\helpers\ArrayHelper::map(\backend\models\LineaInvestigacion\LineaInvestigacion::find()->asArray()->all(), 'id_linea_investigacion', 'nombre_linea'),
                 'filterInputOptions' => array('class' => 'form-control', 'id' => null, 'prompt' => 'Todos'),
             ],
-
+            [
+                'attribute' => 'fecha',                     // Fecha
+                'format' => 'raw',
+                'headerOptions' => ['class' => 'col-md-1'],
+                'filter'=>\dosamigos\datepicker\DatePicker::widget([
+                    'model'=>$searchModel,
+                    'attribute'=>'fecha','language' => 'es',
+                    'clientOptions'=>[
+                        'autoclose'=>true,
+                        'format'=>'yyyy-mm-dd', 'endDate' => date('Y-m-d')
+                    ],
+                ]),
+            ],
             [
                 'attribute' => 'entidad',                     // Titulo
                 'format' => 'raw',

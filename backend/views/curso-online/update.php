@@ -45,7 +45,7 @@ if ( Yii::$app->user->isGuest )
     <?= $form->field($model, 'descripcion')->textarea(['rows' => 4,'style' => 'resize:none']) ?>
 
     <?= $form->field($model, 'enlace')->textInput(['maxlength' => true]) ?>
-
+    <?php if ($model->isNewRecord) { ?>
 
     <?= $form->field($model, 'pdf')->widget(
         \kartik\file\FileInput::classname(),
@@ -62,7 +62,7 @@ if ( Yii::$app->user->isGuest )
 
         ]
     ); ?>
-
+    <?php }; ?>
 
 
 

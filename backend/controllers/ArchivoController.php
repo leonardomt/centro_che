@@ -111,6 +111,13 @@ class ArchivoController extends Controller
             }
             else {
                 $model->fecha = $model->year.'-'.$model->month.'-'.$model->day;
+                if($model->fecha > date('Y-m-d')){
+                    Yii::$app->session->setFlash('error', 'La fecha no puede ser posterior al día de hoy');
+                    return $this->redirect([
+                        'create',
+                        'model' => $model,
+                    ]);
+                }
             };
 
             if (true) {
@@ -132,9 +139,12 @@ class ArchivoController extends Controller
                     if ($fecha > "1967-10-9") {
                         $model->etapa = "Posterior a 1967";
                     }
+                    if ($fecha < "1928-06-13") {
+                        $model->etapa = "Anterior a 1928";
+                    }
                 }
-                if ($fecha == null || $fecha < "1928-06-13") {
-                    $model->etapa = "No definida";
+                if ($fecha == null) {
+                    $model->etapa = "No Definida";
                 }
 
                 $imageName = date('Y-m-d') . rand(0, 99999);
@@ -203,6 +213,13 @@ class ArchivoController extends Controller
             }
             else {
                 $model->fecha = $model->year.'-'.$model->month.'-'.$model->day;
+                if($model->fecha > date('Y-m-d')){
+                    Yii::$app->session->setFlash('error', 'La fecha no puede ser posterior al día de hoy');
+                    return $this->redirect([
+                        'update', 'id' => $id,
+                        'model' => $model,
+                    ]);
+                }
             };
             $fecha = $model->fecha;
             if ($fecha != null) {
@@ -222,9 +239,12 @@ class ArchivoController extends Controller
                 if ($fecha > "1967-10-9") {
                     $model->etapa = "Posterior a 1967";
                 }
+                if ($fecha < "1928-06-13") {
+                    $model->etapa = "Anterior a 1928";
+                }
             }
-            if ($fecha == null || $fecha < "1928-06-13") {
-                $model->etapa = "No definida";
+            if ($fecha == null) {
+                $model->etapa = "No Definida";
             }
 
             $id_insert = $model->id_archivo;

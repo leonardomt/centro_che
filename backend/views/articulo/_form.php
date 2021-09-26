@@ -41,19 +41,48 @@ use common\models\User;
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-lg-6 text-lg-left">
-                                    <?= $form->field($model, 'fecha')->widget(\dosamigos\datepicker\DatePicker::className(),[
-                                        'inline'=>false,'language' => 'es', 'options' => [
-                                            'autocomplete' => 'off',
-                                        ],
-                                        'clientOptions' => [
-                                            'autoclose'=> true,
-                                            'format' => 'yyyy-m-d',
-                                            'endDate' => date('Y-m-d'),
-                                        ]
-                                    ]) ?>
-                                </div>
+                                <?= $form->field($model, 'fecha')->hiddenInput()->label(false) ?>
+                                <div class="col-md-2 ">
+                                    <?= $form->field($model, 'year', [
+                                        'options' => [
 
+                                            'placeholder' => 'Año',
+                                            'mask' => '9999',
+                                        ],
+                                        'template' => '<span class="col-md-2"><label class="control-label">Año</label>{input}{error}</span>'
+                                    ])->input(
+                                        'number',
+                                        [
+                                            'min' => 1800,
+                                            'max' => 2035,
+                                            'placeholder' => 'Año',
+                                        ]
+                                    )->label(true) ?>
+                                </div>
+                                <div class="col-md-2 ">
+                                    <?= $form->field($model, "month")->widget(\kartik\select2\Select2::classname(), [
+                                            'data' => ['01' => 'Enero', '02' => 'Febrero', '03' => 'Marzo', '04' => 'Abril', '05' => 'Mayo', '06' => 'Junio', '07' => 'Julio', '08' => 'Agosto', '09' => 'Septiembre', '10' => 'Octubre', '11' => 'Noviembre', '12' => 'Diciembre'],
+                                            'options' => ['placeholder' => 'Mes', 'multiple' => false],
+
+                                        ]
+                                    ) ?>
+
+                                </div>
+                                <div class="col-md-2 ">
+                                    <?= $form->field($model, 'day', [
+                                        'options' => [
+                                            'placeholder' => 'Día',
+                                        ],
+                                        'template' => '<span class=""><label class="control-label">Día</label>{input}{error}</span>'
+                                    ])->input(
+                                        'number',
+                                        [
+                                            'min' => 1,
+                                            'max' => 31,
+                                            'placeholder' => 'Día',
+                                        ]
+                                    )->label(true) ?>
+                                </div>
                                 <div class="col-lg-6 text-lg-left">
                                     <?= $form->field($model, 'id_tipo_articulo')->dropDownList(
                                         ArrayHelper::map(TipoArticulo::find()->all(), 'id_tipo_articulo','tipo_articulo')) ?>

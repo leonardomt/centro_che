@@ -39,6 +39,10 @@ class ColeccionDocumental extends \yii\db\ActiveRecord
 
         ];
     }
+    public $year;
+    public $month;
+    public $day;
+
 
     /**
      * {@inheritdoc}
@@ -46,11 +50,14 @@ class ColeccionDocumental extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['revisado', 'publico', 'titulo',  'descripcion', 'fecha', 'autor', 'tipologia'], 'required'],
+            [['revisado', 'publico', 'titulo',  'descripcion','year', 'month', 'day',  'autor', 'tipologia'], 'required'],
             [['revisado', 'publico'], 'integer'],
             [['titulo', 'descripcion', 'autor', 'tipologia', 'etiquetas'], 'string'],
             [['fecha'], 'safe'],
             [['fecha'], 'required', 'message' => 'Fecha no puede estar vacío o ser posterior al día de hoy.'],
+            [['year'], 'integer', 'max' => date("Y"), 'min' => 1800],
+            [['month'], 'integer', 'max' => 12, 'min' => 00],
+            [['day'], 'integer', 'max' => 31, 'min' => 01],
         ];
     }
 
@@ -70,6 +77,9 @@ class ColeccionDocumental extends \yii\db\ActiveRecord
             'autor' => 'Autor',
             'fecha' => 'Fecha',
             'etiquetasarray' => 'Etiquetas',
+            'year' => 'Año',
+            'month' => 'Mes',
+            'day' => 'Día',
         ];
     }
 }

@@ -37,6 +37,9 @@ class Correspondencia extends \yii\db\ActiveRecord
 
         ];
     }
+    public $year;
+    public $month;
+    public $day;
 
     /**
      * {@inheritdoc}
@@ -44,11 +47,13 @@ class Correspondencia extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['revisado', 'publico', 'titulo', 'descripcion', 'cuerpo', 'destinatario', 'remitente'], 'required'],
+            [['revisado', 'publico', 'titulo', 'descripcion', 'year', 'month', 'day', 'cuerpo', 'destinatario', 'remitente'], 'required'],
             [['revisado', 'publico'], 'integer'],
             [['titulo', 'descripcion', 'cuerpo', 'destinatario', 'remitente'], 'string'],
             [['fecha'], 'safe'],
-            [['fecha'], 'required', 'message' => 'Fecha no puede estar vacío o ser posterior al día de hoy.'],
+            [['year'], 'integer', 'max' => date("Y"), 'min' => 1800],
+            [['month'], 'integer', 'max' => 12, 'min' => 00],
+            [['day'], 'integer', 'max' => 31, 'min' => 01],
         ];
     }
 
@@ -67,6 +72,9 @@ class Correspondencia extends \yii\db\ActiveRecord
             'destinatario' => 'Destinatario',
             'remitente' => 'Remitente',
             'fecha' => 'Fecha',
+            'year' => 'Año',
+            'month' => 'Mes',
+            'day' => 'Día',
         ];
     }
 }

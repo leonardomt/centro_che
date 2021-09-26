@@ -76,6 +76,26 @@ class TestimonioController extends Controller
         $modelsArchivo = [new TestimonioArchivo];
         $x = 0;
         if ($model->load(Yii::$app->request->post())) {
+            if (($model->year != null && ($model->month == null || $model->day ==null))  ||  (($model->year == null || $model->day ==null) && $model->month != null ) ||(($model->year == null || $model->month == null) && $model->day !=null)) {
+                Yii::$app->session->setFlash('error', 'La fecha debe estar completa o no ser insertada');
+                return $this->redirect([
+                    'create',
+                    'model' => $model,
+                ]);
+            }
+            if ($model->year == null && $model->month == null && $model->day ==null){
+                $model->fecha= null;
+            }
+            else {
+                $model->fecha = $model->year.'-'.$model->month.'-'.$model->day;
+                if($model->fecha > date('Y-m-d')){
+                    Yii::$app->session->setFlash('error', 'La fecha no puede ser posterior al día de hoy');
+                    return $this->redirect([
+                        'create',
+                        'model' => $model,
+                    ]);
+                }
+            };
             $modelsArchivo = Model::createMultiple(TestimonioArchivo::classname());
             Model::loadMultiple($modelsArchivo, Yii::$app->request->post());
             if (Yii::$app->request->isAjax) {
@@ -142,8 +162,33 @@ class TestimonioController extends Controller
         $x = 0;
         $model = $this->findModel($id);
         $modelsArchivo = TestimonioArchivo::find()->where(['id_testimonio' => $model->id_testimonio])->all();
-
+        if($model->fecha != null){
+            $model->year = date('Y', strtotime($model->fecha));
+            $model->month = date('m', strtotime($model->fecha));
+            $model->day = date('d', strtotime($model->fecha));
+        }
         if ($model->load(Yii::$app->request->post())) {
+            if (($model->year != null && ($model->month == null || $model->day ==null))  ||  (($model->year == null || $model->day ==null) && $model->month != null ) ||(($model->year == null || $model->month == null) && $model->day !=null)) {
+                Yii::$app->session->setFlash('error', 'La fecha debe estar completa o no ser insertada');
+                return $this->redirect([
+                    'update', 'id'=>$id,
+                    'model' => $model,
+                ]);
+            }
+
+            if ($model->year == null && $model->month == null && $model->day ==null){
+                $model->fecha= null;
+            }
+            else {
+                $model->fecha = $model->year.'-'.$model->month.'-'.$model->day;
+                if($model->fecha > date('Y-m-d')){
+                    Yii::$app->session->setFlash('error', 'La fecha no puede ser posterior al día de hoy');
+                    return $this->redirect([
+                        'update', 'id'=>$id,
+                        'model' => $model,
+                    ]);
+                }
+            };
 
             $oldIDs = ArrayHelper::map($modelsArchivo, 'id', 'id');
             $modelsArchivo = Model::createMultiple(TestimonioArchivo::classname(), $modelsArchivo);

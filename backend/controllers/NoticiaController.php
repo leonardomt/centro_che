@@ -47,7 +47,9 @@ class NoticiaController extends Controller
     {
         $searchModel = new NoticiaSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
+        $dataProvider->setSort([
+            'defaultOrder' => ['id_noticia' => SORT_DESC],
+        ]);
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
@@ -114,6 +116,26 @@ class NoticiaController extends Controller
         $modelsArchivo = [new NoticiaArchivo];
         $x = 0;
         if ($model->load(Yii::$app->request->post())) {
+            if (($model->year != null && ($model->month == null || $model->day ==null))  ||  (($model->year == null || $model->day ==null) && $model->month != null ) ||(($model->year == null || $model->month == null) && $model->day !=null)) {
+                Yii::$app->session->setFlash('error', 'La fecha debe estar completa o no ser insertada');
+                return $this->redirect([
+                    'create',
+                    'model' => $model,
+                ]);
+            }
+            if ($model->year == null && $model->month == null && $model->day ==null){
+                $model->fecha= null;
+            }
+            else {
+                $model->fecha = $model->year.'-'.$model->month.'-'.$model->day;
+                if($model->fecha > date('Y-m-d')){
+                    Yii::$app->session->setFlash('error', 'La fecha no puede ser posterior al día de hoy');
+                    return $this->redirect([
+                        'create',
+                        'model' => $model,
+                    ]);
+                }
+            };
             if ($model->publico == 1) {
                 $model->fecha = new Expression('NOW()');
             }
@@ -183,10 +205,35 @@ class NoticiaController extends Controller
     {
         $x = 0;
         $model = $this->findModel($id);
-        $modelsArchivo = new NoticiaArchivo();
         $modelsArchivo = NoticiaArchivo::find()->where(['id_noticia' => $model->id_noticia])->all();
+        if($model->fecha != null){
+            $model->year = date('Y', strtotime($model->fecha));
+            $model->month = date('m', strtotime($model->fecha));
+            $model->day = date('d', strtotime($model->fecha));
+        }
         $anterior = $model->publico;
         if ($model->load(Yii::$app->request->post())) {
+            if (($model->year != null && ($model->month == null || $model->day ==null))  ||  (($model->year == null || $model->day ==null) && $model->month != null ) ||(($model->year == null || $model->month == null) && $model->day !=null)) {
+                Yii::$app->session->setFlash('error', 'La fecha debe estar completa o no ser insertada');
+                return $this->redirect([
+                    'update', 'id'=>$id,
+                    'model' => $model,
+                ]);
+            }
+
+            if ($model->year == null && $model->month == null && $model->day ==null){
+                $model->fecha= null;
+            }
+            else {
+                $model->fecha = $model->year.'-'.$model->month.'-'.$model->day;
+                if($model->fecha > date('Y-m-d')){
+                    Yii::$app->session->setFlash('error', 'La fecha no puede ser posterior al día de hoy');
+                    return $this->redirect([
+                        'update', 'id'=>$id,
+                        'model' => $model,
+                    ]);
+                }
+            };
             if (($model->publico == 1) && ($anterior == 0)) {
                 $model->fecha = new Expression('NOW()');
             }
@@ -211,10 +258,9 @@ class NoticiaController extends Controller
                             if ($x == 0) {
                                 $modelArchivo->portada = 1;
                                 $x++;
-                                $archivo = new Archivo();
                                 $archivo = Archivo::find()->where(['id_archivo' => $modelArchivo->id_archivo])->one();
                                 if (!($archivo->tipo_archivo == 1)) {
-                                    Yii::$app->session->setFlash('error', 'Una Exposición solo puede tener una imagen como portada.');
+                                    Yii::$app->session->setFlash('error', 'Una Noticia solo puede tener una imagen como portada.');
                                     return $this->redirect([
                                         'update', 'model' => $model, 'id' => $model->id_noticia,
                                         'modelsArchivo' => (empty($modelsArchivo)) ? [new NoticiaArchivo] : $modelsArchivo,

@@ -36,6 +36,10 @@ class Testimonio extends \yii\db\ActiveRecord
 
         ];
     }
+    public $year;
+    public $month;
+    public $day;
+
     /**
      * {@inheritdoc}
      */
@@ -47,7 +51,10 @@ class Testimonio extends \yii\db\ActiveRecord
             [['fecha'], 'safe'],
             [['revisado', 'publico'], 'integer'],
             [['autor'], 'string'],
-            [['fecha'], 'required', 'message' => 'Fecha no puede estar vacío o ser posterior al día de hoy.'],
+            [['year'], 'integer', 'max' => date("Y"), 'min' => 1800],
+            [['month'], 'integer', 'max' => 12, 'min' => 00],
+            [['day'], 'integer', 'max' => 31, 'min' => 01],
+
         ];
     }
 
@@ -65,6 +72,9 @@ class Testimonio extends \yii\db\ActiveRecord
             'cuerpo' => 'Cuerpo',
             'revisado' => 'Revisado',
             'publico' => 'Público',
+            'year' => 'Año',
+            'month' => 'Mes',
+            'day' => 'Día',
         ];
     }
 }

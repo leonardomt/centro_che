@@ -18,6 +18,7 @@ use yii\widgets\ActiveForm;
 use yii\helpers\ArrayHelper;
 use yii\base\Model;
 use yii\web\UploadedFile;
+use yii\db\Expression;
 
 /**
  * CursoOnlineController implements the CRUD actions for CursoOnline model.
@@ -134,9 +135,8 @@ class CursoOnlineController extends Controller
      */
     public function actionUpdate($id)
     {
-        $x = 0;
+
         $model = $this->findModel($id);
-        $modelsArchivo = new CursoOnlineArchivo();
         $modelsClase = Clase::find()->where(['id_curso' => $model->id_curso])->all();
 
         if ($model->load(Yii::$app->request->post())) {
@@ -154,6 +154,9 @@ class CursoOnlineController extends Controller
                 $transaction = \Yii::$app->db->beginTransaction();
                 try {
                     if ($flag = $model->save(false)) {
+                        if (!empty($deletedIDs)) {
+                            Clase::deleteAll(['id' => $deletedIDs]);
+                        }
                         foreach ($modelsClase as $modelClase) {
                             $modelClase->id_curso = $model->id_curso;
                             $modelClase->revisado = 1;

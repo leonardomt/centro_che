@@ -43,7 +43,7 @@ class CursoOnline extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['revisado', 'publico', 'coordinador', 'titulo', 'descripcion', 'enlace', 'file'], 'required'],
+            [['revisado', 'publico', 'coordinador', 'titulo', 'descripcion', 'enlace'], 'required'],
             [['revisado', 'publico'], 'integer'],
             [['titulo', 'descripcion', 'pdf', 'coordinador', 'enlace'], 'string'],
             [['file'], 'file',],

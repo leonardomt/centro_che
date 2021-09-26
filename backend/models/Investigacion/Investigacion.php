@@ -40,17 +40,22 @@ class Investigacion extends \yii\db\ActiveRecord
         ];
     }
 
+    public $year;
+    public $month;
+    public $day;
     /**
      * {@inheritdoc}
      */
     public function rules()
     {
         return [
-            [['revisado', 'publico', 'titulo_investigacion', 'descripcion', 'cuerpo', 'autor', 'id_linea_investigacion', 'entidad'], 'required'],
+            [['revisado', 'publico', 'titulo_investigacion','year', 'month', 'day', 'descripcion', 'cuerpo', 'autor', 'id_linea_investigacion', 'entidad'], 'required'],
             [['revisado', 'publico', 'id_linea_investigacion'], 'integer'],
             [['titulo_investigacion', 'descripcion', 'cuerpo', 'autor', 'entidad'], 'string'],
             [['fecha'], 'safe'],
-            [['fecha'], 'required', 'message' => 'Fecha no puede estar vacío o ser posterior al día de hoy.'],
+            [['year'], 'integer', 'max' => date("Y"), 'min' => 1800],
+            [['month'], 'integer', 'max' => 12, 'min' => 00],
+            [['day'], 'integer', 'max' => 31, 'min' => 01],
         ];
     }
 
@@ -70,6 +75,9 @@ class Investigacion extends \yii\db\ActiveRecord
             'id_linea_investigacion' => 'Línea de Investigación',
             'entidad' => 'Entidad en que se inscribe',
             'fecha' => 'Fecha de Inscripción',
+            'year' => 'Año',
+            'month' => 'Mes',
+            'day' => 'Día',
         ];
     }
     public function getLineaInvestigacion(){

@@ -38,16 +38,22 @@ class ProductoAudiovisual extends \yii\db\ActiveRecord
 
         ];
     }
+    public $year;
+    public $month;
+    public $day;
     /**
      * {@inheritdoc}
      */
     public function rules()
     {
         return [
-            [['revisado', 'publico', 'descripcion', 'tipo' , 'titulo', 'fecha', 'autor', 'productora'], 'required'],
+            [['revisado', 'publico', 'descripcion', 'tipo' , 'titulo', 'autor', 'productora'], 'required'],
             [['revisado', 'publico','tipo'], 'integer'],
             [['descripcion', 'titulo', 'autor', 'productora'], 'string'],
             [['fecha'], 'safe'],
+            [['year'], 'integer', 'max' => date("Y"), 'min' => 1800],
+            [['month'], 'integer', 'max' => 12, 'min' => 00],
+            [['day'], 'integer', 'max' => 31, 'min' => 01],
         ];
     }
 
@@ -66,6 +72,9 @@ class ProductoAudiovisual extends \yii\db\ActiveRecord
             'fecha' => 'Fecha',
             'autor' => 'Autor',
             'productora' => 'Productora',
+            'year' => 'Año',
+            'month' => 'Mes',
+            'day' => 'Día',
 
         ];
     }

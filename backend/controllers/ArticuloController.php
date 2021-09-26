@@ -77,9 +77,30 @@ class ArticuloController extends Controller
     public function actionCreate()
     {
         $model = new Articulo();
+
         $modelsArchivo = [new ArticuloArchivo];
         $x = 0;
         if ($model->load(Yii::$app->request->post())) {
+            if (($model->year != null && ($model->month == null || $model->day ==null))  ||  (($model->year == null || $model->day ==null) && $model->month != null ) ||(($model->year == null || $model->month == null) && $model->day !=null)) {
+                Yii::$app->session->setFlash('error', 'La fecha debe estar completa o no ser insertada');
+                return $this->redirect([
+                    'create',
+                    'model' => $model,
+                ]);
+            }
+            if ($model->year == null && $model->month == null && $model->day ==null){
+                $model->fecha= null;
+            }
+            else {
+                $model->fecha = $model->year.'-'.$model->month.'-'.$model->day;
+                if($model->fecha > date('Y-m-d')){
+                    Yii::$app->session->setFlash('error', 'La fecha no puede ser posterior al día de hoy');
+                    return $this->redirect([
+                        'create',
+                        'model' => $model,
+                    ]);
+                }
+            };
             $modelsArchivo = Model::createMultiple(ArticuloArchivo::classname());
             Model::loadMultiple($modelsArchivo, Yii::$app->request->post());
             if (Yii::$app->request->isAjax) {
@@ -144,10 +165,35 @@ class ArticuloController extends Controller
     {
         $x = 0;
         $model = $this->findModel($id);
-        $modelsArchivo = new ArticuloArchivo();
         $modelsArchivo = ArticuloArchivo::find()->where(['id_articulo' => $model->id_articulo])->all();
+        if($model->fecha != null){
+            $model->year = date('Y', strtotime($model->fecha));
+            $model->month = date('m', strtotime($model->fecha));
+            $model->day = date('d', strtotime($model->fecha));
+        }
 
         if ($model->load(Yii::$app->request->post())) {
+            if (($model->year != null && ($model->month == null || $model->day ==null))  ||  (($model->year == null || $model->day ==null) && $model->month != null ) ||(($model->year == null || $model->month == null) && $model->day !=null)) {
+                Yii::$app->session->setFlash('error', 'La fecha debe estar completa o no ser insertada');
+                return $this->redirect([
+                    'update', 'id'=>$id,
+                    'model' => $model,
+                ]);
+            }
+
+            if ($model->year == null && $model->month == null && $model->day ==null){
+                $model->fecha= null;
+            }
+            else {
+                $model->fecha = $model->year.'-'.$model->month.'-'.$model->day;
+                if($model->fecha > date('Y-m-d')){
+                    Yii::$app->session->setFlash('error', 'La fecha no puede ser posterior al día de hoy');
+                    return $this->redirect([
+                        'update', 'id'=>$id,
+                        'model' => $model,
+                    ]);
+                }
+            };
 
             $oldIDs = ArrayHelper::map($modelsArchivo, 'id', 'id');
             $modelsArchivo = Model::createMultiple(ArticuloArchivo::classname(), $modelsArchivo);

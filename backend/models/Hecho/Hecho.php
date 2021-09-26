@@ -36,6 +36,9 @@ class Hecho extends \yii\db\ActiveRecord
 
         ];
     }
+    public $year;
+    public $month;
+    public $day;
 
     /**
      * {@inheritdoc}
@@ -43,11 +46,13 @@ class Hecho extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['revisado', 'publico', 'titulo', 'descripcion', 'cuerpo'], 'required'],
+            [['revisado', 'publico', 'titulo','year', 'month', 'day', 'descripcion', 'cuerpo'], 'required'],
             [['revisado', 'publico'], 'integer'],
             [['titulo', 'descripcion', 'cuerpo', 'etapa'], 'string'],
             [['fecha'], 'safe'],
-            [['fecha'], 'required', 'message' => 'Fecha no puede estar vacío o ser posterior al día de hoy.'],
+            [['year'], 'integer', 'max' => date("Y"), 'min' => 1800],
+            [['month'], 'integer', 'max' => 12, 'min' => 00],
+            [['day'], 'integer', 'max' => 31, 'min' => 01],
         ];
     }
 
@@ -65,6 +70,9 @@ class Hecho extends \yii\db\ActiveRecord
             'cuerpo' => 'Cuerpo',
             'fecha' => 'Fecha',
             'etapa' => 'Etapa',
+            'year' => 'Año',
+            'month' => 'Mes',
+            'day' => 'Día',
         ];
     }
 }

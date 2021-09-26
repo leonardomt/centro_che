@@ -234,8 +234,9 @@ if ($model->tipo_fecha == 3) {
                     <div class="panel-body">
                         <?php
                         // necessary for update action.
-                        if (!$modelArchivo->isNewRecord) {
-                            echo Html::activeHiddenInput($modelArchivo, "[{$i}]id");
+                        if ($modelArchivo->isNewRecord) {
+                            $c = $i+3;
+                            echo Html::activeHiddenInput($modelArchivo, "[{$c}]id");
                         }
                         ?>
                         <?= $form->field($modelArchivo, "[{$i}]id_archivo")->widget(\kartik\select2\Select2::classname(), [
@@ -426,28 +427,15 @@ $dataProvider->pagination = ['pageSize' => 4];
 
 </div>
 
-
+<style>
+    .form-control.is-valid, .was-validated .form-control:valid {
+        padding-right: 0.75rem;
+    }
+    .form-control.is-invalid, .was-validated .form-control:invalid {
+        padding-right: 0.75rem;
+    }
+</style>
 <script>
-
-    $(document).ready(function () {
-        $(":input").inputmask();
-
-
-        $("#date").inputmask({
-            mask: 'aaaa mm dd',
-            placeholder: ' ',
-            showMaskOnHover: false,
-            showMaskOnFocus: false,
-            onBeforePaste: function (pastedValue, opts) {
-                var processedValue = pastedValue;
-
-//do something with it
-
-                return processedValue;
-            }
-        });
-    });
-
 
     $(document).ready(function () {
         $(document.body).on('change', '#exposicion-tipo_fecha', function () {

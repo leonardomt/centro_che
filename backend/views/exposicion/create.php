@@ -426,30 +426,15 @@ if (Yii::$app->user->isGuest)
 </div>
 
 
-
+<style>
+    .form-control.is-valid, .was-validated .form-control:valid {
+        padding-right: 0.75rem;
+    }
+    .form-control.is-invalid, .was-validated .form-control:invalid {
+        padding-right: 0.75rem;
+    }
+</style>
 <script>
-
-    $(document).ready(function () {
-        $(":input").inputmask();
-
-
-        $("#date").inputmask({
-            mask: 'aaaa mm dd',
-            placeholder: ' ',
-            showMaskOnHover: false,
-            showMaskOnFocus: false,
-            onBeforePaste: function (pastedValue, opts) {
-                var processedValue = pastedValue;
-
-//do something with it
-
-                return processedValue;
-            }
-        });
-    });
-
-
-
 
         $(document).ready(function () {
         $(document.body).on('change', '#exposicion-tipo_fecha', function () {

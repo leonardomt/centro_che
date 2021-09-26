@@ -38,6 +38,9 @@ class Libro extends \yii\db\ActiveRecord
 
         ];
     }
+    public $year;
+    public $month;
+    public $day;
     /**
      * {@inheritdoc}
      */
@@ -50,7 +53,9 @@ class Libro extends \yii\db\ActiveRecord
             [['descripcion'], 'string'],
             [['titulo', 'autor', 'compilador', 'palabras_clave'], 'string', 'max' => 512],
             [['linea'], 'string', 'max' => 256],
-            [['fecha'], 'required', 'message' => 'Fecha no puede estar vacío o ser posterior al día de hoy.'],
+            [['year'], 'integer', 'max' => date("Y"), 'min' => 1800],
+            [['month'], 'integer', 'max' => 12, 'min' => 00],
+            [['day'], 'integer', 'max' => 31, 'min' => 01],
         ];
     }
 
@@ -70,6 +75,9 @@ class Libro extends \yii\db\ActiveRecord
             'linea' => 'Línea Temática',
             'palabras_clave' => 'Palabras Clave',
             'descripcion' => 'Descripción',
+            'year' => 'Año',
+            'month' => 'Mes',
+            'day' => 'Día',
         ];
     }
 }

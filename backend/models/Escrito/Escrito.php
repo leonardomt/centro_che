@@ -37,18 +37,23 @@ class Escrito extends \yii\db\ActiveRecord
 
         ];
     }
+
+    public $year;
+    public $month;
+    public $day;
     /**
      * {@inheritdoc}
      */
     public function rules()
     {
         return [
-            [['tipo', 'titulo', 'descripcion', 'cuerpo', 'revisado', 'autor','publico'], 'required'],
+            [['tipo', 'titulo', 'descripcion', 'year', 'month', 'day', 'cuerpo', 'revisado', 'autor','publico'], 'required'],
             [['titulo', 'descripcion', 'autor', 'cuerpo'], 'string'],
             [['revisado', 'publico'], 'integer'],
-            [['fecha'], 'safe'],
             [['tipo'], 'string', 'max' => 256],
-            [['fecha'], 'required', 'message' => 'Fecha no puede estar vacío o ser posterior al día de hoy.'],
+            [['year'], 'integer', 'max' => date("Y"), 'min' => 1800],
+            [['month'], 'integer', 'max' => 12, 'min' => 00],
+            [['day'], 'integer', 'max' => 31, 'min' => 01],
         ];
     }
 
@@ -67,7 +72,9 @@ class Escrito extends \yii\db\ActiveRecord
             'publico' => 'Público',
             'autor' => 'Autor',
             'fecha' => 'Fecha',
-            
+            'year' => 'Año',
+            'month' => 'Mes',
+            'day' => 'Día',
         ];
     }
 }

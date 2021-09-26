@@ -77,6 +77,26 @@ class EscritoController extends Controller
         $modelsArchivo = [new EscritoArchivo];
         $x=0;
         if ($model->load(Yii::$app->request->post())) {
+            if (($model->year != null && ($model->month == null || $model->day ==null))  ||  (($model->year == null || $model->day ==null) && $model->month != null ) ||(($model->year == null || $model->month == null) && $model->day !=null)) {
+                Yii::$app->session->setFlash('error', 'La fecha debe estar completa o no ser insertada');
+                return $this->redirect([
+                    'create',
+                    'model' => $model,
+                ]);
+            }
+            if ($model->year == null && $model->month == null && $model->day ==null){
+                $model->fecha= null;
+            }
+            else {
+                $model->fecha = $model->year.'-'.$model->month.'-'.$model->day;
+                if($model->fecha > date('Y-m-d')){
+                    Yii::$app->session->setFlash('error', 'La fecha no puede ser posterior al día de hoy');
+                    return $this->redirect([
+                        'create',
+                        'model' => $model,
+                    ]);
+                }
+            };
             $modelsArchivo = Model::createMultiple(EscritoArchivo::classname());
             Model::loadMultiple($modelsArchivo, Yii::$app->request->post());
             if (Yii::$app->request->isAjax) {
@@ -142,31 +162,54 @@ class EscritoController extends Controller
      */
     public function actionUpdate($id)
     {
-        $modelEscrito = $this->findModel($id);
-        $modelsArchivo = new EscritoArchivo();
-        $modelsArchivo= EscritoArchivo::find()->where(['id_escrito' => $modelEscrito->id_escrito ])->all();    
-        
+        $model = $this->findModel($id);
+        $modelsArchivo= EscritoArchivo::find()->where(['id_escrito' => $model->id_escrito ])->all();
+        if($model->fecha != null){
+            $model->year = date('Y', strtotime($model->fecha));
+            $model->month = date('m', strtotime($model->fecha));
+            $model->day = date('d', strtotime($model->fecha));
+        }
 
-        if ($modelEscrito->load(Yii::$app->request->post())) {
+        if ($model->load(Yii::$app->request->post())) {
+            if (($model->year != null && ($model->month == null || $model->day ==null))  ||  (($model->year == null || $model->day ==null) && $model->month != null ) ||(($model->year == null || $model->month == null) && $model->day !=null)) {
+                Yii::$app->session->setFlash('error', 'La fecha debe estar completa o no ser insertada');
+                return $this->redirect([
+                    'update', 'id'=>$id,
+                    'model' => $model,
+                ]);
+            }
 
+            if ($model->year == null && $model->month == null && $model->day ==null){
+                $model->fecha= null;
+            }
+            else {
+                $model->fecha = $model->year.'-'.$model->month.'-'.$model->day;
+                if($model->fecha > date('Y-m-d')){
+                    Yii::$app->session->setFlash('error', 'La fecha no puede ser posterior al día de hoy');
+                    return $this->redirect([
+                        'update', 'id'=>$id,
+                        'model' => $model,
+                    ]);
+                }
+            };
             $oldIDs = ArrayHelper::map($modelsArchivo, 'id_escrito_archivo', 'id_escrito_archivo');
             $modelsArchivo = Model::createMultiple(EscritoArchivo::classname(), $modelsArchivo);
             Model::loadMultiple($modelsArchivo, Yii::$app->request->post());
             $deletedIDs = array_diff($oldIDs, array_filter(ArrayHelper::map($modelsArchivo, 'id_escrito_archivo', 'id_escrito_archivo')));
 
             // validate all models
-            $valid = $modelEscrito->validate();
+            $valid = $model->validate();
             $valid = Model::validateMultiple($modelsArchivo) && $valid;
 
             if ($valid) {
                 $transaction = \Yii::$app->db->beginTransaction();
                 try {
-                    if ($flag = $modelEscrito->save(false)) {
+                    if ($flag = $model->save(false)) {
                         if (!empty($deletedIDs)) {
                             EscritoArchivo::deleteAll(['id_escrito' => $deletedIDs]);
                         }
                         foreach ($modelsArchivo as $modelArchivo) {
-                            $modelArchivo->id_escrito = $modelEscrito->id_escrito;
+                            $modelArchivo->id_escrito = $model->id_escrito;
                             $modelArchivo->portada =1;
                             if (! ($flag = $modelArchivo->save(false))) {
                                 $transaction->rollBack();
@@ -185,7 +228,7 @@ class EscritoController extends Controller
         }
 
         return $this->render('update', [
-            'model' => $modelEscrito,
+            'model' => $model,
             'modelsArchivo' => (empty($modelsArchivo)) ? [new EscritoArchivo] : $modelsArchivo,
         ]);
     }
