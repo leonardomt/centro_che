@@ -46,7 +46,9 @@ class ColeccionDocumentalController extends Controller
     {
         $searchModel = new ColeccionDocumentalSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
+        $dataProvider->setSort([
+            'defaultOrder' => ['id_coleccion_documental' => SORT_DESC],
+        ]);
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,

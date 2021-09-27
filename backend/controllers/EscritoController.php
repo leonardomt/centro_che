@@ -45,7 +45,9 @@ class EscritoController extends Controller
     {
         $searchModel = new EscritoSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
+        $dataProvider->setSort([
+            'defaultOrder' => ['id_escrito' => SORT_DESC],
+        ]);
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,

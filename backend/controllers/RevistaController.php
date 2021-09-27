@@ -45,7 +45,9 @@ class RevistaController extends Controller
     {
         $searchModel = new RevistaSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
+        $dataProvider->setSort([
+            'defaultOrder' => ['id_revista' => SORT_DESC],
+        ]);
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,

@@ -37,7 +37,9 @@ class EtiquetaController extends Controller
     {
         $searchModel = new EtiquetaSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
+        $dataProvider->setSort([
+            'defaultOrder' => ['id' => SORT_DESC],
+        ]);
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,

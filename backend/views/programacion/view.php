@@ -49,7 +49,7 @@ if (Yii::$app->user->isGuest)
 
             'titulo:ntext',
             'fecha',
-            'hora',
+            'fecha_fin',
             'lugar',
             'descripcion:ntext',
             [

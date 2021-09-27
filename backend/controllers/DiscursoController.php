@@ -46,7 +46,9 @@ class DiscursoController extends Controller
     {
         $searchModel = new DiscursoSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
+        $dataProvider->setSort([
+            'defaultOrder' => ['id_discurso' => SORT_DESC],
+        ]);
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,

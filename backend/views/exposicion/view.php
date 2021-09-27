@@ -50,36 +50,56 @@ if (Yii::$app->user->isGuest)
         'attributes' => [
 
 
+
             [
                 'attribute' => 'tipo_fecha',
                 'format' => 'raw',
                 'headerOptions' => ['class' => 'col-md-1'],
                 'value' => function ($model) {
                     if ($model->tipo_fecha == 0) {
-                        return "Fecha Exacta";
+                        return "Fecha exacta";
                     };
                     if ($model->tipo_fecha == 1) {
-                        return "Rango de Fecha";
+                        return "Rango de fecha";
                     };
                     if ($model->tipo_fecha == 2) {
                         return "Año";
                     };
                     if ($model->tipo_fecha == 3) {
-                        return "Rango de Años";
+                        return "Año y mes";
+                    };
+                    if ($model->tipo_fecha == 4) {
+                        return "Rango de meses";
                     };
 
                 },
-                'filter' => array(0 => "Fecha Exacta", 1 => "Año", 2 => "Rango de Fecha"),
+                'filter' => array(0 => "Fecha Exacta", 1 => "Rango de fecha", 2 => "Año", 3 => "Año y mes", 4 => "Rango de meses"),
 
             ],
             [
                 'attribute' => 'fecha',
                 'format' => 'raw',
+                'value'=> function ($model) {
+                    if ($model->tipo_fecha ==0){  return $model->fecha;};
+                    if ($model->tipo_fecha ==1){  return $model->fecha;};
+                    if ($model->tipo_fecha ==2){  return date('Y',strtotime($model->fecha));};
+                    if ($model->tipo_fecha ==3){  return date('Y-m',strtotime($model->fecha));};
+                    if ($model->tipo_fecha ==4){  return date('Y-m',strtotime($model->fecha));};
+
+                },
                 'headerOptions' => ['class' => 'col-md-1'],
             ],
             [
                 'attribute' => 'fecha_fin',
                 'format' => 'raw',
+                'value'=> function ($model) {
+                    if ($model->tipo_fecha ==0){  return null;};
+                    if ($model->tipo_fecha ==1){  return $model->fecha_fin;};
+                    if ($model->tipo_fecha ==2){  return null;};
+                    if ($model->tipo_fecha ==3){  return null;};
+                    if ($model->tipo_fecha ==4){  return date('Y-m',strtotime($model->fecha_fin));};
+
+                },
                 'headerOptions' => ['class' => 'col-md-1'],
             ],
             [

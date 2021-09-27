@@ -43,7 +43,9 @@ class ProductoAudiovisualController extends Controller
     {
         $searchModel = new ProductoAudiovisualSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
+        $dataProvider->setSort([
+            'defaultOrder' => ['id_producto_audiovisual' => SORT_DESC],
+        ]);
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,

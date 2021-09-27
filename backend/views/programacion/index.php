@@ -77,23 +77,29 @@ if ( Yii::$app->user->isGuest )
             ],
             [
                 'attribute' => 'fecha',
-                'value'=> 'fecha',
+                'value'=> function ($model) {
+                    if ($model->tipo_fecha ==0){  return $model->fecha;};
+                    if ($model->tipo_fecha ==1){  return $model->fecha;};
+                    if ($model->tipo_fecha ==2){  return date('Y',strtotime($model->fecha));};
+                    if ($model->tipo_fecha ==3){  return date('Y-m',strtotime($model->fecha));};
+                    if ($model->tipo_fecha ==4){  return date('Y-m',strtotime($model->fecha));};
+
+                },
                 'format' => 'raw',
-                'headerOptions' => ['class' => 'col-md-1'],
-                'filter'=>\dosamigos\datepicker\DatePicker::widget([
-                    'model'=>$searchModel,
-                    'attribute'=>'fecha',
-                    'clientOptions'=>[
-                        'autoclose'=>true,
-                        'format'=>'yyyy-mm-dd', 'endDate' => date('Y-m-d')
-                    ],
-                ]),
+                'headerOptions' => ['class' =>'col-md-1'],
             ],
             [
-                'attribute' => 'hora',                     // Titulo
+                'attribute' => 'fecha_fin',
+                'value'=> function ($model) {
+                    if ($model->tipo_fecha ==0){  return null;};
+                    if ($model->tipo_fecha ==1){  return $model->fecha_fin;};
+                    if ($model->tipo_fecha ==2){  return null;};
+                    if ($model->tipo_fecha ==3){  return null;};
+                    if ($model->tipo_fecha ==4){  return date('Y-m',strtotime($model->fecha_fin));};
+
+                },
                 'format' => 'raw',
                 'headerOptions' => ['class' => 'col-md-1'],
-
             ],
             [
                 'attribute' => 'lugar',                     // tipo

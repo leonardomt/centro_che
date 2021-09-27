@@ -3,11 +3,10 @@
 use yii\helpers\Html;
 use yii\bootstrap4\Breadcrumbs;
 use common\widgets\Alert;
-use backend\models\Programacion\Programacion;
-use yii\widgets\Pjax;
 use kartik\grid\GridView;
-use yii\helpers\ArrayHelper;
-use kartik\time\TimePicker;
+
+
+
 
 /* @var $this yii\web\View */
 /* @var $model backend\models\Programacion\Programacion */
@@ -19,7 +18,6 @@ if (Yii::$app->user->isGuest)
     return Yii::$app->getResponse()->redirect(\yii\helpers\Url::to(['site/login']));
 
 ?>
-
 <script type='text/javascript' src='https://code.jquery.com/jquery-1.11.0.js'></script>
 <div class="programacion-create col-md-12">
 
@@ -39,42 +37,81 @@ if (Yii::$app->user->isGuest)
     <?= $form->field($model, 'descripcion')->textarea(['rows' => 3, 'style' => 'resize:none']) ?>
 
 
+    <div class="row">
+
+        <div class="col-md-4">
+            <?php $model->tipo_fecha = 0; ?>
+            <?= $form->field($model, 'tipo_fecha')->dropDownList(['0' => 'Fecha', '1' => 'Rango de Fecha', '2' => 'Año', '3' => 'Año y mes', '4' => 'Rango de meses']) ?>
+        </div>
+
+        <div class="col-md-3" id="year">
+            <?= $form->field($model, 'year')->textInput(
+                [
+                    'type' => 'number',
+                    'min' => 1800,
+                    'max' => date('Y'),
+                    'placeholder' => 'Año',
+                ]
+            ) ?>
+        </div>
+        <div class="col-md-3 " id="month">
+            <?= $form->field($model, "month")->widget(\kartik\select2\Select2::classname(), [
+                    'data' => ['01' => 'Enero', '02' => 'Febrero', '03' => 'Marzo', '04' => 'Abril', '05' => 'Mayo', '06' => 'Junio', '07' => 'Julio', '08' => 'Agosto', '09' => 'Septiembre', '10' => 'Octubre', '11' => 'Noviembre', '12' => 'Diciembre'],
+                    'options' => ['placeholder' => 'Mes', 'multiple' => false],
+
+                ]
+            ) ?>
+
+        </div>
+        <div class="col-md-2 " id="day">
+            <?= $form->field($model, 'day')->textInput(
+                [
+                    'type' => 'number',
+                    'min' => 1,
+                    'max' => 31,
+                    'placeholder' => 'Día',
+                ]
+            ) ?>
+        </div>
+
+
+    </div>
 
     <div class="row">
-        <div class="col-lg-6 text-lg-left">
-            <?php
-            \yii\widgets\MaskedInput::widget([
-                'name' => 'input-32',
-                'clientOptions' => ['alias' =>  'yyyy-mm-dd']
-            ]);
-            ?>
-            <?= $form->field($model, 'fecha')->widget(\dosamigos\datepicker\DatePicker::className(), [
-                'inline' => false, 'language' => 'es', 'options' =>  [
-                    'data-inputmask'=>"'alias': 'yyyy-mm-dd'",
-                    'autocomplete' => 'off',
-                ],
-                'clientOptions' => [
-                    'autoclose' => true,
-                    'format' => 'yyyy-m-d',
-                    'alias' =>  'yyyy-mm-dd'
+        <div class="col-md-4" id="space_row" style="display: none">
+
+        </div>
+
+        <div class="col-md-3" id="year_end" style="display: none">
+            <?= $form->field($model, 'year_end')->textInput(
+                [
+                    'type' => 'number',
+                    'min' => 1800,
+                    'max' => date('Y'),
+                    'placeholder' => 'Año',
                 ]
-            ]) ?>
+            ) ?>
+        </div>
+        <div class="col-md-3 " id="month_end" style="display: none">
+            <?= $form->field($model, "month_end")->widget(\kartik\select2\Select2::classname(), [
+                    'data' => ['01' => 'Enero', '02' => 'Febrero', '03' => 'Marzo', '04' => 'Abril', '05' => 'Mayo', '06' => 'Junio', '07' => 'Julio', '08' => 'Agosto', '09' => 'Septiembre', '10' => 'Octubre', '11' => 'Noviembre', '12' => 'Diciembre'],
+                    'options' => ['placeholder' => 'Mes', 'multiple' => false],
+
+                ]
+            ) ?>
+
+        </div>
+        <div class="col-md-2 " id="day_end" style="display: none">
+            <?= $form->field($model, 'day_end')->textInput(
+                [
+                    'type' => 'number',
+                    'min' => 1,
+                    'max' => 31,
+                    'placeholder' => 'Día',
+                ]
+            ) ?>
         </div>
 
-        <div class="col-lg-6 text-lg-left">
-
-            <?php
-            echo $form->field($model, 'hora')->widget(TimePicker::classname(), [
-                'pluginOptions' => [
-
-                    'defaultTime' => false,
-
-                ],
-
-
-            ]);
-            ?>
-        </div>
 
     </div>
 
@@ -302,7 +339,77 @@ if (Yii::$app->user->isGuest)
     .form-control.is-valid, .was-validated .form-control:valid {
         padding-right: 0.75rem;
     }
+
     .form-control.is-invalid, .was-validated .form-control:invalid {
         padding-right: 0.75rem;
     }
 </style>
+<script>
+
+    $(document).ready(function () {
+        $(document.body).on('change', '#programacion-tipo_fecha', function () {
+            var val = $('#programacion-tipo_fecha').val();
+            if (val > 0) {
+                $('.class').hide();
+            } else {
+                $('.class').show();
+            }
+        });
+    });
+
+
+    $(document).ready(function () {
+        $('#programacion-tipo_fecha').on('change', function () {
+
+            if ($(this).val() == 0) {
+                document.getElementById("year").style.display = "block";
+                document.getElementById("month").style.display = "block";
+                document.getElementById("day").style.display = "block";
+                document.getElementById("space_row").style.display = "none";
+                document.getElementById("year_end").style.display = "none";
+                document.getElementById("month_end").style.display = "none";
+                document.getElementById("day_end").style.display = "none";
+
+
+            }
+            if ($(this).val() == 1) {
+                document.getElementById("year").style.display = "block";
+                document.getElementById("month").style.display = "block";
+                document.getElementById("day").style.display = "block";
+                document.getElementById("space_row").style.display = "block";
+                document.getElementById("year_end").style.display = "block";
+                document.getElementById("month_end").style.display = "block";
+                document.getElementById("day_end").style.display = "block";
+            }
+            if ($(this).val() == 2) {
+                document.getElementById("year").style.display = "block";
+                document.getElementById("month").style.display = "none";
+                document.getElementById("day").style.display = "none";
+                document.getElementById("space_row").style.display = "none";
+                document.getElementById("year_end").style.display = "none";
+                document.getElementById("month_end").style.display = "none";
+                document.getElementById("day_end").style.display = "none";
+            }
+            if ($(this).val() == 3) {
+                document.getElementById("year").style.display = "block";
+                document.getElementById("month").style.display = "block";
+                document.getElementById("day").style.display = "none";
+                document.getElementById("space_row").style.display = "none";
+                document.getElementById("year_end").style.display = "none";
+                document.getElementById("month_end").style.display = "none";
+                document.getElementById("day_end").style.display = "none";
+            }
+            if ($(this).val() == 4) {
+                document.getElementById("year").style.display = "block";
+                document.getElementById("month").style.display = "block";
+                document.getElementById("day").style.display = "none";
+                document.getElementById("space_row").style.display = "block";
+                document.getElementById("year_end").style.display = "block";
+                document.getElementById("month_end").style.display = "block";
+                document.getElementById("day_end").style.display = "none";
+            }
+        });
+    });
+
+
+</script>

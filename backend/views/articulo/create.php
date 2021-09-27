@@ -35,8 +35,6 @@ if (Yii::$app->user->isGuest)
     </div>
 
 
-
-
     <?php $form = kartik\form\ActiveForm::begin(['id' => 'dynamic-form']); ?>
 
     <div class="row">
@@ -84,24 +82,21 @@ if (Yii::$app->user->isGuest)
 
     <?=
     $form->field($model, 'id_investigacion')->widget(\kartik\select2\Select2::classname(), [
-        'data' => \yii\helpers\ArrayHelper::map(Investigacion::find()->all(), 'id_investigacion', 'titulo_investigacion'),
-        'options' => ['placeholder' => 'Seleccionar', 'multiple' => false, 'required' => true],
-        'theme' => \kartik\select2\Select2::THEME_KRAJEE,
-        'size' => 'xs',]
+            'data' => \yii\helpers\ArrayHelper::map(Investigacion::find()->all(), 'id_investigacion', 'titulo_investigacion'),
+            'options' => ['placeholder' => 'Seleccionar', 'multiple' => false, 'required' => true],
+            'theme' => \kartik\select2\Select2::THEME_KRAJEE,
+            'size' => 'xs',]
     ) ?>
 
-    <?= $form->field($model, 'resumen')->textarea(['rows' => 2,'style' => 'resize:none']) ?>
+    <?= $form->field($model, 'resumen')->textarea(['rows' => 2, 'style' => 'resize:none']) ?>
 
     <?= $form->field($model, 'palabras_clave')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'abstract')->textarea(['rows' => 2,'style' => 'resize:none']) ?>
+    <?= $form->field($model, 'abstract')->textarea(['rows' => 2, 'style' => 'resize:none']) ?>
 
     <?= $form->field($model, 'keywords')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'cuerpo')->textarea(['rows' => 6,'style' => 'resize:none']) ?>
-
-
-
+    <?= $form->field($model, 'cuerpo')->textarea(['rows' => 6, 'style' => 'resize:none']) ?>
 
 
     <div class="panel panel-default">
@@ -153,20 +148,20 @@ if (Yii::$app->user->isGuest)
                                     'size' => 'xs',]
                             ) ?>
 
-                            <?= $form->field($modelArchivo, "[{$i}]nota")->textarea(['rows' => 6,'style' => 'resize:none']) ?>
-
-
+                            <?= $form->field($modelArchivo, "[{$i}]nota")->textarea(['rows' => 6, 'style' => 'resize:none']) ?>
 
 
                         </div>
                         <div class="pull-right">
-                            <button type="button" title="Agregar" style="width: 40px ; height: 40px" class="add-item btn btn-success"><i class="fa fa-plus"></i></button>
-                            <button type="button" title="Eliminar" style="width: 40px ; height: 40px" class="remove-item btn btn-danger"><i class="fa fa-trash"></i></button>
+                            <button type="button" title="Agregar" style="width: 40px ; height: 40px"
+                                    class="add-item btn btn-success"><i class="fa fa-plus"></i></button>
+                            <button type="button" title="Eliminar" style="width: 40px ; height: 40px"
+                                    class="remove-item btn btn-danger"><i class="fa fa-trash"></i></button>
                         </div>
                         <div class="clearfix"></div>
                         <br>
                     </div>
-                <?php $x++;
+                    <?php $x++;
                 endforeach; ?>
             </div>
 
@@ -193,7 +188,7 @@ if (Yii::$app->user->isGuest)
         </div>
         <div class="col-lg-1">
             <div class="form-group">
-                <?= Html::submitButton($modelArchivo->isNewRecord ? '<i class="fa fa-floppy-o" aria-hidden="true"></i>' : '<i class="fa fa-floppy-o" aria-hidden="true"></i>', ['class' => 'btn btn-success', 'style'=>"width: 40px; height: 40px", 'title' => 'Guardar']) ?>
+                <?= Html::submitButton($modelArchivo->isNewRecord ? '<i class="fa fa-floppy-o" aria-hidden="true"></i>' : '<i class="fa fa-floppy-o" aria-hidden="true"></i>', ['class' => 'btn btn-success', 'style' => "width: 40px; height: 40px", 'title' => 'Guardar']) ?>
             </div>
         </div>
     </div>
@@ -248,7 +243,7 @@ if (Yii::$app->user->isGuest)
                 },
                 'headerOptions' => ['class' => 'col-md-1'],
 
-                'filter' => array( "1" => "Sí", "0" => "No"),
+                'filter' => array("1" => "Sí", "0" => "No"),
                 'filterInputOptions' => array('class' => 'form-control', 'id' => null, 'prompt' => 'Todos'),
 
             ],
@@ -284,7 +279,7 @@ if (Yii::$app->user->isGuest)
                 'headerOptions' => ['class' => 'col-md-1'],
                 'filter' => \dosamigos\datepicker\DatePicker::widget([
                     'model' => $searchModel,
-                    'attribute' => 'fecha','language' => 'es',
+                    'attribute' => 'fecha', 'language' => 'es',
                     'clientOptions' => [
                         'autoclose' => true,
                         'format' => 'yyyy-mm-dd', 'endDate' => date('Y-m-d')
@@ -334,14 +329,13 @@ if (Yii::$app->user->isGuest)
     ]); ?>
 
 
-
-
 </div>
 
 <style>
     .form-control.is-valid, .was-validated .form-control:valid {
         padding-right: 0.75rem;
     }
+
     .form-control.is-invalid, .was-validated .form-control:invalid {
         padding-right: 0.75rem;
     }

@@ -7,6 +7,7 @@ use Yii;
 use backend\models\Programacion\Programacion;
 use backend\models\Programacion\ProgramacionArchivo;
 use backend\models\Programacion\ProgramacionSearch;
+use yii\db\Exception;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -43,7 +44,9 @@ class ProgramacionController extends Controller
     {
         $searchModel = new ProgramacionSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
+        $dataProvider->setSort([
+            'defaultOrder' => ['id' => SORT_DESC],
+        ]);
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
@@ -74,9 +77,114 @@ class ProgramacionController extends Controller
         $modelsArchivo = [new ProgramacionArchivo];
         $x = 0;
         if ($model->load(Yii::$app->request->post())) {
-            if ($model->publico == 1) {
-                $model->fecha = new Expression('NOW()');
+
+            $tipoFecha = $model->tipo_fecha;
+            //--------------Fecha Exacta-----------------------------------------------
+            if ($tipoFecha == 0) {
+                if (($model->year == null || $model->month == null || $model->day == null)) {
+                    Yii::$app->session->setFlash('error', 'La fecha debe estar completa');
+                    return $this->redirect([
+                        'create',
+                        'model' => $model,
+                    ]);
+                }
+                $model->fecha = $model->year . '-' . $model->month . '-' . $model->day;
+                $model->fecha_fin = null;
+
+                if ($model->fecha > date('Y-m-d')) {
+                    Yii::$app->session->setFlash('error', 'La fecha no puede ser posterior al día de hoy');
+                    return $this->redirect([
+                        'create',
+                        'model' => $model,
+                    ]);
+                }
+
             }
+            //--------------Rango de Fecha-----------------------------
+            if ($tipoFecha == 1) {
+                if (($model->year == null || $model->month == null || $model->day == null)) {
+                    Yii::$app->session->setFlash('error', 'La fecha debe estar completa');
+                    return $this->redirect([
+                        'create',
+                        'model' => $model,
+                    ]);
+                }
+
+                if (($model->year_end == null || $model->month_end == null || $model->day_end == null)) {
+                    Yii::$app->session->setFlash('error', 'La fecha final debe estar completa');
+                    return $this->redirect([
+                        'create',
+                        'model' => $model,
+                    ]);
+                }
+
+                $model->fecha = $model->year . '-' . $model->month . '-' . $model->day;
+                $model->fecha_fin = $model->year_end . '-' . $model->month_end . '-' . $model->day_end;
+                if ($model->fecha > $model->fecha_fin) {
+                    Yii::$app->session->setFlash('error', 'La fecha de inicio no puede ser posterior a la fecha final');
+                    return $this->redirect([
+                        'create',
+                        'model' => $model,
+                    ]);
+                }
+            }
+            //------------------------------Año------------------------
+            if ($tipoFecha == 2) {
+                if ($model->year == null ) {
+                    Yii::$app->session->setFlash('error', 'La fecha debe estar completa');
+                    return $this->redirect([
+                        'create',
+                        'model' => $model,
+                    ]);
+                }
+                $model->fecha = $model->year . '-' . '01' . '-' . '01';
+                $model->fecha_fin = null;
+            }
+
+            //------------------------------Año y mes------------------------
+            if ($tipoFecha == 3) {
+                if ($model->year == null || $model->month == null) {
+                    Yii::$app->session->setFlash('error', 'La fecha debe estar completa');
+                    return $this->redirect([
+                        'create',
+                        'model' => $model,
+                    ]);
+                }
+                $model->fecha = $model->year . '-' . $model->month . '-' . '01';
+                $model->fecha_fin = null;
+            }
+
+            //------------------------------Rango de meses------------------------
+            if ($tipoFecha == 4) {
+                if ($model->year == null || $model->month == null) {
+                    Yii::$app->session->setFlash('error', 'La fecha debe estar completa');
+                    return $this->redirect([
+                        'create',
+                        'model' => $model,
+                    ]);
+                }
+
+                if ($model->year_end == null || $model->month_end == null) {
+                    Yii::$app->session->setFlash('error', 'La fecha final debe estar completa');
+                    return $this->redirect([
+                        'create',
+                        'model' => $model,
+                    ]);
+                }
+
+                $model->fecha = $model->year . '-' . $model->month . '-' . '01';
+                $model->fecha_fin = $model->year_end . '-' . $model->month_end . '-' . '01';
+                if ($model->fecha > $model->fecha_fin) {
+                    Yii::$app->session->setFlash('error', 'La fecha de inicio no puede ser posterior a la fecha final');
+                    return $this->redirect([
+                        'create',
+                        'model' => $model,
+                    ]);
+                }
+            }
+            //---------------------------------Fin de las validaciones de fechas---------------------
+
+
             $modelsArchivo = Model::createMultiple(ProgramacionArchivo::classname());
             Model::loadMultiple($modelsArchivo, Yii::$app->request->post());
             if (Yii::$app->request->isAjax) {
@@ -86,7 +194,7 @@ class ProgramacionController extends Controller
                     ActiveForm::validate($model)
                 );
             }
-            // validate all models
+// validate all models
             $valid = $model->validate();
             $valid = Model::validateMultiple($modelsArchivo) && $valid;
             if ($valid) {
@@ -96,12 +204,10 @@ class ProgramacionController extends Controller
                         foreach ($modelsArchivo as $modelArchivo) {
                             if ($x == 0) {
                                 $modelArchivo->portada = 1;
-                                $modelArchivo->id_programacion = $model->id;
                                 $x++;
-                                $archivo = new Archivo();
                                 $archivo = Archivo::find()->where(['id_archivo' => $modelArchivo->id_archivo])->one();
                                 if (!($archivo->tipo_archivo == 1)) {
-                                    Yii::$app->session->setFlash('error', 'Solo puede tener una imagen como portada.');
+                                    Yii::$app->session->setFlash('error', 'La programación solo puede tener una imagen como portada.');
                                     return $this->redirect([
                                         'create', 'model' => $model,
                                         'modelsArchivo' => (empty($modelsArchivo)) ? [new ProgramacionArchivo] : $modelsArchivo,
@@ -146,7 +252,123 @@ class ProgramacionController extends Controller
         $modelsArchivo = ProgramacionArchivo::find()->where(['id_programacion' => $model->id])->all();
         $x = 0;
 
+        if($model->fecha != null){
+            $model->year = date('Y', strtotime($model->fecha));
+            $model->month = date('m', strtotime($model->fecha));
+            $model->day = date('d', strtotime($model->fecha));
+        }
+        if($model->fecha_fin != null){
+            $model->year_end = date('Y', strtotime($model->fecha_fin));
+            $model->month_end = date('m', strtotime($model->fecha_fin));
+            $model->day_end = date('d', strtotime($model->fecha_fin));
+        }
+
         if ($model->load(Yii::$app->request->post())) {
+            $tipoFecha = $model->tipo_fecha;
+            //--------------Fecha Exacta-----------------------------------------------
+            if ($tipoFecha == 0) {
+                if (($model->year == null || $model->month == null || $model->day == null)) {
+                    Yii::$app->session->setFlash('error', 'La fecha debe estar completa');
+                    return $this->redirect([
+                        'update', 'id'=> $id,
+                        'model' => $model,
+                    ]);
+                }
+                $model->fecha = $model->year . '-' . $model->month . '-' . $model->day;
+                $model->fecha_fin = null;
+                if ($model->fecha > date('Y-m-d')) {
+                    Yii::$app->session->setFlash('error', 'La fecha no puede ser posterior al día de hoy');
+                    return $this->redirect([
+                        'update', 'id'=> $id,
+                        'model' => $model,
+                    ]);
+                }
+            }
+            //--------------Rango de Fecha-----------------------------
+            if ($tipoFecha == 1) {
+                if (($model->year == null || $model->month == null || $model->day == null)) {
+                    Yii::$app->session->setFlash('error', 'La fecha debe estar completa');
+                    return $this->redirect([
+                        'update', 'id'=> $id,
+                        'model' => $model,
+                    ]);
+                }
+
+                if (($model->year_end == null || $model->month_end == null || $model->day_end == null)) {
+                    Yii::$app->session->setFlash('error', 'La fecha final debe estar completa');
+                    return $this->redirect([
+                        'update', 'id'=> $id,
+                        'model' => $model,
+                    ]);
+                }
+
+                $model->fecha = $model->year . '-' . $model->month . '-' . $model->day;
+                $model->fecha_fin = $model->year_end . '-' . $model->month_end . '-' . $model->day_end;
+                if ($model->fecha > $model->fecha_fin) {
+                    Yii::$app->session->setFlash('error', 'La fecha de inicio no puede ser posterior a la fecha final');
+                    return $this->redirect([
+                        'update', 'id'=> $id,
+                        'model' => $model,
+                    ]);
+                }
+            }
+            //------------------------------Año------------------------
+            if ($tipoFecha == 2) {
+                if ($model->year == null ) {
+                    Yii::$app->session->setFlash('error', 'La fecha debe estar completa');
+                    return $this->redirect([
+                        'update', 'id'=> $id,
+                        'model' => $model,
+                    ]);
+                }
+                $model->fecha = $model->year . '-' . '01' . '-' . '01';
+                $model->fecha_fin = null;
+            }
+
+            //------------------------------Año y mes------------------------
+            if ($tipoFecha == 3) {
+                if ($model->year == null || $model->month == null) {
+                    Yii::$app->session->setFlash('error', 'La fecha debe estar completa');
+                    return $this->redirect([
+                        'update', 'id'=> $id,
+                        'model' => $model,
+                    ]);
+                }
+                $model->fecha = $model->year . '-' . $model->month . '-' . '01';
+                $model->fecha_fin = null;
+            }
+
+            //------------------------------Rango de meses------------------------
+            if ($tipoFecha == 4) {
+                if ($model->year == null || $model->month == null) {
+                    Yii::$app->session->setFlash('error', 'La fecha debe estar completa');
+                    return $this->redirect([
+                        'update', 'id'=> $id,
+                        'model' => $model,
+                    ]);
+                }
+
+                if ($model->year_end == null || $model->month_end == null) {
+                    Yii::$app->session->setFlash('error', 'La fecha final debe estar completa');
+                    return $this->redirect([
+                        'update', 'id'=> $id,
+                        'model' => $model,
+                    ]);
+                }
+
+                $model->fecha = $model->year . '-' . $model->month . '-' . '01';
+                $model->fecha_fin = $model->year_end . '-' . $model->month_end . '-' . '01';
+                if ($model->fecha > $model->fecha_fin) {
+                    Yii::$app->session->setFlash('error', 'La fecha de inicio no puede ser posterior a la fecha final');
+                    return $this->redirect([
+                        'update', 'id'=> $id,
+                        'model' => $model,
+                    ]);
+                }
+            }
+            //---------------------------------Fin de las validaciones de fechas---------------------
+
+
 
             $oldIDs = ArrayHelper::map($modelsArchivo, 'id', '');
             $modelsArchivo = Model::createMultiple(ProgramacionArchivo::classname(), $modelsArchivo);
@@ -165,7 +387,7 @@ class ProgramacionController extends Controller
                             ProgramacionArchivo::deleteAll(['id' => $deletedIDs]);
                         }
                         foreach ($modelsArchivo as $modelArchivo) {
-
+                            $modelArchivo->id_programacion = $model->id;
                             if (!($flag = $modelArchivo->save(false))) {
                                 $transaction->rollBack();
                                 break;

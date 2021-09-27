@@ -23,10 +23,14 @@ use Yii;
  */
 class Exposicion extends \yii\db\ActiveRecord
 {
-    public $fecha_inicio;
-    public $fecha_anno;
-    public $fecha_anno_fin;
-    public $fecha_anno_inicio;
+
+    public $year;
+    public $month;
+    public $day;
+
+    public $year_end;
+    public $month_end;
+    public $day_end;
     /**
      * {@inheritdoc}
      */
@@ -51,10 +55,16 @@ class Exposicion extends \yii\db\ActiveRecord
     {
         return [
             [['revisado', 'publico', 'titulo', 'descripcion', 'cuerpo', 'enlace', 'tipo_fecha', 'entidad', 'autor'], 'required'],
-            [['revisado', 'publico', 'tipo_fecha', 'fecha_anno', 'fecha_anno_inicio', 'fecha_anno_fin'], 'integer'],
+            [['revisado', 'publico', 'tipo_fecha'], 'integer'],
             [['titulo', 'descripcion', 'cuerpo', 'entidad', 'autor'], 'string'],
             [['enlace'], 'string', 'max' => 512],
             [['fecha', 'fecha_fin'], 'safe'],
+            [['year'], 'integer', 'max' => date("Y"), 'min' => 1800],
+            [['month'], 'integer', 'max' => 12, 'min' => 00],
+            [['day'], 'integer', 'max' => 31, 'min' => 01],
+            [['year_end'], 'integer', 'max' => date("Y"), 'min' => 1800],
+            [['month_end'], 'integer', 'max' => 12, 'min' => 00],
+            [['day_end'], 'integer', 'max' => 31, 'min' => 01],
         ];
     }
 
@@ -76,12 +86,12 @@ class Exposicion extends \yii\db\ActiveRecord
             'fecha_fin' => 'Fecha final',
             'entidad'=> 'Entidad Colaboradora',
             'autor'=> 'Autor',
-            'anno' => 'anno',
-            'fecha_inicio' => 'Fecha de inicio',
-            'fecha_anno' => 'Año',
-            'fecha_anno_fin' => 'Año final',
-            'fecha_anno_inicio' => 'Año de inicio',
-
+            'year' => 'Año',
+            'month' => 'Mes',
+            'day' => 'Día',
+            'year_end' => 'Año final',
+            'month_end' => 'Mes final',
+            'day_end' => 'Día final',
 
         ];
     }

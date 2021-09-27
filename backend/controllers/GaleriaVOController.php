@@ -44,7 +44,9 @@ class GaleriaVOController extends Controller
         $searchModel = new GaleriaVoSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         $dataProvider->query->where(['tipo'=>$tipo]);
-
+        $dataProvider->setSort([
+            'defaultOrder' => ['id_galeria_vo' => SORT_DESC],
+        ]);
 
         return $this->render('index', [
             'searchModel' => $searchModel,

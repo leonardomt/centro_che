@@ -71,48 +71,32 @@ if ( Yii::$app->user->isGuest )
                 'filter'=>array("1"=>"Sí","0"=>"No"),
                 'filterInputOptions' => array('class' => 'form-control', 'id' => null, 'prompt' => 'Todos'),
             ],
-            [
-                'attribute' => 'tipo_fecha',
-                'format' => 'raw',
-                'headerOptions' => ['class' => 'col-md-1'],
-                'value' => function ($model) {
-                    if ($model->tipo_fecha ==0){  return "Fecha Exacta";};
-                    if ($model->tipo_fecha ==1){  return "Rango de Fecha";};
-                    if ($model->tipo_fecha ==2){  return "Año";};
-                    if ($model->tipo_fecha ==3){  return "Rango de Años";};
 
-                },
-                'filter'=>array(0=>"Fecha Exacta",1=>"Rango de Fecha",2=>"Año", 3=> 'Rango de Años'),
-                'filterInputOptions' => array('class' => 'form-control', 'id' => null, 'prompt' => 'Todos'),
-
-            ],
             [
                 'attribute' => 'fecha',
-                'value'=> 'fecha',
+                'value'=> function ($model) {
+                    if ($model->tipo_fecha ==0){  return $model->fecha;};
+                    if ($model->tipo_fecha ==1){  return $model->fecha;};
+                    if ($model->tipo_fecha ==2){  return date('Y',strtotime($model->fecha));};
+                    if ($model->tipo_fecha ==3){  return date('Y-m',strtotime($model->fecha));};
+                    if ($model->tipo_fecha ==4){  return date('Y-m',strtotime($model->fecha));};
+
+                },
                 'format' => 'raw',
                 'headerOptions' => ['class' => 'col-md-1'],
-                'filter'=>\dosamigos\datepicker\DatePicker::widget([
-                    'model'=>$searchModel,
-                    'attribute'=>'fecha','language' => 'es',
-                    'clientOptions'=>[
-                        'autoclose'=>true,
-                        'format'=>'yyyy-mm-dd', 'endDate' => date('Y-m-d')
-                    ],
-                ]),
             ],
             [
                 'attribute' => 'fecha_fin',
-                'value'=> 'fecha',
+                'value'=> function ($model) {
+                    if ($model->tipo_fecha ==0){  return null;};
+                    if ($model->tipo_fecha ==1){  return $model->fecha_fin;};
+                    if ($model->tipo_fecha ==2){  return null;};
+                    if ($model->tipo_fecha ==3){  return null;};
+                    if ($model->tipo_fecha ==4){  return date('Y-m',strtotime($model->fecha_fin));};
+
+                },
                 'format' => 'raw',
                 'headerOptions' => ['class' => 'col-md-1'],
-                'filter'=>\dosamigos\datepicker\DatePicker::widget([
-                    'model'=>$searchModel,
-                    'attribute'=>'fecha','language' => 'es',
-                    'clientOptions'=>[
-                        'autoclose'=>true,
-                        'format'=>'yyyy-mm-dd', 'endDate' => date('Y-m-d')
-                    ],
-                ]),
             ],
             [
                 'attribute' => 'autor',

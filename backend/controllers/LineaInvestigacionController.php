@@ -45,7 +45,9 @@ class LineaInvestigacionController extends Controller
     {
         $searchModel = new LineaInvestigacionSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
+        $dataProvider->setSort([
+            'defaultOrder' => ['id_linea_investigacion' => SORT_DESC],
+        ]);
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
