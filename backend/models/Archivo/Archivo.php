@@ -41,6 +41,7 @@ class Archivo extends \yii\db\ActiveRecord
     /**
      * {@inheritdoc}
      */
+    public $etiquetasarray;
     public $file;
     public $year;
     public $month;
@@ -58,15 +59,15 @@ class Archivo extends \yii\db\ActiveRecord
 
         $last = date("Y");
         return [
-            [['revisado', 'titulo_archivo', 'etiqueta', 'descripcion_archivo'], 'required'],
+            [['revisado','etiquetasarray', 'titulo_archivo', 'descripcion_archivo'], 'required'],
             [['revisado'], 'integer'],
             [['descripcion_archivo'], 'string'],
-            [['titulo_archivo'], 'string', 'max' => 124],
+            [['titulo_archivo'], 'string'],
             [[ 'etapa'], 'string', 'max' => 64],
-            [['etiqueta'], 'string', 'max' => 124],
-            [['fuente'], 'string', 'max' => 256],
-            [['autor_archivo'], 'string', 'max' => 64],
-            [['url_archivo'], 'string', 'max' => 256],
+            [['etiqueta'], 'string'],
+            [['fuente'], 'string'],
+            [['autor_archivo'], 'string'],
+            [['url_archivo'], 'string'],
             [['fecha'], 'safe' ],
             [['titulo_archivo'], 'unique'],
             [['year'], 'integer', 'max' => $last, 'min' => 1800],
@@ -102,7 +103,7 @@ class Archivo extends \yii\db\ActiveRecord
             'url_archivo' => 'Archivo',
             'fecha' => 'Fecha',
             'etapa' => 'Etapa',
-
+            'etiquetasarray' => 'Etiquetas',
             'year' => 'Año',
             'month' => 'Mes',
             'day' => 'Día',

@@ -100,24 +100,24 @@ class ColeccionDocumentalController extends Controller
                     ]);
                 }
             };
-           /* if (is_array($model->etiquetasarray)) {
-                Yii::$app->session->setFlash('error', 'Un Documento solo puede tener una imagen como portada.');
-
+            if (is_array($model->etiquetasarray)) {
+                $labelfinal=''; $x=0;
                 foreach ($model->etiquetasarray as $label) {
                     $etiqueta = Etiqueta::find()->where(['id' => $label])->one();
                     $etiquetaTemp = new EtiquetaColeccionDocumental();
                     $etiquetaTemp->id_coleccion_documental = $model->id_coleccion_documental;
-                    $etiquetaTemp->id_etiqueta = $etiqueta->id_etiqueta;
+                    $etiquetaTemp->id_etiqueta = $etiqueta->id;
                     $etiquetaTemp->save();
-                    $labelfinal = $labelfinal.+" ,".+$etiqueta->etiqueta.+" ,";
+                    if ($x==0){
+                        $labelfinal= $etiqueta->etiqueta." ;";
+                    }
+                    else $labelfinal = $labelfinal." ".$etiqueta->etiqueta." ;";
+                    $x++;
                 }
                 $model->etiquetas= $labelfinal;
             }
-            else {
-                Yii::$app->session->setFlash('error', 'No es un array');
 
-            }
-           */
+
             $modelsArchivo = Model::createMultiple(ColeccionDocumentalArchivo::classname());
             Model::loadMultiple($modelsArchivo, Yii::$app->request->post());
             if (Yii::$app->request->isAjax) {
@@ -159,7 +159,7 @@ class ColeccionDocumentalController extends Controller
                     }
                     if ($flag) {
                         $transaction->commit();
-                       return $this->redirect(['index']);
+                        return $this->redirect(['index']);
                     }
                 } catch (Exception $e) {
                     $transaction->rollBack();
@@ -184,6 +184,13 @@ class ColeccionDocumentalController extends Controller
     {
         $x = 0;
         $model = $this->findModel($id);
+        $array = []; $i=0;
+        $etiquetas= EtiquetaColeccionDocumental::find()->where(['id_coleccion_documental' => $id])->all();
+        foreach ($etiquetas as $new){
+            $array[$i] = Etiqueta::find()->where(['id'=> $new->id_etiqueta])->one();
+            $i++;
+        }
+        $model->etiquetasarray = $array;
         $modelsArchivo = ColeccionDocumentalArchivo::find()->where(['id_coleccion_documental' => $model->id_coleccion_documental])->all();
         if($model->fecha != null){
             $model->year = date('Y', strtotime($model->fecha));
@@ -191,6 +198,7 @@ class ColeccionDocumentalController extends Controller
             $model->day = date('d', strtotime($model->fecha));
         }
         if ($model->load(Yii::$app->request->post())) {
+
             if (($model->year != null && ($model->month == null || $model->day ==null))  ||  (($model->year == null || $model->day ==null) && $model->month != null ) ||(($model->year == null || $model->month == null) && $model->day !=null)) {
                 Yii::$app->session->setFlash('error', 'La fecha debe estar completa o no ser insertada');
                 return $this->redirect([
@@ -212,6 +220,27 @@ class ColeccionDocumentalController extends Controller
                     ]);
                 }
             };
+
+            foreach ($etiquetas as $arr){
+                $arr->delete();
+            }
+            if (is_array($model->etiquetasarray)) {
+                $labelfinal=''; $x=0;
+                foreach ($model->etiquetasarray as $label) {
+                    $etiqueta = Etiqueta::find()->where(['id' => $label])->one();
+                    $etiquetaTemp = new EtiquetaColeccionDocumental();
+                    $etiquetaTemp->id_coleccion_documental = $model->id_coleccion_documental;
+                    $etiquetaTemp->id_etiqueta = $etiqueta->id;
+                    $etiquetaTemp->save();
+                    if ($x==0){
+                        $labelfinal= $etiqueta->etiqueta." ;";
+                    }
+                    else $labelfinal = $labelfinal." ".$etiqueta->etiqueta." ;";
+                    $x++;
+                }
+                $model->etiquetas= $labelfinal;
+            }
+
 
             $oldIDs = ArrayHelper::map($modelsArchivo, 'id', 'id');
             $modelsArchivo = Model::createMultiple(ColeccionDocumentalArchivo::classname(), $modelsArchivo);

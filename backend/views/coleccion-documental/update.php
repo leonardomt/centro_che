@@ -79,6 +79,12 @@ if (Yii::$app->user->isGuest)
         </div>
     </div>
 
+    <?= $form->field($model, "etiquetasarray")->widget(\kartik\select2\Select2::classname(), [
+            'data' => \yii\helpers\ArrayHelper::map(\backend\models\Etiqueta\Etiqueta::find()->all(), 'id', 'etiqueta'),
+            'options' => ['placeholder' => 'Seleccionar', 'multiple' => true, 'required' => true],
+            'theme' => \kartik\select2\Select2::THEME_KRAJEE,
+            'size' => 'xs',]
+    ) ?>
 
     <?= $form->field($model, 'descripcion')->textarea(['rows' => 2, 'style' => 'resize:none']) ?>
 

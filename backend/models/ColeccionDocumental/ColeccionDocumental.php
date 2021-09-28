@@ -50,7 +50,7 @@ class ColeccionDocumental extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['revisado', 'publico', 'titulo',  'descripcion','year', 'month', 'day',  'autor', 'tipologia'], 'required'],
+            [['revisado', 'publico', 'etiquetasarray', 'titulo',  'descripcion','year', 'month', 'day',  'autor', 'tipologia'], 'required'],
             [['revisado', 'publico'], 'integer'],
             [['titulo', 'descripcion', 'autor', 'tipologia', 'etiquetas'], 'string'],
             [['fecha'], 'safe'],

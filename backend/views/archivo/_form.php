@@ -31,8 +31,12 @@ use backend\models\Archivo\TipoArchivo;
             <?= $form->field($model, 'autor_archivo')->textInput(['maxlength' => true]) ?>
         </div>
         <div class="col-md-6">
-            <?= $form->field($model, 'etiqueta')->textInput(['maxlength' => true]) ?>
-
+            <?= $form->field($model, "etiquetasarray")->widget(\kartik\select2\Select2::classname(), [
+                    'data' => \yii\helpers\ArrayHelper::map(\backend\models\Etiqueta\Etiqueta::find()->all(), 'id', 'etiqueta'),
+                    'options' => ['placeholder' => 'Seleccionar', 'multiple' => true, 'required' => true],
+                    'theme' => \kartik\select2\Select2::THEME_KRAJEE,
+                    'size' => 'xs',]
+            ) ?>
         </div>
     </div>
 

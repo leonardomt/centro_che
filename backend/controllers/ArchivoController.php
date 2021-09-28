@@ -3,6 +3,8 @@
 namespace backend\controllers;
 
 use backend\models\Archivo\TipoArchivo;
+use backend\models\Etiqueta\Etiqueta;
+use backend\models\Etiqueta\EtiquetaArchivo;
 use backend\models\Exposicion\Exposicion;
 use backend\models\Testimonio\Testimonio;
 use backend\models\Testimonio\TestimonioArchivo;
@@ -96,8 +98,28 @@ class ArchivoController extends Controller
         Yii::$app->request->enableCsrfValidation = false;
         $model = new Archivo();
         $this->enableCsrfValidation = false;
+        $array = []; $i=0;
 
         if ($model->load(Yii::$app->request->post())) {
+
+            if (is_array($model->etiquetasarray)) {
+                $labelfinal=''; $x=0;
+                foreach ($model->etiquetasarray as $label) {
+                    $etiqueta = Etiqueta::find()->where(['id' => $label])->one();
+                    $etiquetaTemp = new EtiquetaArchivo();
+                    $etiquetaTemp->id_archivo = $model->id_archivo;
+                    $etiquetaTemp->id_etiqueta = $etiqueta->id;
+                    $etiquetaTemp->save();
+                    if ($x==0){
+                        $labelfinal= $etiqueta->etiqueta." ;";
+                    }
+                    else $labelfinal = $labelfinal." ".$etiqueta->etiqueta." ;";
+                    $x++;
+                }
+                $model->etiqueta= $labelfinal;
+            }
+
+
             if (($model->year != null && ($model->month == null || $model->day ==null))  ||  (($model->year == null || $model->day ==null) && $model->month != null ) ||(($model->year == null || $model->month == null) && $model->day !=null)) {
                 Yii::$app->session->setFlash('error', 'La fecha debe estar completa o no ser insertada');
                 return $this->redirect([
@@ -193,6 +215,13 @@ class ArchivoController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $array = []; $i=0;
+        $etiquetas= EtiquetaArchivo::find()->where(['id_archivo' => $id])->all();
+        foreach ($etiquetas as $new){
+            $array[$i] = Etiqueta::find()->where(['id'=> $new->id_etiqueta])->one();
+            $i++;
+        }
+        $model->etiquetasarray = $array;
         if($model->fecha != null){
             $model->year = date('Y', strtotime($model->fecha));
             $model->month = date('m', strtotime($model->fecha));
@@ -200,6 +229,28 @@ class ArchivoController extends Controller
         }
 
         if ($model->load(Yii::$app->request->post())) {
+            foreach ($etiquetas as $arr){
+                $arr->delete();
+            }
+            if (is_array($model->etiquetasarray)) {
+                $labelfinal=''; $x=0;
+                foreach ($model->etiquetasarray as $label) {
+                    $etiqueta = Etiqueta::find()->where(['id' => $label])->one();
+                    $etiquetaTemp = new EtiquetaArchivo();
+                    $etiquetaTemp->id_archivo = $model->id_archivo;
+                    $etiquetaTemp->id_etiqueta = $etiqueta->id;
+                    $etiquetaTemp->save();
+                    if ($x==0){
+                        $labelfinal= $etiqueta->etiqueta." ;";
+                    }
+                    else $labelfinal = $labelfinal." ".$etiqueta->etiqueta." ;";
+                    $x++;
+                }
+                $model->etiqueta= $labelfinal;
+            }
+
+
+
             if (($model->year != null && ($model->month == null || $model->day ==null))  ||  (($model->year == null || $model->day ==null) && $model->month != null ) ||(($model->year == null || $model->month == null) && $model->day !=null)) {
                 Yii::$app->session->setFlash('error', 'La fecha debe estar completa o no ser insertada');
                 return $this->redirect([

@@ -295,7 +295,7 @@
                         'items' => [
                             ['label' => 'Usuarios', 'iconStyle' => 'far' , 'url' => ['/user/index'], 'visible' => Yii::$app->user->can('gestionar-usuarios')],
                             ['label' => 'Roles', 'iconStyle' => 'far' , 'url' => ['/auth-item/index'], 'visible' => Yii::$app->user->can('gestionar-roles')],
-                           // ['label' => 'Etiquetas', 'iconStyle' => 'far' , 'url' => ['/etiqueta/index'], 'visible' => Yii::$app->user->can('gestionar-nomencladores')],
+                            ['label' => 'Etiquetas', 'iconStyle' => 'far' , 'url' => ['/etiqueta/index'], 'visible' => Yii::$app->user->can('gestionar-nomencladores')],
                             ['label' => 'Géneros de Productos Audiovisuales', 'iconStyle' => 'far' , 'url' => ['/tipo-producto/index'], 'visible' => Yii::$app->user->can('gestionar-nomencladores')],
                             ['label' => 'Tipos de Proyectos Comunitarios', 'iconStyle' => 'far' , 'url' => ['/tipo-taller/index'], 'visible' => Yii::$app->user->can('gestionar-nomencladores')],
                             ['label' => 'Trazas', 'url' => ['/audit-entry/index'], 'iconStyle' => 'far' , 'visible' => Yii::$app->user->can('gestionar-traza')],
