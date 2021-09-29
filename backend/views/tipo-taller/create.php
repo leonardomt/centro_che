@@ -10,6 +10,10 @@ use common\widgets\Alert;
 $this->title = 'Crear Tipo de Proyecto Comunitario';
 $this->params['breadcrumbs'][] = ['label' => 'Tipo de Taller', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
+if (Yii::$app->user->isGuest)
+    return Yii::$app->getResponse()->redirect(\yii\helpers\Url::to(['site/login']));
+if ( !Yii::$app->user->can('gestionar-nomencladores'))
+    return Yii::$app->getResponse()->redirect(\yii\helpers\Url::to(['site/login']));
 ?>
 <div class="tipo-taller-create col-md-12">
 

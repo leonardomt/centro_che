@@ -15,6 +15,9 @@ $this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id
 $this->params['breadcrumbs'][] = 'Modificar';
 if (Yii::$app->user->isGuest)
     return Yii::$app->getResponse()->redirect(\yii\helpers\Url::to(['site/login']));
+if ( !Yii::$app->user->can('gestionar-roles'))
+    return Yii::$app->getResponse()->redirect(\yii\helpers\Url::to(['site/login']));
+
 ?>
 <div class="auth-item-update col-md-12">
 

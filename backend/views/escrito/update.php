@@ -14,6 +14,10 @@ $this->params['breadcrumbs'][] = ['label' => 'Escritos', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->titulo, 'url' => ['view', 'id' => $model->id_escrito]];
 $this->params['breadcrumbs'][] = 'Modificar';
 $x = 0;
+if (Yii::$app->user->isGuest)
+    return Yii::$app->getResponse()->redirect(\yii\helpers\Url::to(['site/login']));
+if ( !Yii::$app->user->can('gestionar-vida-obra'))
+    return Yii::$app->getResponse()->redirect(\yii\helpers\Url::to(['site/login']));
 ?>
 
 <script type='text/javascript' src='https://code.jquery.com/jquery-1.11.0.js'></script>

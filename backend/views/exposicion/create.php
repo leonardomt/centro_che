@@ -14,7 +14,8 @@ $this->params['breadcrumbs'][] = ['label' => 'Exposiciones', 'url' => ['index']]
 $this->params['breadcrumbs'][] = $this->title;
 if (Yii::$app->user->isGuest)
     return Yii::$app->getResponse()->redirect(\yii\helpers\Url::to(['site/login']));
-
+if ( !Yii::$app->user->can('gestionar-proyectos'))
+    return Yii::$app->getResponse()->redirect(\yii\helpers\Url::to(['site/login']));
 
 ?>
 

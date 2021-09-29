@@ -15,6 +15,8 @@ $this->params['breadcrumbs'][] = ['label' => 'Curso Online', 'url' => ['index']]
 $this->params['breadcrumbs'][] = $this->title;
 if (Yii::$app->user->isGuest)
     return Yii::$app->getResponse()->redirect(\yii\helpers\Url::to(['site/login']));
+if ( !Yii::$app->user->can('gestionar-coordinacion'))
+    return Yii::$app->getResponse()->redirect(\yii\helpers\Url::to(['site/login']));
 
 ?>
 <div class="curso-online-create col-md-12">

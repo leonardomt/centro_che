@@ -15,6 +15,8 @@ $this->params['breadcrumbs'][] = ['label' => $model->nombre_linea, 'url' => ['vi
 $this->params['breadcrumbs'][] = 'Modificar';
 if (Yii::$app->user->isGuest)
     return Yii::$app->getResponse()->redirect(\yii\helpers\Url::to(['site/login']));
+if ( !Yii::$app->user->can('gestionar-coordinacion'))
+    return Yii::$app->getResponse()->redirect(\yii\helpers\Url::to(['site/login']));
 
 ?>
 <div class="linea-investigacion-update col-md-12">

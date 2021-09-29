@@ -16,7 +16,8 @@ $this->params['breadcrumbs'][] = ['label' => 'Programación Cultural', 'url' => 
 $this->params['breadcrumbs'][] = $this->title;
 if (Yii::$app->user->isGuest)
     return Yii::$app->getResponse()->redirect(\yii\helpers\Url::to(['site/login']));
-
+if ( !Yii::$app->user->can('gestionar-proyectos'))
+    return Yii::$app->getResponse()->redirect(\yii\helpers\Url::to(['site/login']));
 ?>
 <script type='text/javascript' src='https://code.jquery.com/jquery-1.11.0.js'></script>
 <div class="programacion-create col-md-12">

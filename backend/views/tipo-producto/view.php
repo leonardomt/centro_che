@@ -12,6 +12,10 @@ $this->title = $model->id_tipo_archivo;
 $this->params['breadcrumbs'][] = ['label' => 'Tipo Archivo', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
+if (Yii::$app->user->isGuest)
+    return Yii::$app->getResponse()->redirect(\yii\helpers\Url::to(['site/login']));
+if ( !Yii::$app->user->can('gestionar-nomencladores'))
+    return Yii::$app->getResponse()->redirect(\yii\helpers\Url::to(['site/login']));
 ?>
 <div class="tipo-archivo-view col-md-12">
 

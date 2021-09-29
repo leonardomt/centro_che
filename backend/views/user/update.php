@@ -12,6 +12,11 @@ use common\widgets\Alert;
 $this->title = 'Modificar Usuario';
 $this->params['breadcrumbs'][] = ['label' => 'Usuarios', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
+if (Yii::$app->user->isGuest)
+    return Yii::$app->getResponse()->redirect(\yii\helpers\Url::to(['site/login']));
+if ( !Yii::$app->user->can('gestionar-usuarios'))
+    return Yii::$app->getResponse()->redirect(\yii\helpers\Url::to(['site/login']));
+
 ?>
 <div class="site-signup">
     <h1><?= Html::encode($this->title) ?></h1>

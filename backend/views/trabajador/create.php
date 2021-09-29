@@ -10,7 +10,14 @@ use yii\bootstrap4\Breadcrumbs;
 $this->title = 'Insertar Trabajador';
 $this->params['breadcrumbs'][] = ['label' => 'Quiénes Somos - Detalles', 'url' => ['/quienes-detalle/view', 'id' => 1]];
 $this->params['breadcrumbs'][] = $this->title;
+
+if (Yii::$app->user->isGuest)
+    return Yii::$app->getResponse()->redirect(\yii\helpers\Url::to(['site/login']));
+if ( !Yii::$app->user->can('gestionar-inicio'))
+    return Yii::$app->getResponse()->redirect(\yii\helpers\Url::to(['site/login']));
+
 ?>
+
 <div class="trabajador-create">
 
     <h1><?= Html::encode($this->title) ?></h1>

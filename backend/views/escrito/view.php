@@ -18,12 +18,10 @@ $this->params['breadcrumbs'][] = ['label' => 'Escritos', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 
-
 if (Yii::$app->user->isGuest)
     return Yii::$app->getResponse()->redirect(\yii\helpers\Url::to(['site/login']));
-
-
-
+if ( !Yii::$app->user->can('gestionar-vida-obra'))
+    return Yii::$app->getResponse()->redirect(\yii\helpers\Url::to(['site/login']));
 ?>
 <div class="escrito-view">
 

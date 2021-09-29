@@ -16,6 +16,8 @@ $this->params['breadcrumbs'][] = ['label' => 'Proyectos Comunitarios', 'url' => 
 $this->params['breadcrumbs'][] = $this->title;
 if (Yii::$app->user->isGuest)
     return Yii::$app->getResponse()->redirect(\yii\helpers\Url::to(['site/login']));
+if ( !Yii::$app->user->can('gestionar-proyectos'))
+    return Yii::$app->getResponse()->redirect(\yii\helpers\Url::to(['site/login']));
 
 ?>
 <div class="taller-create col-md-12">

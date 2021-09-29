@@ -13,6 +13,11 @@ use common\widgets\Alert;
 $this->title = "Proyecto Editorial - Portada";
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
+if (Yii::$app->user->isGuest)
+    return Yii::$app->getResponse()->redirect(\yii\helpers\Url::to(['site/login']));
+if ( !Yii::$app->user->can('gestionar-coordinacion'))
+    return Yii::$app->getResponse()->redirect(\yii\helpers\Url::to(['site/login']));
+
 ?>
 <div class="proyecto-view">
 

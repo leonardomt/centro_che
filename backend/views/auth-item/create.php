@@ -12,8 +12,11 @@ use kartik\form\ActiveForm;
 $this->title = 'Crear Rol';
 $this->params['breadcrumbs'][] = ['label' => 'Rol', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
-if ( Yii::$app->user->isGuest )
+if (Yii::$app->user->isGuest)
     return Yii::$app->getResponse()->redirect(\yii\helpers\Url::to(['site/login']));
+if ( !Yii::$app->user->can('gestionar-roles'))
+    return Yii::$app->getResponse()->redirect(\yii\helpers\Url::to(['site/login']));
+
 ?>
 <div class="auth-item-create col-md-12">
 

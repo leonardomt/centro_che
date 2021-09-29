@@ -13,10 +13,10 @@ use kartik\grid\GridView;
 $this->title = 'Insertar Discurso o Enrevista';
 $this->params['breadcrumbs'][] = ['label' => 'Discursos y Entrevistas', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
-
 if (Yii::$app->user->isGuest)
     return Yii::$app->getResponse()->redirect(\yii\helpers\Url::to(['site/login']));
-
+if ( !Yii::$app->user->can('gestionar-vida-obra'))
+    return Yii::$app->getResponse()->redirect(\yii\helpers\Url::to(['site/login']));
 ?>
 
 

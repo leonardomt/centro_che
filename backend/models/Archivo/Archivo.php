@@ -29,15 +29,6 @@ class Archivo extends \yii\db\ActiveRecord
 {
 
 
-    public function behaviors(){
-        return [
-
-            'auditEntryBehaviors' => [
-            'class' => AuditEntryBehaviors::className()
-        ],
-
-        ];
-    }
     /**
      * {@inheritdoc}
      */
@@ -121,35 +112,5 @@ class Archivo extends \yii\db\ActiveRecord
         return $this->hasOne(NoticiaArchivo::className(), ['id_archivo' => 'id_archivo']);
     }
 
-    public function afterDeleted($id)
-    {
-
-
-        try {
-            $userId = Yii::$app->getUser()->identity->getId();
-            $userIpAddress = Yii::$app->request->getUserIP();
-
-        } catch (Exception $e) { //If we have no user object, this must be a command line program
-            $userId = self::NO_USER_ID;
-        }
-
-        $log = new AuditEntry();
-        $log->audit_entry_old_value = 'NA';
-        $log->audit_entry_new_value = 'NA';
-        $log->audit_entry_operation = 'Eliminar';
-        $log->audit_entry_record = $id;
-        $log->audit_entry_model_id = $id;
-        $nombre = User::find()->where(['id' => Yii::$app->getUser()->identity->getId()])->one();
-        $log->audit_entry_user_name = $nombre->username;
-        $log->audit_entry_model_name = 'Archivo';
-        $log->audit_entry_field_name = 'N/A';
-
-        $log->audit_entry_timestamp = new \yii\db\Expression('unix_timestamp(NOW())');
-        $log->audit_entry_user_id = $userId;
-        $log->audit_entry_ip = $userIpAddress;
-
-        $log->save(false);
-
-    }
 
 }

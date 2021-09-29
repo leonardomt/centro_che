@@ -12,8 +12,11 @@ use common\widgets\Alert;
 
 $this->title = 'Roles';
 $this->params['breadcrumbs'][] = $this->title;
-if ( Yii::$app->user->isGuest )
+if (Yii::$app->user->isGuest)
     return Yii::$app->getResponse()->redirect(\yii\helpers\Url::to(['site/login']));
+if ( !Yii::$app->user->can('gestionar-roles'))
+    return Yii::$app->getResponse()->redirect(\yii\helpers\Url::to(['site/login']));
+
 ?>
 <div class="auth-item-index col-md-12">
 

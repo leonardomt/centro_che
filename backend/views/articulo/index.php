@@ -14,8 +14,11 @@ use yii\helpers\Url;
 $this->title = 'Artículos';
 $this->params['breadcrumbs'][] = $this->title;
 if (Yii::$app->user->isGuest)
-    return Yii::$app->getResponse()->redirect(Url::to(['site/login']));
-?>
+    return Yii::$app->getResponse()->redirect(\yii\helpers\Url::to(['site/login']));
+if ( !Yii::$app->user->can('gestionar-coordinacion'))
+    return Yii::$app->getResponse()->redirect(\yii\helpers\Url::to(['site/login']));
+
+    ?>
 
 <div class="articulo-index  col-md-12">
 

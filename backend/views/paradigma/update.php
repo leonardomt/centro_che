@@ -11,6 +11,11 @@ use kartik\form\ActiveForm;
 $this->title = 'Modificar ';
 $this->params['breadcrumbs'][] = ['label' => 'Paradigma - Inicio', 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Modificar Información';
+
+if (Yii::$app->user->isGuest)
+    return Yii::$app->getResponse()->redirect(\yii\helpers\Url::to(['site/login']));
+if ( !Yii::$app->user->can('gestionar-inicio'))
+    return Yii::$app->getResponse()->redirect(\yii\helpers\Url::to(['site/login']));
 ?>
 <div class="paradigma-update">
 

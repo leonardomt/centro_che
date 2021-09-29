@@ -9,6 +9,12 @@ use yii\bootstrap4\Breadcrumbs;
 $this->title = 'Modificar Información de  Contacto: ';
 $this->params['breadcrumbs'][] = ['label' =>  'Contacto', 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Modificar';
+
+if (Yii::$app->user->isGuest)
+    return Yii::$app->getResponse()->redirect(\yii\helpers\Url::to(['site/login']));
+if ( !Yii::$app->user->can('gestionar-inicio'))
+    return Yii::$app->getResponse()->redirect(\yii\helpers\Url::to(['site/login']));
+
 ?>
 <div class="contacto-update">
 

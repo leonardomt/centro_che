@@ -145,7 +145,7 @@ class ArchivoController extends Controller
             if (true) {
                 $fecha = $model->fecha;
                 if ($fecha != null) {
-                    
+
                     if (($fecha < "1943-6-15") && ($fecha > "1928-06-13")) {
                         $model->etapa = "Infancia";
                     }
@@ -194,7 +194,7 @@ class ArchivoController extends Controller
                     $model->tipo_archivo = 3;
                 };
                 $model->save();
-
+                $log = AuditEntryController::afterInsert($model, 'Archivo', $model->id_archivo, $model->titulo_archivo);
                 return $this->redirect(['index']);
             };
         }
@@ -215,6 +215,7 @@ class ArchivoController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $oldmodel = $this->findModel($id);
         $array = []; $i=0;
         $etiquetas= EtiquetaArchivo::find()->where(['id_archivo' => $id])->all();
         foreach ($etiquetas as $new){
@@ -301,6 +302,7 @@ class ArchivoController extends Controller
             $id_insert = $model->id_archivo;
             $model->id_archivo = $id_insert;
             if ($model->save()) {
+                $log = AuditEntryController::afterUpdate( $oldmodel, $model, 'Archivo', $model->id_archivo, $model->titulo_archivo);
                 return $this->redirect(['index']);
             }
         }
@@ -389,9 +391,8 @@ class ArchivoController extends Controller
 
         if ($deleted == true) {
 
-
+            $log = AuditEntryController::afterDelete(  $this->findModel($id), 'Archivo', $this->findModel($id)->id_archivo, $this->findModel($id)->titulo_archivo);
             $this->findModel($id)->delete();
-            $this->afterDeleted($id);
             return $this->redirect(['index']);
         } else {
             Yii::$app->session->setFlash('error', 'No se puede eliminar un archivo que esté asociado a al menos un elemento.');
@@ -434,34 +435,6 @@ class ArchivoController extends Controller
         return $out;
     }
 
-
-
-    public function afterDeleted($id)
-    {
-        try {
-            $userId = Yii::$app->getUser()->identity->getId();
-            $userIpAddress = Yii::$app->request->getUserIP();
-
-        } catch (Exception $e) { //If we have no user object, this must be a command line program
-            $userId = self::NO_USER_ID;
-        }
-
-        $log = new AuditEntry();
-        $log->audit_entry_old_value = 'N/A';
-        $log->audit_entry_new_value = 'N/A';
-        $log->audit_entry_operation = 'Eliminar';
-        $log->audit_entry_model_id = $id;
-        $nombre = User::find()->where(['id' => Yii::$app->getUser()->identity->getId()])->one();
-        $log->audit_entry_user_name = $nombre->username;
-        $log->audit_entry_model_name = 'Archivo';
-        $log->audit_entry_field_name = 'N/A';
-        $log->audit_entry_timestamp = new \yii\db\Expression('unix_timestamp(NOW())');
-        $log->audit_entry_user_id = $userId;
-        $log->audit_entry_ip = $userIpAddress;
-
-        $log->save(false);
-
-    }
 
 
 }

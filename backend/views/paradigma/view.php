@@ -13,7 +13,14 @@ use yii\bootstrap4\Breadcrumbs;
 $this->title = 'Paradigma - Inicio';
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
+
+if (Yii::$app->user->isGuest)
+    return Yii::$app->getResponse()->redirect(\yii\helpers\Url::to(['site/login']));
+if ( !Yii::$app->user->can('gestionar-inicio'))
+    return Yii::$app->getResponse()->redirect(\yii\helpers\Url::to(['site/login']));
+
 ?>
+
 <div class="paradigma-view">
 
     <h1><?= Html::encode($this->title) ?></h1>

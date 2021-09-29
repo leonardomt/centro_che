@@ -12,6 +12,11 @@ use common\widgets\Alert;
 $this->title = 'Crear Usuario';
 $this->params['breadcrumbs'][] = ['label' => 'Usuarios', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
+if (Yii::$app->user->isGuest)
+    return Yii::$app->getResponse()->redirect(\yii\helpers\Url::to(['site/login']));
+if ( !Yii::$app->user->can('gestionar-usuarios'))
+    return Yii::$app->getResponse()->redirect(\yii\helpers\Url::to(['site/login']));
+
 ?>
 <div class="site-signup">
     <h1><?= Html::encode($this->title) ?></h1>
@@ -28,16 +33,16 @@ $this->params['breadcrumbs'][] = $this->title;
 
             <div class="row">
                 <div class="col-lg-6 text-lg-left">
-                    <?= $form->field($model, 'first_name')->textInput(['autofocus' => true]) ?>
+                    <?= $form->field($model, 'first_name')->textInput(['autofocus' => true,'autocomplete'=>'off']) ?>
                 </div>
                 <div class="col-lg-6 text-lg-left">
-                    <?= $form->field($model, 'last_name')->textInput(['autofocus' => true]) ?>
+                    <?= $form->field($model, 'last_name')->textInput(['autofocus' => true, 'autocomplete'=>'off']) ?>
                 </div>
             </div>
 
             <div class="row">
                 <div class="col-lg-6 text-lg-left">
-                    <?= $form->field($model, 'username')->textInput(['autofocus' => true]) ?>
+                    <?= $form->field($model, 'username')->textInput(['autofocus' => true, 'autocomplete'=>'off']) ?>
                 </div>
                 <div class="col-lg-6 text-lg-left">
                     <?= $form->field($model, 'new_password')->passwordInput() ?>

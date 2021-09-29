@@ -13,8 +13,12 @@ $this->title = 'Modificar Discurso o Entrevista: ' . $model->titulo;
 $this->params['breadcrumbs'][] = ['label' => 'Discursos y Entrevistas', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->titulo, 'url' => ['view', 'id' => $model->id_discurso]];
 $this->params['breadcrumbs'][] = 'Modificar';
-?>
 
+if (Yii::$app->user->isGuest)
+    return Yii::$app->getResponse()->redirect(\yii\helpers\Url::to(['site/login']));
+if ( !Yii::$app->user->can('gestionar-vida-obra'))
+    return Yii::$app->getResponse()->redirect(\yii\helpers\Url::to(['site/login']));
+?>
 
 <div class="discurso-update">
 

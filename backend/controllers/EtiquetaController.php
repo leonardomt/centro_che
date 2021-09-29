@@ -2,6 +2,8 @@
 
 namespace backend\controllers;
 
+use backend\models\Etiqueta\EtiquetaArchivo;
+use backend\models\Etiqueta\EtiquetaColeccionDocumental;
 use Yii;
 use backend\models\Etiqueta\Etiqueta;
 use backend\models\Etiqueta\EtiquetaSearch;
@@ -106,9 +108,27 @@ class EtiquetaController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $deleted = true;
+        $temporal12 = EtiquetaArchivo::find()->where(['id_etiqueta' => $id])->all();
+        foreach ($temporal12 as $t12) {
+            $deleted = false;
+        }
 
-        return $this->redirect(['index']);
+        $temporal12 = EtiquetaColeccionDocumental::find()->where(['id_etiqueta' => $id])->all();
+        foreach ($temporal12 as $t12) {
+            $deleted = false;
+        }
+
+        if ($deleted == true) {
+
+            $this->findModel($id)->delete();
+            return $this->redirect(['index']);
+        } else {
+            Yii::$app->session->setFlash('error', 'No se puede eliminar una etiqueta que esté asociada a al menos una publicación.');
+            return $this->redirect(['index']);
+        }
+
+
     }
 
     /**

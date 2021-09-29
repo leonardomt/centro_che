@@ -27,6 +27,11 @@ if($tipo == 4){
 $this->params['breadcrumbs'][] = ['label' => 'Galería Vida y Obra', 'url' => ['index' , 'tipo'=>$tipo]];
 $this->params['breadcrumbs'][] = ['label' => $tipo_title, 'url' => ['view', 'id' => $model->id_galeria_vo, 'tipo' => $tipo]];
 $this->params['breadcrumbs'][] = 'Modificar';
+
+if (Yii::$app->user->isGuest)
+    return Yii::$app->getResponse()->redirect(\yii\helpers\Url::to(['site/login']));
+if ( !Yii::$app->user->can('gestionar-vida-obra'))
+    return Yii::$app->getResponse()->redirect(\yii\helpers\Url::to(['site/login']));
 ?>
 <div class="galeria-vo-update">
 

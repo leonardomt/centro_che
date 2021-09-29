@@ -18,6 +18,8 @@ use Yii;
  * @property string $audit_entry_user_id
  * @property string $audit_entry_ip
  * @property string $audit_entry_user_name
+ * @property string $place
+ * @property string $title
  */
 class AuditEntry extends \yii\db\ActiveRecord
 {
@@ -36,7 +38,7 @@ class AuditEntry extends \yii\db\ActiveRecord
     {
         return [
             [['audit_entry_timestamp', 'audit_entry_model_name', 'audit_entry_operation', 'audit_entry_field_name', 'audit_entry_old_value', 'audit_entry_new_value', 'audit_entry_user_id', 'audit_entry_ip'], 'required'],
-            [['audit_entry_old_value', 'audit_entry_new_value'], 'string'],
+            [['audit_entry_old_value', 'audit_entry_new_value', 'place', 'title'], 'string'],
             [['audit_entry_timestamp', 'audit_entry_model_name','audit_entry_model_id', 'audit_entry_user_name', 'audit_entry_operation', 'audit_entry_field_name', 'audit_entry_user_id', 'audit_entry_ip'], 'string', 'max' => 100],
         ];
     }
@@ -57,7 +59,9 @@ class AuditEntry extends \yii\db\ActiveRecord
             'audit_entry_user_id' => Yii::t('app', 'Id Usuario'),
             'audit_entry_user_name' => Yii::t('app', 'Usuario'),
             'audit_entry_ip' => Yii::t('app', 'IP'),
-            'audit_entry_model_id' => Yii::t('app', 'Valor Eliminado'),
+            'audit_entry_model_id' => Yii::t('app', 'ID'),
+            'place' => Yii::t('app', 'Ubicación'),
+            'title' => Yii::t('app', 'Título'),
         ];
     }
 

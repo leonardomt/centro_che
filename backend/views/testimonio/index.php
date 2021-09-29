@@ -12,6 +12,11 @@ use common\widgets\Alert;
 
 $this->title = 'Testimonios';
 $this->params['breadcrumbs'][] = $this->title;
+
+if (Yii::$app->user->isGuest)
+    return Yii::$app->getResponse()->redirect(\yii\helpers\Url::to(['site/login']));
+if ( !Yii::$app->user->can('gestionar-vida-obra'))
+    return Yii::$app->getResponse()->redirect(\yii\helpers\Url::to(['site/login']));
 ?>
 <div class="testimonio-index  col-md-12">
 

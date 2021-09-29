@@ -11,6 +11,11 @@ use kartik\form\ActiveForm;
 $this->title = 'Modificar Descripción ';
 $this->params['breadcrumbs'][] = ['label' => 'Quiénes Somos - Detalles', 'url' => ['/quienes-detalle/view', 'id' => 1]];
 $this->params['breadcrumbs'][] =$this->title;
+if (Yii::$app->user->isGuest)
+    return Yii::$app->getResponse()->redirect(\yii\helpers\Url::to(['site/login']));
+if ( !Yii::$app->user->can('gestionar-inicio'))
+    return Yii::$app->getResponse()->redirect(\yii\helpers\Url::to(['site/login']));
+
 ?>
 <div class="quienes-detalle-update">
 

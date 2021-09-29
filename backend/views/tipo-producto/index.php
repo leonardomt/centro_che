@@ -12,6 +12,10 @@ use common\widgets\Alert;
 
 $this->title = 'Tipos de Producto Audiovisual';
 $this->params['breadcrumbs'][] = $this->title;
+if (Yii::$app->user->isGuest)
+    return Yii::$app->getResponse()->redirect(\yii\helpers\Url::to(['site/login']));
+if ( !Yii::$app->user->can('gestionar-nomencladores'))
+    return Yii::$app->getResponse()->redirect(\yii\helpers\Url::to(['site/login']));
 ?>
 <div class="tipo-producto-index col-md-12">
 

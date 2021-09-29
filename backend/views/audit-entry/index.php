@@ -10,6 +10,13 @@ use kartik\export\ExportMenu;
 
 $this->title = 'Registro de Trazas';
 $this->params['breadcrumbs'][] = $this->title;
+
+if (Yii::$app->user->isGuest)
+    return Yii::$app->getResponse()->redirect(\yii\helpers\Url::to(['site/login']));
+if ( !Yii::$app->user->can('gestionar-traza'))
+    return Yii::$app->getResponse()->redirect(\yii\helpers\Url::to(['site/login']));
+
+
 ?>
 <div class="audit-entry-index  col-md-12">
 
@@ -29,7 +36,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
         ],
         [
-            'attribute' => 'audit_entry_user_name',                     // etapa
+            'attribute' => 'audit_entry_user_name',
             'format' => 'raw',
             'headerOptions' => array('class' => 'col-md-2'),
             'filterInputOptions' => array('class' => 'form-control', 'id' => null, 'prompt' => 'Todos'),
@@ -43,7 +50,7 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
 
         [
-            'attribute' => 'audit_entry_model_name',                     // etapa
+            'attribute' => 'place',
             'format' => 'raw',
             'headerOptions' => array('class' => 'col-md-2'),
             'filterInputOptions' => array('class' => 'form-control', 'id' => null, 'prompt' => 'Todos'),
@@ -101,6 +108,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'attribute' => 'audit_entry_new_value',
             'contentOptions' => ['style' => 'max-width:100px; min-height:100px; overflow: auto; word-wrap: break-word;'],
         ],
+        'title',
         'audit_entry_model_id',
         'audit_entry_ip',
     ];

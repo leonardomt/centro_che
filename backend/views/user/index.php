@@ -12,6 +12,11 @@ use common\widgets\Alert;
 
 $this->title = 'Usuarios';
 $this->params['breadcrumbs'][] = $this->title;
+if (Yii::$app->user->isGuest)
+    return Yii::$app->getResponse()->redirect(\yii\helpers\Url::to(['site/login']));
+if ( !Yii::$app->user->can('gestionar-usuarios'))
+    return Yii::$app->getResponse()->redirect(\yii\helpers\Url::to(['site/login']));
+
 ?>
 
 <div class="user-index col-md-12">

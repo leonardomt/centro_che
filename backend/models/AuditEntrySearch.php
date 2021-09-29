@@ -19,7 +19,7 @@ class AuditEntrySearch extends AuditEntry
     {
         return [
             [['audit_entry_id'], 'integer'],
-            [['audit_entry_timestamp', 'audit_entry_model_name','audit_entry_model_id', 'audit_entry_user_name', 'audit_entry_operation', 'audit_entry_field_name', 'audit_entry_old_value', 'audit_entry_new_value', 'audit_entry_user_id', 'audit_entry_ip'], 'safe'],
+            [['audit_entry_timestamp', 'place', 'title', 'audit_entry_model_name','audit_entry_model_id', 'audit_entry_user_name', 'audit_entry_operation', 'audit_entry_field_name', 'audit_entry_old_value', 'audit_entry_new_value', 'audit_entry_user_id', 'audit_entry_ip'], 'safe'],
         ];
     }
 
