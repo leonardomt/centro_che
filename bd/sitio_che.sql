@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 28-09-2021 a las 23:21:31
+-- Tiempo de generación: 30-09-2021 a las 01:40:58
 -- Versión del servidor: 10.4.14-MariaDB
 -- Versión de PHP: 7.2.34
 
@@ -51,7 +51,9 @@ INSERT INTO `archivo` (`id_archivo`, `revisado`, `titulo_archivo`, `tipo_archivo
 (81, 1, 'Presentación Centro', 1, 'Centro Che Cuba', 'Archivo Centro', 'institucional', 'Presentación donde se explica la visión, misión y objeto social del Cento de Estudios Che Guevara. ', 'uploads/Presentación Centro.jpg', '2021-06-14', 'Posterior a 1967'),
 (83, 1, 'Teletrabajo', 1, 'Centro Che Cuba', 'Archivo Centro', 'institucional', 'Jóvenes del Centro de Estudios Che Guevara aprovechan las ventajas de las nuevas tecnologías y continúan desarrolando proyectos a pesar de las limitaciones por COVID. ', 'uploads/Teletrabajo.png', '2021-08-15', 'Posterior a 1967'),
 (85, 1, 'hgfds', 1, 'hgfds', 'gfd', 'hgfd, fghj, ghjk', 'afsdf', 'uploads/hgfds.jpg', '2021-09-02', 'Posterior a 1967'),
-(87, 1, 'Che', 1, 'Korda', '', 'foto', 'La foto de korda!!!!', 'uploads/Che.jpg', '1962-03-04', 'Adulto');
+(87, 1, 'Che', 1, 'Korda', '', 'foto', 'La foto de korda!!!!', 'uploads/Che.jpg', '1962-03-04', 'Adulto'),
+(99, 0, '123', 1, '123', '123', 'nueva ;', '123', 'uploads/2021-09-2929563.jpg', '1800-05-01', 'Anterior a 1928'),
+(100, 0, 'Trasteando', 1, 'Autor probando', 'Fuente Prueba', 'nueva ; prueba ;', 'Descrip Probando', 'uploads/2021-09-2979091.jpeg', '1800-04-01', 'Anterior a 1928');
 
 -- --------------------------------------------------------
 
@@ -130,7 +132,8 @@ INSERT INTO `auth_assignment` (`item_name`, `user_id`, `created_at`) VALUES
 ('coordinador-academico', '60', NULL),
 ('coordinador-de-proyectos-alternativos', '57', NULL),
 ('coordinador-de-proyectos-alternativos', '61', NULL),
-('gestor-de-contenidos', '59', NULL);
+('gestor-de-contenidos', '59', NULL),
+('no ahi', '63', NULL);
 
 -- --------------------------------------------------------
 
@@ -170,6 +173,7 @@ INSERT INTO `auth_item` (`name`, `type`, `description`, `rule_name`, `data`, `cr
 ('gestionar-usuarios', 2, 'Gestionar Usuarios', NULL, NULL, NULL, NULL),
 ('gestionar-vida-obra', 2, 'Gestión de contenidos en Vida y Obra', NULL, NULL, NULL, NULL),
 ('gestor-de-contenidos', 1, 'Gestor de contenidos', NULL, NULL, NULL, NULL),
+('no ahi', 1, 'no ahi', NULL, NULL, NULL, NULL),
 ('publicar', 2, 'Publicar', NULL, NULL, NULL, NULL),
 ('revisar', 2, 'Revisar', NULL, NULL, NULL, NULL);
 
@@ -226,7 +230,8 @@ INSERT INTO `auth_item_child` (`parent`, `child`) VALUES
 ('gestor-de-contenidos', 'gestionar-mapa'),
 ('gestor-de-contenidos', 'gestionar-noticia'),
 ('gestor-de-contenidos', 'gestionar-proyectos'),
-('gestor-de-contenidos', 'gestionar-vida-obra');
+('gestor-de-contenidos', 'gestionar-vida-obra'),
+('no ahi', 'gestionar-comentario');
 
 -- --------------------------------------------------------
 
@@ -596,7 +601,11 @@ CREATE TABLE `etiqueta_archivo` (
 --
 
 INSERT INTO `etiqueta_archivo` (`id`, `id_etiqueta`, `id_archivo`) VALUES
-(5, 4, 89);
+(5, 4, 89),
+(12, 4, 101),
+(13, 5, 101),
+(14, 4, 100),
+(15, 6, 100);
 
 -- --------------------------------------------------------
 
@@ -1495,200 +1504,68 @@ CREATE TABLE `tbl_audit_entry` (
 --
 
 INSERT INTO `tbl_audit_entry` (`audit_entry_id`, `audit_entry_timestamp`, `audit_entry_model_name`, `audit_entry_model_id`, `audit_entry_operation`, `audit_entry_field_name`, `audit_entry_old_value`, `audit_entry_new_value`, `audit_entry_user_id`, `audit_entry_ip`, `audit_entry_user_name`, `place`, `title`) VALUES
-(1, '2021-09-28 10:58:59', 'ColeccionDocumental', 'N/A', 'Insertar', 'autor', NULL, '123', '5', '::1', 'Leonardo', '', ''),
-(2, '2021-09-28 10:58:59', 'ColeccionDocumental', 'N/A', 'Insertar', 'titulo', NULL, '123', '5', '::1', 'Leonardo', '', ''),
-(3, '2021-09-28 10:58:59', 'ColeccionDocumental', 'N/A', 'Insertar', 'tipologia', NULL, '123', '5', '::1', 'Leonardo', '', ''),
-(4, '2021-09-28 10:58:59', 'ColeccionDocumental', 'N/A', 'Insertar', 'etiquetas', NULL, '123', '5', '::1', 'Leonardo', '', ''),
-(5, '2021-09-28 10:58:59', 'ColeccionDocumental', 'N/A', 'Insertar', 'descripcion', NULL, '123', '5', '::1', 'Leonardo', '', ''),
-(6, '2021-09-28 10:58:59', 'ColeccionDocumental', 'N/A', 'Insertar', 'revisado', NULL, '0', '5', '::1', 'Leonardo', '', ''),
-(7, '2021-09-28 10:58:59', 'ColeccionDocumental', 'N/A', 'Insertar', 'publico', NULL, '0', '5', '::1', 'Leonardo', '', ''),
-(8, '2021-09-28 10:58:59', 'ColeccionDocumental', 'N/A', 'Insertar', 'fecha', NULL, '1800-01-1', '5', '::1', 'Leonardo', '', ''),
-(9, '2021-09-28 10:58:59', 'ColeccionDocumental', 'N/A', 'Insertar', 'id_coleccion_documental', NULL, '10', '5', '::1', 'Leonardo', '', ''),
-(10, '2021-09-28 10:59:00', 'ColeccionDocumentalArchivo', 'N/A', 'Insertar', 'id_archivo', NULL, '81', '5', '::1', 'Leonardo', '', ''),
-(11, '2021-09-28 10:59:00', 'ColeccionDocumentalArchivo', 'N/A', 'Insertar', 'portada', NULL, '1', '5', '::1', 'Leonardo', '', ''),
-(12, '2021-09-28 10:59:00', 'ColeccionDocumentalArchivo', 'N/A', 'Insertar', 'id_coleccion_documental', NULL, '10', '5', '::1', 'Leonardo', '', ''),
-(13, '2021-09-28 10:59:00', 'ColeccionDocumentalArchivo', 'N/A', 'Insertar', 'id', NULL, '18', '5', '::1', 'Leonardo', '', ''),
-(14, '2021-09-28 11:04:03', 'ColeccionDocumental', 'N/A', 'Insertar', 'autor', NULL, '123', '5', '::1', 'Leonardo', '', ''),
-(15, '2021-09-28 11:04:03', 'ColeccionDocumental', 'N/A', 'Insertar', 'titulo', NULL, '123', '5', '::1', 'Leonardo', '', ''),
-(16, '2021-09-28 11:04:03', 'ColeccionDocumental', 'N/A', 'Insertar', 'tipologia', NULL, '123', '5', '::1', 'Leonardo', '', ''),
-(17, '2021-09-28 11:04:03', 'ColeccionDocumental', 'N/A', 'Insertar', 'etiquetas', NULL, ' ,Nueva , ,Otra ,', '5', '::1', 'Leonardo', '', ''),
-(18, '2021-09-28 11:04:03', 'ColeccionDocumental', 'N/A', 'Insertar', 'descripcion', NULL, '123', '5', '::1', 'Leonardo', '', ''),
-(19, '2021-09-28 11:04:03', 'ColeccionDocumental', 'N/A', 'Insertar', 'revisado', NULL, '0', '5', '::1', 'Leonardo', '', ''),
-(20, '2021-09-28 11:04:03', 'ColeccionDocumental', 'N/A', 'Insertar', 'publico', NULL, '0', '5', '::1', 'Leonardo', '', ''),
-(21, '2021-09-28 11:04:03', 'ColeccionDocumental', 'N/A', 'Insertar', 'fecha', NULL, '1800-01-1', '5', '::1', 'Leonardo', '', ''),
-(22, '2021-09-28 11:04:03', 'ColeccionDocumental', 'N/A', 'Insertar', 'id_coleccion_documental', NULL, '11', '5', '::1', 'Leonardo', '', ''),
-(23, '2021-09-28 11:04:03', 'ColeccionDocumentalArchivo', 'N/A', 'Insertar', 'id_archivo', NULL, '81', '5', '::1', 'Leonardo', '', ''),
-(24, '2021-09-28 11:04:03', 'ColeccionDocumentalArchivo', 'N/A', 'Insertar', 'portada', NULL, '1', '5', '::1', 'Leonardo', '', ''),
-(25, '2021-09-28 11:04:03', 'ColeccionDocumentalArchivo', 'N/A', 'Insertar', 'id_coleccion_documental', NULL, '11', '5', '::1', 'Leonardo', '', ''),
-(26, '2021-09-28 11:04:03', 'ColeccionDocumentalArchivo', 'N/A', 'Insertar', 'id', NULL, '19', '5', '::1', 'Leonardo', '', ''),
-(27, '2021-09-28 11:05:42', 'ColeccionDocumental', 'N/A', 'Insertar', 'autor', NULL, '123', '5', '::1', 'Leonardo', '', ''),
-(28, '2021-09-28 11:05:42', 'ColeccionDocumental', 'N/A', 'Insertar', 'titulo', NULL, '123', '5', '::1', 'Leonardo', '', ''),
-(29, '2021-09-28 11:05:42', 'ColeccionDocumental', 'N/A', 'Insertar', 'tipologia', NULL, '123', '5', '::1', 'Leonardo', '', ''),
-(30, '2021-09-28 11:05:42', 'ColeccionDocumental', 'N/A', 'Insertar', 'etiquetas', NULL, 'Centro ,', '5', '::1', 'Leonardo', '', ''),
-(31, '2021-09-28 11:05:42', 'ColeccionDocumental', 'N/A', 'Insertar', 'descripcion', NULL, '123', '5', '::1', 'Leonardo', '', ''),
-(32, '2021-09-28 11:05:42', 'ColeccionDocumental', 'N/A', 'Insertar', 'revisado', NULL, '0', '5', '::1', 'Leonardo', '', ''),
-(33, '2021-09-28 11:05:42', 'ColeccionDocumental', 'N/A', 'Insertar', 'publico', NULL, '0', '5', '::1', 'Leonardo', '', ''),
-(34, '2021-09-28 11:05:42', 'ColeccionDocumental', 'N/A', 'Insertar', 'fecha', NULL, '1800-01-1', '5', '::1', 'Leonardo', '', ''),
-(35, '2021-09-28 11:05:42', 'ColeccionDocumental', 'N/A', 'Insertar', 'id_coleccion_documental', NULL, '12', '5', '::1', 'Leonardo', '', ''),
-(36, '2021-09-28 11:05:42', 'ColeccionDocumentalArchivo', 'N/A', 'Insertar', 'id_archivo', NULL, '81', '5', '::1', 'Leonardo', '', ''),
-(37, '2021-09-28 11:05:42', 'ColeccionDocumentalArchivo', 'N/A', 'Insertar', 'portada', NULL, '1', '5', '::1', 'Leonardo', '', ''),
-(38, '2021-09-28 11:05:42', 'ColeccionDocumentalArchivo', 'N/A', 'Insertar', 'id_coleccion_documental', NULL, '12', '5', '::1', 'Leonardo', '', ''),
-(39, '2021-09-28 11:05:42', 'ColeccionDocumentalArchivo', 'N/A', 'Insertar', 'id', NULL, '20', '5', '::1', 'Leonardo', '', ''),
-(40, '2021-09-28 11:05:51', 'ColeccionDocumental', 'N/A', 'Insertar', 'autor', NULL, '123', '5', '::1', 'Leonardo', '', ''),
-(41, '2021-09-28 11:05:51', 'ColeccionDocumental', 'N/A', 'Insertar', 'titulo', NULL, '123', '5', '::1', 'Leonardo', '', ''),
-(42, '2021-09-28 11:05:51', 'ColeccionDocumental', 'N/A', 'Insertar', 'tipologia', NULL, '123', '5', '::1', 'Leonardo', '', ''),
-(43, '2021-09-28 11:05:51', 'ColeccionDocumental', 'N/A', 'Insertar', 'etiquetas', NULL, 'Centro ,', '5', '::1', 'Leonardo', '', ''),
-(44, '2021-09-28 11:05:51', 'ColeccionDocumental', 'N/A', 'Insertar', 'descripcion', NULL, '123', '5', '::1', 'Leonardo', '', ''),
-(45, '2021-09-28 11:05:51', 'ColeccionDocumental', 'N/A', 'Insertar', 'revisado', NULL, '0', '5', '::1', 'Leonardo', '', ''),
-(46, '2021-09-28 11:05:51', 'ColeccionDocumental', 'N/A', 'Insertar', 'publico', NULL, '0', '5', '::1', 'Leonardo', '', ''),
-(47, '2021-09-28 11:05:51', 'ColeccionDocumental', 'N/A', 'Insertar', 'fecha', NULL, '1800-01-1', '5', '::1', 'Leonardo', '', ''),
-(48, '2021-09-28 11:05:51', 'ColeccionDocumental', 'N/A', 'Insertar', 'id_coleccion_documental', NULL, '13', '5', '::1', 'Leonardo', '', ''),
-(49, '2021-09-28 11:05:51', 'ColeccionDocumentalArchivo', 'N/A', 'Insertar', 'id_archivo', NULL, '79', '5', '::1', 'Leonardo', '', ''),
-(50, '2021-09-28 11:05:51', 'ColeccionDocumentalArchivo', 'N/A', 'Insertar', 'portada', NULL, '1', '5', '::1', 'Leonardo', '', ''),
-(51, '2021-09-28 11:05:51', 'ColeccionDocumentalArchivo', 'N/A', 'Insertar', 'id_coleccion_documental', NULL, '13', '5', '::1', 'Leonardo', '', ''),
-(52, '2021-09-28 11:05:51', 'ColeccionDocumentalArchivo', 'N/A', 'Insertar', 'id', NULL, '21', '5', '::1', 'Leonardo', '', ''),
-(53, '2021-09-28 11:06:37', 'ColeccionDocumental', 'N/A', 'Insertar', 'autor', NULL, '123', '5', '::1', 'Leonardo', '', ''),
-(54, '2021-09-28 11:06:37', 'ColeccionDocumental', 'N/A', 'Insertar', 'titulo', NULL, '123', '5', '::1', 'Leonardo', '', ''),
-(55, '2021-09-28 11:06:37', 'ColeccionDocumental', 'N/A', 'Insertar', 'tipologia', NULL, '123', '5', '::1', 'Leonardo', '', ''),
-(56, '2021-09-28 11:06:37', 'ColeccionDocumental', 'N/A', 'Insertar', 'etiquetas', NULL, 'Nueva , ,Otra , ,Centro ,', '5', '::1', 'Leonardo', '', ''),
-(57, '2021-09-28 11:06:37', 'ColeccionDocumental', 'N/A', 'Insertar', 'descripcion', NULL, '123', '5', '::1', 'Leonardo', '', ''),
-(58, '2021-09-28 11:06:37', 'ColeccionDocumental', 'N/A', 'Insertar', 'revisado', NULL, '0', '5', '::1', 'Leonardo', '', ''),
-(59, '2021-09-28 11:06:37', 'ColeccionDocumental', 'N/A', 'Insertar', 'publico', NULL, '0', '5', '::1', 'Leonardo', '', ''),
-(60, '2021-09-28 11:06:37', 'ColeccionDocumental', 'N/A', 'Insertar', 'fecha', NULL, '1800-01-1', '5', '::1', 'Leonardo', '', ''),
-(61, '2021-09-28 11:06:37', 'ColeccionDocumental', 'N/A', 'Insertar', 'id_coleccion_documental', NULL, '14', '5', '::1', 'Leonardo', '', ''),
-(62, '2021-09-28 11:06:37', 'ColeccionDocumentalArchivo', 'N/A', 'Insertar', 'id_archivo', NULL, '79', '5', '::1', 'Leonardo', '', ''),
-(63, '2021-09-28 11:06:37', 'ColeccionDocumentalArchivo', 'N/A', 'Insertar', 'id_coleccion_documental', NULL, '14', '5', '::1', 'Leonardo', '', ''),
-(64, '2021-09-28 11:06:37', 'ColeccionDocumentalArchivo', 'N/A', 'Insertar', 'id', NULL, '22', '5', '::1', 'Leonardo', '', ''),
-(65, '2021-09-28 11:06:58', 'ColeccionDocumental', 'N/A', 'Insertar', 'autor', NULL, '123', '5', '::1', 'Leonardo', '', ''),
-(66, '2021-09-28 11:06:58', 'ColeccionDocumental', 'N/A', 'Insertar', 'titulo', NULL, '123', '5', '::1', 'Leonardo', '', ''),
-(67, '2021-09-28 11:06:58', 'ColeccionDocumental', 'N/A', 'Insertar', 'tipologia', NULL, '123', '5', '::1', 'Leonardo', '', ''),
-(68, '2021-09-28 11:06:58', 'ColeccionDocumental', 'N/A', 'Insertar', 'etiquetas', NULL, 'Nueva , Otra , Centro ,', '5', '::1', 'Leonardo', '', ''),
-(69, '2021-09-28 11:06:58', 'ColeccionDocumental', 'N/A', 'Insertar', 'descripcion', NULL, '123', '5', '::1', 'Leonardo', '', ''),
-(70, '2021-09-28 11:06:58', 'ColeccionDocumental', 'N/A', 'Insertar', 'revisado', NULL, '0', '5', '::1', 'Leonardo', '', ''),
-(71, '2021-09-28 11:06:58', 'ColeccionDocumental', 'N/A', 'Insertar', 'publico', NULL, '0', '5', '::1', 'Leonardo', '', ''),
-(72, '2021-09-28 11:06:58', 'ColeccionDocumental', 'N/A', 'Insertar', 'fecha', NULL, '1800-01-1', '5', '::1', 'Leonardo', '', ''),
-(73, '2021-09-28 11:06:58', 'ColeccionDocumental', 'N/A', 'Insertar', 'id_coleccion_documental', NULL, '15', '5', '::1', 'Leonardo', '', ''),
-(74, '2021-09-28 11:06:58', 'ColeccionDocumentalArchivo', 'N/A', 'Insertar', 'id_archivo', NULL, '79', '5', '::1', 'Leonardo', '', ''),
-(75, '2021-09-28 11:06:58', 'ColeccionDocumentalArchivo', 'N/A', 'Insertar', 'id_coleccion_documental', NULL, '15', '5', '::1', 'Leonardo', '', ''),
-(76, '2021-09-28 11:06:58', 'ColeccionDocumentalArchivo', 'N/A', 'Insertar', 'id', NULL, '23', '5', '::1', 'Leonardo', '', ''),
-(77, '2021-09-28 11:07:18', 'ColeccionDocumental', 'N/A', 'Insertar', 'autor', NULL, '123', '5', '::1', 'Leonardo', '', ''),
-(78, '2021-09-28 11:07:18', 'ColeccionDocumental', 'N/A', 'Insertar', 'titulo', NULL, '123', '5', '::1', 'Leonardo', '', ''),
-(79, '2021-09-28 11:07:18', 'ColeccionDocumental', 'N/A', 'Insertar', 'tipologia', NULL, '123', '5', '::1', 'Leonardo', '', ''),
-(80, '2021-09-28 11:07:18', 'ColeccionDocumental', 'N/A', 'Insertar', 'etiquetas', NULL, 'Nueva ; Otra ; Centro ;', '5', '::1', 'Leonardo', '', ''),
-(81, '2021-09-28 11:07:18', 'ColeccionDocumental', 'N/A', 'Insertar', 'descripcion', NULL, '123', '5', '::1', 'Leonardo', '', ''),
-(82, '2021-09-28 11:07:18', 'ColeccionDocumental', 'N/A', 'Insertar', 'revisado', NULL, '0', '5', '::1', 'Leonardo', '', ''),
-(83, '2021-09-28 11:07:18', 'ColeccionDocumental', 'N/A', 'Insertar', 'publico', NULL, '0', '5', '::1', 'Leonardo', '', ''),
-(84, '2021-09-28 11:07:18', 'ColeccionDocumental', 'N/A', 'Insertar', 'fecha', NULL, '1800-01-1', '5', '::1', 'Leonardo', '', ''),
-(85, '2021-09-28 11:07:18', 'ColeccionDocumental', 'N/A', 'Insertar', 'id_coleccion_documental', NULL, '16', '5', '::1', 'Leonardo', '', ''),
-(86, '2021-09-28 11:07:18', 'ColeccionDocumentalArchivo', 'N/A', 'Insertar', 'id_archivo', NULL, '79', '5', '::1', 'Leonardo', '', ''),
-(87, '2021-09-28 11:07:18', 'ColeccionDocumentalArchivo', 'N/A', 'Insertar', 'id_coleccion_documental', NULL, '16', '5', '::1', 'Leonardo', '', ''),
-(88, '2021-09-28 11:07:18', 'ColeccionDocumentalArchivo', 'N/A', 'Insertar', 'id', NULL, '24', '5', '::1', 'Leonardo', '', ''),
-(89, '2021-09-28 11:07:48', 'ColeccionDocumental', 'N/A', 'Insertar', 'autor', NULL, '123', '5', '::1', 'Leonardo', '', ''),
-(90, '2021-09-28 11:07:48', 'ColeccionDocumental', 'N/A', 'Insertar', 'titulo', NULL, '123', '5', '::1', 'Leonardo', '', ''),
-(91, '2021-09-28 11:07:48', 'ColeccionDocumental', 'N/A', 'Insertar', 'tipologia', NULL, '123', '5', '::1', 'Leonardo', '', ''),
-(92, '2021-09-28 11:07:48', 'ColeccionDocumental', 'N/A', 'Insertar', 'etiquetas', NULL, 'Nueva ; Otra ; Centro ;', '5', '::1', 'Leonardo', '', ''),
-(93, '2021-09-28 11:07:48', 'ColeccionDocumental', 'N/A', 'Insertar', 'descripcion', NULL, '123', '5', '::1', 'Leonardo', '', ''),
-(94, '2021-09-28 11:07:48', 'ColeccionDocumental', 'N/A', 'Insertar', 'revisado', NULL, '0', '5', '::1', 'Leonardo', '', ''),
-(95, '2021-09-28 11:07:48', 'ColeccionDocumental', 'N/A', 'Insertar', 'publico', NULL, '0', '5', '::1', 'Leonardo', '', ''),
-(96, '2021-09-28 11:07:48', 'ColeccionDocumental', 'N/A', 'Insertar', 'fecha', NULL, '1800-01-1', '5', '::1', 'Leonardo', '', ''),
-(97, '2021-09-28 11:07:48', 'ColeccionDocumental', 'N/A', 'Insertar', 'id_coleccion_documental', NULL, '17', '5', '::1', 'Leonardo', '', ''),
-(98, '2021-09-28 11:07:48', 'ColeccionDocumentalArchivo', 'N/A', 'Insertar', 'id_archivo', NULL, '79', '5', '::1', 'Leonardo', '', ''),
-(99, '2021-09-28 11:07:48', 'ColeccionDocumentalArchivo', 'N/A', 'Insertar', 'id_coleccion_documental', NULL, '17', '5', '::1', 'Leonardo', '', ''),
-(100, '2021-09-28 11:07:48', 'ColeccionDocumentalArchivo', 'N/A', 'Insertar', 'id', NULL, '25', '5', '::1', 'Leonardo', '', ''),
-(101, '2021-09-28 11:08:22', 'ColeccionDocumental', 'N/A', 'Insertar', 'autor', NULL, '123', '5', '::1', 'Leonardo', '', ''),
-(102, '2021-09-28 11:08:22', 'ColeccionDocumental', 'N/A', 'Insertar', 'titulo', NULL, '123', '5', '::1', 'Leonardo', '', ''),
-(103, '2021-09-28 11:08:22', 'ColeccionDocumental', 'N/A', 'Insertar', 'tipologia', NULL, '123', '5', '::1', 'Leonardo', '', ''),
-(104, '2021-09-28 11:08:22', 'ColeccionDocumental', 'N/A', 'Insertar', 'descripcion', NULL, '123', '5', '::1', 'Leonardo', '', ''),
-(105, '2021-09-28 11:08:22', 'ColeccionDocumental', 'N/A', 'Insertar', 'revisado', NULL, '0', '5', '::1', 'Leonardo', '', ''),
-(106, '2021-09-28 11:08:22', 'ColeccionDocumental', 'N/A', 'Insertar', 'publico', NULL, '0', '5', '::1', 'Leonardo', '', ''),
-(107, '2021-09-28 11:08:22', 'ColeccionDocumental', 'N/A', 'Insertar', 'fecha', NULL, '1800-01-1', '5', '::1', 'Leonardo', '', ''),
-(108, '2021-09-28 11:08:22', 'ColeccionDocumental', 'N/A', 'Insertar', 'etiquetas', NULL, 'Nueva ; Otra ; Centro ;', '5', '::1', 'Leonardo', '', ''),
-(109, '2021-09-28 11:08:22', 'ColeccionDocumental', 'N/A', 'Insertar', 'id_coleccion_documental', NULL, '18', '5', '::1', 'Leonardo', '', ''),
-(110, '2021-09-28 11:08:22', 'ColeccionDocumentalArchivo', 'N/A', 'Insertar', 'id_archivo', NULL, '79', '5', '::1', 'Leonardo', '', ''),
-(111, '2021-09-28 11:08:22', 'ColeccionDocumentalArchivo', 'N/A', 'Insertar', 'id_coleccion_documental', NULL, '18', '5', '::1', 'Leonardo', '', ''),
-(112, '2021-09-28 11:08:22', 'ColeccionDocumentalArchivo', 'N/A', 'Insertar', 'id', NULL, '26', '5', '::1', 'Leonardo', '', ''),
-(113, '2021-09-28 11:09:57', 'ColeccionDocumental', 'N/A', 'Modificar', 'etiquetas', 'Nueva ; Otra ; Centro ;', 'Nueva ;', '5', '::1', 'Leonardo', '', ''),
-(114, '2021-09-28 11:09:57', 'ColeccionDocumentalArchivo', 'N/A', 'Insertar', 'id_archivo', NULL, '79', '5', '::1', 'Leonardo', '', ''),
-(115, '2021-09-28 11:09:57', 'ColeccionDocumentalArchivo', 'N/A', 'Insertar', 'id_coleccion_documental', NULL, '18', '5', '::1', 'Leonardo', '', ''),
-(116, '2021-09-28 11:09:57', 'ColeccionDocumentalArchivo', 'N/A', 'Insertar', 'id', NULL, '27', '5', '::1', 'Leonardo', '', ''),
-(117, '2021-09-28 16:25:40', 'ColeccionDocumental', 'N/A', 'Modificar', 'etiquetas', 'Nueva ;', 'Nueva ; Otra ;', '5', '::1', 'Leonardo', '', ''),
-(118, '2021-09-28 16:25:40', 'ColeccionDocumentalArchivo', 'N/A', 'Insertar', 'id_archivo', NULL, '79', '5', '::1', 'Leonardo', '', ''),
-(119, '2021-09-28 16:25:40', 'ColeccionDocumentalArchivo', 'N/A', 'Insertar', 'id_coleccion_documental', NULL, '18', '5', '::1', 'Leonardo', '', ''),
-(120, '2021-09-28 16:25:40', 'ColeccionDocumentalArchivo', 'N/A', 'Insertar', 'id', NULL, '28', '5', '::1', 'Leonardo', '', ''),
-(121, '2021-09-28 16:26:17', 'ColeccionDocumental', 'N/A', 'Modificar', 'etiquetas', 'Nueva ; Otra ;', 'Otra ; Centro ;', '5', '::1', 'Leonardo', '', ''),
-(122, '2021-09-28 16:26:17', 'ColeccionDocumentalArchivo', 'N/A', 'Insertar', 'id_archivo', NULL, '79', '5', '::1', 'Leonardo', '', ''),
-(123, '2021-09-28 16:26:17', 'ColeccionDocumentalArchivo', 'N/A', 'Insertar', 'id_coleccion_documental', NULL, '18', '5', '::1', 'Leonardo', '', ''),
-(124, '2021-09-28 16:26:17', 'ColeccionDocumentalArchivo', 'N/A', 'Insertar', 'id', NULL, '29', '5', '::1', 'Leonardo', '', ''),
-(125, '2021-09-28 16:40:38', 'ColeccionDocumental', 'N/A', 'Insertar', 'autor', NULL, 'eqw', '5', '::1', 'Leonardo', '', ''),
-(126, '2021-09-28 16:40:38', 'ColeccionDocumental', 'N/A', 'Insertar', 'titulo', NULL, 'qwe', '5', '::1', 'Leonardo', '', ''),
-(127, '2021-09-28 16:40:38', 'ColeccionDocumental', 'N/A', 'Insertar', 'tipologia', NULL, 'qwe', '5', '::1', 'Leonardo', '', ''),
-(128, '2021-09-28 16:40:38', 'ColeccionDocumental', 'N/A', 'Insertar', 'descripcion', NULL, 'qwe', '5', '::1', 'Leonardo', '', ''),
-(129, '2021-09-28 16:40:38', 'ColeccionDocumental', 'N/A', 'Insertar', 'revisado', NULL, '0', '5', '::1', 'Leonardo', '', ''),
-(130, '2021-09-28 16:40:38', 'ColeccionDocumental', 'N/A', 'Insertar', 'publico', NULL, '0', '5', '::1', 'Leonardo', '', ''),
-(131, '2021-09-28 16:40:38', 'ColeccionDocumental', 'N/A', 'Insertar', 'fecha', NULL, '1800-03-2', '5', '::1', 'Leonardo', '', ''),
-(132, '2021-09-28 16:40:38', 'ColeccionDocumental', 'N/A', 'Insertar', 'etiquetas', NULL, 'Nueva ;', '5', '::1', 'Leonardo', '', ''),
-(133, '2021-09-28 16:40:38', 'ColeccionDocumental', 'N/A', 'Insertar', 'id_coleccion_documental', NULL, '19', '5', '::1', 'Leonardo', '', ''),
-(134, '2021-09-28 16:40:38', 'ColeccionDocumentalArchivo', 'N/A', 'Insertar', 'id_archivo', NULL, '81', '5', '::1', 'Leonardo', '', ''),
-(135, '2021-09-28 16:40:38', 'ColeccionDocumentalArchivo', 'N/A', 'Insertar', 'nota', NULL, 'qwe', '5', '::1', 'Leonardo', '', ''),
-(136, '2021-09-28 16:40:38', 'ColeccionDocumentalArchivo', 'N/A', 'Insertar', 'id_coleccion_documental', NULL, '19', '5', '::1', 'Leonardo', '', ''),
-(137, '2021-09-28 16:40:38', 'ColeccionDocumentalArchivo', 'N/A', 'Insertar', 'id', NULL, '30', '5', '::1', 'Leonardo', '', ''),
-(138, '2021-09-28 16:43:07', 'ColeccionDocumentalArchivo', 'N/A', 'Insertar', 'id_archivo', NULL, '81', '5', '::1', 'Leonardo', '', ''),
-(139, '2021-09-28 16:43:07', 'ColeccionDocumentalArchivo', 'N/A', 'Insertar', 'nota', NULL, 'qwe', '5', '::1', 'Leonardo', '', ''),
-(140, '2021-09-28 16:43:07', 'ColeccionDocumentalArchivo', 'N/A', 'Insertar', 'id_coleccion_documental', NULL, '19', '5', '::1', 'Leonardo', '', ''),
-(141, '2021-09-28 16:43:07', 'ColeccionDocumentalArchivo', 'N/A', 'Insertar', 'id', NULL, '31', '5', '::1', 'Leonardo', '', ''),
-(142, '2021-09-28 16:44:51', 'ColeccionDocumental', 'N/A', 'Modificar', 'etiquetas', 'Otra ; Centro ;', 'Nueva ; Centro ;', '5', '::1', 'Leonardo', '', ''),
-(143, '2021-09-28 16:44:52', 'ColeccionDocumentalArchivo', 'N/A', 'Insertar', 'id_archivo', NULL, '79', '5', '::1', 'Leonardo', '', ''),
-(144, '2021-09-28 16:44:52', 'ColeccionDocumentalArchivo', 'N/A', 'Insertar', 'id_coleccion_documental', NULL, '18', '5', '::1', 'Leonardo', '', ''),
-(145, '2021-09-28 16:44:52', 'ColeccionDocumentalArchivo', 'N/A', 'Insertar', 'id', NULL, '32', '5', '::1', 'Leonardo', '', ''),
-(146, '2021-09-28 16:54:42', 'ColeccionDocumentalArchivo', 'N/A', 'Insertar', 'id_archivo', NULL, '79', '5', '::1', 'Leonardo', '', ''),
-(147, '2021-09-28 16:54:42', 'ColeccionDocumentalArchivo', 'N/A', 'Insertar', 'id_coleccion_documental', NULL, '18', '5', '::1', 'Leonardo', '', ''),
-(148, '2021-09-28 16:54:42', 'ColeccionDocumentalArchivo', 'N/A', 'Insertar', 'id', NULL, '33', '5', '::1', 'Leonardo', '', ''),
-(149, '2021-09-28 16:57:23', 'ColeccionDocumentalArchivo', 'N/A', 'Insertar', 'id_archivo', NULL, '79', '5', '::1', 'Leonardo', '', ''),
-(150, '2021-09-28 16:57:23', 'ColeccionDocumentalArchivo', 'N/A', 'Insertar', 'id_coleccion_documental', NULL, '18', '5', '::1', 'Leonardo', '', ''),
-(151, '2021-09-28 16:57:23', 'ColeccionDocumentalArchivo', 'N/A', 'Insertar', 'id', NULL, '34', '5', '::1', 'Leonardo', '', ''),
-(152, '2021-09-28 17:06:10', 'ColeccionDocumental', 'N/A', 'Modificar', 'etiquetas', 'Nueva ;', 'Nueva ; Otra ; Centro ;', '5', '::1', 'Leonardo', '', ''),
-(153, '2021-09-28 17:06:10', 'ColeccionDocumentalArchivo', 'N/A', 'Insertar', 'id_archivo', NULL, '81', '5', '::1', 'Leonardo', '', ''),
-(154, '2021-09-28 17:06:10', 'ColeccionDocumentalArchivo', 'N/A', 'Insertar', 'nota', NULL, 'qwe', '5', '::1', 'Leonardo', '', ''),
-(155, '2021-09-28 17:06:10', 'ColeccionDocumentalArchivo', 'N/A', 'Insertar', 'id_coleccion_documental', NULL, '19', '5', '::1', 'Leonardo', '', ''),
-(156, '2021-09-28 17:06:10', 'ColeccionDocumentalArchivo', 'N/A', 'Insertar', 'id', NULL, '35', '5', '::1', 'Leonardo', '', ''),
-(157, '1632863339', 'ColeccionDocumental', '19', 'Eliminar', 'N/A', 'N/A', 'N/A', '5', '::1', 'Leonardo', '', ''),
-(158, '1632863343', 'ColeccionDocumental', '18', 'Eliminar', 'N/A', 'N/A', 'N/A', '5', '::1', 'Leonardo', '', ''),
-(159, '1632863347', 'ColeccionDocumental', '17', 'Eliminar', 'N/A', 'N/A', 'N/A', '5', '::1', 'Leonardo', '', ''),
-(160, '1632863351', 'ColeccionDocumental', '16', 'Eliminar', 'N/A', 'N/A', 'N/A', '5', '::1', 'Leonardo', '', ''),
-(161, '1632863362', 'ColeccionDocumental', '15', 'Eliminar', 'N/A', 'N/A', 'N/A', '5', '::1', 'Leonardo', '', ''),
-(162, '1632863366', 'ColeccionDocumental', '14', 'Eliminar', 'N/A', 'N/A', 'N/A', '5', '::1', 'Leonardo', '', ''),
-(163, '1632863371', 'ColeccionDocumental', '13', 'Eliminar', 'N/A', 'N/A', 'N/A', '5', '::1', 'Leonardo', '', ''),
-(164, '1632863375', 'ColeccionDocumental', '12', 'Eliminar', 'N/A', 'N/A', 'N/A', '5', '::1', 'Leonardo', '', ''),
-(165, '1632863379', 'ColeccionDocumental', '11', 'Eliminar', 'N/A', 'N/A', 'N/A', '5', '::1', 'Leonardo', '', ''),
-(166, '1632863383', 'ColeccionDocumental', '10', 'Eliminar', 'N/A', 'N/A', 'N/A', '5', '::1', 'Leonardo', '', ''),
-(167, '1632863387', 'ColeccionDocumental', '9', 'Eliminar', 'N/A', 'N/A', 'N/A', '5', '::1', 'Leonardo', '', ''),
-(168, '2021-09-28 17:10:15', 'ColeccionDocumental', 'N/A', 'Insertar', 'autor', NULL, 'Documento', '5', '::1', 'Leonardo', '', ''),
-(169, '2021-09-28 17:10:15', 'ColeccionDocumental', 'N/A', 'Insertar', 'titulo', NULL, 'Nuevo Documento', '5', '::1', 'Leonardo', '', ''),
-(170, '2021-09-28 17:10:15', 'ColeccionDocumental', 'N/A', 'Insertar', 'tipologia', NULL, 'Documento', '5', '::1', 'Leonardo', '', ''),
-(171, '2021-09-28 17:10:15', 'ColeccionDocumental', 'N/A', 'Insertar', 'descripcion', NULL, 'Documento', '5', '::1', 'Leonardo', '', ''),
-(172, '2021-09-28 17:10:15', 'ColeccionDocumental', 'N/A', 'Insertar', 'revisado', NULL, '0', '5', '::1', 'Leonardo', '', ''),
-(173, '2021-09-28 17:10:15', 'ColeccionDocumental', 'N/A', 'Insertar', 'publico', NULL, '0', '5', '::1', 'Leonardo', '', ''),
-(174, '2021-09-28 17:10:16', 'ColeccionDocumental', 'N/A', 'Insertar', 'fecha', NULL, '1800-01-1', '5', '::1', 'Leonardo', '', ''),
-(175, '2021-09-28 17:10:16', 'ColeccionDocumental', 'N/A', 'Insertar', 'etiquetas', NULL, 'nueva ; otra ;', '5', '::1', 'Leonardo', '', ''),
-(176, '2021-09-28 17:10:16', 'ColeccionDocumental', 'N/A', 'Insertar', 'id_coleccion_documental', NULL, '20', '5', '::1', 'Leonardo', '', ''),
-(177, '2021-09-28 17:10:16', 'ColeccionDocumentalArchivo', 'N/A', 'Insertar', 'id_archivo', NULL, '79', '5', '::1', 'Leonardo', '', ''),
-(178, '2021-09-28 17:10:16', 'ColeccionDocumentalArchivo', 'N/A', 'Insertar', 'id_coleccion_documental', NULL, '20', '5', '::1', 'Leonardo', '', ''),
-(179, '2021-09-28 17:10:16', 'ColeccionDocumentalArchivo', 'N/A', 'Insertar', 'id', NULL, '36', '5', '::1', 'Leonardo', '', ''),
-(180, '2021-09-28 17:11:30', 'ColeccionDocumentalArchivo', 'N/A', 'Insertar', 'id_archivo', NULL, '79', '5', '::1', 'Leonardo', '', ''),
-(181, '2021-09-28 17:11:30', 'ColeccionDocumentalArchivo', 'N/A', 'Insertar', 'id_coleccion_documental', NULL, '20', '5', '::1', 'Leonardo', '', ''),
-(182, '2021-09-28 17:11:30', 'ColeccionDocumentalArchivo', 'N/A', 'Insertar', 'id', NULL, '37', '5', '::1', 'Leonardo', '', ''),
-(183, '2021-09-28 17:12:04', 'ColeccionDocumental', 'N/A', 'Modificar', 'etiquetas', 'nueva ; otra ;', 'nueva ;', '5', '::1', 'Leonardo', '', ''),
-(184, '2021-09-28 17:12:04', 'ColeccionDocumentalArchivo', 'N/A', 'Insertar', 'id_archivo', NULL, '79', '5', '::1', 'Leonardo', '', ''),
-(185, '2021-09-28 17:12:04', 'ColeccionDocumentalArchivo', 'N/A', 'Insertar', 'id_coleccion_documental', NULL, '20', '5', '::1', 'Leonardo', '', ''),
-(186, '2021-09-28 17:12:04', 'ColeccionDocumentalArchivo', 'N/A', 'Insertar', 'id', NULL, '38', '5', '::1', 'Leonardo', '', ''),
-(187, '2021-09-28 17:12:16', 'ColeccionDocumental', 'N/A', 'Modificar', 'etiquetas', 'nueva ;', 'nueva ; prueba ;', '5', '::1', 'Leonardo', '', ''),
-(188, '2021-09-28 17:12:16', 'ColeccionDocumentalArchivo', 'N/A', 'Insertar', 'id_archivo', NULL, '79', '5', '::1', 'Leonardo', '', ''),
-(189, '2021-09-28 17:12:16', 'ColeccionDocumentalArchivo', 'N/A', 'Insertar', 'id_coleccion_documental', NULL, '20', '5', '::1', 'Leonardo', '', ''),
-(190, '2021-09-28 17:12:16', 'ColeccionDocumentalArchivo', 'N/A', 'Insertar', 'id', NULL, '39', '5', '::1', 'Leonardo', '', ''),
-(191, '2021-09-28 17:19:24', 'Archivo', 'N/A', 'Modificar', 'etiqueta', 'asdfsadf', 'nueva ; otra ;', '5', '::1', 'Leonardo', '', ''),
-(192, '2021-09-28 17:19:36', 'Archivo', 'N/A', 'Modificar', 'etiqueta', 'nueva ; otra ;', 'nueva ;', '5', '::1', 'Leonardo', '', ''),
-(193, '1632863995', 'Archivo', '89', 'Eliminar', 'N/A', 'N/A', 'N/A', '5', '::1', 'Leonardo', '', ''),
-(194, '1632863999', 'Archivo', '88', 'Eliminar', 'N/A', 'N/A', 'N/A', '5', '::1', 'Leonardo', '', '');
+(12, '2021-09-28 18:08:59', 'Archivo', 'N/A', '', 'id_archivo', 'N/A', '99', '5', '::1', 'Leonardo', 'Archivo', ''),
+(13, '2021-09-28 18:09:00', 'Archivo', 'N/A', '', 'revisado', 'N/A', '0', '5', '::1', 'Leonardo', 'Archivo', ''),
+(14, '2021-09-28 18:09:00', 'Archivo', 'N/A', '', 'titulo_archivo', 'N/A', '123', '5', '::1', 'Leonardo', 'Archivo', ''),
+(15, '2021-09-28 18:09:00', 'Archivo', 'N/A', '', 'tipo_archivo', 'N/A', '1', '5', '::1', 'Leonardo', 'Archivo', ''),
+(16, '2021-09-28 18:09:00', 'Archivo', 'N/A', '', 'autor_archivo', 'N/A', '123', '5', '::1', 'Leonardo', 'Archivo', ''),
+(17, '2021-09-28 18:09:00', 'Archivo', 'N/A', '', 'fuente', 'N/A', '123', '5', '::1', 'Leonardo', 'Archivo', ''),
+(18, '2021-09-28 18:09:00', 'Archivo', 'N/A', '', 'etiqueta', 'N/A', 'nueva ;', '5', '::1', 'Leonardo', 'Archivo', ''),
+(19, '2021-09-28 18:09:00', 'Archivo', 'N/A', '', 'descripcion_archivo', 'N/A', '123', '5', '::1', 'Leonardo', 'Archivo', ''),
+(20, '2021-09-28 18:09:00', 'Archivo', 'N/A', '', 'url_archivo', 'N/A', 'uploads/2021-09-2929563.jpg', '5', '::1', 'Leonardo', 'Archivo', ''),
+(21, '2021-09-28 18:09:01', 'Archivo', 'N/A', '', 'fecha', 'N/A', '1800-05-1', '5', '::1', 'Leonardo', 'Archivo', ''),
+(22, '2021-09-28 18:09:01', 'Archivo', 'N/A', '', 'etapa', 'N/A', 'Anterior a 1928', '5', '::1', 'Leonardo', 'Archivo', ''),
+(23, '2021-09-28 18:21:09', 'backend\\models\\Archivo\\Archivo', '101', 'Insertar', 'id_archivo', 'N/A', '101', '5', '::1', 'Leonardo', 'new', ''),
+(24, '2021-09-28 18:21:09', 'backend\\models\\Archivo\\Archivo', '101', 'Insertar', 'revisado', 'N/A', '0', '5', '::1', 'Leonardo', 'new', ''),
+(25, '2021-09-28 18:21:09', 'backend\\models\\Archivo\\Archivo', '101', 'Insertar', 'titulo_archivo', 'N/A', 'new', '5', '::1', 'Leonardo', 'new', ''),
+(26, '2021-09-28 18:21:09', 'backend\\models\\Archivo\\Archivo', '101', 'Insertar', 'tipo_archivo', 'N/A', '1', '5', '::1', 'Leonardo', 'new', ''),
+(27, '2021-09-28 18:21:09', 'backend\\models\\Archivo\\Archivo', '101', 'Insertar', 'autor_archivo', 'N/A', 'new', '5', '::1', 'Leonardo', 'new', ''),
+(28, '2021-09-28 18:21:09', 'backend\\models\\Archivo\\Archivo', '101', 'Insertar', 'fuente', 'N/A', 'new', '5', '::1', 'Leonardo', 'new', ''),
+(29, '2021-09-28 18:21:09', 'backend\\models\\Archivo\\Archivo', '101', 'Insertar', 'etiqueta', 'N/A', 'nueva ;', '5', '::1', 'Leonardo', 'new', ''),
+(30, '2021-09-28 18:21:09', 'backend\\models\\Archivo\\Archivo', '101', 'Insertar', 'descripcion_archivo', 'N/A', 'new', '5', '::1', 'Leonardo', 'new', ''),
+(31, '2021-09-28 18:21:09', 'backend\\models\\Archivo\\Archivo', '101', 'Insertar', 'url_archivo', 'N/A', 'uploads/2021-09-2917253.jpeg', '5', '::1', 'Leonardo', 'new', ''),
+(32, '2021-09-28 18:21:09', 'backend\\models\\Archivo\\Archivo', '101', 'Insertar', 'fecha', 'N/A', '1800-05-1', '5', '::1', 'Leonardo', 'new', ''),
+(33, '2021-09-28 18:21:09', 'backend\\models\\Archivo\\Archivo', '101', 'Insertar', 'etapa', 'N/A', 'Anterior a 1928', '5', '::1', 'Leonardo', 'new', ''),
+(34, '2021-09-28 18:44:30', 'backend\\models\\Archivo\\Archivo', '101', 'Modificar', 'id_archivo', '101', '101', '5', '::1', 'Leonardo', 'Archivo', 'new otra 123'),
+(35, '2021-09-28 18:44:30', 'backend\\models\\Archivo\\Archivo', '101', 'Modificar', 'revisado', 'N/A', '0', '5', '::1', 'Leonardo', 'Archivo', 'new otra 123'),
+(36, '2021-09-28 18:44:30', 'backend\\models\\Archivo\\Archivo', '101', 'Modificar', 'titulo_archivo', 'new otra', 'new otra 123', '5', '::1', 'Leonardo', 'Archivo', 'new otra 123'),
+(37, '2021-09-28 18:44:30', 'backend\\models\\Archivo\\Archivo', '101', 'Modificar', 'tipo_archivo', '1', '1', '5', '::1', 'Leonardo', 'Archivo', 'new otra 123'),
+(38, '2021-09-28 18:44:30', 'backend\\models\\Archivo\\Archivo', '101', 'Modificar', 'autor_archivo', 'new and old que hay', 'new and old que hay 123', '5', '::1', 'Leonardo', 'Archivo', 'new otra 123'),
+(39, '2021-09-28 18:44:30', 'backend\\models\\Archivo\\Archivo', '101', 'Modificar', 'fuente', 'new', 'new 123', '5', '::1', 'Leonardo', 'Archivo', 'new otra 123'),
+(40, '2021-09-28 18:44:30', 'backend\\models\\Archivo\\Archivo', '101', 'Modificar', 'etiqueta', 'nueva ; otra ;', 'nueva ; otra ;', '5', '::1', 'Leonardo', 'Archivo', 'new otra 123'),
+(41, '2021-09-28 18:44:31', 'backend\\models\\Archivo\\Archivo', '101', 'Modificar', 'descripcion_archivo', 'new', 'new 123', '5', '::1', 'Leonardo', 'Archivo', 'new otra 123'),
+(42, '2021-09-28 18:44:31', 'backend\\models\\Archivo\\Archivo', '101', 'Modificar', 'url_archivo', 'uploads/2021-09-2917253.jpeg', 'uploads/2021-09-2917253.jpeg', '5', '::1', 'Leonardo', 'Archivo', 'new otra 123'),
+(43, '2021-09-28 18:44:31', 'backend\\models\\Archivo\\Archivo', '101', 'Modificar', 'fecha', '2013-05-01', '2013-05-5', '5', '::1', 'Leonardo', 'Archivo', 'new otra 123'),
+(44, '2021-09-28 18:44:31', 'backend\\models\\Archivo\\Archivo', '101', 'Modificar', 'etapa', 'Posterior a 1967', 'Posterior a 1967', '5', '::1', 'Leonardo', 'Archivo', 'new otra 123'),
+(45, '2021-09-28 18:49:24', 'backend\\models\\Archivo\\Archivo', '101', 'Eliminar', 'N/A', 'N/A', 'N/A', '5', '::1', 'Leonardo', 'Archivo', 'new otra 123'),
+(46, '2021-09-28 18:50:15', 'backend\\models\\Archivo\\Archivo', '100', 'Modificar', 'id_archivo', '100', '100', '5', '::1', 'Leonardo', 'Archivo', 'Trasteando'),
+(47, '2021-09-28 18:50:15', 'backend\\models\\Archivo\\Archivo', '100', 'Modificar', 'revisado', 'N/A', '0', '5', '::1', 'Leonardo', 'Archivo', 'Trasteando'),
+(48, '2021-09-28 18:50:15', 'backend\\models\\Archivo\\Archivo', '100', 'Modificar', 'titulo_archivo', 'Trasteando', 'Trasteando', '5', '::1', 'Leonardo', 'Archivo', 'Trasteando'),
+(49, '2021-09-28 18:50:15', 'backend\\models\\Archivo\\Archivo', '100', 'Modificar', 'tipo_archivo', '1', '1', '5', '::1', 'Leonardo', 'Archivo', 'Trasteando'),
+(50, '2021-09-28 18:50:15', 'backend\\models\\Archivo\\Archivo', '100', 'Modificar', 'autor_archivo', 'Autor probando', 'Autor probando', '5', '::1', 'Leonardo', 'Archivo', 'Trasteando'),
+(51, '2021-09-28 18:50:16', 'backend\\models\\Archivo\\Archivo', '100', 'Modificar', 'fuente', 'Fuente Prueba', 'Fuente Prueba', '5', '::1', 'Leonardo', 'Archivo', 'Trasteando'),
+(52, '2021-09-28 18:50:16', 'backend\\models\\Archivo\\Archivo', '100', 'Modificar', 'etiqueta', 'nueva ; prueba ;', 'nueva ; prueba ;', '5', '::1', 'Leonardo', 'Archivo', 'Trasteando'),
+(53, '2021-09-28 18:50:16', 'backend\\models\\Archivo\\Archivo', '100', 'Modificar', 'descripcion_archivo', 'Descrip Probando', 'Descrip Probando', '5', '::1', 'Leonardo', 'Archivo', 'Trasteando'),
+(54, '2021-09-28 18:50:16', 'backend\\models\\Archivo\\Archivo', '100', 'Modificar', 'url_archivo', 'uploads/2021-09-2979091.jpeg', 'uploads/2021-09-2979091.jpeg', '5', '::1', 'Leonardo', 'Archivo', 'Trasteando'),
+(55, '2021-09-28 18:50:16', 'backend\\models\\Archivo\\Archivo', '100', 'Modificar', 'fecha', '1800-04-01', '1800-04-01', '5', '::1', 'Leonardo', 'Archivo', 'Trasteando'),
+(56, '2021-09-28 18:50:17', 'backend\\models\\Archivo\\Archivo', '100', 'Modificar', 'etapa', 'Anterior a 1928', 'Anterior a 1928', '5', '::1', 'Leonardo', 'Archivo', 'Trasteando'),
+(57, '2021-09-28 20:45:03', 'AuthItem', 'N/A', 'Insertar', 'type', NULL, '1', '5', '::1', 'Leonardo', '', ''),
+(58, '2021-09-28 20:45:03', 'AuthItem', 'N/A', 'Insertar', 'description', NULL, 'no ahi', '5', '::1', 'Leonardo', '', ''),
+(59, '2021-09-28 20:45:03', 'AuthItem', 'N/A', 'Insertar', 'name', NULL, 'no ahi', '5', '::1', 'Leonardo', '', ''),
+(60, '2021-09-28 20:45:03', 'AuthItemChild', 'N/A', 'Insertar', 'parent', NULL, 'no ahi', '5', '::1', 'Leonardo', '', ''),
+(61, '2021-09-28 20:45:03', 'AuthItemChild', 'N/A', 'Insertar', 'child', NULL, 'gestionar-comentario', '5', '::1', 'Leonardo', '', ''),
+(62, '2021-09-28 20:45:39', 'User', 'N/A', 'Insertar', 'first_name', NULL, 'uno ', '5', '::1', 'Leonardo', '', ''),
+(63, '2021-09-28 20:45:39', 'User', 'N/A', 'Insertar', 'last_name', NULL, 'uno ', '5', '::1', 'Leonardo', '', ''),
+(64, '2021-09-28 20:45:39', 'User', 'N/A', 'Insertar', 'username', NULL, 'comentario', '5', '::1', 'Leonardo', '', ''),
+(65, '2021-09-28 20:45:39', 'User', 'N/A', 'Insertar', 'email', NULL, 'uno@dos.tres', '5', '::1', 'Leonardo', '', ''),
+(66, '2021-09-28 20:45:39', 'User', 'N/A', 'Insertar', 'status', NULL, '10', '5', '::1', 'Leonardo', '', ''),
+(67, '2021-09-28 20:45:39', 'User', 'N/A', 'Insertar', 'password_hash', NULL, '$2y$13$JQ6oBxefr6lMN2XgDdDo2OGIUMrFGDsTfhh3fhd3cfLOt.2TWIyMO', '5', '::1', 'Leonardo', '', ''),
+(68, '2021-09-28 20:45:39', 'User', 'N/A', 'Insertar', 'auth_key', NULL, 'f7esHBUBbJtkKhKl_U_DfXO2DO4ahyYF', '5', '::1', 'Leonardo', '', ''),
+(69, '2021-09-28 20:45:39', 'User', 'N/A', 'Insertar', 'verification_token', NULL, '-u55xmJgEuy9gIfpMTeNxNytd8sr_7ty_1632876339', '5', '::1', 'Leonardo', '', ''),
+(70, '2021-09-28 20:45:39', 'User', 'N/A', 'Insertar', 'id', NULL, '63', '5', '::1', 'Leonardo', '', ''),
+(71, '2021-09-28 20:45:45', 'AuthAssignment', 'N/A', 'Insertar', 'user_id', NULL, '63', '5', '::1', 'Leonardo', '', ''),
+(72, '2021-09-28 20:45:45', 'AuthAssignment', 'N/A', 'Insertar', 'item_name', NULL, 'no ahi', '5', '::1', 'Leonardo', '', ''),
+(73, '2021-09-28 20:45:45', 'User', 'N/A', 'Insertar', 'type', '', 'no ahi', '5', '::1', 'Leonardo', '', '');
 
 -- --------------------------------------------------------
 
@@ -1903,7 +1780,8 @@ INSERT INTO `user` (`id`, `first_name`, `last_name`, `username`, `auth_key`, `pa
 (59, 'Amanda', 'Terrero', 'Amanda', 'g3Lu4eeFbsSP_sDo1OSfWJ9pjyQTZEyU', '$2y$13$UYOxWXcCuViB8rLkNjBhfONAqFGqyu5V3Dw.KHc25GuLHYs2Ks1.y', NULL, 'amanda@gmail.com', 10, 0, 0, 'ByrF5Lrgo2ywMqX8xWIs0XaHJbr78Xkr_1632324687', 'gestor-de-contenidos'),
 (60, 'María del Carmen', 'Ariet García', 'María del Carmen', 'xjNybssgE7uxNUfjJQzz1M0KbK8WwBJO', '$2y$13$dA3PL3113ROR9/xIyjcciO4pSQKjIE5NwdS2n85QOvdIJuqDsBrKG', NULL, 'maria@gmail.com', 10, 0, 0, '3E-Lg5fJXuPE3vEWt5HPaoAgd_DxHiE-_1632325300', 'coordinador-academico'),
 (61, 'Camilo', 'Guevara March', 'Camilo', 'yKoAIKTBpfQGd9-13jPBAj6jM1yJTMrI', '$2y$13$fdnhGvSBPK/rma12afxwDuhy9hJy5oipPuu3H75t0FcMngLBMi5ym', NULL, 'Camilo@gmail.com', 10, 0, 0, 'P5gtSjuE3RdHLmsYxxtu4jwN5Dasvu53_1632325491', 'coordinador-de-proyectos-alternativos'),
-(62, 'Darling', 'Rodríguez', 'Cátedra Camagüey', 'zUfBq6KCvkfa4ZuzyZdWkJE_46nDD_HY', '$2y$13$gtKaDVSqmJH1EIqrii3PeOLM.Uc73P6KCfGDCxHiD3kphyTDiIyNS', NULL, 'darling@gmail.com', 10, 0, 0, 'BPzJ6S0xAIQm4a15fPmqm-WHsR3rDOYD_1632325685', 'catedra');
+(62, 'Darling', 'Rodríguez', 'Cátedra Camagüey', 'zUfBq6KCvkfa4ZuzyZdWkJE_46nDD_HY', '$2y$13$gtKaDVSqmJH1EIqrii3PeOLM.Uc73P6KCfGDCxHiD3kphyTDiIyNS', NULL, 'darling@gmail.com', 10, 0, 0, 'BPzJ6S0xAIQm4a15fPmqm-WHsR3rDOYD_1632325685', 'catedra'),
+(63, 'uno ', 'uno ', 'comentario', 'f7esHBUBbJtkKhKl_U_DfXO2DO4ahyYF', '$2y$13$JQ6oBxefr6lMN2XgDdDo2OGIUMrFGDsTfhh3fhd3cfLOt.2TWIyMO', NULL, 'uno@dos.tres', 10, 0, 0, '-u55xmJgEuy9gIfpMTeNxNytd8sr_7ty_1632876339', 'no ahi');
 
 --
 -- Índices para tablas volcadas
@@ -2425,7 +2303,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT de la tabla `archivo`
 --
 ALTER TABLE `archivo`
-  MODIFY `id_archivo` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=99;
+  MODIFY `id_archivo` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=102;
 
 --
 -- AUTO_INCREMENT de la tabla `articulo`
@@ -2533,7 +2411,7 @@ ALTER TABLE `etiqueta`
 -- AUTO_INCREMENT de la tabla `etiqueta_archivo`
 --
 ALTER TABLE `etiqueta_archivo`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT de la tabla `etiqueta_coleccion_documental`
@@ -2755,7 +2633,7 @@ ALTER TABLE `taller_archivo`
 -- AUTO_INCREMENT de la tabla `tbl_audit_entry`
 --
 ALTER TABLE `tbl_audit_entry`
-  MODIFY `audit_entry_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=195;
+  MODIFY `audit_entry_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=74;
 
 --
 -- AUTO_INCREMENT de la tabla `testimonio`
@@ -2809,7 +2687,7 @@ ALTER TABLE `trabajador`
 -- AUTO_INCREMENT de la tabla `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
 
 --
 -- Restricciones para tablas volcadas
