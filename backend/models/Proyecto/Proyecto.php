@@ -38,6 +38,7 @@ class Proyecto extends \yii\db\ActiveRecord
         return [
             [['descripcion', 'enlace'], 'required'],
             [['descripcion', 'enlace'], 'string'],
+            [['enlace'], 'url'],
         ];
     }
 

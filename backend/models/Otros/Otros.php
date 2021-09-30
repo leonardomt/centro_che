@@ -47,6 +47,7 @@ class Otros extends \yii\db\ActiveRecord
             [['descripcion'], 'string'],
             [['titulo', 'autor', 'tipo'], 'string', 'max' => 512],
             [['enlace'], 'string', 'max' => 1024],
+            [['enlace'], 'url'],
         ];
     }
 

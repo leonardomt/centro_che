@@ -54,10 +54,11 @@ class Exposicion extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['revisado', 'publico', 'titulo', 'descripcion', 'cuerpo', 'enlace', 'tipo_fecha', 'entidad', 'autor'], 'required'],
+            [['revisado', 'publico', 'titulo', 'descripcion', 'cuerpo', 'tipo_fecha', 'entidad'], 'required'],
             [['revisado', 'publico', 'tipo_fecha'], 'integer'],
             [['titulo', 'descripcion', 'cuerpo', 'entidad', 'autor'], 'string'],
             [['enlace'], 'string', 'max' => 512],
+            [['enlace'], 'url'],
             [['fecha', 'fecha_fin'], 'safe'],
             [['year'], 'integer', 'max' => date("Y"), 'min' => 1800],
             [['month'], 'integer', 'max' => 12, 'min' => 00],
@@ -85,7 +86,7 @@ class Exposicion extends \yii\db\ActiveRecord
             'fecha' => 'Fecha',
             'fecha_fin' => 'Fecha final',
             'entidad'=> 'Entidad Colaboradora',
-            'autor'=> 'Autor',
+            'autor'=> 'Autor/Curador',
             'year' => 'Año',
             'month' => 'Mes',
             'day' => 'Día',

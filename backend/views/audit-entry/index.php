@@ -50,6 +50,14 @@ if ( !Yii::$app->user->can('gestionar-traza'))
         ],
 
         [
+            'attribute' => 'audit_entry_operation',                     // etapa
+            'format' => 'raw',
+            'headerOptions' => array('class' => 'col-md-1'),
+            'filter' => array("Insertar" => "Insertar", "Modificar" => "Modificar", "Eliminar" => "Eliminar"),
+            'filterInputOptions' => array('class' => 'form-control', 'id' => null, 'prompt' => 'Todos'),
+        ],
+        
+        [
             'attribute' => 'place',
             'format' => 'raw',
             'headerOptions' => array('class' => 'col-md-2'),
@@ -88,13 +96,7 @@ if ( !Yii::$app->user->can('gestionar-traza'))
             ],
         ],
 
-        [
-            'attribute' => 'audit_entry_operation',                     // etapa
-            'format' => 'raw',
-            'headerOptions' => array('class' => 'col-md-1'),
-            'filter' => array("Insertar" => "Insertar", "Modificar" => "Modificar", "Eliminar" => "Eliminar"),
-            'filterInputOptions' => array('class' => 'form-control', 'id' => null, 'prompt' => 'Todos'),
-        ],
+        'title',
         [
             'attribute' => 'audit_entry_field_name',
             'contentOptions' => ['style' => 'max-width:100px; min-height:100px; overflow: auto; word-wrap: break-word;'],
@@ -108,8 +110,8 @@ if ( !Yii::$app->user->can('gestionar-traza'))
             'attribute' => 'audit_entry_new_value',
             'contentOptions' => ['style' => 'max-width:100px; min-height:100px; overflow: auto; word-wrap: break-word;'],
         ],
-        'title',
-        'audit_entry_model_id',
+        
+    
         'audit_entry_ip',
     ];
     echo ExportMenu::widget([

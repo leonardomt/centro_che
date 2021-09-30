@@ -46,6 +46,7 @@ class Clase extends \yii\db\ActiveRecord
             [['descripcion', 'enlace'], 'string'],
             [['revisado', 'publico'], 'integer'],
             [['titulo', 'profesor'], 'string', 'max' => 1024],
+            [['enlace'], 'url'],
         ];
     }
 

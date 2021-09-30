@@ -48,6 +48,7 @@ class Revista extends \yii\db\ActiveRecord
             [['revisado', 'publico', 'mes', 'anno'], 'integer'],
             [['descripcion', 'enlace', 'volumen', 'numero'], 'string'],
             [['titulo'], 'string', 'max' => 256],
+            [['enlace'], 'url'],
         ];
     }
 

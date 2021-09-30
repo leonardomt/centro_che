@@ -40,6 +40,7 @@ class Paradigma extends \yii\db\ActiveRecord
         return [
             [['descripcion'], 'required'],
             [['descripcion', 'enlace'], 'string'],
+            [['enlace'], 'url'],
         ];
     }
 

@@ -19,6 +19,7 @@ class ClaseSearch extends Clase
         return [
             [['id', 'revisado', 'publico', 'id_curso'], 'integer'],
             [['titulo', 'profesor', 'descripcion', 'enlace'], 'safe'],
+            
         ];
     }
 

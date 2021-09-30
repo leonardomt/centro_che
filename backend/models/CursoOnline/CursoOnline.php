@@ -47,6 +47,7 @@ class CursoOnline extends \yii\db\ActiveRecord
             [['revisado', 'publico'], 'integer'],
             [['titulo', 'descripcion', 'pdf', 'coordinador', 'enlace'], 'string'],
             [['file'], 'file',],
+            [['enlace'], 'url'],
         ];
     }
 
