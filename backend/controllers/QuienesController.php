@@ -89,6 +89,7 @@ class QuienesController extends Controller
     {
         $modelArchivos = new QuienesArchivo();
         $model = $this->findModel($id);
+        $oldmodel = $this->findModel($id);
 
         Yii::$app->request->enableCsrfValidation = false;
         $this->enableCsrfValidation = false;
@@ -116,6 +117,7 @@ class QuienesController extends Controller
 
 
             }
+            AuditEntryController::afterUpdate( $oldmodel, $model, 'Inicio / Quiénes Somos / Quiénes Somos - Inicio / Modificar Quiénes Somos - Inicio', $model->id, 'Inicio');
             return $this->redirect(['view', 'id' => 1]);
         }
 

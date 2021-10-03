@@ -10,7 +10,7 @@ use common\widgets\Alert;
 /* @var $searchModel backend\models\ProductoAudiovisual\TipoProductoSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Tipos de Producto Audiovisual';
+$this->title = 'Géneros de Productos Audiovisuales';
 $this->params['breadcrumbs'][] = $this->title;
 if (Yii::$app->user->isGuest)
     return Yii::$app->getResponse()->redirect(\yii\helpers\Url::to(['site/login']));

@@ -21,15 +21,7 @@ class GestionDocumental extends \yii\db\ActiveRecord
         return 'gestion_documental';
     }
 
-    public function behaviors(){
-        return [
 
-            'auditEntryBehaviors' => [
-                'class' => AuditEntryBehaviors::className()
-            ],
-
-        ];
-    }
     /**
      * {@inheritdoc}
      */

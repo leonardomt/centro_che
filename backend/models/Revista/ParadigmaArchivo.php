@@ -22,15 +22,7 @@ class ParadigmaArchivo extends \yii\db\ActiveRecord
         return 'paradigma_archivo';
     }
 
-    public function behaviors(){
-        return [
 
-            'auditEntryBehaviors' => [
-                'class' => AuditEntryBehaviors::className()
-            ],
-
-        ];
-    }
 
     /**
      * {@inheritdoc}

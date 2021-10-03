@@ -32,15 +32,7 @@ class User extends ActiveRecord implements IdentityInterface
     public $new_password;
 
 
-    public function behaviors(){
-        return [
 
-            'auditEntryBehaviors' => [
-                'class' => AuditEntryBehaviors::className()
-            ],
-
-        ];
-    }
     /**
      * {@inheritdoc}
      */

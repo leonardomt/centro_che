@@ -96,6 +96,7 @@ class ComentarioController extends Controller
 
 
         if ($model->save()) {
+            $log = AuditEntryController::afterInsert($model, 'Comentarios / Responder como Institución', $model->id, $model->alias);
             return $this->redirect(['index']);
         }
 
@@ -115,8 +116,10 @@ class ComentarioController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $oldmodel = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            $log = AuditEntryController::afterUpdate( $oldmodel, $model, 'Comentarios / Gestión de Comentarios', $model->id, $model->alias);
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -170,30 +173,5 @@ class ComentarioController extends Controller
         throw new NotFoundHttpException('The requested page does not exist.');
     }
 
-    public function afterDeleted($id)
-    {
-        try {
-            $userId = Yii::$app->getUser()->identity->getId();
-            $userIpAddress = Yii::$app->request->getUserIP();
 
-        } catch (Exception $e) { //If we have no user object, this must be a command line program
-            $userId = self::NO_USER_ID;
-        }
-
-        $log = new \ruturajmaniyar\mod\audit\models\AuditEntry();
-        $log->audit_entry_old_value = 'N/A';
-        $log->audit_entry_new_value = 'N/A';
-        $log->audit_entry_operation = 'Eliminar';
-        $log->audit_entry_model_id = $id;
-        $nombre = \backend\models\User\User::find()->where(['id' => Yii::$app->getUser()->identity->getId()])->one();
-        $log->audit_entry_user_name = $nombre->username;
-        $log->audit_entry_model_name = 'Comentario';
-        $log->audit_entry_field_name = 'N/A';
-        $log->audit_entry_timestamp = new \yii\db\Expression('unix_timestamp(NOW())');
-        $log->audit_entry_user_id = $userId;
-        $log->audit_entry_ip = $userIpAddress;
-
-        $log->save(false);
-
-    }
 }

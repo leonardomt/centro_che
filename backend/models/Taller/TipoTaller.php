@@ -21,15 +21,7 @@ class TipoTaller extends \yii\db\ActiveRecord
         return 'tipo_taller';
     }
 
-    public function behaviors(){
-        return [
 
-            'auditEntryBehaviors' => [
-                'class' => AuditEntryBehaviors::className()
-            ],
-
-        ];
-    }
 
     /**
      * {@inheritdoc}

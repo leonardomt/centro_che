@@ -25,15 +25,7 @@ class NoticiaArchivo extends \yii\db\ActiveRecord
         return 'noticia_archivo';
     }
 
-    public function behaviors(){
-        return [
 
-            'auditEntryBehaviors' => [
-                'class' => AuditEntryBehaviors::className()
-            ],
-
-        ];
-    }
     /**
      * {@inheritdoc}
      */

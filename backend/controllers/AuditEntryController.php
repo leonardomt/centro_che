@@ -30,7 +30,7 @@ class AuditEntryController extends Controller
         ]);
     }
 
-    public function afterInsert($element, $place, $id, $title)
+    public static function afterInsert($element, $place, $id, $title)
     {
         try {
             $userId = Yii::$app->getUser()->identity->getId();
@@ -43,7 +43,10 @@ class AuditEntryController extends Controller
             $log = new AuditEntry();
             $log->audit_entry_field_name = $value;
             $log->audit_entry_old_value = 'N/A';
-            $log->audit_entry_new_value = $element->$value;
+            if ($element->$value == null || $element->$value == 'N/A')
+                $log->audit_entry_new_value = 'N/A';
+            else
+                $log->audit_entry_new_value = $element->$value;
             $log->audit_entry_model_id = $id;
             $log->audit_entry_operation = 'Insertar';
             $nombre = User::find()->where(['id' => Yii::$app->getUser()->identity->getId()])->one();
@@ -62,7 +65,7 @@ class AuditEntryController extends Controller
     }
 
 
-    public function afterUpdate($oldElement, $newElement, $place,  $id, $title)
+    public static function afterUpdate($oldElement, $newElement, $place, $id, $title)
     {
         try {
             $userId = Yii::$app->getUser()->identity->getId();
@@ -75,10 +78,15 @@ class AuditEntryController extends Controller
         foreach ($newAttributes as $value) {
             $log = new AuditEntry();
             $log->audit_entry_field_name = $value;
-            if($oldElement->$value == null){
+            if ($oldElement->$value == null || $oldElement->$value == 'N/A') {
                 $log->audit_entry_old_value = 'N/A';
             } else $log->audit_entry_old_value = $oldElement->$value;
-            $log->audit_entry_new_value = $newElement->$value;
+
+            if ($newElement->$value == null || $newElement->$value == 'N/A')
+                $log->audit_entry_new_value = 'N/A';
+            else
+                $log->audit_entry_new_value = $newElement->$value;
+
             $log->audit_entry_model_id = $id;
             $log->audit_entry_operation = 'Modificar';
             $nombre = User::find()->where(['id' => Yii::$app->getUser()->identity->getId()])->one();
@@ -89,15 +97,16 @@ class AuditEntryController extends Controller
             $log->audit_entry_ip = $userIpAddress;
             $log->place = $place;
             $log->title = $title;
-
-            $log->save(false);
+            if (!($log->audit_entry_old_value == $log->audit_entry_new_value)) {
+                $log->save(false);
+            }
         }
 
         return true;
     }
 
 
-    public function afterDelete($oldElement, $place, $id, $title)
+    public static function afterDelete($oldElement, $place, $id, $title)
     {
         try {
             $userId = Yii::$app->getUser()->identity->getId();

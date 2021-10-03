@@ -13,7 +13,7 @@ use backend\models\Archivo\TipoArchivo;
 
 <div class="archivo-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin(['options' => ['autocomplete' => 'off']]); ?>
 
 
     <div class="row">
@@ -27,15 +27,17 @@ use backend\models\Archivo\TipoArchivo;
 
     <div class="row">
 
-        <div class="col-md-6">
+        <div class="col-md-12">
             <?= $form->field($model, 'autor_archivo')->textInput(['maxlength' => true]) ?>
         </div>
-        <div class="col-md-6">
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
             <?= $form->field($model, "etiquetasarray")->widget(\kartik\select2\Select2::classname(), [
                     'data' => \yii\helpers\ArrayHelper::map(\backend\models\Etiqueta\Etiqueta::find()->all(), 'id', 'etiqueta'),
                     'options' => ['placeholder' => 'Seleccionar', 'multiple' => true, 'required' => true],
-                    'theme' => \kartik\select2\Select2::THEME_KRAJEE,
-                    'size' => 'xs',]
+                    'size' => 's',]
             ) ?>
         </div>
     </div>

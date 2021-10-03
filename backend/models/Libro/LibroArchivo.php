@@ -24,15 +24,7 @@ class LibroArchivo extends \yii\db\ActiveRecord
         return 'libro_archivo';
     }
 
-    public function behaviors(){
-        return [
 
-            'auditEntryBehaviors' => [
-                'class' => AuditEntryBehaviors::className()
-            ],
-
-        ];
-    }
     /**
      * {@inheritdoc}
      */

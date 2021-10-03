@@ -28,15 +28,7 @@ class Taller extends \yii\db\ActiveRecord
         return 'taller';
     }
 
-    public function behaviors(){
-        return [
 
-            'auditEntryBehaviors' => [
-                'class' => AuditEntryBehaviors::className()
-            ],
-
-        ];
-    }
 
     /**
      * {@inheritdoc}

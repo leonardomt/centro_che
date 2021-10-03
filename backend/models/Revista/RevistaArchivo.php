@@ -34,15 +34,7 @@ class RevistaArchivo extends \yii\db\ActiveRecord
         ];
     }
 
-    public function behaviors(){
-        return [
 
-            'auditEntryBehaviors' => [
-                'class' => AuditEntryBehaviors::className()
-            ],
-
-        ];
-    }
 
     /**
      * {@inheritdoc}

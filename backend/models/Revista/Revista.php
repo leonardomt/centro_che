@@ -29,15 +29,7 @@ class Revista extends \yii\db\ActiveRecord
         return 'revista';
     }
 
-    public function behaviors(){
-        return [
 
-            'auditEntryBehaviors' => [
-                'class' => AuditEntryBehaviors::className()
-            ],
-
-        ];
-    }
     /**
      * {@inheritdoc}
      */

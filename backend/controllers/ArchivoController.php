@@ -46,9 +46,7 @@ class ArchivoController extends Controller
     public function behaviors()
     {
         return [
-            'auditEntryBehaviors' => [
-                'class' => AuditEntryBehaviors::className()
-            ],
+
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -194,7 +192,7 @@ class ArchivoController extends Controller
                     $model->tipo_archivo = 3;
                 };
                 $model->save();
-                $log = AuditEntryController::afterInsert($model, 'Archivo', $model->id_archivo, $model->titulo_archivo);
+                AuditEntryController::afterInsert($model, 'Archivos / Crear Archivo', $model->id_archivo, $model->titulo_archivo);
                 return $this->redirect(['index']);
             };
         }
@@ -302,7 +300,7 @@ class ArchivoController extends Controller
             $id_insert = $model->id_archivo;
             $model->id_archivo = $id_insert;
             if ($model->save()) {
-                $log = AuditEntryController::afterUpdate( $oldmodel, $model, 'Archivo', $model->id_archivo, $model->titulo_archivo);
+                AuditEntryController::afterUpdate( $oldmodel, $model, 'Archivos / Modificar Archivo', $model->id_archivo, $model->titulo_archivo);
                 return $this->redirect(['index']);
             }
         }
@@ -391,7 +389,7 @@ class ArchivoController extends Controller
 
         if ($deleted == true) {
 
-            $log = AuditEntryController::afterDelete(  $this->findModel($id), 'Archivo', $this->findModel($id)->id_archivo, $this->findModel($id)->titulo_archivo);
+            AuditEntryController::afterDelete(  $this->findModel($id), 'Archivos / Eliminar Archivo', $this->findModel($id)->id_archivo, $this->findModel($id)->titulo_archivo);
             $this->findModel($id)->delete();
             return $this->redirect(['index']);
         } else {

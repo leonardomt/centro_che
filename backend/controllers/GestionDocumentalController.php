@@ -94,6 +94,7 @@ class GestionDocumentalController extends Controller
     {
         $modelArchivos = new GestionDocumentalArchivo();
         $model = $this->findModel($id);
+        $oldmodel = $this->findModel($id);
 
         Yii::$app->request->enableCsrfValidation = false;
         $this->enableCsrfValidation = false;
@@ -121,6 +122,7 @@ class GestionDocumentalController extends Controller
 
 
             }
+            AuditEntryController::afterUpdate( $oldmodel, $model, 'Coordinación Académica / Colección Documental / Colección Documental - Portada / Modificar Portada', $this->findModel($id)->id_gestion_documental, 'Portada');
             return $this->redirect(['view', 'id' => 1]);
         }
 

@@ -22,15 +22,7 @@ class Paradigma extends \yii\db\ActiveRecord
         return 'paradigma';
     }
 
-    public function behaviors(){
-        return [
 
-            'auditEntryBehaviors' => [
-                'class' => AuditEntryBehaviors::className()
-            ],
-
-        ];
-    }
 
     /**
      * {@inheritdoc}

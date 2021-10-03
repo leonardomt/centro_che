@@ -22,15 +22,7 @@ class QuienesDetalleArchivo extends \yii\db\ActiveRecord
         return 'quienes_detalle_archivo';
     }
 
-    public function behaviors(){
-        return [
 
-            'auditEntryBehaviors' => [
-                'class' => AuditEntryBehaviors::className()
-            ],
-
-        ];
-    }
     /**
      * {@inheritdoc}
      */

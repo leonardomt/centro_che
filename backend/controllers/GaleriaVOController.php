@@ -117,6 +117,7 @@ class GaleriaVOController extends Controller
                     }
                     if ($flag) {
                         $transaction->commit();
+                        AuditEntryController::afterInsert($model, 'Vida y Obra / Galería / Insertar Archivo', $model->id_galeria_vo, $model->id_archivo);
                         return $this->redirect(['index', 'tipo'=>$tipo]);
                     }
                 } catch (Exception $e) {
@@ -141,8 +142,8 @@ class GaleriaVOController extends Controller
     public function actionUpdate($id, $tipo)
     {
         $model = $this->findModel($id);
+        $oldmodel = $this->findModel($id);
         $x = 0;
-        $modelsArchivo = new GaleriaVoArchivo();
         $modelsArchivo = GaleriaVoArchivo::find()->where(['id_galeria_vo' => $model->id_galeria_vo])->all();
 
         if ($model->load(Yii::$app->request->post())) {
@@ -181,6 +182,7 @@ class GaleriaVOController extends Controller
                     }
                     if ($flag) {
                         $transaction->commit();
+                        AuditEntryController::afterUpdate( $oldmodel, $model, 'Vida y Obra / Galería / Insertar Archivo', $model->id_galeria_vo, $model->id_archivo);
                         return $this->redirect(['index', 'tipo'=> $tipo]);
                     }
                 } catch (Exception $e) {
@@ -205,6 +207,8 @@ class GaleriaVOController extends Controller
      */
     public function actionDelete($id, $tipo)
     {
+        AuditEntryController::afterDelete(  $this->findModel($id), 'Vida y Obra / Galería / Insertar Archivo', $this->findModel($id)->id_galeria_vo, $this->findModel($id)->id_archivo);
+
         $this->findModel($id)->delete();
 
         return $this->redirect(['index' , 'tipo' => $tipo]);
@@ -226,30 +230,4 @@ class GaleriaVOController extends Controller
         throw new NotFoundHttpException('The requested page does not exist.');
     }
 
-    public function afterDeleted($id)
-    {
-        try {
-            $userId = Yii::$app->getUser()->identity->getId();
-            $userIpAddress = Yii::$app->request->getUserIP();
-
-        } catch (Exception $e) { //If we have no user object, this must be a command line program
-            $userId = self::NO_USER_ID;
-        }
-
-        $log = new \ruturajmaniyar\mod\audit\models\AuditEntry();
-        $log->audit_entry_old_value = 'N/A';
-        $log->audit_entry_new_value = 'N/A';
-        $log->audit_entry_operation = 'Eliminar';
-        $log->audit_entry_model_id = $id;
-        $nombre = \backend\models\User\User::find()->where(['id' => Yii::$app->getUser()->identity->getId()])->one();
-        $log->audit_entry_user_name = $nombre->username;
-        $log->audit_entry_model_name = 'GaleriaVo';
-        $log->audit_entry_field_name = 'N/A';
-        $log->audit_entry_timestamp = new \yii\db\Expression('unix_timestamp(NOW())');
-        $log->audit_entry_user_id = $userId;
-        $log->audit_entry_ip = $userIpAddress;
-
-        $log->save(false);
-
-    }
 }

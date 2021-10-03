@@ -24,15 +24,7 @@ class ProductoAudiovisualArchivo extends \yii\db\ActiveRecord
         return 'producto_audiovisual_archivo';
     }
 
-    public function behaviors(){
-        return [
 
-            'auditEntryBehaviors' => [
-                'class' => AuditEntryBehaviors::className()
-            ],
-
-        ];
-    }
     /**
      * {@inheritdoc}
      */

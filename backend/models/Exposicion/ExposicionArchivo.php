@@ -25,15 +25,7 @@ class ExposicionArchivo extends \yii\db\ActiveRecord
         return 'exposicion_archivo';
     }
 
-    public function behaviors(){
-        return [
 
-            'auditEntryBehaviors' => [
-                'class' => AuditEntryBehaviors::className()
-            ],
-
-        ];
-    }
 
     /**
      * {@inheritdoc}

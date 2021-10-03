@@ -26,15 +26,7 @@ class Homenaje extends \yii\db\ActiveRecord
         return 'homenaje';
     }
 
-    public function behaviors(){
-        return [
 
-            'auditEntryBehaviors' => [
-                'class' => AuditEntryBehaviors::className()
-            ],
-
-        ];
-    }
     /**
      * {@inheritdoc}
      */

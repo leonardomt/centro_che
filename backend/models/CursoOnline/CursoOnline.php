@@ -28,15 +28,7 @@ class CursoOnline extends \yii\db\ActiveRecord
         return 'curso_online';
     }
 
-    public function behaviors(){
-        return [
 
-            'auditEntryBehaviors' => [
-                'class' => AuditEntryBehaviors::className()
-            ],
-
-        ];
-    }
     /**
      * {@inheritdoc}
      */

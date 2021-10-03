@@ -39,15 +39,7 @@ class Exposicion extends \yii\db\ActiveRecord
         return 'exposicion';
     }
 
-    public function behaviors(){
-        return [
 
-            'auditEntryBehaviors' => [
-                'class' => AuditEntryBehaviors::className()
-            ],
-
-        ];
-    }
     /**
      * {@inheritdoc}
      */

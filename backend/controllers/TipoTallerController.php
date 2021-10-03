@@ -2,6 +2,8 @@
 
 namespace backend\controllers;
 
+use backend\models\Taller\Taller;
+use backend\models\Taller\TallerArchivo;
 use Yii;
 use backend\models\taller\TipoTaller;
 use backend\models\taller\TipoTallerSearch;
@@ -67,6 +69,7 @@ class TipoTallerController extends Controller
         $model = new TipoTaller();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            AuditEntryController::afterInsert($model, 'Administración / Tipos de Proyectos Comunitarios / Crear Tipo de Proyecto Comunitario', $model->id, $model->tipo);
             return $this->redirect(['index']);
         }
 
@@ -85,6 +88,7 @@ class TipoTallerController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $oldmodel = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['index']);
@@ -104,9 +108,24 @@ class TipoTallerController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
-        $this->afterDeleted($id);
-        return $this->redirect(['index']);
+
+        $deleted = true;
+        $temporal12 = Taller::find()->where(['tipo' => $id])->all();
+        foreach ($temporal12 as $t12) {
+            $deleted = false;
+        }
+
+
+        if ($deleted == true) {
+            AuditEntryController::afterDelete(  $this->findModel($id), 'Administración / Tipos de Proyectos Comunitarios / Eliminar Tipo de Proyecto Comunitario', $this->findModel($id)->id, $this->findModel($id)->tipo);
+            $this->findModel($id)->delete();
+            return $this->redirect(['index']);
+        } else {
+            Yii::$app->session->setFlash('error', 'No se puede eliminar un Tipo que esté asociado a al menos un Proyecto Comunitario.');
+            return $this->redirect(['index']);
+        }
+
+
     }
 
     /**
@@ -125,30 +144,5 @@ class TipoTallerController extends Controller
         throw new NotFoundHttpException('The requested page does not exist.');
     }
 
-    public function afterDeleted($id)
-    {
-        try {
-            $userId = Yii::$app->getUser()->identity->getId();
-            $userIpAddress = Yii::$app->request->getUserIP();
 
-        } catch (Exception $e) { //If we have no user object, this must be a command line program
-            $userId = self::NO_USER_ID;
-        }
-
-        $log = new \ruturajmaniyar\mod\audit\models\AuditEntry();
-        $log->audit_entry_old_value = 'N/A';
-        $log->audit_entry_new_value = 'N/A';
-        $log->audit_entry_operation = 'Eliminar';
-        $log->audit_entry_model_id = $id;
-        $nombre = \backend\models\User\User::find()->where(['id' => Yii::$app->getUser()->identity->getId()])->one();
-        $log->audit_entry_user_name = $nombre->username;
-        $log->audit_entry_model_name = 'TipoTaller';
-        $log->audit_entry_field_name = 'N/A';
-        $log->audit_entry_timestamp = new \yii\db\Expression('unix_timestamp(NOW())');
-        $log->audit_entry_user_id = $userId;
-        $log->audit_entry_ip = $userIpAddress;
-
-        $log->save(false);
-
-    }
 }

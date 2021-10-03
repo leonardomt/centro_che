@@ -32,15 +32,7 @@ class Articulo extends \yii\db\ActiveRecord
         return 'articulo';
     }
 
-    public function behaviors(){
-        return [
 
-            'auditEntryBehaviors' => [
-                'class' => AuditEntryBehaviors::className()
-            ],
-
-        ];
-    }
     public $year;
     public $month;
     public $day;

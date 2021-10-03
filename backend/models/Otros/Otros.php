@@ -27,15 +27,7 @@ class Otros extends \yii\db\ActiveRecord
         return 'otros';
     }
 
-    public function behaviors(){
-        return [
 
-            'auditEntryBehaviors' => [
-                'class' => AuditEntryBehaviors::className()
-            ],
-
-        ];
-    }
     /**
      * {@inheritdoc}
      */

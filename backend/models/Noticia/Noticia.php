@@ -31,15 +31,7 @@ class Noticia extends \yii\db\ActiveRecord
         return 'noticia';
     }
 
-    public function behaviors(){
-        return [
 
-            'auditEntryBehaviors' => [
-                'class' => AuditEntryBehaviors::className()
-            ],
-
-        ];
-    }
     public $year;
     public $month;
     public $day;

@@ -23,15 +23,7 @@ class HomenajeArchivo extends \yii\db\ActiveRecord
         return 'homenaje_archivo';
     }
 
-    public function behaviors(){
-        return [
 
-            'auditEntryBehaviors' => [
-                'class' => AuditEntryBehaviors::className()
-            ],
-
-        ];
-    }
     /**
      * {@inheritdoc}
      */

@@ -22,15 +22,7 @@ class ProyectoArchivo extends \yii\db\ActiveRecord
         return 'proyecto_archivo';
     }
 
-    public function behaviors(){
-        return [
 
-            'auditEntryBehaviors' => [
-                'class' => AuditEntryBehaviors::className()
-            ],
-
-        ];
-    }
     /**
      * {@inheritdoc}
      */

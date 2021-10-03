@@ -25,15 +25,7 @@ class LineaInvestigacionArchivo extends \yii\db\ActiveRecord
         return 'linea_investigacion_archivo';
     }
 
-    public function behaviors(){
-        return [
 
-            'auditEntryBehaviors' => [
-                'class' => AuditEntryBehaviors::className()
-            ],
-
-        ];
-    }
     /**
      * {@inheritdoc}
      */

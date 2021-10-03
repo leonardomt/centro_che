@@ -24,15 +24,7 @@ class DiscursoArchivo extends \yii\db\ActiveRecord
         return 'discurso_archivo';
     }
 
-    public function behaviors(){
-        return [
 
-            'auditEntryBehaviors' => [
-                'class' => AuditEntryBehaviors::className()
-            ],
-
-        ];
-    }
     /**
      * {@inheritdoc}
      */

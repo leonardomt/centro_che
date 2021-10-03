@@ -27,15 +27,7 @@ class Testimonio extends \yii\db\ActiveRecord
         return 'testimonio';
     }
 
-    public function behaviors(){
-        return [
 
-            'auditEntryBehaviors' => [
-                'class' => AuditEntryBehaviors::className()
-            ],
-
-        ];
-    }
     public $year;
     public $month;
     public $day;

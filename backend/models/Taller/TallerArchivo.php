@@ -25,15 +25,7 @@ class TallerArchivo extends \yii\db\ActiveRecord
         return 'taller_archivo';
     }
 
-    public function behaviors(){
-        return [
 
-            'auditEntryBehaviors' => [
-                'class' => AuditEntryBehaviors::className()
-            ],
-
-        ];
-    }
 
     /**
      * {@inheritdoc}

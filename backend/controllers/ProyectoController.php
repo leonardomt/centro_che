@@ -91,6 +91,7 @@ class ProyectoController extends Controller
     {
         $modelArchivos = new ProyectoArchivo();
         $model = $this->findModel($id);
+        $oldmodel = $this->findModel($id);
 
         Yii::$app->request->enableCsrfValidation = false;
         $this->enableCsrfValidation = false;
@@ -118,6 +119,7 @@ class ProyectoController extends Controller
 
 
             }
+            AuditEntryController::afterUpdate( $oldmodel, $model, 'Coordinación Académica / Proyecto Editorial / Proyecto Editorial - Portada / Modificar Proyecto Editorial - Portada', $model->id_proyecto, 'Portada');
             return $this->redirect(['view', 'id' => 1]);
         }
 

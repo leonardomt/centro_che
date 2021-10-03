@@ -24,15 +24,7 @@ class AuthItemChild extends \yii\db\ActiveRecord
         return 'auth_item_child';
     }
 
-    public function behaviors(){
-        return [
 
-            'auditEntryBehaviors' => [
-                'class' => AuditEntryBehaviors::className()
-            ],
-
-        ];
-    }
     /**
      * {@inheritdoc}
      */

@@ -7,7 +7,7 @@ use common\widgets\Alert;
 /* @var $this yii\web\View */
 /* @var $model backend\models\ProductoAudiovisual\TipoProducto */
 
-$this->title = 'Crear Tipo de Producto Audiovisual';
+$this->title = 'Crear Género de Producto Audiovisual';
 $this->params['breadcrumbs'][] = ['label' => 'Tipo de Producto Audiovisual', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 if (Yii::$app->user->isGuest)

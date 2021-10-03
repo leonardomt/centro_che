@@ -25,15 +25,7 @@ class CorrespondenciaArchivo extends \yii\db\ActiveRecord
         return 'correspondencia_archivo';
     }
 
-    public function behaviors(){
-        return [
 
-            'auditEntryBehaviors' => [
-                'class' => AuditEntryBehaviors::className()
-            ],
-
-        ];
-    }
 
     /**
      * {@inheritdoc}

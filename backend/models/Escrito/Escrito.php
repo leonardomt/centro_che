@@ -28,15 +28,7 @@ class Escrito extends \yii\db\ActiveRecord
         return 'escrito';
     }
 
-    public function behaviors(){
-        return [
 
-            'auditEntryBehaviors' => [
-                'class' => AuditEntryBehaviors::className()
-            ],
-
-        ];
-    }
 
     public $year;
     public $month;

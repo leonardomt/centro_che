@@ -38,15 +38,7 @@ class Programacion extends \yii\db\ActiveRecord
     {
         return 'programacion';
     }
-    public function behaviors(){
-        return [
 
-            'auditEntryBehaviors' => [
-                'class' => AuditEntryBehaviors::className()
-            ],
-
-        ];
-    }
 
     /**
      * {@inheritdoc}

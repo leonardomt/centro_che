@@ -108,6 +108,7 @@ class ArticuloArchivoController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $oldmodel = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id_articulo_archivo]);

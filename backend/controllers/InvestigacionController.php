@@ -138,6 +138,7 @@ class InvestigacionController extends Controller
                     }
                     if ($flag) {
                         $transaction->commit();
+                        AuditEntryController::afterInsert($model, 'Coordinación Académica / Investigaciones / Crear Investigación', $model->id_investigacion, $model->titulo_investigacion);
                         return $this->redirect(['index']);
                     }
                 } catch (Exception $e) {
@@ -163,6 +164,7 @@ class InvestigacionController extends Controller
     {
         $x = 0;
         $model = $this->findModel($id);
+        $oldmodel = $this->findModel($id);
         $modelsArchivo = InvestigacionArchivo::find()->where(['id_investigacion' => $model->id_investigacion])->all();
         if($model->fecha != null){
             $model->year = date('Y', strtotime($model->fecha));
@@ -236,6 +238,7 @@ class InvestigacionController extends Controller
                     }
                     if ($flag) {
                         $transaction->commit();
+                        AuditEntryController::afterUpdate( $oldmodel, $model, 'Coordinación Académica / Investigaciones / Modificar Investigación', $model->id_investigacion, $model->titulo_investigacion);
                         return $this->redirect(['index']);
                     }
                 } catch (Exception $e) {
@@ -276,9 +279,8 @@ class InvestigacionController extends Controller
         foreach ($temporal7 as $t7){
             $t7->delete();
         }
-
+        AuditEntryController::afterDelete(  $this->findModel($id), 'Coordinación Académica / Investigaciones / Eliminar Investigación', $this->findModel($id)->id_investigacion, $this->findModel($id)->titulo_investigacion);
         $this->findModel($id)->delete();
-        $this->afterDeleted($id);
         return $this->redirect(['index']);
     }
 
@@ -298,30 +300,5 @@ class InvestigacionController extends Controller
         throw new NotFoundHttpException('The requested page does not exist.');
     }
 
-    public function afterDeleted($id)
-    {
-        try {
-            $userId = Yii::$app->getUser()->identity->getId();
-            $userIpAddress = Yii::$app->request->getUserIP();
 
-        } catch (Exception $e) { //If we have no user object, this must be a command line program
-            $userId = self::NO_USER_ID;
-        }
-
-        $log = new \ruturajmaniyar\mod\audit\models\AuditEntry();
-        $log->audit_entry_old_value = 'N/A';
-        $log->audit_entry_new_value = 'N/A';
-        $log->audit_entry_operation = 'Eliminar';
-        $log->audit_entry_model_id = $id;
-        $nombre = \backend\models\User\User::find()->where(['id' => Yii::$app->getUser()->identity->getId()])->one();
-        $log->audit_entry_user_name = $nombre->username;
-        $log->audit_entry_model_name = 'Investigacion';
-        $log->audit_entry_field_name = 'N/A';
-        $log->audit_entry_timestamp = new \yii\db\Expression('unix_timestamp(NOW())');
-        $log->audit_entry_user_id = $userId;
-        $log->audit_entry_ip = $userIpAddress;
-
-        $log->save(false);
-
-    }
 }

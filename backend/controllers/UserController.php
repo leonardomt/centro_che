@@ -78,7 +78,7 @@ class UserController extends Controller implements IdentityInterface
         if ($model->load(Yii::$app->request->post())  && $model->signup()) {
 
             $user = User::find()->where(['username' => $model->username])->one();
-
+            AuditEntryController::afterInsert($model, 'Administración / Usuarios / Crear Usuario', $model->id, $model->username);
             return $this->redirect(['/auth-assignment/create', 'id'=>$user->id]);
         }
 
@@ -100,9 +100,10 @@ class UserController extends Controller implements IdentityInterface
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $oldmodel = $this->findModel($id);
         $modelRol = AuthAssignment::find()->where(['user_id' => $id])->one();
         if ($model->load(Yii::$app->request->post())  && $model->signupmodify($id)) {
-
+            AuditEntryController::afterUpdate( $oldmodel, $model, 'Administración / Usuarios / Modificar Usuario', $model->id, $model->username);
             return $this->redirect(['/auth-assignment/update','item_name'=> $modelRol->item_name, 'user_id'=>$id]);
         }
 
@@ -121,8 +122,10 @@ class UserController extends Controller implements IdentityInterface
     public function actionDelete($id)
     {
         $model = $this->findModel($id);
+        $oldmodel = $this->findModel($id);
         $model->status = 9;
         $model->save();
+        AuditEntryController::afterUpdate( $oldmodel, $model, 'Administración / Usuarios / Eliminar Usuario', $model->id, $model->username);
 
         return $this->redirect(['index']);
     }

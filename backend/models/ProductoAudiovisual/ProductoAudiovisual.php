@@ -29,15 +29,7 @@ class ProductoAudiovisual extends \yii\db\ActiveRecord
         return 'producto_audiovisual';
     }
 
-    public function behaviors(){
-        return [
 
-            'auditEntryBehaviors' => [
-                'class' => AuditEntryBehaviors::className()
-            ],
-
-        ];
-    }
     public $year;
     public $month;
     public $day;

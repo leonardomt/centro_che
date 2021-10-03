@@ -23,15 +23,7 @@ class GaleriaVoArchivo extends \yii\db\ActiveRecord
         return 'galeria_vo_archivo';
     }
 
-    public function behaviors(){
-        return [
 
-            'auditEntryBehaviors' => [
-                'class' => AuditEntryBehaviors::className()
-            ],
-
-        ];
-    }
 
     /**
      * {@inheritdoc}

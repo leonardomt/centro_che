@@ -24,15 +24,7 @@ class Contacto extends \yii\db\ActiveRecord
         return 'contacto';
     }
 
-    public function behaviors(){
-        return [
 
-            'auditEntryBehaviors' => [
-                'class' => AuditEntryBehaviors::className()
-            ],
-
-        ];
-    }
     /**
      * {@inheritdoc}
      */

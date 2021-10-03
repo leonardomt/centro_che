@@ -24,15 +24,7 @@ class Trabajador extends \yii\db\ActiveRecord
         return 'trabajador';
     }
 
-    public function behaviors(){
-        return [
 
-            'auditEntryBehaviors' => [
-                'class' => AuditEntryBehaviors::className()
-            ],
-
-        ];
-    }
     /**
      * {@inheritdoc}
      */

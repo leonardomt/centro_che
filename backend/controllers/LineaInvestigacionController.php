@@ -119,6 +119,7 @@ class LineaInvestigacionController extends Controller
                     }
                     if ($flag) {
                         $transaction->commit();
+                        AuditEntryController::afterInsert($model, 'Coordinación Académica / Líneas de Investigación / Crear Línea de Investigación', $model->id_linea_investigacion, $model->nombre_linea);
                         return $this->redirect(['index']);
                     }
                 } catch (Exception $e) {
@@ -143,7 +144,7 @@ class LineaInvestigacionController extends Controller
     {
         $x = 0;
         $model = $this->findModel($id);
-        $modelsArchivo = new LineaInvestigacionArchivo();
+        $oldmodel = $this->findModel($id);
         $modelsArchivo = LineaInvestigacionArchivo::find()->where(['id_linea_investigacion' => $model->id_linea_investigacion])->all();
 
         if ($model->load(Yii::$app->request->post())) {
@@ -192,6 +193,7 @@ class LineaInvestigacionController extends Controller
                     }
                     if ($flag) {
                         $transaction->commit();
+                        AuditEntryController::afterUpdate( $oldmodel, $model, 'Coordinación Académica / Líneas de Investigación / Modificar Línea de Investigación', $model->id_linea_investigacion, $model->nombre_linea);
                         return $this->redirect(['index']);
                     }
                 } catch (Exception $e) {
@@ -236,7 +238,7 @@ class LineaInvestigacionController extends Controller
 
 
         $this->findModel($id)->delete();
-        $this->afterDeleted($id);
+        AuditEntryController::afterDelete(  $this->findModel($id), 'Coordinación Académica / Líneas de Investigación / Eliminar Línea de Investigación', $this->findModel($id)->id_linea_investigacion, $this->findModel($id)->nombre_linea);
         return $this->redirect(['index']);
     }
 
@@ -256,30 +258,4 @@ class LineaInvestigacionController extends Controller
         throw new NotFoundHttpException('The requested page does not exist.');
     }
 
-    public function afterDeleted($id)
-    {
-        try {
-            $userId = Yii::$app->getUser()->identity->getId();
-            $userIpAddress = Yii::$app->request->getUserIP();
-
-        } catch (Exception $e) { //If we have no user object, this must be a command line program
-            $userId = self::NO_USER_ID;
-        }
-
-        $log = new \ruturajmaniyar\mod\audit\models\AuditEntry();
-        $log->audit_entry_old_value = 'N/A';
-        $log->audit_entry_new_value = 'N/A';
-        $log->audit_entry_operation = 'Eliminar';
-        $log->audit_entry_model_id = $id;
-        $nombre = \backend\models\User\User::find()->where(['id' => Yii::$app->getUser()->identity->getId()])->one();
-        $log->audit_entry_user_name = $nombre->username;
-        $log->audit_entry_model_name = 'LineaInvestigacion';
-        $log->audit_entry_field_name = 'N/A';
-        $log->audit_entry_timestamp = new \yii\db\Expression('unix_timestamp(NOW())');
-        $log->audit_entry_user_id = $userId;
-        $log->audit_entry_ip = $userIpAddress;
-
-        $log->save(false);
-
-    }
 }

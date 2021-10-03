@@ -253,7 +253,7 @@
                             ['label' => 'Programación Cultural', 'iconStyle' => 'far' , 'url' => ['/programacion/index'], 'visible' => Yii::$app->user->can('gestionar-proyectos'),'badge' => $pc],
                             ['label' => 'Exposiciones', 'iconStyle' => 'far' , 'url' => ['/exposicion/index'], 'visible' => Yii::$app->user->can('gestionar-proyectos'),'badge' => $expo],
                             ['label' => 'Productos Audiovisuales', 'iconStyle' => 'far' , 'url' => ['/producto-audiovisual/index'], 'visible' => Yii::$app->user->can('gestionar-proyectos'),'badge' => $pa],
-                            ['label' => 'Otros', 'iconStyle' => 'far' , 'url' => ['/otros/index'], 'visible' => Yii::$app->user->can('gestionar-proyectos'),'badge' => $otros],
+                            ['label' => 'Otros Productos', 'iconStyle' => 'far' , 'url' => ['/otros/index'], 'visible' => Yii::$app->user->can('gestionar-proyectos'),'badge' => $otros],
 
                             ],
 

@@ -115,6 +115,7 @@ class CursoOnlineController extends Controller
                     }
                     if ($flag) {
                         $transaction->commit();
+                        $log = AuditEntryController::afterInsert($model, 'Coordinación Académica / Cursos Online / Crear Curso Online', $model->id_curso, $model->titulo);
                         return $this->redirect(['index']);
                     }
                 } catch (Exception $e) {
@@ -139,6 +140,7 @@ class CursoOnlineController extends Controller
     {
 
         $model = $this->findModel($id);
+        $oldmodel = $this->findModel($id);
         $modelsClase = Clase::find()->where(['id_curso' => $model->id_curso])->all();
 
         if ($model->load(Yii::$app->request->post())) {
@@ -171,6 +173,7 @@ class CursoOnlineController extends Controller
                     }
                     if ($flag) {
                         $transaction->commit();
+                        $log = AuditEntryController::afterUpdate( $oldmodel, $model, 'Coordinación Académica / Cursos Online / Modificar Curso Online', $model->id_curso, $model->titulo);
                         return $this->redirect(['index']);
                     }
                 } catch (Exception $e) {
@@ -204,9 +207,8 @@ class CursoOnlineController extends Controller
         foreach ($temporal as $t) {
             $t->delete();
         }
-
+        $log = AuditEntryController::afterDelete(  $this->findModel($id), 'Coordinación Académica / Cursos Online / Eliminar Curso Online', $this->findModel($id)->id_curso, $this->findModel($id)->titulo);
         $this->findModel($id)->delete();
-        $this->afterDeleted($id);
         return $this->redirect(['index']);
     }
 
@@ -238,30 +240,5 @@ class CursoOnlineController extends Controller
         return Yii::$app->response->sendFile($completePath, $model->pdf);
     }
 
-    public function afterDeleted($id)
-    {
-        try {
-            $userId = Yii::$app->getUser()->identity->getId();
-            $userIpAddress = Yii::$app->request->getUserIP();
 
-        } catch (Exception $e) { //If we have no user object, this must be a command line program
-            $userId = self::NO_USER_ID;
-        }
-
-        $log = new \ruturajmaniyar\mod\audit\models\AuditEntry();
-        $log->audit_entry_old_value = 'N/A';
-        $log->audit_entry_new_value = 'N/A';
-        $log->audit_entry_operation = 'Eliminar';
-        $log->audit_entry_model_id = $id;
-        $nombre = \backend\models\User\User::find()->where(['id' => Yii::$app->getUser()->identity->getId()])->one();
-        $log->audit_entry_user_name = $nombre->username;
-        $log->audit_entry_model_name = 'CursoOnline';
-        $log->audit_entry_field_name = 'N/A';
-        $log->audit_entry_timestamp = new \yii\db\Expression('unix_timestamp(NOW())');
-        $log->audit_entry_user_id = $userId;
-        $log->audit_entry_ip = $userIpAddress;
-
-        $log->save(false);
-
-    }
 }

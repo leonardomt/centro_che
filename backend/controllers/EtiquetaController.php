@@ -71,6 +71,7 @@ class EtiquetaController extends Controller
         $model = new Etiqueta();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            AuditEntryController::afterInsert($model, 'Administración / Etiquetas / Crear Etiqueta', $model->id, $model->etiqueta);
             return $this->redirect(['index']);
         }
 
@@ -89,9 +90,11 @@ class EtiquetaController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $oldmodel = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            AuditEntryController::afterUpdate( $oldmodel, $model, 'Administración / Etiquetas / Modificar Etiqueta', $model->id, $model->etiqueta);
+            return $this->redirect(['index']);
         }
 
         return $this->render('update', [
@@ -120,7 +123,7 @@ class EtiquetaController extends Controller
         }
 
         if ($deleted == true) {
-
+            AuditEntryController::afterDelete(  $this->findModel($id), 'Administración / Etiquetas / Eliminar Etiqueta', $this->findModel($id)->id, $this->findModel($id)->etiqueta);
             $this->findModel($id)->delete();
             return $this->redirect(['index']);
         } else {

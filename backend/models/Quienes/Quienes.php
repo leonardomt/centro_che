@@ -22,15 +22,7 @@ class Quienes extends \yii\db\ActiveRecord
         return 'quienes';
     }
 
-    public function behaviors(){
-        return [
 
-            'auditEntryBehaviors' => [
-                'class' => AuditEntryBehaviors::className()
-            ],
-
-        ];
-    }
     /**
      * {@inheritdoc}
      */

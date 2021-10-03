@@ -74,6 +74,7 @@ class AuthAssignmentController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             $user->type = $model->item_name;
             $user->save();
+            AuditEntryController::afterInsert($model, '\'Administración / Usuarios / Modificar Usuario / Asignar Rol', $model->user_id, $model->item_name);
             return $this->redirect(['/user/index']);
         }
 
@@ -94,10 +95,13 @@ class AuthAssignmentController extends Controller
     public function actionUpdate($item_name, $user_id)
     {
         $model = $this->findModel($item_name, $user_id);
+        $oldmodel = $this->findModel($item_name, $user_id);
         $user = User::find()->where(['id'=>$user_id])->one();
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             $user->type = $model->item_name;
             $user->save();
+            AuditEntryController::afterUpdate( $oldmodel, $model, 'Administración / Usuarios / Modificar Usuario / Asignar Rol', $model->user_id, $model->item_name);
+
             return $this->redirect(['/user/index']);
         }
 

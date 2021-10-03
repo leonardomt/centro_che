@@ -30,15 +30,7 @@ class ColeccionDocumental extends \yii\db\ActiveRecord
         return 'coleccion_documental';
     }
 
-    public function behaviors(){
-        return [
 
-            'auditEntryBehaviors' => [
-                'class' => AuditEntryBehaviors::className()
-            ],
-
-        ];
-    }
     public $year;
     public $month;
     public $day;

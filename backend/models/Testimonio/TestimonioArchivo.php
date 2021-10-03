@@ -24,15 +24,7 @@ class TestimonioArchivo extends \yii\db\ActiveRecord
         return 'testimonio_archivo';
     }
 
-    public function behaviors(){
-        return [
 
-            'auditEntryBehaviors' => [
-                'class' => AuditEntryBehaviors::className()
-            ],
-
-        ];
-    }
 
     /**
      * {@inheritdoc}

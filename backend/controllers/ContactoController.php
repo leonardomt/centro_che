@@ -85,8 +85,10 @@ class ContactoController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $oldmodel = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            $log = AuditEntryController::afterUpdate( $oldmodel, $model, 'Inicio / Información de Contacto / Modificar Información de Contacto', $model->id, $model->correo);
             return $this->redirect(['index']);
         }
 

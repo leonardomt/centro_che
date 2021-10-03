@@ -30,15 +30,7 @@ class Comentario extends \yii\db\ActiveRecord
         return 'comentario';
     }
 
-    public function behaviors(){
-        return [
 
-            'auditEntryBehaviors' => [
-                'class' => AuditEntryBehaviors::className()
-            ],
-
-        ];
-    }
 
     /**
      * {@inheritdoc}

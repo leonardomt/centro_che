@@ -26,15 +26,7 @@ class OtrosArchivo extends \yii\db\ActiveRecord
         return 'otros_archivo';
     }
 
-    public function behaviors(){
-        return [
 
-            'auditEntryBehaviors' => [
-                'class' => AuditEntryBehaviors::className()
-            ],
-
-        ];
-    }
     /**
      * {@inheritdoc}
      */

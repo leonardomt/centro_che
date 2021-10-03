@@ -24,15 +24,6 @@ class ColeccionDocumentalArchivo extends \yii\db\ActiveRecord
         return 'coleccion_documental_archivo';
     }
 
-    public function behaviors(){
-        return [
-
-            'auditEntryBehaviors' => [
-                'class' => AuditEntryBehaviors::className()
-            ],
-
-        ];
-    }
 
     /**
      * {@inheritdoc}

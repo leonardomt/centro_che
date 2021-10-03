@@ -24,15 +24,7 @@ class AuthAssignment extends \yii\db\ActiveRecord
         return 'auth_assignment';
     }
 
-    public function behaviors(){
-        return [
 
-            'auditEntryBehaviors' => [
-                'class' => AuditEntryBehaviors::className()
-            ],
-
-        ];
-    }
     /**
      * {@inheritdoc}
      */

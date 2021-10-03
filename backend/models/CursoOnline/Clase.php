@@ -27,15 +27,7 @@ class Clase extends \yii\db\ActiveRecord
         return 'clase';
     }
 
-    public function behaviors(){
-        return [
 
-            'auditEntryBehaviors' => [
-                'class' => AuditEntryBehaviors::className()
-            ],
-
-        ];
-    }
     /**
      * {@inheritdoc}
      */

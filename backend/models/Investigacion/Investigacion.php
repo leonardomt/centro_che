@@ -30,15 +30,7 @@ class Investigacion extends \yii\db\ActiveRecord
         return 'investigacion';
     }
 
-    public function behaviors(){
-        return [
 
-            'auditEntryBehaviors' => [
-                'class' => AuditEntryBehaviors::className()
-            ],
-
-        ];
-    }
 
     public $year;
     public $month;

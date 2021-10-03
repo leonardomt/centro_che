@@ -30,15 +30,7 @@ class Discurso extends \yii\db\ActiveRecord
         return 'discurso';
     }
 
-    public function behaviors(){
-        return [
 
-            'auditEntryBehaviors' => [
-                'class' => AuditEntryBehaviors::className()
-            ],
-
-        ];
-    }
     public $year;
     public $month;
     public $day;

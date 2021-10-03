@@ -27,15 +27,7 @@ class Hecho extends \yii\db\ActiveRecord
         return 'hecho';
     }
 
-    public function behaviors(){
-        return [
 
-            'auditEntryBehaviors' => [
-                'class' => AuditEntryBehaviors::className()
-            ],
-
-        ];
-    }
     public $year;
     public $month;
     public $day;

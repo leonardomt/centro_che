@@ -225,6 +225,7 @@ class ProgramacionController extends Controller
                     }
                     if ($flag) {
                         $transaction->commit();
+                        AuditEntryController::afterInsert($model, 'Proyectos Alternativos / Programación Cultural / Crear Programación Cultural', $model->id, $model->titulo);
                         return $this->redirect(['index']);
                     }
                 } catch (Exception $e) {
@@ -249,6 +250,7 @@ class ProgramacionController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $oldmodel = $this->findModel($id);
         $modelsArchivo = ProgramacionArchivo::find()->where(['id_programacion' => $model->id])->all();
         $x = 0;
 
@@ -396,6 +398,7 @@ class ProgramacionController extends Controller
                     }
                     if ($flag) {
                         $transaction->commit();
+                        AuditEntryController::afterUpdate( $oldmodel, $model, 'Proyectos Alternativos / Programación Cultural / Modificar Programación Cultural', $model->id, $model->titulo);
                         return $this->redirect(['index']);
                     }
                 } catch (Exception $e) {
@@ -419,8 +422,8 @@ class ProgramacionController extends Controller
      */
     public function actionDelete($id)
     {
+        AuditEntryController::afterDelete(  $this->findModel($id), 'Proyectos Alternativos / Programación Cultural / Eliminar Programación Cultural', $this->findModel($id)->id, $this->findModel($id)->titulo);
         $this->findModel($id)->delete();
-        $this->afterDeleted($id);
         return $this->redirect(['index']);
     }
 
@@ -440,28 +443,5 @@ class ProgramacionController extends Controller
         throw new NotFoundHttpException('The requested page does not exist.');
     }
 
-    public function afterDeleted($id)
-    {
-        try {
-            $userId = Yii::$app->getUser()->identity->getId();
-            $userIpAddress = Yii::$app->request->getUserIP();
-        } catch (Exception $e) { //If we have no user object, this must be a command line program
-            $userId = self::NO_USER_ID;
-        }
 
-        $log = new \ruturajmaniyar\mod\audit\models\AuditEntry();
-        $log->audit_entry_old_value = 'N/A';
-        $log->audit_entry_new_value = 'N/A';
-        $log->audit_entry_operation = 'Eliminar';
-        $log->audit_entry_model_id = $id;
-        $nombre = \backend\models\User\User::find()->where(['id' => Yii::$app->getUser()->identity->getId()])->one();
-        $log->audit_entry_user_name = $nombre->username;
-        $log->audit_entry_model_name = 'Programacion';
-        $log->audit_entry_field_name = 'N/A';
-        $log->audit_entry_timestamp = new \yii\db\Expression('unix_timestamp(NOW())');
-        $log->audit_entry_user_id = $userId;
-        $log->audit_entry_ip = $userIpAddress;
-
-        $log->save(false);
-    }
 }

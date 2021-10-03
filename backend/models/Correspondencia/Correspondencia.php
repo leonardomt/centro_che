@@ -28,15 +28,7 @@ class Correspondencia extends \yii\db\ActiveRecord
         return 'correspondencia';
     }
 
-    public function behaviors(){
-        return [
 
-            'auditEntryBehaviors' => [
-                'class' => AuditEntryBehaviors::className()
-            ],
-
-        ];
-    }
     public $year;
     public $month;
     public $day;

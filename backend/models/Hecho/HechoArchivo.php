@@ -25,15 +25,7 @@ class HechoArchivo extends \yii\db\ActiveRecord
         return 'hecho_archivo';
     }
 
-    public function behaviors(){
-        return [
 
-            'auditEntryBehaviors' => [
-                'class' => AuditEntryBehaviors::className()
-            ],
-
-        ];
-    }
     /**
      * {@inheritdoc}
      */

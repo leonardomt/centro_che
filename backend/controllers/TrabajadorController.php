@@ -67,6 +67,7 @@ class TrabajadorController extends Controller
         $model = new Trabajador();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            AuditEntryController::afterInsert($model, 'Inicio / Quiénes Somos / Quiénes Somos - Inicio / Crear Trabajador', $model->id, $model->nombre);
             return $this->redirect(['/quienes-detalle/view', 'id'=>1]);
         }
 
@@ -85,8 +86,10 @@ class TrabajadorController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $oldmodel = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            AuditEntryController::afterUpdate( $oldmodel, $model, 'Inicio / Quiénes Somos / Quiénes Somos - Inicio / Modificar Trabajador', $model->id, $model->nombre);
             return $this->redirect(['/quienes-detalle/view', 'id'=>1]);
         }
 
@@ -104,6 +107,7 @@ class TrabajadorController extends Controller
      */
     public function actionDelete($id)
     {
+        AuditEntryController::afterDelete(  $this->findModel($id), 'Inicio / Quiénes Somos / Quiénes Somos - Inicio / Eliminar Trabajador', $this->findModel($id)->id, $this->findModel($id)->nombre);
         $this->findModel($id)->delete();
 
         return $this->redirect(['/quienes-detalle/view', 'id'=>1]);
@@ -125,30 +129,5 @@ class TrabajadorController extends Controller
         throw new NotFoundHttpException('The requested page does not exist.');
     }
 
-    public function afterDeleted($id)
-    {
-        try {
-            $userId = Yii::$app->getUser()->identity->getId();
-            $userIpAddress = Yii::$app->request->getUserIP();
 
-        } catch (Exception $e) { //If we have no user object, this must be a command line program
-            $userId = self::NO_USER_ID;
-        }
-
-        $log = new \ruturajmaniyar\mod\audit\models\AuditEntry();
-        $log->audit_entry_old_value = 'N/A';
-        $log->audit_entry_new_value = 'N/A';
-        $log->audit_entry_operation = 'Eliminar';
-        $log->audit_entry_model_id = $id;
-        $nombre = \backend\models\User\User::find()->where(['id' => Yii::$app->getUser()->identity->getId()])->one();
-        $log->audit_entry_user_name = $nombre->username;
-        $log->audit_entry_model_name = 'Trabajador';
-        $log->audit_entry_field_name = 'N/A';
-        $log->audit_entry_timestamp = new \yii\db\Expression('unix_timestamp(NOW())');
-        $log->audit_entry_user_id = $userId;
-        $log->audit_entry_ip = $userIpAddress;
-
-        $log->save(false);
-
-    }
 }
