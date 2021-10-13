@@ -132,7 +132,8 @@ class CorrespondenciaController extends Controller
                             if (!($flag = $modelArchivo->save(false))) {
                                 $transaction->rollBack();
                                 break;
-                            }
+                            }else
+                                AuditEntryController::afterInsertOrUpdateFile($modelArchivo, 'Vida y Obra / Correspondencia / Crear Correspondencia - Archivo Asociado', $model->id_correspondencia, $model->titulo, 'Insertar');
                         }
                     }
                     if ($flag) {
@@ -232,7 +233,8 @@ class CorrespondenciaController extends Controller
                             if (!($flag = $modelArchivo->save(false))) {
                                 $transaction->rollBack();
                                 break;
-                            }
+                            }else
+                                AuditEntryController::afterInsertOrUpdateFile($modelArchivo, 'Vida y Obra / Correspondencia / Modificar Correspondencia - Archivo Asociado', $model->id_correspondencia, $model->titulo, 'Modificar');
                         }
                     }
                     if ($flag) {

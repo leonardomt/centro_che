@@ -221,6 +221,8 @@ class ProgramacionController extends Controller
                                 $transaction->rollBack();
                                 break;
                             }
+                            else
+                                AuditEntryController::afterInsertOrUpdateFile($modelArchivo, 'Proyectos Alternativos / Programación Cultural / Crear Programación Cultural - Archivo Asociado', $model->id, $model->titulo, 'Insertar');
                         }
                     }
                     if ($flag) {
@@ -394,6 +396,8 @@ class ProgramacionController extends Controller
                                 $transaction->rollBack();
                                 break;
                             }
+                            else
+                                AuditEntryController::afterInsertOrUpdateFile($modelArchivo, 'Proyectos Alternativos / Programación Cultural / Modificar Programación Cultural - Archivo Asociado', $model->id, $model->titulo, 'Modificar');
                         }
                     }
                     if ($flag) {

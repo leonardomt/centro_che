@@ -133,7 +133,8 @@ class InvestigacionController extends Controller
                             if (!($flag = $modelArchivo->save(false))) {
                                 $transaction->rollBack();
                                 break;
-                            }
+                            }else
+                                AuditEntryController::afterInsertOrUpdateFile($modelArchivo, 'Coordinación Académica / Investigaciones / Crear Investigación - Archivo Asociado', $model->id_investigacion, $model->titulo_investigacion, 'Insertar');
                         }
                     }
                     if ($flag) {
@@ -233,7 +234,8 @@ class InvestigacionController extends Controller
                             if (!($flag = $modelArchivo->save(false))) {
                                 $transaction->rollBack();
                                 break;
-                            }
+                            }else
+                                AuditEntryController::afterInsertOrUpdateFile($modelArchivo, 'Coordinación Académica / Investigaciones / Modificar Investigación - Archivo Asociado', $model->id_investigacion, $model->titulo_investigacion, 'Modificar');
                         }
                     }
                     if ($flag) {

@@ -135,7 +135,8 @@ class EscritoController extends Controller
                             if (! ($flag = $modelArchivo->save(false))) {
                                 $transaction->rollBack();
                                 break;
-                            }
+                            }else
+                                AuditEntryController::afterInsertOrUpdateFile($modelArchivo, 'Vida y Obra / Escritos / Crear Escrito - Archivo Asociado', $model->id_escrito, $model->titulo, 'Insertar');
                         }
                     }
                     if ($flag) {
@@ -218,7 +219,8 @@ class EscritoController extends Controller
                             if (! ($flag = $modelArchivo->save(false))) {
                                 $transaction->rollBack();
                                 break;
-                            }
+                            }else
+                                AuditEntryController::afterInsertOrUpdateFile($modelArchivo, 'Vida y Obra / Escritos / Modificar Escrito - Archivo Asociado', $model->id_escrito, $model->titulo, 'Modificar');
                         }
                     }
                     if ($flag) {

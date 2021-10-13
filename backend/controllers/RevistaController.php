@@ -114,7 +114,8 @@ class RevistaController extends Controller
                             if (!($flag = $modelArchivo->save(false))) {
                                 $transaction->rollBack();
                                 break;
-                            }
+                            }else
+                                AuditEntryController::afterInsertOrUpdateFile($modelArchivo, 'Inicio / Paradigma / Catálogo / Crear Revista - Archivo Asociado', $model->id_revista, $model->titulo, 'Insertar');
                         }
                     }
                     if ($flag) {
@@ -186,7 +187,8 @@ class RevistaController extends Controller
                             if (!($flag = $modelArchivo->save(false))) {
                                 $transaction->rollBack();
                                 break;
-                            }
+                            }else
+                                AuditEntryController::afterInsertOrUpdateFile($modelArchivo, 'Inicio / Paradigma / Catálogo / Modificar Revista - Archivo Asociado', $model->id_revista, $model->titulo, 'Modificar');
                         }
                     }
                     if ($flag) {

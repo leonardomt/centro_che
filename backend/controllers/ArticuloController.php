@@ -138,7 +138,8 @@ class ArticuloController extends Controller
                             if (!($flag = $modelArchivo->save(false))) {
                                 $transaction->rollBack();
                                 break;
-                            }
+                            }else
+                                AuditEntryController::afterInsertOrUpdateFile($modelArchivo, 'Coordinación Académica / Artículos / Crear Artículo - Archivo Asociado', $model->id_articulo, $model->titulo, 'Insertar');
                         }
                     }
                     if ($flag) {
@@ -238,7 +239,8 @@ class ArticuloController extends Controller
                             if (!($flag = $modelArchivo->save(false))) {
                                 $transaction->rollBack();
                                 break;
-                            }
+                            }else
+                                AuditEntryController::afterInsertOrUpdateFile($modelArchivo, 'Coordinación Académica / Artículos / Modificar Artículo - Archivo Asociado', $model->id_articulo, $model->titulo, 'Modificar');
 
                         }
                     }

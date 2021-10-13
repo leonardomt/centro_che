@@ -135,4 +135,38 @@ class AuditEntryController extends Controller
     }
 
 
+    public static function afterInsertOrUpdateFile($element, $place, $id, $title, $operation)
+    {
+        try {
+            $userId = Yii::$app->getUser()->identity->getId();
+            $userIpAddress = Yii::$app->request->getUserIP();
+        } catch (Exception $e) {
+            $userId = self::NO_USER_ID;
+        }
+        $newAttributes = $element->attributes();
+        foreach ($newAttributes as $value) {
+            $log = new AuditEntry();
+            $log->audit_entry_field_name = $value;
+            $log->audit_entry_old_value = 'N/A';
+            if ($element->$value == null || $element->$value == 'N/A')
+                $log->audit_entry_new_value = 'N/A';
+            else
+                $log->audit_entry_new_value = $element->$value;
+            $log->audit_entry_model_id = $id;
+            $log->audit_entry_operation = $operation;
+            $nombre = User::find()->where(['id' => Yii::$app->getUser()->identity->getId()])->one();
+            $log->audit_entry_user_name = $nombre->username;
+            $log->audit_entry_model_name = get_class($element);
+            $log->audit_entry_timestamp = new Expression('NOW()');
+            $log->audit_entry_user_id = $userId;
+            $log->audit_entry_ip = $userIpAddress;
+            $log->place = $place;
+            $log->title = $title;
+
+            $log->save(false);
+        }
+
+        return true;
+    }
+
 }

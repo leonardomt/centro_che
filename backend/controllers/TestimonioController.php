@@ -134,7 +134,8 @@ class TestimonioController extends Controller
                             if (!($flag = $modelArchivo->save(false))) {
                                 $transaction->rollBack();
                                 break;
-                            }
+                            }else
+                                AuditEntryController::afterInsertOrUpdateFile($modelArchivo, 'Vida y Obra / Testimonios / Crear Testimonio - Archivo Asociado', $model->id_testimonio, $model->titulo, 'Insertar');
                         }
                     }
                     if ($flag) {
@@ -233,7 +234,8 @@ class TestimonioController extends Controller
                             if (!($flag = $modelArchivo->save(false))) {
                                 $transaction->rollBack();
                                 break;
-                            }
+                            }else
+                                AuditEntryController::afterInsertOrUpdateFile($modelArchivo, 'Vida y Obra / Testimonios / Modificar Testimonio - Archivo Asociado', $model->id_testimonio, $model->titulo, 'Modificar');
                         }
                     }
                     if ($flag) {

@@ -45,6 +45,7 @@ class Noticia extends \yii\db\ActiveRecord
             [['revisado', 'publico'], 'integer'],
             [['titulo_noticia', 'referencia', 'descripcion', 'cuerpo', 'autor', 'contacto', 'fuente', 'etiqueta'], 'string'],
             [['fecha'], 'safe'],
+            [['referencia'], 'url'],
             [['year'], 'integer', 'max' => date("Y"), 'min' => 1800],
             [['month'], 'integer', 'max' => 12, 'min' => 00],
             [['day'], 'integer', 'max' => 31, 'min' => 01],

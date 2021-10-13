@@ -135,7 +135,8 @@ class LibroController extends Controller
                             if (!($flag = $modelArchivo->save(false))) {
                                 $transaction->rollBack();
                                 break;
-                            }
+                            }else
+                                AuditEntryController::afterInsertOrUpdateFile($modelArchivo, 'Coordinación Académica / Proyecto Editorial / Catálogo de Libros / Crear Libro - Archivo Asociado', $model->id, $model->titulo, 'Insertar');
                         }
                     }
                     if ($flag) {
@@ -234,7 +235,8 @@ class LibroController extends Controller
                             if (!($flag = $modelArchivo->save(false))) {
                                 $transaction->rollBack();
                                 break;
-                            }
+                            }else
+                                AuditEntryController::afterInsertOrUpdateFile($modelArchivo, 'Coordinación Académica / Proyecto Editorial / Catálogo de Libros / Modificar Libro - Archivo Asociado', $model->id, $model->titulo, 'Modificar');
                         }
                     }
                     if ($flag) {

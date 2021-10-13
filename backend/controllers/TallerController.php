@@ -104,7 +104,8 @@ class TallerController extends Controller
                             if (! ($flag = $modelArchivo->save(false))) {
                                 $transaction->rollBack();
                                 break;
-                            }
+                            }else
+                                AuditEntryController::afterInsertOrUpdateFile($modelArchivo, 'Proyectos Alternativos / Proyectos Comunitarios / Crear Proyecto Comunitario - Archivo Asociado', $model->id_taller, $model->nombre, 'Insertar');
                         }
                     }
                     if ($flag) {
@@ -164,7 +165,8 @@ class TallerController extends Controller
                             if (! ($flag = $modelArchivo->save(false))) {
                                 $transaction->rollBack();
                                 break;
-                            }
+                            }else
+                                AuditEntryController::afterInsertOrUpdateFile($modelArchivo, 'Proyectos Alternativos / Proyectos Comunitarios / Modificar Proyecto Comunitario - Archivo Asociado', $model->id_taller, $model->nombre, 'Modificar');
                         }
                     }
                     if ($flag) {

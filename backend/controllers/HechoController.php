@@ -144,7 +144,8 @@ class HechoController extends Controller
                             if (!($flag = $modelArchivo->save(false))) {
                                 $transaction->rollBack();
                                 break;
-                            }
+                            }else
+                                AuditEntryController::afterInsertOrUpdateFile($modelArchivo, 'Vida y Obra / Cronología / Crear Hecho - Archivo Asociado', $model->id_hecho, $model->titulo, 'Insertar');
                         }
                     }
                     if ($flag) {
@@ -256,7 +257,8 @@ class HechoController extends Controller
                             if (!($flag = $modelArchivo->save(false))) {
                                 $transaction->rollBack();
                                 break;
-                            }
+                            }else
+                                AuditEntryController::afterInsertOrUpdateFile($modelArchivo, 'Vida y Obra / Cronología / Modificar Hecho - Archivo Asociado', $model->id_hecho, $model->titulo, 'Modificar');
                         }
                     }
                     if ($flag) {

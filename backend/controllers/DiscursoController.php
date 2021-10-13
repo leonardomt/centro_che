@@ -135,7 +135,8 @@ class DiscursoController extends Controller
                             if (! ($flag = $modelArchivo->save(false))) {
                                 $transaction->rollBack();
                                 break;
-                            }
+                            }else
+                                AuditEntryController::afterInsertOrUpdateFile($modelArchivo, 'Vida y Obra / Discursos y Entrevistas / Crear Discurso - Archivo Asociado', $model->id_discurso, $model->titulo, 'Insertar');
                         }
                     }
                     if ($flag) {
@@ -235,7 +236,8 @@ class DiscursoController extends Controller
                             if (!($flag = $modelArchivo->save(false))) {
                                 $transaction->rollBack();
                                 break;
-                            }
+                            }else
+                                AuditEntryController::afterInsertOrUpdateFile($modelArchivo, 'Vida y Obra / Discursos y Entrevistas / Modificar Discurso o Entrevista - Archivo Asociado', $model->id_discurso, $model->titulo, 'Modificar');
                         }
                     }
                     if ($flag) {

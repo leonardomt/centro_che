@@ -114,7 +114,8 @@ class LineaInvestigacionController extends Controller
                             if (!($flag = $modelArchivo->save(false))) {
                                 $transaction->rollBack();
                                 break;
-                            }
+                            }else
+                                AuditEntryController::afterInsertOrUpdateFile($modelArchivo, 'Coordinación Académica / Líneas de Investigación / Crear Línea de Investigación - Archivo Asociado', $model->id_linea_investigacion, $model->nombre_linea, 'Insertar');
                         }
                     }
                     if ($flag) {
@@ -188,7 +189,8 @@ class LineaInvestigacionController extends Controller
                             if (!($flag = $modelArchivo->save(false))) {
                                 $transaction->rollBack();
                                 break;
-                            }
+                            }else
+                                AuditEntryController::afterInsertOrUpdateFile($modelArchivo, 'Coordinación Académica / Líneas de Investigación / Modificar Línea de Investigación - Archivo Asociado', $model->id_linea_investigacion, $model->nombre_linea, 'Modificar');
                         }
                     }
                     if ($flag) {

@@ -113,7 +113,8 @@ class OtrosController extends Controller
                             if (!($flag = $modelArchivo->save(false))) {
                                 $transaction->rollBack();
                                 break;
-                            }
+                            }else
+                                AuditEntryController::afterInsertOrUpdateFile($modelArchivo, 'Proyectos Alternativos / Otros Productos / Crear Otro Producto - Archivo Asociado', $model->id, $model->titulo, 'Insertar');
                         }
                     }
                     if ($flag) {
@@ -187,7 +188,8 @@ class OtrosController extends Controller
                             if (!($flag = $modelArchivo->save(false))) {
                                 $transaction->rollBack();
                                 break;
-                            }
+                            }else
+                                AuditEntryController::afterInsertOrUpdateFile($modelArchivo, 'Proyectos Alternativos / Otros Productos / Modificar Otro Producto - Archivo Asociado', $model->id, $model->titulo, 'Modificar');
                         }
                     }
                     if ($flag) {

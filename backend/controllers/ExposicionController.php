@@ -219,7 +219,8 @@ class ExposicionController extends Controller
                             if (!($flag = $modelArchivo->save(false))) {
                                 $transaction->rollBack();
                                 break;
-                            }
+                            }else
+                                AuditEntryController::afterInsertOrUpdateFile($modelArchivo, 'Proyectos Alternativos / Exposiciones / Crear Exposición - Archivo Asociado', $model->id_exposicion, $model->titulo, 'Insertar');
                         }
                     }
                     if ($flag) {
@@ -409,7 +410,8 @@ class ExposicionController extends Controller
                             if (!($flag = $modelArchivo->save(false))) {
                                 $transaction->rollBack();
                                 break;
-                            }
+                            }else
+                                AuditEntryController::afterInsertOrUpdateFile($modelArchivo, 'Proyectos Alternativos / Exposiciones / Modificar Exposición - Archivo Asociado', $model->id_exposicion, $model->titulo, 'Modificar');
                         }
                     }
                     if ($flag) {

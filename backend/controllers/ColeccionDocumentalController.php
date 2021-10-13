@@ -154,7 +154,8 @@ class ColeccionDocumentalController extends Controller
                             if (!($flag = $modelArchivo->save(false))) {
                                 $transaction->rollBack();
                                 break;
-                            }
+                            }else
+                                AuditEntryController::afterInsertOrUpdateFile($modelArchivo, 'Coordinación Académica / Colección Documental / Colección Documental - Documentos / Crear Documento - Archivo Asociado', $model->id_coleccion_documental, $model->titulo, 'Insertar');
                         }
                     }
                     if ($flag) {
@@ -283,7 +284,8 @@ class ColeccionDocumentalController extends Controller
                             if (!($flag = $modelArchivo->save(false))) {
                                 $transaction->rollBack();
                                 break;
-                            }
+                            }else
+                                AuditEntryController::afterInsertOrUpdateFile($modelArchivo, 'Coordinación Académica / Colección Documental / Colección Documental - Documentos / Modificar Documento - Archivo Asociado', $model->id_coleccion_documental, $model->titulo, 'Modificar');
                         }
                     }
                     if ($flag) {

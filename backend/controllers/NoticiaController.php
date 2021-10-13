@@ -176,6 +176,9 @@ class NoticiaController extends Controller
                                 $transaction->rollBack();
                                 break;
                             }
+                            else
+                                AuditEntryController::afterInsertOrUpdateFile($modelArchivo, 'Inicio / Noticias / Crear Noticia - Archivo Asociado', $model->id_noticia, $model->titulo_noticia, 'Insertar');
+
                         }
                     }
                     if ($flag) {
@@ -277,7 +280,9 @@ class NoticiaController extends Controller
                             if (!($flag = $modelArchivo->save(false))) {
                                 $transaction->rollBack();
                                 break;
-                            }
+                            }else
+                                AuditEntryController::afterInsertOrUpdateFile($modelArchivo, 'Inicio / Noticias / Modificar Noticia - Archivo Asociado', $model->id_noticia, $model->titulo_noticia, 'Modificar');
+
                         }
                     }
                     if ($flag) {

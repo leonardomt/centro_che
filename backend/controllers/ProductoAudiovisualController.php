@@ -118,7 +118,8 @@ class ProductoAudiovisualController extends Controller
                             if (! ($flag = $modelArchivo->save(false))) {
                                 $transaction->rollBack();
                                 break;
-                            }
+                            }else
+                                AuditEntryController::afterInsertOrUpdateFile($modelArchivo, 'Proyectos Alternativos / Productos Audiovisuales / Crear Producto Audiovisual - Archivo Asociado', $model->id_producto_audiovisual, $model->titulo, 'Insertar');
                         }
                     }
                     if ($flag) {
@@ -201,7 +202,8 @@ class ProductoAudiovisualController extends Controller
                             if (! ($flag = $modelArchivo->save(false))) {
                                 $transaction->rollBack();
                                 break;
-                            }
+                            }else
+                                AuditEntryController::afterInsertOrUpdateFile($modelArchivo, 'Proyectos Alternativos / Productos Audiovisuales / Modificar Producto Audiovisual - Archivo Asociado', $model->id_producto_audiovisual, $model->titulo, 'Modificar');
                         }
                     }
                     if ($flag) {
