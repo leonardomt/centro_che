@@ -255,6 +255,7 @@ class ExposicionController extends Controller
         $model = $this->findModel($id);
         $oldmodel = $this->findModel($id);
         $modelsArchivo = ExposicionArchivo::find()->where(['id_exposicion' => $model->id_exposicion])->all();
+        $model->tipo_fecha = $oldmodel->tipo_fecha;
         if($model->fecha != null){
             $model->year = date('Y', strtotime($model->fecha));
             $model->month = date('m', strtotime($model->fecha));
@@ -428,6 +429,7 @@ class ExposicionController extends Controller
         return $this->render('update', [
             'model' => $model,
             'modelsArchivo' => (empty($modelsArchivo)) ? [new ExposicionArchivo] : $modelsArchivo,
+            'tipo'=>$oldmodel->tipo_fecha,
         ]);
     }
 

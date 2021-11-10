@@ -414,6 +414,7 @@ class ProgramacionController extends Controller
         return $this->render('update', [
             'model' => $model,
             'modelsArchivo' => (empty($modelsArchivo)) ? [new ProgramacionArchivo] : $modelsArchivo,
+            'tipo'=>$oldmodel->tipo_fecha,
         ]);
     }
 

@@ -18,7 +18,7 @@ class ArticuloSearch extends Articulo
     {
         return [
             [['id_articulo', 'revisado', 'publico', 'id_investigacion'], 'integer'],
-            [['titulo', 'autor', 'fecha', 'resumen', 'cuerpo', 'abstract', 'keywords', 'palabras_clave'], 'safe'],
+            [['titulo', 'autor', 'fecha','fecha_fin', 'resumen', 'cuerpo', 'abstract', 'keywords', 'palabras_clave'], 'safe'],
         ];
     }
 
@@ -61,7 +61,6 @@ class ArticuloSearch extends Articulo
             'id_articulo' => $this->id_articulo,
             'revisado' => $this->revisado,
             'publico' => $this->publico,
-            'fecha' => $this->fecha,
             'id_investigacion' => $this->id_investigacion,
         ]);
 
@@ -70,6 +69,8 @@ class ArticuloSearch extends Articulo
             ->andFilterWhere(['like', 'resumen', $this->resumen])
             ->andFilterWhere(['like', 'abstract', $this->abstract])
             ->andFilterWhere(['like', 'keywords', $this->keywords])
+            ->andFilterWhere(['like', 'fecha_fin', $this->fecha_fin])
+            ->andFilterWhere(['like', 'fecha', $this->fecha])
             ->andFilterWhere(['like', 'palabras_clave', $this->palabras_clave])
             ->andFilterWhere(['like', 'cuerpo', $this->cuerpo]);
 

@@ -44,8 +44,9 @@ if ( !Yii::$app->user->can('gestionar-proyectos'))
     <div class="row">
 
         <div class="col-md-4">
-            <?php $model->tipo_fecha = 0; ?>
+
             <?= $form->field($model, 'tipo_fecha')->dropDownList(['0' => 'Fecha', '1' => 'Rango de Fecha', '2' => 'Año', '3' => 'Año y mes', '4' => 'Rango de meses']) ?>
+            <?php $model->tipo_fecha = $tipo; ?>
         </div>
 
         <div class="col-md-3" id="year">
@@ -58,7 +59,7 @@ if ( !Yii::$app->user->can('gestionar-proyectos'))
                 ]
             ) ?>
         </div>
-        <div class="col-md-3 " id="month">
+        <div class="col-md-3 " id="month" <?php if($tipo != 0 && $tipo != 1 && $tipo != 3  && $tipo != 4) echo 'style="display: none"'?>>
             <?= $form->field($model, "month")->widget(\kartik\select2\Select2::classname(), [
                     'data' => ['01' => 'Enero', '02' => 'Febrero', '03' => 'Marzo', '04' => 'Abril', '05' => 'Mayo', '06' => 'Junio', '07' => 'Julio', '08' => 'Agosto', '09' => 'Septiembre', '10' => 'Octubre', '11' => 'Noviembre', '12' => 'Diciembre'],
                     'options' => ['placeholder' => 'Mes', 'multiple' => false],
@@ -67,7 +68,7 @@ if ( !Yii::$app->user->can('gestionar-proyectos'))
             ) ?>
 
         </div>
-        <div class="col-md-2 " id="day">
+        <div class="col-md-2 " id="day" <?php if($tipo != 1 && $tipo != 0 && $tipo != 3) echo 'style="display: none"'?>>
             <?= $form->field($model, 'day')->textInput(
                 [
                     'type' => 'number',
@@ -82,11 +83,11 @@ if ( !Yii::$app->user->can('gestionar-proyectos'))
     </div>
 
     <div class="row">
-        <div class="col-md-4" id="space_row" style="display: none">
+        <div class="col-md-4" id="space_row" <?php if($tipo != 1 && $tipo != 4) echo 'style="display: none"'?>>
 
         </div>
 
-        <div class="col-md-3" id="year_end" style="display: none">
+        <div class="col-md-3" id="year_end" <?php if($tipo != 1  && $tipo != 3 && $tipo != 4 ) echo 'style="display: none"'?>>
             <?= $form->field($model, 'year_end')->textInput(
                 [
                     'type' => 'number',
@@ -96,7 +97,7 @@ if ( !Yii::$app->user->can('gestionar-proyectos'))
                 ]
             ) ?>
         </div>
-        <div class="col-md-3 " id="month_end" style="display: none">
+        <div class="col-md-3 " id="month_end" <?php if($tipo != 1  && $tipo != 4) echo 'style="display: none"'?>>
             <?= $form->field($model, "month_end")->widget(\kartik\select2\Select2::classname(), [
                     'data' => ['01' => 'Enero', '02' => 'Febrero', '03' => 'Marzo', '04' => 'Abril', '05' => 'Mayo', '06' => 'Junio', '07' => 'Julio', '08' => 'Agosto', '09' => 'Septiembre', '10' => 'Octubre', '11' => 'Noviembre', '12' => 'Diciembre'],
                     'options' => ['placeholder' => 'Mes', 'multiple' => false],
@@ -105,7 +106,7 @@ if ( !Yii::$app->user->can('gestionar-proyectos'))
             ) ?>
 
         </div>
-        <div class="col-md-2 " id="day_end" style="display: none">
+        <div class="col-md-2 " id="day_end" <?php if($tipo != 1) echo 'style="display: none"'?>>
             <?= $form->field($model, 'day_end')->textInput(
                 [
                     'type' => 'number',

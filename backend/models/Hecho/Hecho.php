@@ -15,7 +15,9 @@ use Yii;
  * @property string $descripcion
  * @property string $cuerpo
  * @property string $etapa
+ * @property int $tipo_fecha
  * @property string $fecha
+ * @property string $fecha_fin
  */
 class Hecho extends \yii\db\ActiveRecord
 {
@@ -32,19 +34,26 @@ class Hecho extends \yii\db\ActiveRecord
     public $month;
     public $day;
 
+    public $year_end;
+    public $month_end;
+    public $day_end;
+
     /**
      * {@inheritdoc}
      */
     public function rules()
     {
         return [
-            [['revisado', 'publico', 'titulo','year', 'month', 'day', 'descripcion', 'cuerpo'], 'required'],
+            [['revisado', 'publico', 'titulo','tipo_fecha', 'descripcion', 'cuerpo'], 'required'],
             [['revisado', 'publico'], 'integer'],
             [['titulo', 'descripcion', 'cuerpo', 'etapa'], 'string'],
-            [['fecha'], 'safe'],
+            [['fecha', 'fecha_fin'], 'safe'],
             [['year'], 'integer', 'max' => date("Y"), 'min' => 1800],
             [['month'], 'integer', 'max' => 12, 'min' => 00],
             [['day'], 'integer', 'max' => 31, 'min' => 01],
+            [['year_end'], 'integer', 'max' => date("Y"), 'min' => 1800],
+            [['month_end'], 'integer', 'max' => 12, 'min' => 00],
+            [['day_end'], 'integer', 'max' => 31, 'min' => 01],
         ];
     }
 
@@ -65,6 +74,9 @@ class Hecho extends \yii\db\ActiveRecord
             'year' => 'Año',
             'month' => 'Mes',
             'day' => 'Día',
+            'year_end' => 'Año final',
+            'month_end' => 'Mes final',
+            'day_end' => 'Día final',
         ];
     }
 }

@@ -17,8 +17,8 @@ class HechoSearch extends Hecho
     public function rules()
     {
         return [
-            [['id_hecho', 'revisado', 'publico'], 'integer'],
-            [['titulo', 'descripcion', 'cuerpo', 'fecha','etapa'], 'safe'],
+            [['id_hecho', 'revisado', 'publico', 'tipo_fecha'], 'integer'],
+            [['titulo', 'descripcion', 'cuerpo', 'fecha', 'fecha_fin','etapa'], 'safe'],
         ];
     }
 
@@ -61,10 +61,12 @@ class HechoSearch extends Hecho
             'id_hecho' => $this->id_hecho,
             'revisado' => $this->revisado,
             'publico' => $this->publico,
-            'fecha' => $this->fecha,
+            'tipo_fecha' => $this->tipo_fecha,
         ]);
 
         $query->andFilterWhere(['like', 'titulo', $this->titulo])
+            ->andFilterWhere(['like', 'fecha_fin', $this->fecha_fin])
+            ->andFilterWhere(['like', 'fecha', $this->fecha])
             ->andFilterWhere(['like', 'descripcion', $this->descripcion])
             ->andFilterWhere(['like', 'cuerpo', $this->cuerpo])
             ->andFilterWhere(['like', 'etapa', $this->etapa]);

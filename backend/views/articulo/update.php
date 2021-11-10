@@ -44,11 +44,22 @@ if ( !Yii::$app->user->can('gestionar-coordinacion'))
         </div>
     </div>
     <div class="row">
-        <div class="col-lg-6 text-lg-left">
+        <div class="col-lg-12 text-lg-left">
             <?= $form->field($model, 'titulo')->textInput(['maxlength' => true]) ?>
         </div>
 
-        <div class="col-md-2 ">
+
+    </div>
+
+    <div class="row">
+
+        <div class="col-md-4">
+
+            <?= $form->field($model, 'tipo_fecha')->dropDownList(['0' => 'Fecha', '1' => 'Rango de Fecha', '2' => 'Año', '3' => 'Año y mes', '4' => 'Rango de meses']) ?>
+            <?php $model->tipo_fecha = $tipo; ?>
+        </div>
+
+        <div class="col-md-3" id="year">
             <?= $form->field($model, 'year')->textInput(
                 [
                     'type' => 'number',
@@ -58,7 +69,7 @@ if ( !Yii::$app->user->can('gestionar-coordinacion'))
                 ]
             ) ?>
         </div>
-        <div class="col-md-2 ">
+        <div class="col-md-3 " id="month" <?php if($tipo != 0 && $tipo != 1 && $tipo != 3  && $tipo != 4) echo 'style="display: none"'?>>
             <?= $form->field($model, "month")->widget(\kartik\select2\Select2::classname(), [
                     'data' => ['01' => 'Enero', '02' => 'Febrero', '03' => 'Marzo', '04' => 'Abril', '05' => 'Mayo', '06' => 'Junio', '07' => 'Julio', '08' => 'Agosto', '09' => 'Septiembre', '10' => 'Octubre', '11' => 'Noviembre', '12' => 'Diciembre'],
                     'options' => ['placeholder' => 'Mes', 'multiple' => false],
@@ -67,7 +78,7 @@ if ( !Yii::$app->user->can('gestionar-coordinacion'))
             ) ?>
 
         </div>
-        <div class="col-md-2 ">
+        <div class="col-md-2 " id="day" <?php if($tipo != 1 && $tipo != 0 && $tipo != 3) echo 'style="display: none"'?>>
             <?= $form->field($model, 'day')->textInput(
                 [
                     'type' => 'number',
@@ -77,6 +88,46 @@ if ( !Yii::$app->user->can('gestionar-coordinacion'))
                 ]
             ) ?>
         </div>
+
+
+    </div>
+
+    <div class="row">
+        <div class="col-md-4" id="space_row" <?php if($tipo != 1 && $tipo != 4) echo 'style="display: none"'?>>
+
+        </div>
+
+        <div class="col-md-3" id="year_end" <?php if($tipo != 1  && $tipo != 3 && $tipo != 4 ) echo 'style="display: none"'?>>
+            <?= $form->field($model, 'year_end')->textInput(
+                [
+                    'type' => 'number',
+                    'min' => 1800,
+                    'max' => date('Y'),
+                    'placeholder' => 'Año',
+                ]
+            ) ?>
+        </div>
+        <div class="col-md-3 " id="month_end" <?php if($tipo != 1  && $tipo != 4) echo 'style="display: none"'?>>
+            <?= $form->field($model, "month_end")->widget(\kartik\select2\Select2::classname(), [
+                    'data' => ['01' => 'Enero', '02' => 'Febrero', '03' => 'Marzo', '04' => 'Abril', '05' => 'Mayo', '06' => 'Junio', '07' => 'Julio', '08' => 'Agosto', '09' => 'Septiembre', '10' => 'Octubre', '11' => 'Noviembre', '12' => 'Diciembre'],
+                    'options' => ['placeholder' => 'Mes', 'multiple' => false],
+
+                ]
+            ) ?>
+
+        </div>
+        <div class="col-md-2 " id="day_end" <?php if($tipo != 1) echo 'style="display: none"'?>>
+            <?= $form->field($model, 'day_end')->textInput(
+                [
+                    'type' => 'number',
+                    'min' => 1,
+                    'max' => 31,
+                    'placeholder' => 'Día',
+                ]
+            ) ?>
+        </div>
+
+
     </div>
 
     <?=
@@ -350,7 +401,77 @@ if ( !Yii::$app->user->can('gestionar-coordinacion'))
     .form-control.is-valid, .was-validated .form-control:valid {
         padding-right: 0.75rem;
     }
+
     .form-control.is-invalid, .was-validated .form-control:invalid {
         padding-right: 0.75rem;
     }
 </style>
+<script>
+
+    $(document).ready(function () {
+        $(document.body).on('change', '#articulo-tipo_fecha', function () {
+            var val = $('#articulo-tipo_fecha').val();
+            if (val > 0) {
+                $('.class').hide();
+            } else {
+                $('.class').show();
+            }
+        });
+    });
+
+
+    $(document).ready(function () {
+        $('#articulo-tipo_fecha').on('change', function () {
+
+            if ($(this).val() == 0) {
+                document.getElementById("year").style.display = "block";
+                document.getElementById("month").style.display = "block";
+                document.getElementById("day").style.display = "block";
+                document.getElementById("space_row").style.display = "none";
+                document.getElementById("year_end").style.display = "none";
+                document.getElementById("month_end").style.display = "none";
+                document.getElementById("day_end").style.display = "none";
+
+
+            }
+            if ($(this).val() == 1) {
+                document.getElementById("year").style.display = "block";
+                document.getElementById("month").style.display = "block";
+                document.getElementById("day").style.display = "block";
+                document.getElementById("space_row").style.display = "block";
+                document.getElementById("year_end").style.display = "block";
+                document.getElementById("month_end").style.display = "block";
+                document.getElementById("day_end").style.display = "block";
+            }
+            if ($(this).val() == 2) {
+                document.getElementById("year").style.display = "block";
+                document.getElementById("month").style.display = "none";
+                document.getElementById("day").style.display = "none";
+                document.getElementById("space_row").style.display = "none";
+                document.getElementById("year_end").style.display = "none";
+                document.getElementById("month_end").style.display = "none";
+                document.getElementById("day_end").style.display = "none";
+            }
+            if ($(this).val() == 3) {
+                document.getElementById("year").style.display = "block";
+                document.getElementById("month").style.display = "block";
+                document.getElementById("day").style.display = "none";
+                document.getElementById("space_row").style.display = "none";
+                document.getElementById("year_end").style.display = "none";
+                document.getElementById("month_end").style.display = "none";
+                document.getElementById("day_end").style.display = "none";
+            }
+            if ($(this).val() == 4) {
+                document.getElementById("year").style.display = "block";
+                document.getElementById("month").style.display = "block";
+                document.getElementById("day").style.display = "none";
+                document.getElementById("space_row").style.display = "block";
+                document.getElementById("year_end").style.display = "block";
+                document.getElementById("month_end").style.display = "block";
+                document.getElementById("day_end").style.display = "none";
+            }
+        });
+    });
+
+
+</script>
